@@ -1,44 +1,410 @@
 {
   "metadata": {
     "title": "Tadriss",
-    "description": "La gestion scolaire simple pour les établissements privés au Maroc."
+    "description": "La gestion scolaire des établissements privés au Maroc : présences, notes, emplois du temps, frais et reçus en MAD."
   },
-  "common": { "loading": "Chargement…" },
+  "common": {
+    "loading": "Chargement…"
+  },
   "nav": {
     "brand": "Tadriss",
+    "home": "Tadriss — accueil",
     "main": "Navigation principale",
     "features": "Fonctionnalités",
+    "roles": "Rôles",
+    "security": "Sécurité",
     "login": "Se connecter",
     "signup": "Créer un compte",
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu"
   },
-  "theme": { "toggle": "Changer de thème" },
-  "locale": { "label": "Langue", "fr": "Français", "ar": "العربية", "en": "English" },
+  "theme": {
+    "toggle": "Changer de thème"
+  },
+  "locale": {
+    "label": "Langue",
+    "fr": "Français",
+    "ar": "العربية",
+    "en": "English",
+    "short": {
+      "fr": "FR",
+      "ar": "ع",
+      "en": "EN"
+    }
+  },
   "home": {
-    "heroTitle": "Votre école, enfin organisée.",
-    "heroSubtitle": "Présences, devoirs, notes, emplois du temps et paiements — pour l’administration, les enseignants et les élèves.",
-    "ctaPrimary": "Inscrire mon établissement",
-    "ctaSecondary": "Se connecter",
+    "hero": {
+      "eyebrow": "Gestion scolaire · Maroc",
+      "title": "Votre établissement, <em>tenu avec soin</em>.",
+      "subtitle": "Présences, notes sur 20, emplois du temps, frais et reçus en dirhams — réunis dans un seul outil pour la direction, les enseignants et les élèves.",
+      "ctaPrimary": "Inscrire mon établissement",
+      "ctaSecondary": "Se connecter",
+      "points": {
+        "languages": "Français · العربية · English",
+        "currency": "Facturation en MAD",
+        "platforms": "Web et mobile"
+      }
+    },
+    "preview": {
+      "school": "Groupe scolaire Al Manar",
+      "greeting": "Bonjour, Mme Benali",
+      "attendance": "Présence",
+      "students": "Élèves",
+      "collected": "Encaissé",
+      "today": "Aujourd’hui",
+      "payments": "Derniers paiements",
+      "schedule": {
+        "math": "Mathématiques · 2e Bac SM",
+        "physics": "Physique-Chimie · 1re Bac",
+        "french": "Français · Tronc commun"
+      },
+      "payment": {
+        "p1": {
+          "name": "Yasmine El Idrissi",
+          "item": "Scolarité · octobre"
+        },
+        "p2": {
+          "name": "Omar Bennani",
+          "item": "Transport · octobre"
+        },
+        "p3": {
+          "name": "Salma Tazi",
+          "item": "Inscription"
+        }
+      },
+      "status": {
+        "paid": "Payé",
+        "partial": "Partiel",
+        "due": "À régler"
+      }
+    },
     "features": {
-      "attendance": {
-        "title": "Présences",
-        "body": "Faites l’appel en quelques secondes, sur le web ou sur mobile."
+      "eyebrow": "Fonctionnalités",
+      "title": "Tout ce qu’une école gère, au même endroit.",
+      "body": "Fini les registres papier, les tableurs et les reçus faits à la main. Chaque module parle aux autres.",
+      "items": {
+        "attendance": {
+          "title": "L’appel en trente secondes",
+          "body": "Présent, absent, en retard, excusé : un geste par élève, sur le web ou le téléphone. Les absences sont visibles aussitôt par la direction."
+        },
+        "grades": {
+          "title": "Notes sur 20",
+          "body": "Barèmes et coefficients configurables, moyennes par matière, bulletins prêts à imprimer."
+        },
+        "finance": {
+          "title": "Frais et reçus",
+          "body": "Factures mensuelles ou annuelles, paiements répartis, reçus numérotés, annulations tracées."
+        },
+        "schedule": {
+          "title": "Emplois du temps",
+          "body": "Créneaux, salles et enseignants : chacun voit sa semaine, et les changements arrivent partout en même temps."
+        },
+        "messages": {
+          "title": "Annonces et messages",
+          "body": "Diffusez une annonce à une classe ou à toute l’école, échangez avec les élèves, et sachez qui a lu quoi."
+        },
+        "documents": {
+          "title": "Documents",
+          "body": "Certificats, bulletins et pièces administratives, rangés par élève et partagés en sécurité."
+        }
       },
-      "grades": {
-        "title": "Examens et notes",
-        "body": "Barèmes sur 20, moyennes et bulletins, sans tableur."
+      "visual": {
+        "present": "P",
+        "absent": "A",
+        "late": "R",
+        "excused": "E",
+        "s1": "Yasmine",
+        "s2": "Omar",
+        "s3": "Salma",
+        "readBy": "Lu par {read, number} sur {total, number}"
+      }
+    },
+    "roles": {
+      "eyebrow": "Pour chaque rôle",
+      "title": "Trois espaces, une seule école.",
+      "body": "Chacun voit exactement ce dont il a besoin — et rien de plus.",
+      "admin": {
+        "title": "Direction",
+        "lead": "Le pilotage de l’établissement.",
+        "points": {
+          "a": "Élèves, enseignants et classes",
+          "b": "Frais, paiements et reçus",
+          "c": "Annonces et documents",
+          "d": "Permissions par rôle"
+        }
       },
-      "finance": {
-        "title": "Frais et paiements",
-        "body": "Factures mensuelles, encaissements en MAD et reçus numérotés."
+      "teacher": {
+        "title": "Enseignants",
+        "lead": "Leurs classes, rien que leurs classes.",
+        "points": {
+          "a": "Appel en quelques gestes",
+          "b": "Devoirs et examens",
+          "c": "Saisie des notes",
+          "d": "Emploi du temps personnel"
+        }
+      },
+      "student": {
+        "title": "Élèves",
+        "lead": "Leur scolarité, en clair.",
+        "points": {
+          "a": "Emploi du temps et devoirs",
+          "b": "Notes et moyennes",
+          "c": "Présences",
+          "d": "Solde et reçus"
+        }
+      }
+    },
+    "languages": {
+      "eyebrow": "Trois langues",
+      "title": "Le français par défaut, l’arabe sans compromis.",
+      "body": "En arabe, toute l’interface passe de droite à gauche : menus, tableaux, formulaires et reçus. L’anglais est là pour les équipes internationales.",
+      "sample": {
+        "fr": {
+          "number": "Reçu n° 2026-000123",
+          "title": "Frais de scolarité",
+          "studentLabel": "Élève",
+          "student": "Yasmine El Idrissi",
+          "amountLabel": "Montant",
+          "amount": "1.800,00 MAD",
+          "status": "Payé"
+        },
+        "ar": {
+          "number": "وصل رقم 2026-000123",
+          "title": "رسوم التمدرس",
+          "studentLabel": "التلميذ(ة)",
+          "student": "ياسمين الإدريسي",
+          "amountLabel": "المبلغ",
+          "amount": "1.800,00 د.م.",
+          "status": "مؤدّى"
+        }
+      }
+    },
+    "security": {
+      "eyebrow": "Sécurité",
+      "title": "Les données de votre école restent les vôtres.",
+      "body": "La séparation entre établissements est appliquée par la base de données elle-même, pas seulement par l’interface.",
+      "items": {
+        "isolation": {
+          "title": "Cloisonnement strict",
+          "body": "Chaque requête est filtrée par établissement au niveau de la base : une école ne voit jamais les données d’une autre."
+        },
+        "roles": {
+          "title": "Accès par rôle",
+          "body": "Enseignants et élèves ne voient que leurs classes et leurs propres données."
+        },
+        "audit": {
+          "title": "Journal d’audit",
+          "body": "Paiements annulés, modifications sensibles : chaque action importante est tracée."
+        }
+      }
+    },
+    "cta": {
+      "title": "Prêt pour la rentrée ?",
+      "body": "Créez l’espace de votre établissement, puis invitez vos enseignants et vos élèves.",
+      "button": "Inscrire mon établissement"
+    },
+    "footer": {
+      "tagline": "Gestion scolaire pour les établissements privés au Maroc.",
+      "rights": "© {year} Tadriss"
+    }
+  },
+  "auth": {
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "panel": {
+      "eyebrow": "Tadriss · تدريس",
+      "title": "Moins de papier, plus d’école.",
+      "body": "Présences, notes et paiements suivis au même endroit — en français, en arabe et en anglais."
+    },
+    "login": {
+      "title": "Bon retour",
+      "subtitle": "Connectez-vous à l’espace de votre établissement.",
+      "submit": "Se connecter",
+      "noAccount": "Pas encore de compte ?",
+      "signupLink": "Inscrire mon établissement",
+      "notice": "Formulaire valide. La connexion sera activée à la prochaine étape (authentification).",
+      "fields": {
+        "email": "Adresse e-mail",
+        "password": "Mot de passe"
+      },
+      "placeholders": {
+        "email": "vous@ecole.ma"
+      }
+    },
+    "signup": {
+      "title": "Créez l’espace de votre école",
+      "subtitle": "Quelques informations pour démarrer. Vous inviterez votre équipe ensuite.",
+      "submit": "Créer mon espace",
+      "hasAccount": "Déjà inscrit ?",
+      "loginLink": "Se connecter",
+      "notice": "Formulaire valide. L’inscription sera activée à la prochaine étape (authentification).",
+      "fields": {
+        "institutionName": "Nom de l’établissement",
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "email": "Adresse e-mail professionnelle",
+        "password": "Mot de passe"
+      },
+      "placeholders": {
+        "institutionName": "Groupe scolaire Al Manar",
+        "firstName": "Salma",
+        "lastName": "Benali",
+        "email": "direction@ecole.ma"
       }
     }
   },
-  "placeholder": { "comingSoon": "Cette page arrive bientôt.", "backHome": "Retour à l’accueil" },
+  "validation": {
+    "required": "Ce champ est requis.",
+    "email": "Adresse e-mail invalide.",
+    "passwordMin": "8 caractères minimum.",
+    "nameMin": "2 caractères minimum.",
+    "tooLong": "Trop long."
+  },
+  "shell": {
+    "navigation": "Navigation de l’application",
+    "plan": "Établissement",
+    "openMenu": "Ouvrir la navigation",
+    "closeMenu": "Fermer la navigation",
+    "search": "Rechercher",
+    "searchPlaceholder": "Rechercher un élève, une classe…",
+    "searchShortcut": "⌘K",
+    "signOut": "Se déconnecter",
+    "groups": {
+      "overview": "Vue d’ensemble",
+      "school": "Établissement",
+      "daily": "Au quotidien",
+      "communication": "Communication"
+    },
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "students": "Élèves",
+      "teachers": "Enseignants",
+      "classes": "Classes",
+      "schedule": "Emploi du temps",
+      "attendance": "Présences",
+      "grades": "Notes",
+      "finance": "Finances",
+      "announcements": "Annonces",
+      "messages": "Messages",
+      "documents": "Documents",
+      "settings": "Paramètres"
+    }
+  },
+  "demo": {
+    "user": {
+      "name": "Salma Benali",
+      "initials": "SB",
+      "role": "Direction",
+      "school": "Groupe scolaire Al Manar"
+    },
+    "title": "Bonjour, Salma",
+    "subtitle": "Voici l’essentiel de la journée.",
+    "export": "Exporter",
+    "takeAttendance": "Faire l’appel",
+    "kpi": {
+      "students": {
+        "label": "Élèves inscrits",
+        "delta": "+{value, number} ce mois"
+      },
+      "attendance": {
+        "label": "Présence aujourd’hui",
+        "delta": "+{value, number} pt vs semaine passée"
+      },
+      "collected": {
+        "label": "Encaissé en octobre",
+        "delta": "{value, number} % de l’attendu"
+      },
+      "overdue": {
+        "label": "Factures en retard",
+        "delta": "{value, number} de plus qu’en septembre"
+      }
+    },
+    "week": {
+      "title": "Présence cette semaine",
+      "average": "Moyenne {value}"
+    },
+    "today": {
+      "title": "Aujourd’hui",
+      "s1": {
+        "subject": "Mathématiques",
+        "detail": "2e Bac SM · Salle 12 · M. Tazi"
+      },
+      "s2": {
+        "subject": "Physique-Chimie",
+        "detail": "1re Bac · Labo 2 · Mme Alami"
+      },
+      "s3": {
+        "subject": "Français",
+        "detail": "Tronc commun · Salle 4 · Mme Benali"
+      }
+    },
+    "payments": {
+      "title": "Derniers paiements",
+      "viewAll": "Tout voir",
+      "cols": {
+        "student": "Élève",
+        "item": "Objet",
+        "amount": "Montant",
+        "status": "Statut"
+      },
+      "rows": {
+        "r1": {
+          "name": "Yasmine El Idrissi",
+          "class": "2e Bac SM",
+          "item": "Scolarité · octobre"
+        },
+        "r2": {
+          "name": "Omar Bennani",
+          "class": "1re Bac",
+          "item": "Transport · octobre"
+        },
+        "r3": {
+          "name": "Salma Tazi",
+          "class": "Tronc commun",
+          "item": "Inscription"
+        },
+        "r4": {
+          "name": "Hamza Ouazzani",
+          "class": "2e Bac PC",
+          "item": "Scolarité · septembre"
+        }
+      },
+      "status": {
+        "paid": "Payé",
+        "partial": "Partiel",
+        "due": "À régler",
+        "overdue": "En retard"
+      }
+    },
+    "empty": {
+      "title": "Aucune annonce pour l’instant",
+      "body": "Les annonces publiées apparaîtront ici, avec le suivi de lecture.",
+      "action": "Nouvelle annonce"
+    },
+    "kit": {
+      "title": "Composants",
+      "save": "Enregistrer",
+      "saved": "Enregistré",
+      "secondary": "Secondaire",
+      "ghost": "Discret",
+      "ink": "Encre",
+      "field": "Adresse e-mail",
+      "placeholder": "vous@ecole.ma",
+      "error": "Adresse e-mail invalide.",
+      "tones": {
+        "neutral": "Neutre",
+        "primary": "Principal",
+        "accent": "Laiton",
+        "success": "Payé",
+        "warning": "Partiel",
+        "danger": "En retard",
+        "info": "Info"
+      }
+    }
+  },
   "notFound": {
     "title": "Page introuvable",
-    "body": "La page demandée n’existe pas.",
+    "body": "La page demandée n’existe pas ou a été déplacée.",
     "backHome": "Retour à l’accueil"
   },
   "errors": {

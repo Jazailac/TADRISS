@@ -91,18 +91,53 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
 8. Migrations are forward-only, `NNNN_` numbered, never edited after merge, never DROP COLUMN.
 9. No `select('*')`. ⚙ lint.
 
-**Shared data layer** 10. Apps never call `.from()`, `.rpc()` or `.storage.from()`. All query/RPC functions live in
-`packages/shared` and take a `TadrissClient` first. ⚙ lint. 11. Every client is `createClient<Database>`. ⚙ CI fails on type drift.
+**Shared data layer**
 
-**Frontend** 12. No hardcoded UI strings (JSX text and `placeholder/alt/title/aria-label/label`). ⚙ lint + `i18n:check`. 13. No hardcoded colours (hex, rgb(), hsl(), oklch()). Use tokens. ⚙ lint. 14. Logical CSS only (`ps/pe`, `ms/me`, `start/end`, `border-s/e`, `text-start`). ⚙ lint. 15. Responsive at 375/768/1280. Navigation is reachable at 375 px via a menu. ⚙ Playwright. 16. Server actions: zod-validate → `getUser()` → role/institution from claims → shared fn →
-`revalidatePath` → `Result<T>` (`{ ok: true, data } | { ok: false, error: ErrorCode }`).
-Independent fetches use `Promise.all`. 17. Feedback within 100 ms (pending/spinner/optimistic). Every list has empty, loading and error states.
-Put `loading.tsx` on data segments, **not** at `[locale]` root: a root Suspense boundary
-makes `notFound()` return HTTP 200.
+<!-- prettier-ignore -->
+10. Apps never call `.from()`, `.rpc()` or `.storage.from()`. All query/RPC functions live in
+    `packages/shared` and take a `TadrissClient` first. ⚙ lint.
+11. Every client is `createClient<Database>`. ⚙ CI fails on type drift.
 
-**Config & ops** 18. No env fallbacks. `NEXT_PUBLIC_APP_URL` is required. 19. Seed is deterministic. Seed credentials are in `supabase/seed/README.md`. 20. CI: lint → i18n → types → unit → supabase start → db reset → pgTAP → type drift →
-Playwright on `next build` → mobile bundle → Vercel preview. Merging to `main`: `supabase db push`,
-then functions, then web.
+**Frontend**
+
+<!-- prettier-ignore -->
+12. No hardcoded UI strings (JSX text and `placeholder/alt/title/aria-label/label`). ⚙ lint + `i18n:check`.
+13. No hardcoded colours (hex, rgb(), hsl(), oklch()). Use tokens. ⚙ lint.
+14. Logical CSS only (`ps/pe`, `ms/me`, `start/end`, `border-s/e`, `text-start`). ⚙ lint.
+15. Responsive at 375/768/1280. Navigation is reachable at 375 px via a menu. ⚙ Playwright.
+16. Server actions: zod-validate → `getUser()` → role/institution from claims → shared fn →
+    `revalidatePath` → `Result<T>` (`{ ok: true, data } | { ok: false, error: ErrorCode }`).
+    Independent fetches use `Promise.all`.
+17. Feedback within 100 ms (pending/spinner/optimistic). Every list has empty, loading and error states.
+    Put `loading.tsx` on data segments, **not** at `[locale]` root: a root Suspense boundary
+    makes `notFound()` return HTTP 200.
+
+**Config & ops**
+
+<!-- prettier-ignore -->
+18. No env fallbacks. `NEXT_PUBLIC_APP_URL` is required.
+19. Seed is deterministic. Seed credentials are in `supabase/seed/README.md`.
+20. CI: lint → i18n → types → unit → supabase start → db reset → pgTAP → type drift →
+    Playwright on `next build` → mobile bundle → Vercel preview. Merging to `main`: `supabase db push`,
+    then functions, then web.
+
+## Design system
+
+"Zellige & Ink" ([ADR 0009](docs/decisions/0009-visual-identity.md)). Reuse, don't restyle:
+
+- **Components:** `apps/web/src/components/ui/`: `Button`/`ButtonLink` (variants: primary, secondary,
+  ghost, ink, accent; built-in `pending`), `Card`, `Badge` (tones), `Field`/`Label`/`Input`/`FieldError`,
+  `Logo`/`Mark`, `ZelligePattern`, `Spinner`, `cx()`.
+- **Type utilities:** `.display` (Fraunces, for headings only), `.eyebrow` (brass mono caps). Numbers,
+  amounts and times use `font-mono tabular-nums`.
+- **Tokens:** `bg-background/surface/surface-muted`, `text-text/text-muted`, `primary`, `accent`, `ink`,
+  status `success|warning|danger|info` + `-soft`, `shadow-xs…lg`. New colours go in
+  `packages/ui-tokens/src/tokens.ts` and must pass the contrast test.
+- **App shell:** `components/app-shell` (sidebar + drawer + topbar). Pass `nav="admin"` by **name**:
+  icons and zod schemas are not serialisable across the server→client boundary.
+- **Design reference:** `/design` (dev and Vercel preview only, 404 in production) shows the shell and
+  a sample dashboard.
+- **Copy:** French uses a narrow no-break space before `: ; ? !`. ICU numbers are `{value, number}`.
 
 ## Gotchas
 
@@ -110,5 +145,7 @@ then functions, then web.
   never on a Mac ([ADR 0008](docs/decisions/0008-visual-baselines-on-linux.md)).
 - Mobile needs `react-native-css-interop` as a direct dependency (pnpm isolated layout + NativeWind).
 - `fr-MA` number format groups with a dot: `1.250,50 MAD`.
+- Don't pass functions or class instances (Lucide icons, zod schemas) from Server to Client
+  Components. Pass a name and resolve it client-side. This only fails at runtime, so e2e covers every page.
 - `turbo` rewrites the managed block in `AGENTS.md`. Leave it.
 - Toolchain pins and their reasons: [ADR 0006](docs/decisions/0006-toolchain-versions.md).

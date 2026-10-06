@@ -4,3 +4,4 @@ export * from './env';
 export * from './locale';
 export * from './money';
 export * from './result';
+export * from './schemas/auth';
