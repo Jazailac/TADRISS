@@ -1,0 +1,36 @@
+name: Update visual baselines
+
+# Visual snapshots must be produced on the same OS image CI compares on (ubuntu-latest).
+# Run manually on a PR branch after an intentional UI change; it commits the new PNGs.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with: { node-version-file: .nvmrc, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm tokens:build
+      - run: pnpm exec supabase start -x studio,imgproxy,vector,logflare,supavisor,edge-runtime
+      - run: |
+          eval "$(pnpm exec supabase status -o env | grep -E '^(API_URL|ANON_KEY|SERVICE_ROLE_KEY)=')"
+          {
+            echo "NEXT_PUBLIC_APP_URL=http://localhost:3100"
+            echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL"
+            echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY"
+            echo "SUPABASE_SERVICE_ROLE_KEY=$SERVICE_ROLE_KEY"
+          } > apps/web/.env.local
+      - run: pnpm --filter @tadriss/web exec playwright install --with-deps chromium
+      - run: pnpm --filter @tadriss/web exec playwright test home.visual --update-snapshots=all
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps/web/e2e/__screenshots__
+          git diff --cached --quiet || git commit -m "test(web): update visual baselines" && git push

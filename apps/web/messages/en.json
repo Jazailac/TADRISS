@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "title": "Tadriss",
+    "description": "Simple school management for private institutions in Morocco."
+  },
+  "common": { "loading": "Loading…" },
+  "nav": {
+    "brand": "Tadriss",
+    "main": "Main navigation",
+    "features": "Features",
+    "login": "Log in",
+    "signup": "Sign up",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "theme": { "toggle": "Toggle theme" },
+  "locale": { "label": "Language", "fr": "Français", "ar": "العربية", "en": "English" },
+  "home": {
+    "heroTitle": "Your school, finally organised.",
+    "heroSubtitle": "Attendance, homework, grades, timetables and payments — for administrators, teachers and students.",
+    "ctaPrimary": "Register my school",
+    "ctaSecondary": "Log in",
+    "features": {
+      "attendance": {
+        "title": "Attendance",
+        "body": "Take the register in seconds, on the web or on mobile."
+      },
+      "grades": {
+        "title": "Exams & grades",
+        "body": "Marks out of 20, averages and report cards — no spreadsheets."
+      },
+      "finance": {
+        "title": "Fees & payments",
+        "body": "Monthly invoices, payments in MAD and numbered receipts."
+      }
+    }
+  },
+  "placeholder": { "comingSoon": "This page is coming soon.", "backHome": "Back to home" },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you asked for doesn’t exist.",
+    "backHome": "Back to home"
+  },
+  "errors": {
+    "genericTitle": "Something went wrong",
+    "retry": "Try again",
+    "validation": "Some information is invalid.",
+    "unauthenticated": "Please sign in again.",
+    "forbidden": "You don’t have access to this.",
+    "not_found": "Not found.",
+    "conflict": "This already exists.",
+    "rate_limited": "Too many attempts. Try again shortly.",
+    "unknown": "An unexpected error occurred. Please try again."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "brand": "Tadriss",
+  "welcome": {
+    "title": "Votre école, enfin organisée.",
+    "subtitle": "Présences, devoirs, notes et paiements dans votre poche.",
+    "login": "Se connecter",
+    "signup": "Inscrire mon établissement",
+    "comingSoon": "La connexion arrive bientôt."
+  },
+  "settings": {
+    "language": "Langue",
+    "theme": "Thème",
+    "themeLight": "Clair",
+    "themeDark": "Sombre",
+    "themeSystem": "Système"
+  },
+  "locale": { "fr": "Français", "ar": "العربية", "en": "English" },
+  "common": { "loading": "Chargement…" },
+  "errors": {
+    "genericTitle": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "validation": "Certaines informations sont invalides.",
+    "unauthenticated": "Veuillez vous reconnecter.",
+    "forbidden": "Vous n’avez pas accès à cette ressource.",
+    "not_found": "Élément introuvable.",
+    "conflict": "Cet élément existe déjà.",
+    "rate_limited": "Trop de tentatives. Réessayez dans un instant.",
+    "unknown": "Une erreur inattendue est survenue. Réessayez."
+  }
+}

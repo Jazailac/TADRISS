@@ -1,0 +1,40 @@
+{
+  "name": "tadriss",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=@tadriss/web",
+    "dev:mobile": "turbo run dev --filter=@tadriss/mobile",
+    "dev:setup": "bash scripts/dev-setup.sh",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "test:db": "supabase test db",
+    "test:e2e": "pnpm --filter @tadriss/web test:e2e",
+    "i18n:check": "node scripts/check-i18n.mjs",
+    "db:types": "supabase gen types typescript --local --schema public > packages/shared/src/database.types.ts && prettier --write packages/shared/src/database.types.ts",
+    "db:types:check": "pnpm db:types && git diff --exit-code -- packages/shared/src/database.types.ts",
+    "tokens:build": "pnpm --filter @tadriss/ui-tokens build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.9.9",
+    "supabase": "^2.84.2",
+    "turbo": "^2.11.7",
+    "typescript": "~6.0.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "supabase",
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ]
+  }
+}
