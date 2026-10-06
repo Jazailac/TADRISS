@@ -52,9 +52,21 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
 
 ## Architecture facts
 
-- **Auth claims:** `role` and `institution_id` are set in the JWT by the Custom Access Token
-  Hook (Phase 1), which reads `profiles`. RLS helpers `private.institution_id()` and
-  `private.user_role()` read **only** `auth.jwt()` and never a table ([ADR 0007](docs/decisions/0007-rls-helpers-in-private-schema.md)).
+- **Auth claims:** the Custom Access Token Hook (`private.custom_access_token_hook`) puts
+  `user_role` and `institution_id` in the JWT from `profiles` (`role` is reserved by PostgREST).
+  RLS helpers `private.institution_id()`, `private.user_role()`, `private.is_super_admin()` read
+  **only** `auth.jwt()` ([ADR 0007](docs/decisions/0007-rls-helpers-in-private-schema.md),
+  [ADR 0010](docs/decisions/0010-claims-hook-and-onboarding-trigger.md)). Deactivated or deleted
+  profiles get no claims, so every policy denies them.
+- **Onboarding:** `signUp` with `data.signup_intent = 'create_institution'` fires
+  `private.handle_new_user()`, which creates the institution and admin profile in the same
+  transaction. No Edge Function is involved.
+- **Roles → areas:** `protectedAreas` / `homePath` in `@tadriss/shared` (`/dashboard` admin,
+  `/teacher`, `/student`, `/admin` super_admin). `proxy.ts` enforces them; the
+  `app/[locale]/(app)/layout.tsx` re-checks via `getViewer()` (`lib/viewer.ts`, `cache()`d per request).
+- **Auth actions:** `app/actions/auth.ts` (`login`, `signup`, `logout`) are used with
+  `useActionState`. They return `AuthState` and echo non-secret fields back, because React
+  resets forms after an action.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.
@@ -148,4 +160,10 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
 - Don't pass functions or class instances (Lucide icons, zod schemas) from Server to Client
   Components. Pass a name and resolve it client-side. This only fails at runtime, so e2e covers every page.
 - `turbo` rewrites the managed block in `AGENTS.md`. Leave it.
+- On this Mac, the Homebrew `docker` CLI can't find Docker Desktop's credential helper, so prefix
+  Supabase commands with `PATH=/Applications/Docker.app/Contents/Resources/bin:$PATH`.
+- User-supplied names (schools, people) can be in either script: render them with `dir="auto"`,
+  and wrap interpolated values in `<bdi>` (`t.rich(..., { n: (c) => <bdi>{c}</bdi> })`).
+- Nav items for modules that aren't built yet stay `available: false` (disabled "Bientôt" pill).
+  Flip the flag in the same PR that ships the module. Never add a dead link.
 - Toolchain pins and their reasons: [ADR 0006](docs/decisions/0006-toolchain-versions.md).
