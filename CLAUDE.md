@@ -104,11 +104,31 @@ makes `notFound()` return HTTP 200.
 Playwright on `next build` → mobile bundle → Vercel preview. Merging to `main`: `supabase db push`,
 then functions, then web.
 
+## Design system
+
+"Zellige & Ink" ([ADR 0009](docs/decisions/0009-visual-identity.md)). Reuse, don't restyle:
+
+- **Components:** `apps/web/src/components/ui/`: `Button`/`ButtonLink` (variants: primary, secondary,
+  ghost, ink, accent; built-in `pending`), `Card`, `Badge` (tones), `Field`/`Label`/`Input`/`FieldError`,
+  `Logo`/`Mark`, `ZelligePattern`, `Spinner`, `cx()`.
+- **Type utilities:** `.display` (Fraunces, for headings only), `.eyebrow` (brass mono caps). Numbers,
+  amounts and times use `font-mono tabular-nums`.
+- **Tokens:** `bg-background/surface/surface-muted`, `text-text/text-muted`, `primary`, `accent`, `ink`,
+  status `success|warning|danger|info` + `-soft`, `shadow-xs…lg`. New colours go in
+  `packages/ui-tokens/src/tokens.ts` and must pass the contrast test.
+- **App shell:** `components/app-shell` (sidebar + drawer + topbar). Pass `nav="admin"` by **name**:
+  icons and zod schemas are not serialisable across the server→client boundary.
+- **Design reference:** `/design` (dev and Vercel preview only, 404 in production) shows the shell and
+  a sample dashboard.
+- **Copy:** French uses a narrow no-break space before `: ; ? !`. ICU numbers are `{value, number}`.
+
 ## Gotchas
 
 - Visual snapshots are Linux-only. Regenerate them with the **Update visual baselines** workflow,
   never on a Mac ([ADR 0008](docs/decisions/0008-visual-baselines-on-linux.md)).
 - Mobile needs `react-native-css-interop` as a direct dependency (pnpm isolated layout + NativeWind).
 - `fr-MA` number format groups with a dot: `1.250,50 MAD`.
+- Don't pass functions or class instances (Lucide icons, zod schemas) from Server to Client
+  Components. Pass a name and resolve it client-side. This only fails at runtime, so e2e covers every page.
 - `turbo` rewrites the managed block in `AGENTS.md`. Leave it.
 - Toolchain pins and their reasons: [ADR 0006](docs/decisions/0006-toolchain-versions.md).
