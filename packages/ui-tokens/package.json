@@ -1,0 +1,21 @@
+{
+  "name": "@tadriss/ui-tokens",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/tokens.ts",
+    "./web.css": "./dist/web.css",
+    "./mobile.css": "./dist/mobile.css",
+    "./nativewind-preset": "./dist/nativewind-preset.cjs"
+  },
+  "scripts": {
+    "build": "node scripts/build.ts",
+    "type-check": "tsc --noEmit",
+    "test": "node --test scripts/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "~6.0.3"
+  }
+}
