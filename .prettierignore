@@ -1,0 +1,16 @@
+pnpm-lock.yaml
+.next
+dist
+coverage
+supabase/.temp
+apps/mobile/ios
+apps/mobile/android
+playwright-report
+test-results
+.legacy-local
+packages/ui-tokens/dist
+apps/mobile/dist
+apps/mobile/.expo
+apps/web/.next
+supabase/config.toml
+**/database.types.ts
