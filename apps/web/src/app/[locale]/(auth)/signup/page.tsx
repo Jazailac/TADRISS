@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { signup } from '@/app/actions/auth';
 import { AuthForm } from '@/components/auth/auth-form';
 import { Link } from '@/i18n/navigation';
 
@@ -11,8 +12,8 @@ export default function SignupPage() {
       <div className="mt-9">
         <AuthForm
           schema="signup"
+          action={signup}
           submitLabel={t('submit')}
-          notice={t('notice')}
           fields={[
             {
               name: 'institutionName',

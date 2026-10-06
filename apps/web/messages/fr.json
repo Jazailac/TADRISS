@@ -222,7 +222,6 @@
       "submit": "Se connecter",
       "noAccount": "Pas encore de compte ?",
       "signupLink": "Inscrire mon établissement",
-      "notice": "Formulaire valide. La connexion sera activée à la prochaine étape (authentification).",
       "fields": {
         "email": "Adresse e-mail",
         "password": "Mot de passe"
@@ -237,7 +236,6 @@
       "submit": "Créer mon espace",
       "hasAccount": "Déjà inscrit ?",
       "loginLink": "Se connecter",
-      "notice": "Formulaire valide. L’inscription sera activée à la prochaine étape (authentification).",
       "fields": {
         "institutionName": "Nom de l’établissement",
         "firstName": "Prénom",
@@ -251,6 +249,11 @@
         "lastName": "Benali",
         "email": "direction@ecole.ma"
       }
+    },
+    "notices": {
+      "checkEmailTitle": "Vérifiez votre boîte mail",
+      "checkEmailBody": "Nous vous avons envoyé un lien pour confirmer votre adresse. Votre espace sera prêt dès la confirmation.",
+      "linkExpired": "Ce lien a expiré ou a déjà été utilisé. Connectez-vous, ou demandez un nouveau lien."
     }
   },
   "validation": {
@@ -273,7 +276,8 @@
       "overview": "Vue d’ensemble",
       "school": "Établissement",
       "daily": "Au quotidien",
-      "communication": "Communication"
+      "communication": "Communication",
+      "platform": "Plateforme"
     },
     "nav": {
       "dashboard": "Tableau de bord",
@@ -287,8 +291,19 @@
       "announcements": "Annonces",
       "messages": "Messages",
       "documents": "Documents",
-      "settings": "Paramètres"
-    }
+      "settings": "Paramètres",
+      "homework": "Devoirs",
+      "payments": "Paiements",
+      "institutions": "Établissements"
+    },
+    "roles": {
+      "super_admin": "Plateforme",
+      "institution_admin": "Direction",
+      "teacher": "Enseignant·e",
+      "student": "Élève"
+    },
+    "platform": "Tadriss",
+    "soon": "Bientôt"
   },
   "demo": {
     "user": {
@@ -416,6 +431,83 @@
     "not_found": "Élément introuvable.",
     "conflict": "Cet élément existe déjà.",
     "rate_limited": "Trop de tentatives. Réessayez dans un instant.",
-    "unknown": "Une erreur inattendue est survenue. Réessayez."
+    "unknown": "Une erreur inattendue est survenue. Réessayez.",
+    "invalid_credentials": "E-mail ou mot de passe incorrect.",
+    "email_taken": "Un compte existe déjà avec cette adresse.",
+    "email_not_confirmed": "Confirmez votre adresse e-mail avant de vous connecter.",
+    "account_disabled": "Ce compte est désactivé. Contactez votre établissement."
+  },
+  "app": {
+    "greeting": "Bonjour, <n>{name}</n>",
+    "nextSteps": "Prochaines étapes",
+    "progress": "{done, number}/{total, number}",
+    "admin": {
+      "subtitle": "Votre espace est prêt. Voici comment le mettre en route.",
+      "steps": {
+        "account": {
+          "label": "Créer l’espace de l’établissement",
+          "detail": "C’est fait — vous êtes administrateur."
+        },
+        "team": {
+          "label": "Inviter les enseignants et les élèves",
+          "detail": "Disponible à la prochaine étape (utilisateurs et invitations)."
+        },
+        "classes": {
+          "label": "Créer les classes",
+          "detail": "Disponible bientôt (classes et inscriptions)."
+        }
+      }
+    },
+    "teacher": {
+      "subtitle": "Vos classes et votre emploi du temps apparaîtront ici.",
+      "steps": {
+        "account": {
+          "label": "Activer votre compte",
+          "detail": "C’est fait."
+        },
+        "classes": {
+          "label": "Recevoir vos classes",
+          "detail": "La direction vous les attribuera."
+        },
+        "attendance": {
+          "label": "Faire votre premier appel",
+          "detail": "Disponible bientôt."
+        }
+      }
+    },
+    "student": {
+      "subtitle": "Votre emploi du temps, vos devoirs et vos notes apparaîtront ici.",
+      "steps": {
+        "account": {
+          "label": "Activer votre compte",
+          "detail": "C’est fait."
+        },
+        "schedule": {
+          "label": "Consulter votre emploi du temps",
+          "detail": "Disponible bientôt."
+        },
+        "grades": {
+          "label": "Suivre vos notes",
+          "detail": "Disponible bientôt."
+        }
+      }
+    },
+    "superAdmin": {
+      "subtitle": "Console de la plateforme.",
+      "steps": {
+        "account": {
+          "label": "Accès opérateur",
+          "detail": "Actif."
+        },
+        "institutions": {
+          "label": "Gérer les établissements",
+          "detail": "Arrive avec la console opérateur."
+        },
+        "audit": {
+          "label": "Consulter le journal d’audit",
+          "detail": "Arrive avec la console opérateur."
+        }
+      }
+    }
   }
 }

@@ -12,8 +12,7 @@ export default function DesignPage() {
   const t = useTranslations('demo.user');
   return (
     <AppShell
-      nav="admin"
-      activeHref="/dashboard"
+      nav="institution_admin"
       user={{ name: t('name'), initials: t('initials'), role: t('role'), school: t('school') }}
     >
       <DashboardPreview />

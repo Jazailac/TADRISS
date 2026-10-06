@@ -222,7 +222,6 @@
       "submit": "Log in",
       "noAccount": "No account yet?",
       "signupLink": "Register my school",
-      "notice": "Form is valid. Signing in will be enabled in the next step (authentication).",
       "fields": {
         "email": "Email address",
         "password": "Password"
@@ -237,7 +236,6 @@
       "submit": "Create my workspace",
       "hasAccount": "Already registered?",
       "loginLink": "Log in",
-      "notice": "Form is valid. Sign-up will be enabled in the next step (authentication).",
       "fields": {
         "institutionName": "School name",
         "firstName": "First name",
@@ -251,6 +249,11 @@
         "lastName": "Benali",
         "email": "office@school.ma"
       }
+    },
+    "notices": {
+      "checkEmailTitle": "Check your inbox",
+      "checkEmailBody": "We sent you a link to confirm your address. Your workspace will be ready as soon as you confirm.",
+      "linkExpired": "This link has expired or was already used. Log in, or request a new link."
     }
   },
   "validation": {
@@ -273,7 +276,8 @@
       "overview": "Overview",
       "school": "School",
       "daily": "Day to day",
-      "communication": "Communication"
+      "communication": "Communication",
+      "platform": "Platform"
     },
     "nav": {
       "dashboard": "Dashboard",
@@ -287,8 +291,19 @@
       "announcements": "Announcements",
       "messages": "Messages",
       "documents": "Documents",
-      "settings": "Settings"
-    }
+      "settings": "Settings",
+      "homework": "Homework",
+      "payments": "Payments",
+      "institutions": "Schools"
+    },
+    "roles": {
+      "super_admin": "Platform",
+      "institution_admin": "Administration",
+      "teacher": "Teacher",
+      "student": "Student"
+    },
+    "platform": "Tadriss",
+    "soon": "Soon"
   },
   "demo": {
     "user": {
@@ -416,6 +431,83 @@
     "not_found": "Not found.",
     "conflict": "This already exists.",
     "rate_limited": "Too many attempts. Try again shortly.",
-    "unknown": "An unexpected error occurred. Please try again."
+    "unknown": "An unexpected error occurred. Please try again.",
+    "invalid_credentials": "Incorrect email or password.",
+    "email_taken": "An account already exists with this email.",
+    "email_not_confirmed": "Confirm your email address before signing in.",
+    "account_disabled": "This account is disabled. Contact your school."
+  },
+  "app": {
+    "greeting": "Hello, <n>{name}</n>",
+    "nextSteps": "Next steps",
+    "progress": "{done, number}/{total, number}",
+    "admin": {
+      "subtitle": "Your workspace is ready. Here’s how to get it running.",
+      "steps": {
+        "account": {
+          "label": "Create the school workspace",
+          "detail": "Done — you are the administrator."
+        },
+        "team": {
+          "label": "Invite teachers and students",
+          "detail": "Available in the next step (users & invitations)."
+        },
+        "classes": {
+          "label": "Create classes",
+          "detail": "Coming soon (classes & enrolment)."
+        }
+      }
+    },
+    "teacher": {
+      "subtitle": "Your classes and timetable will appear here.",
+      "steps": {
+        "account": {
+          "label": "Activate your account",
+          "detail": "Done."
+        },
+        "classes": {
+          "label": "Get your classes",
+          "detail": "The administration will assign them."
+        },
+        "attendance": {
+          "label": "Take your first register",
+          "detail": "Coming soon."
+        }
+      }
+    },
+    "student": {
+      "subtitle": "Your timetable, homework and grades will appear here.",
+      "steps": {
+        "account": {
+          "label": "Activate your account",
+          "detail": "Done."
+        },
+        "schedule": {
+          "label": "Check your timetable",
+          "detail": "Coming soon."
+        },
+        "grades": {
+          "label": "Follow your grades",
+          "detail": "Coming soon."
+        }
+      }
+    },
+    "superAdmin": {
+      "subtitle": "Platform console.",
+      "steps": {
+        "account": {
+          "label": "Operator access",
+          "detail": "Active."
+        },
+        "institutions": {
+          "label": "Manage schools",
+          "detail": "Arrives with the operator console."
+        },
+        "audit": {
+          "label": "Review the audit log",
+          "detail": "Arrives with the operator console."
+        }
+      }
+    }
   }
 }

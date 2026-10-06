@@ -31,7 +31,8 @@ export default defineConfig({
     // Always test the production build, never the dev server.
     command: `pnpm build && pnpm start --port ${PORT}`,
     url: `http://localhost:${PORT}`,
-    reuseExistingServer: !process.env.CI,
+    // Never reuse: a stale server from an earlier build silently tests old code.
+    reuseExistingServer: false,
     timeout: 240_000,
   },
 });

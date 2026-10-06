@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-// Auth forms validate with the shared zod schemas. Submission is wired in Phase 1.
+// Client-side validation of the auth forms (shared zod schemas). Real flows: auth-flow.spec.ts.
 test.describe('auth screens', () => {
   for (const path of ['/login', '/signup', '/ar/login', '/ar/signup', '/en/signup']) {
     test(`${path} renders without hitting the error boundary`, async ({ page }) => {
@@ -38,17 +38,6 @@ test.describe('auth screens', () => {
     await page.getByRole('button', { name: 'Créer mon espace' }).click();
     await expect(page.getByText('Adresse e-mail invalide.')).toBeVisible();
     await expect(page.getByText('8 caractères minimum.')).toBeVisible();
-  });
-
-  test('valid sign-up shows the phase notice instead of a dead end', async ({ page }) => {
-    await page.goto('/signup');
-    await page.getByLabel('Nom de l’établissement').fill('Groupe scolaire Al Manar');
-    await page.getByLabel('Prénom').fill('Salma');
-    await page.getByLabel('Nom', { exact: true }).fill('Benali');
-    await page.getByLabel('Adresse e-mail professionnelle').fill('direction@almanar.ma');
-    await page.getByLabel('Mot de passe', { exact: true }).fill('correct-horse');
-    await page.getByRole('button', { name: 'Créer mon espace' }).click();
-    await expect(page.getByRole('status').filter({ hasText: 'Formulaire valide' })).toBeVisible();
   });
 
   test('password visibility toggle', async ({ page }) => {

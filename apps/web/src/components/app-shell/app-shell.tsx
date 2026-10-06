@@ -1,19 +1,46 @@
 'use client';
 
 import { ChevronsUpDown, LogOut, Menu, Search, X } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useId, useState, type ReactNode } from 'react';
-import { Link } from '@/i18n/navigation';
+import { useFormStatus } from 'react-dom';
+import { logout } from '@/app/actions/auth';
+import { Link, usePathname } from '@/i18n/navigation';
 import { LocaleSwitcher } from '../locale-switcher';
 import { ThemeToggle } from '../theme-toggle';
 import { cx } from '../ui/cx';
 import { Mark } from '../ui/logo';
+import { Spinner } from '../ui/spinner';
 import { navSets, settingsItem, type NavGroup, type NavItem, type NavSet } from './nav';
 
-type ShellUser = { name: string; initials: string; role: string; school: string };
+export type ShellUser = { name: string; initials: string; role: string; school: string };
+
+/** The deepest available item whose href prefixes the current path. */
+function activeHrefFor(pathname: string, items: NavItem[]): string | null {
+  return (
+    items
+      .filter((i) => i.available && (pathname === i.href || pathname.startsWith(`${i.href}/`)))
+      .sort((a, b) => b.href.length - a.href.length)[0]?.href ?? null
+  );
+}
 
 function NavLink({ item, active, label }: { item: NavItem; active: boolean; label: string }) {
+  const t = useTranslations('shell');
   const Icon = item.icon;
+  if (!item.available) {
+    return (
+      <span
+        aria-disabled="true"
+        className="flex h-9 cursor-not-allowed items-center gap-3 rounded-md px-2.5 text-sm text-text-muted/60"
+      >
+        <Icon className="size-[1.05rem]" strokeWidth={1.75} aria-hidden />
+        <span className="flex-1">{label}</span>
+        <span className="rounded-full bg-surface px-1.5 py-0.5 text-[0.6rem] font-medium tracking-wide text-text-muted ring-1 ring-border">
+          {t('soon')}
+        </span>
+      </span>
+    );
+  }
   return (
     <Link
       href={item.href}
@@ -41,31 +68,50 @@ function NavLink({ item, active, label }: { item: NavItem; active: boolean; labe
   );
 }
 
+function SignOutButton() {
+  const t = useTranslations('shell');
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      aria-label={t('signOut')}
+      disabled={pending}
+      className="inline-flex size-8 items-center justify-center rounded-md text-text-muted hover:bg-surface hover:text-text"
+    >
+      {pending ? <Spinner label={false} /> : <LogOut className="rtl-flip size-4" aria-hidden />}
+    </button>
+  );
+}
+
 function Sidebar({
   nav,
-  activeHref,
+  showSettings,
   user,
 }: {
   nav: NavGroup[];
-  activeHref: string;
+  showSettings: boolean;
   user: ShellUser;
 }) {
   const t = useTranslations('shell');
+  const locale = useLocale();
+  const pathname = usePathname();
+  const all = [...nav.flatMap((g) => g.items), settingsItem];
+  const active = activeHrefFor(pathname, all);
+
   return (
     <div className="flex h-full flex-col gap-6 px-4 py-5">
-      <button
-        type="button"
-        className="flex items-center gap-3 rounded-lg p-1.5 text-start hover:bg-surface/70"
-      >
+      <div className="flex items-center gap-3 rounded-lg p-1.5">
         <span className="inline-flex size-9 items-center justify-center rounded-md bg-ink text-accent shadow-sm">
           <Mark className="size-5" />
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-sm font-semibold">{user.school}</span>
-          <span className="block truncate text-xs text-text-muted">{t('plan')}</span>
+          <span dir="auto" className="block truncate text-start text-sm font-semibold">
+            {user.school}
+          </span>
+          <span className="block truncate text-xs text-text-muted">{user.role}</span>
         </span>
-        <ChevronsUpDown className="size-4 text-text-muted" aria-hidden />
-      </button>
+        <ChevronsUpDown className="size-4 text-text-muted/50" aria-hidden />
+      </div>
 
       <nav aria-label={t('navigation')} className="-mx-1 flex-1 overflow-y-auto px-1">
         {nav.map((group) => (
@@ -78,7 +124,7 @@ function Sidebar({
                 <NavLink
                   key={item.key}
                   item={item}
-                  active={item.href === activeHref}
+                  active={item.href === active}
                   label={t(`nav.${item.key}`)}
                 />
               ))}
@@ -88,26 +134,27 @@ function Sidebar({
       </nav>
 
       <div className="grid gap-0.5 border-t border-border pt-4">
-        <NavLink
-          item={settingsItem}
-          active={settingsItem.href === activeHref}
-          label={t(`nav.${settingsItem.key}`)}
-        />
+        {showSettings ? (
+          <NavLink
+            item={settingsItem}
+            active={settingsItem.href === active}
+            label={t(`nav.${settingsItem.key}`)}
+          />
+        ) : null}
         <div className="mt-3 flex items-center gap-3 rounded-lg p-1.5">
-          <span className="inline-flex size-9 items-center justify-center rounded-full bg-accent-soft text-sm font-semibold text-accent ring-1 ring-accent/20">
+          <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-accent-soft text-sm font-semibold text-accent ring-1 ring-accent/20">
             {user.initials}
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-sm font-medium">{user.name}</span>
+            <span dir="auto" className="block truncate text-start text-sm font-medium">
+              {user.name}
+            </span>
             <span className="block truncate text-xs text-text-muted">{user.role}</span>
           </span>
-          <button
-            type="button"
-            aria-label={t('signOut')}
-            className="inline-flex size-8 items-center justify-center rounded-md text-text-muted hover:bg-surface hover:text-text"
-          >
-            <LogOut className="rtl-flip size-4" aria-hidden />
-          </button>
+          <form action={logout}>
+            <input type="hidden" name="locale" value={locale} />
+            <SignOutButton />
+          </form>
         </div>
       </div>
     </div>
@@ -117,24 +164,26 @@ function Sidebar({
 /** Authenticated layout: fixed sidebar ≥ lg, drawer below. */
 export function AppShell({
   nav: navSet,
-  activeHref,
   user,
   children,
 }: {
   nav: NavSet;
-  activeHref: string;
   user: ShellUser;
   children: ReactNode;
 }) {
   const t = useTranslations('shell');
   const nav = navSets[navSet];
-  const [open, setOpen] = useState(false);
+  const showSettings = navSet === 'institution_admin';
+  const pathname = usePathname();
   const drawerId = useId();
+  // Open "for" a path, so navigating closes the drawer without an effect.
+  const [openFor, setOpenFor] = useState<string | null>(null);
+  const open = openFor === pathname;
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Escape') setOpenFor(null);
     };
     window.addEventListener('keydown', onKey);
     return () => {
@@ -145,7 +194,7 @@ export function AppShell({
   return (
     <div className="min-h-dvh bg-background lg:grid lg:grid-cols-[17rem_1fr]">
       <aside className="sticky top-0 hidden h-dvh border-e border-border bg-surface-muted/60 lg:block">
-        <Sidebar nav={nav} activeHref={activeHref} user={user} />
+        <Sidebar nav={nav} showSettings={showSettings} user={user} />
       </aside>
 
       {open ? (
@@ -155,7 +204,7 @@ export function AppShell({
             aria-label={t('closeMenu')}
             className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
             onClick={() => {
-              setOpen(false);
+              setOpenFor(null);
             }}
           />
           <div className="absolute inset-y-0 start-0 w-[17rem] max-w-[85vw] border-e border-border bg-background shadow-lg">
@@ -163,13 +212,13 @@ export function AppShell({
               type="button"
               aria-label={t('closeMenu')}
               onClick={() => {
-                setOpen(false);
+                setOpenFor(null);
               }}
               className="absolute end-3 top-5 inline-flex size-9 items-center justify-center rounded-md text-text-muted hover:bg-surface-muted"
             >
               <X className="size-4" aria-hidden />
             </button>
-            <Sidebar nav={nav} activeHref={activeHref} user={user} />
+            <Sidebar nav={nav} showSettings={showSettings} user={user} />
           </div>
         </div>
       ) : null}
@@ -183,7 +232,7 @@ export function AppShell({
             aria-expanded={open}
             aria-controls={drawerId}
             onClick={() => {
-              setOpen(true);
+              setOpenFor(pathname);
             }}
           >
             <Menu className="size-5" aria-hidden />
@@ -196,8 +245,9 @@ export function AppShell({
             />
             <input
               type="search"
+              disabled
               placeholder={t('searchPlaceholder')}
-              className="h-9 w-full rounded-md border border-border bg-surface ps-9 pe-14 text-sm shadow-xs placeholder:text-text-muted/80 focus:border-primary focus:ring-4 focus:ring-primary/12 focus:outline-none"
+              className="h-9 w-full rounded-md border border-border bg-surface ps-9 pe-14 text-sm shadow-xs placeholder:text-text-muted/80 disabled:cursor-not-allowed"
             />
             <kbd className="pointer-events-none absolute end-2 top-1/2 -translate-y-1/2 rounded border border-border bg-surface-muted px-1.5 font-mono text-[0.65rem] text-text-muted">
               {t('searchShortcut')}
