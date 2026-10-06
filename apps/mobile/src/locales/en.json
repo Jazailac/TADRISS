@@ -1,0 +1,30 @@
+{
+  "brand": "Tadriss",
+  "welcome": {
+    "title": "Your school, finally organised.",
+    "subtitle": "Attendance, homework, grades and payments in your pocket.",
+    "login": "Log in",
+    "signup": "Register my school",
+    "comingSoon": "Sign-in is coming soon."
+  },
+  "settings": {
+    "language": "Language",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System"
+  },
+  "locale": { "fr": "Français", "ar": "العربية", "en": "English" },
+  "common": { "loading": "Loading…" },
+  "errors": {
+    "genericTitle": "Something went wrong",
+    "retry": "Try again",
+    "validation": "Some information is invalid.",
+    "unauthenticated": "Please sign in again.",
+    "forbidden": "You don’t have access to this.",
+    "not_found": "Not found.",
+    "conflict": "This already exists.",
+    "rate_limited": "Too many attempts. Try again shortly.",
+    "unknown": "An unexpected error occurred. Please try again."
+  }
+}

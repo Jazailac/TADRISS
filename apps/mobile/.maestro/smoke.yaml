@@ -1,0 +1,16 @@
+# Mobile smoke test: app boots, welcome screen renders, buttons respond.
+# Run: maestro test apps/mobile/.maestro  (needs a simulator/emulator with the app installed)
+appId: ma.tadriss.app
+---
+- launchApp:
+    clearState: true
+- assertVisible:
+    id: brand
+- tapOn:
+    id: login
+- assertVisible:
+    id: coming-soon
+- tapOn:
+    id: theme-dark
+- assertVisible:
+    id: theme-dark
