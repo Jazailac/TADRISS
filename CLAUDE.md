@@ -91,18 +91,35 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
 8. Migrations are forward-only, `NNNN_` numbered, never edited after merge, never DROP COLUMN.
 9. No `select('*')`. ⚙ lint.
 
-**Shared data layer** 10. Apps never call `.from()`, `.rpc()` or `.storage.from()`. All query/RPC functions live in
-`packages/shared` and take a `TadrissClient` first. ⚙ lint. 11. Every client is `createClient<Database>`. ⚙ CI fails on type drift.
+**Shared data layer**
 
-**Frontend** 12. No hardcoded UI strings (JSX text and `placeholder/alt/title/aria-label/label`). ⚙ lint + `i18n:check`. 13. No hardcoded colours (hex, rgb(), hsl(), oklch()). Use tokens. ⚙ lint. 14. Logical CSS only (`ps/pe`, `ms/me`, `start/end`, `border-s/e`, `text-start`). ⚙ lint. 15. Responsive at 375/768/1280. Navigation is reachable at 375 px via a menu. ⚙ Playwright. 16. Server actions: zod-validate → `getUser()` → role/institution from claims → shared fn →
-`revalidatePath` → `Result<T>` (`{ ok: true, data } | { ok: false, error: ErrorCode }`).
-Independent fetches use `Promise.all`. 17. Feedback within 100 ms (pending/spinner/optimistic). Every list has empty, loading and error states.
-Put `loading.tsx` on data segments, **not** at `[locale]` root: a root Suspense boundary
-makes `notFound()` return HTTP 200.
+<!-- prettier-ignore -->
+10. Apps never call `.from()`, `.rpc()` or `.storage.from()`. All query/RPC functions live in
+    `packages/shared` and take a `TadrissClient` first. ⚙ lint.
+11. Every client is `createClient<Database>`. ⚙ CI fails on type drift.
 
-**Config & ops** 18. No env fallbacks. `NEXT_PUBLIC_APP_URL` is required. 19. Seed is deterministic. Seed credentials are in `supabase/seed/README.md`. 20. CI: lint → i18n → types → unit → supabase start → db reset → pgTAP → type drift →
-Playwright on `next build` → mobile bundle → Vercel preview. Merging to `main`: `supabase db push`,
-then functions, then web.
+**Frontend**
+
+<!-- prettier-ignore -->
+12. No hardcoded UI strings (JSX text and `placeholder/alt/title/aria-label/label`). ⚙ lint + `i18n:check`.
+13. No hardcoded colours (hex, rgb(), hsl(), oklch()). Use tokens. ⚙ lint.
+14. Logical CSS only (`ps/pe`, `ms/me`, `start/end`, `border-s/e`, `text-start`). ⚙ lint.
+15. Responsive at 375/768/1280. Navigation is reachable at 375 px via a menu. ⚙ Playwright.
+16. Server actions: zod-validate → `getUser()` → role/institution from claims → shared fn →
+    `revalidatePath` → `Result<T>` (`{ ok: true, data } | { ok: false, error: ErrorCode }`).
+    Independent fetches use `Promise.all`.
+17. Feedback within 100 ms (pending/spinner/optimistic). Every list has empty, loading and error states.
+    Put `loading.tsx` on data segments, **not** at `[locale]` root: a root Suspense boundary
+    makes `notFound()` return HTTP 200.
+
+**Config & ops**
+
+<!-- prettier-ignore -->
+18. No env fallbacks. `NEXT_PUBLIC_APP_URL` is required.
+19. Seed is deterministic. Seed credentials are in `supabase/seed/README.md`.
+20. CI: lint → i18n → types → unit → supabase start → db reset → pgTAP → type drift →
+    Playwright on `next build` → mobile bundle → Vercel preview. Merging to `main`: `supabase db push`,
+    then functions, then web.
 
 ## Design system
 
