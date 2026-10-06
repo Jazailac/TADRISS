@@ -1,26 +1,39 @@
 # Local seed data
 
 `pnpm dev:setup` runs `supabase start` + `supabase db reset`, which applies every migration
-and then `seed.sql`. The seed is deterministic: fixed UUIDs, fixed dates relative to a fixed
-anchor (`2026-09-01`), no `random()`.
+and then `seed.sql`. The seed is deterministic: fixed UUIDs and fixed names, no `random()`.
 
-## Target dataset (filled in slice by slice)
+## Credentials (local only — never reuse anywhere)
 
-| Data                          | Arrives in               |
-| ----------------------------- | ------------------------ |
-| 1 institution, 1 admin        | Phase 1 (auth & tenancy) |
-| 3 teachers, 30 students       | Phase 2 (users)          |
-| Classes + enrolments          | Phase 3                  |
-| Timetable                     | Phase 4                  |
-| One month of attendance       | Phase 5                  |
-| Homework                      | Phase 6                  |
-| Exams + grades                | Phase 7                  |
-| Fee plans, invoices, payments | Phase 8                  |
+Every seeded account uses the password **`Tadriss-dev-2026`**.
 
-## Credentials
+| Role                                                      | Email                                           | Lands on            |
+| --------------------------------------------------------- | ----------------------------------------------- | ------------------- |
+| super_admin                                               | `ops@tadriss.test`                              | `/admin` (Phase 12) |
+| institution_admin, Al Manar                               | `direction@almanar.test`                        | `/dashboard`        |
+| teacher, Al Manar                                         | `prof1@almanar.test` … `prof3@almanar.test`     | `/teacher`          |
+| student, Al Manar                                         | `eleve01@almanar.test` … `eleve30@almanar.test` | `/student`          |
+| institution_admin, Ibn Rochd (2nd tenant, Arabic default) | `direction@ibnrochd.test`                       | `/dashboard`        |
 
-Local-only test accounts. Never reuse these anywhere else.
+## Fixed ids
 
-| Role                                   | Email | Password |
-| -------------------------------------- | ----- | -------- |
-| _none yet, accounts arrive in Phase 1_ |       |          |
+| Thing                         | UUID pattern                                             |
+| ----------------------------- | -------------------------------------------------------- |
+| Al Manar institution          | `10000000-0000-4000-8000-000000000001`                   |
+| Al Manar admin                | `10000000-0000-4000-8000-0000000000a1`                   |
+| Al Manar teachers             | `10000000-0000-4000-8000-00000000010N`                   |
+| Al Manar students             | `10000000-0000-4000-8000-0000000002NN`                   |
+| Ibn Rochd institution / admin | `20000000-0000-4000-8000-000000000001` / `…0000000000a1` |
+| super_admin                   | `00000000-0000-4000-8000-00000000000a`                   |
+
+## Dataset roadmap
+
+| Data                                                 | Arrives in |
+| ---------------------------------------------------- | ---------- |
+| Institutions, admin, teachers, students, super_admin | Phase 1 ✅ |
+| Classes + enrolments                                 | Phase 3    |
+| Timetable                                            | Phase 4    |
+| One month of attendance                              | Phase 5    |
+| Homework                                             | Phase 6    |
+| Exams + grades                                       | Phase 7    |
+| Fee plans, invoices, payments                        | Phase 8    |
