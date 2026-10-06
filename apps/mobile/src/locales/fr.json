@@ -14,8 +14,14 @@
     "themeDark": "Sombre",
     "themeSystem": "Système"
   },
-  "locale": { "fr": "Français", "ar": "العربية", "en": "English" },
-  "common": { "loading": "Chargement…" },
+  "locale": {
+    "fr": "Français",
+    "ar": "العربية",
+    "en": "English"
+  },
+  "common": {
+    "loading": "Chargement…"
+  },
   "errors": {
     "genericTitle": "Une erreur est survenue",
     "retry": "Réessayer",
