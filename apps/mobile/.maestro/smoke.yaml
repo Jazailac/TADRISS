@@ -1,5 +1,6 @@
-# Mobile smoke test: app boots, welcome screen renders, buttons respond.
-# Run: maestro test apps/mobile/.maestro  (needs a simulator/emulator with the app installed)
+# Mobile smoke: welcome → login with a seeded teacher → role home → sign out.
+# Needs `pnpm dev:setup` and a simulator/emulator with the app installed.
+# Run: maestro test apps/mobile/.maestro
 appId: ma.tadriss.app
 ---
 - launchApp:
@@ -8,9 +9,17 @@ appId: ma.tadriss.app
     id: brand
 - tapOn:
     id: login
-- assertVisible:
-    id: coming-soon
 - tapOn:
-    id: theme-dark
+    id: email
+- inputText: prof1@almanar.test
+- tapOn:
+    id: password
+- inputText: Tadriss-dev-2026
+- tapOn:
+    id: submit
 - assertVisible:
-    id: theme-dark
+    id: greeting
+- tapOn:
+    id: sign-out
+- assertVisible:
+    id: brand

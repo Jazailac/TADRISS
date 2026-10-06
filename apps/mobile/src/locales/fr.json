@@ -4,8 +4,7 @@
     "title": "Votre école, enfin organisée.",
     "subtitle": "Présences, devoirs, notes et paiements dans votre poche.",
     "login": "Se connecter",
-    "signup": "Inscrire mon établissement",
-    "comingSoon": "La connexion arrive bientôt."
+    "signup": "Inscrire mon établissement"
   },
   "settings": {
     "language": "Langue",
@@ -31,6 +30,35 @@
     "not_found": "Élément introuvable.",
     "conflict": "Cet élément existe déjà.",
     "rate_limited": "Trop de tentatives. Réessayez dans un instant.",
-    "unknown": "Une erreur inattendue est survenue. Réessayez."
+    "unknown": "Une erreur inattendue est survenue. Réessayez.",
+    "invalid_credentials": "E-mail ou mot de passe incorrect.",
+    "email_taken": "Un compte existe déjà avec cette adresse.",
+    "email_not_confirmed": "Confirmez votre adresse e-mail avant de vous connecter.",
+    "account_disabled": "Ce compte est désactivé. Contactez votre établissement."
+  },
+  "login": {
+    "title": "Bon retour",
+    "subtitle": "Connectez-vous à l’espace de votre établissement.",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "submit": "Se connecter"
+  },
+  "home": {
+    "greeting": "Bonjour, {{name}}",
+    "comingSoon": "Vos classes, devoirs et notes arrivent bientôt dans l’application.",
+    "signOut": "Se déconnecter"
+  },
+  "roles": {
+    "super_admin": "Plateforme",
+    "institution_admin": "Direction",
+    "teacher": "Enseignant·e",
+    "student": "Élève"
+  },
+  "validation": {
+    "required": "Ce champ est requis.",
+    "email": "Adresse e-mail invalide.",
+    "passwordMin": "8 caractères minimum.",
+    "nameMin": "2 caractères minimum.",
+    "tooLong": "Trop long."
   }
 }

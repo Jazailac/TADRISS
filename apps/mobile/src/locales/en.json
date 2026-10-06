@@ -4,8 +4,7 @@
     "title": "Your school, finally organised.",
     "subtitle": "Attendance, homework, grades and payments in your pocket.",
     "login": "Log in",
-    "signup": "Register my school",
-    "comingSoon": "Sign-in is coming soon."
+    "signup": "Register my school"
   },
   "settings": {
     "language": "Language",
@@ -14,8 +13,14 @@
     "themeDark": "Dark",
     "themeSystem": "System"
   },
-  "locale": { "fr": "Français", "ar": "العربية", "en": "English" },
-  "common": { "loading": "Loading…" },
+  "locale": {
+    "fr": "Français",
+    "ar": "العربية",
+    "en": "English"
+  },
+  "common": {
+    "loading": "Loading…"
+  },
   "errors": {
     "genericTitle": "Something went wrong",
     "retry": "Try again",
@@ -25,6 +30,35 @@
     "not_found": "Not found.",
     "conflict": "This already exists.",
     "rate_limited": "Too many attempts. Try again shortly.",
-    "unknown": "An unexpected error occurred. Please try again."
+    "unknown": "An unexpected error occurred. Please try again.",
+    "invalid_credentials": "Incorrect email or password.",
+    "email_taken": "An account already exists with this email.",
+    "email_not_confirmed": "Confirm your email address before signing in.",
+    "account_disabled": "This account is disabled. Contact your school."
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Log in to your school’s workspace.",
+    "email": "Email address",
+    "password": "Password",
+    "submit": "Log in"
+  },
+  "home": {
+    "greeting": "Hello, {{name}}",
+    "comingSoon": "Your classes, homework and grades are coming to the app soon.",
+    "signOut": "Sign out"
+  },
+  "roles": {
+    "super_admin": "Platform",
+    "institution_admin": "Administration",
+    "teacher": "Teacher",
+    "student": "Student"
+  },
+  "validation": {
+    "required": "This field is required.",
+    "email": "Invalid email address.",
+    "passwordMin": "At least 8 characters.",
+    "nameMin": "At least 2 characters.",
+    "tooLong": "Too long."
   }
 }

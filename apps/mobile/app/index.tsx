@@ -1,10 +1,13 @@
 import { locales, type Locale } from '@tadriss/shared';
+import { Redirect, router } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Pressable, Text, View } from 'react-native';
+import { ActivityIndicator, Linking, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { env } from '@/env';
 import i18n, { applyDirection } from '@/i18n';
+import { useSession } from '@/lib/session';
 
 const schemes = ['light', 'dark', 'system'] as const;
 const schemeLabel = {
@@ -17,8 +20,8 @@ export default function Welcome() {
   const { t } = useTranslation();
   const scheme = useColorScheme();
   const colorScheme = scheme.colorScheme;
-  const [notice, setNotice] = useState(false);
   const [switching, setSwitching] = useState<Locale | null>(null);
+  const session = useSession();
 
   const changeLocale = async (l: Locale) => {
     setSwitching(l);
@@ -26,6 +29,9 @@ export default function Welcome() {
     await applyDirection(l); // reloads the app when direction changes
     setSwitching(null);
   };
+
+  // Signed-in users go straight to their home.
+  if (session?.role) return <Redirect href="/home" />;
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -41,7 +47,7 @@ export default function Welcome() {
             testID="login"
             accessibilityRole="button"
             onPress={() => {
-              setNotice(true);
+              router.push('/login');
             }}
             className="h-12 items-center justify-center rounded-md bg-primary active:opacity-80"
           >
@@ -49,19 +55,13 @@ export default function Welcome() {
           </Pressable>
           <Pressable
             testID="signup"
-            accessibilityRole="button"
-            onPress={() => {
-              setNotice(true);
-            }}
+            accessibilityRole="link"
+            // School sign-up is a web flow; the app is for daily use.
+            onPress={() => void Linking.openURL(`${env.EXPO_PUBLIC_APP_URL}/signup`)}
             className="h-12 items-center justify-center rounded-md border border-border bg-surface active:opacity-80"
           >
             <Text className="font-semibold text-text">{t('welcome.signup')}</Text>
           </Pressable>
-          {notice ? (
-            <Text testID="coming-soon" className="text-center text-text-muted">
-              {t('welcome.comingSoon')}
-            </Text>
-          ) : null}
         </View>
 
         <View className="gap-2">
