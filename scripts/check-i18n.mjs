@@ -31,7 +31,20 @@ export function placeholders(message) {
  * Returns a human-readable problem, or null when the translation is acceptable.
  */
 export function valueProblem(key, refValue, value, locale) {
-  // TODO(human)
+  if (typeof value !== 'string' || value.trim() === '') return `empty value for ${key}`;
+  // A dropped or renamed ICU argument is a runtime bug, not a style issue.
+  const expected = placeholders(refValue).join(',');
+  const actual = placeholders(value).join(',');
+  if (expected !== actual)
+    return `placeholder mismatch in ${key}: ${locale} has {${actual}}, fr has {${expected}}`;
+  // Rich-text tags (<em>…</em>) must survive translation too.
+  const tags = (m) =>
+    [...String(m).matchAll(/<(\w+)>/g)]
+      .map((x) => x[1])
+      .sort()
+      .join(',');
+  if (tags(refValue) !== tags(value)) return `rich-text tag mismatch in ${key}`;
+  // Identical-to-French values are allowed: brand names, language names and codes repeat.
   return null;
 }
 
