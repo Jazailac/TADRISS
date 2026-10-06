@@ -12,6 +12,10 @@ export const errorCodes = [
   'not_found',
   'conflict',
   'rate_limited',
+  'invalid_credentials',
+  'email_taken',
+  'email_not_confirmed',
+  'account_disabled',
   'unknown',
 ] as const;
 export type ErrorCode = (typeof errorCodes)[number];

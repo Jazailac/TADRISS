@@ -5,3 +5,4 @@ export * from './locale';
 export * from './money';
 export * from './result';
 export * from './schemas/auth';
+export * from './auth';
