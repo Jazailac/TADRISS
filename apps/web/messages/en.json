@@ -1,44 +1,410 @@
 {
   "metadata": {
     "title": "Tadriss",
-    "description": "Simple school management for private institutions in Morocco."
+    "description": "School management for private institutions in Morocco: attendance, grades, timetables, fees and receipts in MAD."
   },
-  "common": { "loading": "Loading…" },
+  "common": {
+    "loading": "Loading…"
+  },
   "nav": {
     "brand": "Tadriss",
+    "home": "Tadriss — home",
     "main": "Main navigation",
     "features": "Features",
+    "roles": "Roles",
+    "security": "Security",
     "login": "Log in",
     "signup": "Sign up",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
-  "theme": { "toggle": "Toggle theme" },
-  "locale": { "label": "Language", "fr": "Français", "ar": "العربية", "en": "English" },
+  "theme": {
+    "toggle": "Toggle theme"
+  },
+  "locale": {
+    "label": "Language",
+    "fr": "Français",
+    "ar": "العربية",
+    "en": "English",
+    "short": {
+      "fr": "FR",
+      "ar": "ع",
+      "en": "EN"
+    }
+  },
   "home": {
-    "heroTitle": "Your school, finally organised.",
-    "heroSubtitle": "Attendance, homework, grades, timetables and payments — for administrators, teachers and students.",
-    "ctaPrimary": "Register my school",
-    "ctaSecondary": "Log in",
+    "hero": {
+      "eyebrow": "School management · Morocco",
+      "title": "Your school, <em>run with care</em>.",
+      "subtitle": "Attendance, marks out of 20, timetables, fees and receipts in dirhams — in one place for administrators, teachers and students.",
+      "ctaPrimary": "Register my school",
+      "ctaSecondary": "Log in",
+      "points": {
+        "languages": "Français · العربية · English",
+        "currency": "Billing in MAD",
+        "platforms": "Web and mobile"
+      }
+    },
+    "preview": {
+      "school": "Al Manar School Group",
+      "greeting": "Good morning, Mrs Benali",
+      "attendance": "Attendance",
+      "students": "Students",
+      "collected": "Collected",
+      "today": "Today",
+      "payments": "Latest payments",
+      "schedule": {
+        "math": "Mathematics · 2nd Bac SM",
+        "physics": "Physics & Chemistry · 1st Bac",
+        "french": "French · Common core"
+      },
+      "payment": {
+        "p1": {
+          "name": "Yasmine El Idrissi",
+          "item": "Tuition · October"
+        },
+        "p2": {
+          "name": "Omar Bennani",
+          "item": "Transport · October"
+        },
+        "p3": {
+          "name": "Salma Tazi",
+          "item": "Registration"
+        }
+      },
+      "status": {
+        "paid": "Paid",
+        "partial": "Partial",
+        "due": "Due"
+      }
+    },
     "features": {
-      "attendance": {
-        "title": "Attendance",
-        "body": "Take the register in seconds, on the web or on mobile."
+      "eyebrow": "Features",
+      "title": "Everything a school runs, in one place.",
+      "body": "No more paper registers, spreadsheets or handwritten receipts. Every module talks to the others.",
+      "items": {
+        "attendance": {
+          "title": "Registers in thirty seconds",
+          "body": "Present, absent, late, excused: one tap per student, on the web or on a phone. Absences reach the office instantly."
+        },
+        "grades": {
+          "title": "Marks out of 20",
+          "body": "Configurable scales and coefficients, subject averages, report cards ready to print."
+        },
+        "finance": {
+          "title": "Fees & receipts",
+          "body": "Monthly or annual invoices, allocated payments, numbered receipts, traceable voids."
+        },
+        "schedule": {
+          "title": "Timetables",
+          "body": "Periods, rooms and teachers: everyone sees their week, and changes reach everyone at once."
+        },
+        "messages": {
+          "title": "Announcements & messages",
+          "body": "Broadcast to a class or the whole school, message students directly, and see who has read what."
+        },
+        "documents": {
+          "title": "Documents",
+          "body": "Certificates, report cards and paperwork, filed per student and shared securely."
+        }
       },
-      "grades": {
-        "title": "Exams & grades",
-        "body": "Marks out of 20, averages and report cards — no spreadsheets."
+      "visual": {
+        "present": "P",
+        "absent": "A",
+        "late": "L",
+        "excused": "E",
+        "s1": "Yasmine",
+        "s2": "Omar",
+        "s3": "Salma",
+        "readBy": "Read by {read, number} of {total, number}"
+      }
+    },
+    "roles": {
+      "eyebrow": "For every role",
+      "title": "Three workspaces, one school.",
+      "body": "Everyone sees exactly what they need — and nothing more.",
+      "admin": {
+        "title": "Administration",
+        "lead": "Running the school.",
+        "points": {
+          "a": "Students, teachers and classes",
+          "b": "Fees, payments and receipts",
+          "c": "Announcements and documents",
+          "d": "Role permissions"
+        }
       },
-      "finance": {
-        "title": "Fees & payments",
-        "body": "Monthly invoices, payments in MAD and numbered receipts."
+      "teacher": {
+        "title": "Teachers",
+        "lead": "Their classes, only their classes.",
+        "points": {
+          "a": "Registers in a few taps",
+          "b": "Homework and exams",
+          "c": "Grade entry",
+          "d": "Personal timetable"
+        }
+      },
+      "student": {
+        "title": "Students",
+        "lead": "Their schooling, at a glance.",
+        "points": {
+          "a": "Timetable and homework",
+          "b": "Grades and averages",
+          "c": "Attendance",
+          "d": "Balance and receipts"
+        }
+      }
+    },
+    "languages": {
+      "eyebrow": "Three languages",
+      "title": "French by default, Arabic without compromise.",
+      "body": "In Arabic the whole interface flows right to left: menus, tables, forms and receipts. English is there for international teams.",
+      "sample": {
+        "fr": {
+          "number": "Reçu n° 2026-000123",
+          "title": "Frais de scolarité",
+          "studentLabel": "Élève",
+          "student": "Yasmine El Idrissi",
+          "amountLabel": "Montant",
+          "amount": "1.800,00 MAD",
+          "status": "Payé"
+        },
+        "ar": {
+          "number": "وصل رقم 2026-000123",
+          "title": "رسوم التمدرس",
+          "studentLabel": "التلميذ(ة)",
+          "student": "ياسمين الإدريسي",
+          "amountLabel": "المبلغ",
+          "amount": "1.800,00 د.م.",
+          "status": "مؤدّى"
+        }
+      }
+    },
+    "security": {
+      "eyebrow": "Security",
+      "title": "Your school’s data stays yours.",
+      "body": "Separation between schools is enforced by the database itself, not just the interface.",
+      "items": {
+        "isolation": {
+          "title": "Strict isolation",
+          "body": "Every query is filtered per school at the database level: one school never sees another’s data."
+        },
+        "roles": {
+          "title": "Role-based access",
+          "body": "Teachers and students only see their own classes and their own data."
+        },
+        "audit": {
+          "title": "Audit log",
+          "body": "Voided payments, sensitive edits: every important action is recorded."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready for the new school year?",
+      "body": "Create your school’s workspace, then invite your teachers and students.",
+      "button": "Register my school"
+    },
+    "footer": {
+      "tagline": "School management for private institutions in Morocco.",
+      "rights": "© {year} Tadriss"
+    }
+  },
+  "auth": {
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "panel": {
+      "eyebrow": "Tadriss · تدريس",
+      "title": "Less paperwork, more school.",
+      "body": "Attendance, grades and payments in one place — in French, Arabic and English."
+    },
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Log in to your school’s workspace.",
+      "submit": "Log in",
+      "noAccount": "No account yet?",
+      "signupLink": "Register my school",
+      "notice": "Form is valid. Signing in will be enabled in the next step (authentication).",
+      "fields": {
+        "email": "Email address",
+        "password": "Password"
+      },
+      "placeholders": {
+        "email": "you@school.ma"
+      }
+    },
+    "signup": {
+      "title": "Create your school’s workspace",
+      "subtitle": "A few details to get started. You’ll invite your team afterwards.",
+      "submit": "Create my workspace",
+      "hasAccount": "Already registered?",
+      "loginLink": "Log in",
+      "notice": "Form is valid. Sign-up will be enabled in the next step (authentication).",
+      "fields": {
+        "institutionName": "School name",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Work email",
+        "password": "Password"
+      },
+      "placeholders": {
+        "institutionName": "Al Manar School Group",
+        "firstName": "Salma",
+        "lastName": "Benali",
+        "email": "office@school.ma"
       }
     }
   },
-  "placeholder": { "comingSoon": "This page is coming soon.", "backHome": "Back to home" },
+  "validation": {
+    "required": "This field is required.",
+    "email": "Invalid email address.",
+    "passwordMin": "At least 8 characters.",
+    "nameMin": "At least 2 characters.",
+    "tooLong": "Too long."
+  },
+  "shell": {
+    "navigation": "App navigation",
+    "plan": "School",
+    "openMenu": "Open navigation",
+    "closeMenu": "Close navigation",
+    "search": "Search",
+    "searchPlaceholder": "Search a student, a class…",
+    "searchShortcut": "⌘K",
+    "signOut": "Sign out",
+    "groups": {
+      "overview": "Overview",
+      "school": "School",
+      "daily": "Day to day",
+      "communication": "Communication"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "students": "Students",
+      "teachers": "Teachers",
+      "classes": "Classes",
+      "schedule": "Timetable",
+      "attendance": "Attendance",
+      "grades": "Grades",
+      "finance": "Finance",
+      "announcements": "Announcements",
+      "messages": "Messages",
+      "documents": "Documents",
+      "settings": "Settings"
+    }
+  },
+  "demo": {
+    "user": {
+      "name": "Salma Benali",
+      "initials": "SB",
+      "role": "Administration",
+      "school": "Al Manar School Group"
+    },
+    "title": "Good morning, Salma",
+    "subtitle": "Here’s what matters today.",
+    "export": "Export",
+    "takeAttendance": "Take attendance",
+    "kpi": {
+      "students": {
+        "label": "Enrolled students",
+        "delta": "+{value, number} this month"
+      },
+      "attendance": {
+        "label": "Attendance today",
+        "delta": "+{value, number} pt vs last week"
+      },
+      "collected": {
+        "label": "Collected in October",
+        "delta": "{value, number}% of expected"
+      },
+      "overdue": {
+        "label": "Overdue invoices",
+        "delta": "{value, number} more than September"
+      }
+    },
+    "week": {
+      "title": "Attendance this week",
+      "average": "Average {value}"
+    },
+    "today": {
+      "title": "Today",
+      "s1": {
+        "subject": "Mathematics",
+        "detail": "2nd Bac SM · Room 12 · Mr Tazi"
+      },
+      "s2": {
+        "subject": "Physics & Chemistry",
+        "detail": "1st Bac · Lab 2 · Mrs Alami"
+      },
+      "s3": {
+        "subject": "French",
+        "detail": "Common core · Room 4 · Mrs Benali"
+      }
+    },
+    "payments": {
+      "title": "Latest payments",
+      "viewAll": "View all",
+      "cols": {
+        "student": "Student",
+        "item": "Item",
+        "amount": "Amount",
+        "status": "Status"
+      },
+      "rows": {
+        "r1": {
+          "name": "Yasmine El Idrissi",
+          "class": "2nd Bac SM",
+          "item": "Tuition · October"
+        },
+        "r2": {
+          "name": "Omar Bennani",
+          "class": "1st Bac",
+          "item": "Transport · October"
+        },
+        "r3": {
+          "name": "Salma Tazi",
+          "class": "Common core",
+          "item": "Registration"
+        },
+        "r4": {
+          "name": "Hamza Ouazzani",
+          "class": "2nd Bac PC",
+          "item": "Tuition · September"
+        }
+      },
+      "status": {
+        "paid": "Paid",
+        "partial": "Partial",
+        "due": "Due",
+        "overdue": "Overdue"
+      }
+    },
+    "empty": {
+      "title": "No announcements yet",
+      "body": "Published announcements will appear here, with read tracking.",
+      "action": "New announcement"
+    },
+    "kit": {
+      "title": "Components",
+      "save": "Save",
+      "saved": "Saved",
+      "secondary": "Secondary",
+      "ghost": "Ghost",
+      "ink": "Ink",
+      "field": "Email address",
+      "placeholder": "you@school.ma",
+      "error": "Invalid email address.",
+      "tones": {
+        "neutral": "Neutral",
+        "primary": "Primary",
+        "accent": "Brass",
+        "success": "Paid",
+        "warning": "Partial",
+        "danger": "Overdue",
+        "info": "Info"
+      }
+    }
+  },
   "notFound": {
     "title": "Page not found",
-    "body": "The page you asked for doesn’t exist.",
+    "body": "The page you asked for doesn’t exist or has moved.",
     "backHome": "Back to home"
   },
   "errors": {
