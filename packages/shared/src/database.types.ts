@@ -205,6 +205,35 @@ export type Database = {
           },
         ];
       };
+      document_counters: {
+        Row: {
+          institution_id: string;
+          kind: string;
+          last_number: number;
+          year: number;
+        };
+        Insert: {
+          institution_id: string;
+          kind: string;
+          last_number?: number;
+          year: number;
+        };
+        Update: {
+          institution_id?: string;
+          kind?: string;
+          last_number?: number;
+          year?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'document_counters_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'institutions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       enrolments: {
         Row: {
           class_id: string;
@@ -336,6 +365,47 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'subjects';
             referencedColumns: ['id', 'institution_id'];
+          },
+        ];
+      };
+      fee_plans: {
+        Row: {
+          amount_centimes: number;
+          created_at: string;
+          deleted_at: string | null;
+          description: string | null;
+          id: string;
+          institution_id: string;
+          name: string;
+          updated_at: string;
+        };
+        Insert: {
+          amount_centimes: number;
+          created_at?: string;
+          deleted_at?: string | null;
+          description?: string | null;
+          id?: string;
+          institution_id: string;
+          name: string;
+          updated_at?: string;
+        };
+        Update: {
+          amount_centimes?: number;
+          created_at?: string;
+          deleted_at?: string | null;
+          description?: string | null;
+          id?: string;
+          institution_id?: string;
+          name?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'fee_plans_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'institutions';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -589,6 +659,152 @@ export type Database = {
           },
         ];
       };
+      invoices: {
+        Row: {
+          amount_centimes: number;
+          created_at: string;
+          created_by: string | null;
+          description: string;
+          due_date: string;
+          fee_plan_id: string | null;
+          id: string;
+          institution_id: string;
+          issued_on: string;
+          number: string;
+          student_id: string;
+          updated_at: string;
+          void_reason: string | null;
+          voided_at: string | null;
+        };
+        Insert: {
+          amount_centimes: number;
+          created_at?: string;
+          created_by?: string | null;
+          description: string;
+          due_date: string;
+          fee_plan_id?: string | null;
+          id?: string;
+          institution_id: string;
+          issued_on?: string;
+          number: string;
+          student_id: string;
+          updated_at?: string;
+          void_reason?: string | null;
+          voided_at?: string | null;
+        };
+        Update: {
+          amount_centimes?: number;
+          created_at?: string;
+          created_by?: string | null;
+          description?: string;
+          due_date?: string;
+          fee_plan_id?: string | null;
+          id?: string;
+          institution_id?: string;
+          issued_on?: string;
+          number?: string;
+          student_id?: string;
+          updated_at?: string;
+          void_reason?: string | null;
+          voided_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'invoices_fee_plan_id_institution_id_fkey';
+            columns: ['fee_plan_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'fee_plans';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'invoices_institution_id_student_id_fkey';
+            columns: ['institution_id', 'student_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
+      payments: {
+        Row: {
+          amount_centimes: number;
+          created_at: string;
+          created_by: string | null;
+          id: string;
+          institution_id: string;
+          invoice_id: string;
+          method: string;
+          paid_on: string;
+          receipt_number: string;
+          reference: string | null;
+          student_id: string;
+          updated_at: string;
+          void_reason: string | null;
+          voided_at: string | null;
+        };
+        Insert: {
+          amount_centimes: number;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          institution_id: string;
+          invoice_id: string;
+          method: string;
+          paid_on: string;
+          receipt_number: string;
+          reference?: string | null;
+          student_id: string;
+          updated_at?: string;
+          void_reason?: string | null;
+          voided_at?: string | null;
+        };
+        Update: {
+          amount_centimes?: number;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          institution_id?: string;
+          invoice_id?: string;
+          method?: string;
+          paid_on?: string;
+          receipt_number?: string;
+          reference?: string | null;
+          student_id?: string;
+          updated_at?: string;
+          void_reason?: string | null;
+          voided_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'payments_invoice_id_institution_id_fkey';
+            columns: ['invoice_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'invoice_balances';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'payments_invoice_id_institution_id_fkey';
+            columns: ['invoice_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'invoices';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'payments_invoice_id_student_id_fkey';
+            columns: ['invoice_id', 'student_id'];
+            isOneToOne: false;
+            referencedRelation: 'invoice_balances';
+            referencedColumns: ['id', 'student_id'];
+          },
+          {
+            foreignKeyName: 'payments_invoice_id_student_id_fkey';
+            columns: ['invoice_id', 'student_id'];
+            isOneToOne: false;
+            referencedRelation: 'invoices';
+            referencedColumns: ['id', 'student_id'];
+          },
+        ];
+      };
       profiles: {
         Row: {
           created_at: string;
@@ -743,7 +959,40 @@ export type Database = {
       };
     };
     Views: {
-      [_ in never]: never;
+      invoice_balances: {
+        Row: {
+          amount_centimes: number | null;
+          balance_centimes: number | null;
+          created_at: string | null;
+          description: string | null;
+          due_date: string | null;
+          fee_plan_id: string | null;
+          id: string | null;
+          institution_id: string | null;
+          issued_on: string | null;
+          number: string | null;
+          paid_centimes: number | null;
+          student_id: string | null;
+          void_reason: string | null;
+          voided_at: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'invoices_fee_plan_id_institution_id_fkey';
+            columns: ['fee_plan_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'fee_plans';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'invoices_institution_id_student_id_fkey';
+            columns: ['institution_id', 'student_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
     };
     Functions: {
       attendance_class_summary: {
@@ -791,6 +1040,39 @@ export type Database = {
           graded: number;
           max20: number;
           min20: number;
+        }[];
+      };
+      finance_summary: {
+        Args: { p_today: string };
+        Returns: {
+          billed: number;
+          collected: number;
+          invoices: number;
+          outstanding: number;
+          overdue: number;
+          overdue_invoices: number;
+        }[];
+      };
+      generate_invoices: {
+        Args: {
+          p_class_id: string;
+          p_description?: string;
+          p_due_date: string;
+          p_fee_plan_id: string;
+        };
+        Returns: number;
+      };
+      record_payment: {
+        Args: {
+          p_amount_centimes: number;
+          p_invoice_id: string;
+          p_method: string;
+          p_paid_on: string;
+          p_reference?: string;
+        };
+        Returns: {
+          payment_id: string;
+          receipt_number: string;
         }[];
       };
       save_grades: { Args: { p_exam_id: string; p_grades: Json }; Returns: number };

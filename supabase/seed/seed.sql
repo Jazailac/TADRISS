@@ -251,3 +251,42 @@ from (
 ) x
 join public.exams ex2 on ex2.id = x.exam_id
 where ex2.published_at is not null or x.half = 0;
+
+-- ── Phase 8: fees, invoices, payments (Al Manar) ────────────────────────────
+insert into public.fee_plans (id, institution_id, name, description, amount_centimes) values
+  ('10000000-0000-4000-8000-000000000801', '10000000-0000-4000-8000-000000000001', 'Inscription annuelle', 'Frais d’inscription pour l’année scolaire', 250000),
+  ('10000000-0000-4000-8000-000000000802', '10000000-0000-4000-8000-000000000001', 'Scolarité mensuelle', null, 120000),
+  ('10000000-0000-4000-8000-000000000803', '10000000-0000-4000-8000-000000000001', 'Transport scolaire', 'Abonnement mensuel', 40000);
+
+-- Invoices through the real RPC, class by class, so numbers follow alphabetical order within a class.
+select public.generate_invoices('10000000-0000-4000-8000-000000000801', c.id, '2026-09-15', 'Inscription 2026-2027')
+from public.classes c where c.institution_id = '10000000-0000-4000-8000-000000000001' order by c.name;
+select public.generate_invoices('10000000-0000-4000-8000-000000000802', c.id, '2026-10-05', 'Scolarité octobre 2026')
+from public.classes c where c.institution_id = '10000000-0000-4000-8000-000000000001' order by c.name;
+
+-- Payments: ~85% of registrations settled, ~10% half-paid; ~55% of October fees settled, ~15% half-paid.
+insert into public.payments (institution_id, invoice_id, student_id, amount_centimes, method, paid_on, reference)
+select i.institution_id, i.id, i.student_id,
+       case when x.v < case when i.description like 'Inscription%' then 85 else 55 end then i.amount_centimes
+            else i.amount_centimes / 2 end,
+       (array['cash', 'transfer', 'cheque', 'card'])[1 + abs(hashtext(i.id::text)) % 4],
+       case when i.description like 'Inscription%' then date '2026-09-10' + (abs(hashtext(i.id::text)) % 6)
+            else date '2026-10-01' + (abs(hashtext(i.id::text)) % 5) end,
+       case when abs(hashtext(i.id::text)) % 4 = 1 then 'VIR-' || lpad((abs(hashtext(i.id::text)) % 100000)::text, 5, '0') end
+from public.invoices i
+cross join lateral (select abs(hashtext(i.student_id::text || i.description)) % 100 as v) x
+where i.institution_id = '10000000-0000-4000-8000-000000000001'
+  and x.v < case when i.description like 'Inscription%' then 95 else 70 end
+order by i.number;
+
+-- One mistaken payment and one mistaken invoice, voided with a reason, to show the history.
+update public.payments set voided_at = '2026-09-20 10:00+00', void_reason = 'Saisie en double'
+where id = (select id from public.payments where amount_centimes = 250000 order by receipt_number limit 1);
+update public.invoices set voided_at = '2026-10-02 10:00+00', void_reason = 'Facturée par erreur'
+where id = (select i.id from public.invoices i
+            where i.description like 'Scolarité%'
+              and not exists (select 1 from public.payments p where p.invoice_id = i.id and p.voided_at is null)
+            order by i.number desc limit 1);
+
+-- `issued_on` defaults to the day the seed ran: pin it so the seed stays deterministic.
+update public.invoices set issued_on = due_date - 14 where institution_id = '10000000-0000-4000-8000-000000000001';
