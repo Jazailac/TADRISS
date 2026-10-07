@@ -5,4 +5,6 @@ export * from './locale';
 export * from './money';
 export * from './result';
 export * from './schemas/auth';
+export * from './schemas/people';
+export * from './people';
 export * from './auth';

@@ -1,6 +1,12 @@
 'use client';
 
-import { fieldErrors, loginInput, signupInput, type ValidationKey } from '@tadriss/shared';
+import {
+  fieldErrors,
+  loginInput,
+  setPasswordInput,
+  signupInput,
+  type ValidationKey,
+} from '@tadriss/shared';
 import { AlertCircle, MailCheck, Mail } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useActionState, useState, type SubmitEvent } from 'react';
@@ -20,7 +26,7 @@ export type FieldSpec = {
 
 // Schemas are resolved here by name: zod schemas are class instances and cannot be
 // passed as props from a Server Component.
-const schemas = { login: loginInput, signup: signupInput } as const;
+const schemas = { login: loginInput, signup: signupInput, setPassword: setPasswordInput } as const;
 
 /**
  * Validates with the shared zod schema on the client for instant feedback, then posts to the
@@ -127,7 +133,10 @@ export function AuthForm({
           <Field key={f.name} className={f.half ? 'col-span-2 sm:col-span-1' : 'col-span-2'}>
             <Label htmlFor={f.name}>{f.label}</Label>
             {f.kind === 'password' ? (
-              <PasswordInput {...common} showStrength={schemaName === 'signup'} />
+              <PasswordInput
+                {...common}
+                showStrength={schemaName !== 'login' && f.name === 'password'}
+              />
             ) : (
               <Input
                 {...common}

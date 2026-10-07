@@ -141,10 +141,15 @@ export async function getMyProfile(
 ): Promise<Result<MyProfile>> {
   const { data, error } = await client
     .from('profiles')
-    .select('id, role, first_name, last_name, locale, institution:institutions(id, name, slug)')
+    .select(
+      'id, role, first_name, last_name, locale, is_active, institution:institutions(id, name, slug)',
+    )
     .eq('id', userId)
     .single();
   if (error) return err(toErrorCode(error));
+  // A deactivated user's access token stays valid until it expires (up to jwt_expiry), but
+  // their claims are gone from the next refresh. Cut them off now rather than then.
+  if (!data.is_active) return err('account_disabled');
   return ok({
     id: data.id,
     role: data.role as Role,
@@ -153,4 +158,10 @@ export async function getMyProfile(
     locale: data.locale as Locale | null,
     institution: data.institution,
   });
+}
+
+/** Sets the signed-in user's password (first password after an invitation, or a change). */
+export async function setPassword(client: TadrissClient, password: string): Promise<Result<null>> {
+  const { error } = await client.auth.updateUser({ password });
+  return error ? err(authErrorCode(error)) : ok(null);
 }

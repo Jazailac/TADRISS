@@ -4,7 +4,10 @@
     "description": "La gestion scolaire des établissements privés au Maroc : présences, notes, emplois du temps, frais et reçus en MAD."
   },
   "common": {
-    "loading": "Chargement…"
+    "loading": "Chargement…",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "save": "Enregistrer"
   },
   "nav": {
     "brand": "Tadriss",
@@ -254,6 +257,15 @@
       "checkEmailTitle": "Vérifiez votre boîte mail",
       "checkEmailBody": "Nous vous avons envoyé un lien pour confirmer votre adresse. Votre espace sera prêt dès la confirmation.",
       "linkExpired": "Ce lien a expiré ou a déjà été utilisé. Connectez-vous, ou demandez un nouveau lien."
+    },
+    "setPassword": {
+      "title": "Choisissez votre mot de passe",
+      "subtitle": "Dernière étape : sécurisez votre compte pour accéder à votre établissement.",
+      "submit": "Enregistrer et continuer",
+      "fields": {
+        "password": "Nouveau mot de passe",
+        "confirm": "Confirmer le mot de passe"
+      }
     }
   },
   "validation": {
@@ -261,7 +273,8 @@
     "email": "Adresse e-mail invalide.",
     "passwordMin": "8 caractères minimum.",
     "nameMin": "2 caractères minimum.",
-    "tooLong": "Trop long."
+    "tooLong": "Trop long.",
+    "passwordMismatch": "Les mots de passe ne correspondent pas."
   },
   "shell": {
     "navigation": "Navigation de l’application",
@@ -450,7 +463,7 @@
         },
         "team": {
           "label": "Inviter les enseignants et les élèves",
-          "detail": "Disponible à la prochaine étape (utilisateurs et invitations)."
+          "detail": "Invitez-les depuis les pages Enseignants et Élèves."
         },
         "classes": {
           "label": "Créer les classes",
@@ -701,6 +714,125 @@
         "two": "Les panneaux DOM gardent l’expérience rapide, accessible et indexable.",
         "three": "La profondeur reste une aide à l’orientation, jamais un spectacle autonome."
       }
+    }
+  },
+  "people": {
+    "title": {
+      "teacher": "Enseignants",
+      "student": "Élèves"
+    },
+    "subtitle": {
+      "teacher": "Invitez votre équipe pédagogique et gérez ses accès.",
+      "student": "Invitez vos élèves et gérez leurs accès."
+    },
+    "stats": {
+      "active": "Actifs",
+      "inactive": "Désactivés",
+      "invited": "Invitations en attente"
+    },
+    "search": {
+      "label": "Rechercher",
+      "placeholder": "Nom ou e-mail…",
+      "submit": "Rechercher"
+    },
+    "filters": {
+      "label": "Statut",
+      "all": "Tous",
+      "active": "Actifs",
+      "inactive": "Désactivés"
+    },
+    "status": {
+      "active": "Actif",
+      "inactive": "Désactivé",
+      "invited": "Invité"
+    },
+    "actions": {
+      "invite": {
+        "teacher": "Inviter un enseignant",
+        "student": "Inviter un élève"
+      },
+      "edit": "Modifier",
+      "deactivate": "Désactiver",
+      "activate": "Réactiver",
+      "resend": "Renvoyer",
+      "revoke": "Révoquer",
+      "editLabel": "Modifier {name}",
+      "deactivateLabel": "Désactiver {name}",
+      "activateLabel": "Réactiver {name}",
+      "resendLabel": "Renvoyer l’invitation à {email}",
+      "revokeLabel": "Révoquer l’invitation de {email}"
+    },
+    "list": {
+      "label": {
+        "teacher": "Liste des enseignants",
+        "student": "Liste des élèves"
+      },
+      "noEmail": "Pas d’e-mail"
+    },
+    "empty": {
+      "teacher": {
+        "title": "Aucun enseignant pour l’instant",
+        "body": "Invitez votre premier enseignant : il recevra un e-mail pour choisir son mot de passe."
+      },
+      "student": {
+        "title": "Aucun élève pour l’instant",
+        "body": "Invitez votre premier élève : il recevra un e-mail pour choisir son mot de passe."
+      }
+    },
+    "noResults": {
+      "title": "Aucun résultat",
+      "body": "Aucune personne ne correspond à votre recherche ou à ce filtre.",
+      "clear": "Réinitialiser"
+    },
+    "error": {
+      "title": "Impossible de charger la liste",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "range": "{from, number}–{to, number} sur {total, number}"
+    },
+    "invitations": {
+      "title": "Invitations en attente",
+      "subtitle": "Ces personnes n’ont pas encore choisi leur mot de passe.",
+      "expires": "Expire le {date}",
+      "expired": "Expirée",
+      "sentTo": "Envoyée à <e>{email}</e>"
+    },
+    "invite": {
+      "title": {
+        "teacher": "Inviter un enseignant",
+        "student": "Inviter un élève"
+      },
+      "description": "Un e-mail d’invitation valable 7 jours sera envoyé. La personne choisira son mot de passe.",
+      "fields": {
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "email": "Adresse e-mail"
+      },
+      "placeholders": {
+        "email": "prenom.nom@ecole.ma"
+      },
+      "submit": "Envoyer l’invitation"
+    },
+    "edit": {
+      "title": "Modifier {name}",
+      "description": "L’e-mail et le rôle ne peuvent pas être modifiés ici."
+    },
+    "deactivate": {
+      "title": "Désactiver {name} ?",
+      "body": "Cette personne ne pourra plus se connecter. Ses données sont conservées et vous pourrez la réactiver à tout moment.",
+      "confirm": "Désactiver"
+    },
+    "feedback": {
+      "invited": "Invitation envoyée à {email}.",
+      "resent": "Invitation renvoyée.",
+      "revoked": "Invitation révoquée.",
+      "activated": "Compte réactivé.",
+      "deactivated": "Compte désactivé.",
+      "saved": "Modifications enregistrées."
     }
   }
 }

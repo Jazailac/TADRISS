@@ -67,6 +67,12 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
 - **Auth actions:** `app/actions/auth.ts` (`login`, `signup`, `logout`) are used with
   `useActionState`. They return `AuthState` and echo non-secret fields back, because React
   resets forms after an action.
+- **Invitations (Phase 2):** admins invite teachers/students from `/dashboard/teachers` and
+  `/dashboard/students`. Server action inserts an `invitations` row (RLS), then the service-role
+  client calls `auth.admin.inviteUserByEmail`; DB triggers provision the profile only when
+  `auth.users.invited_at` is set ([ADR 0012](docs/decisions/0012-invitations-and-member-management.md)).
+  Emailed link → `/auth/confirm` (token hash) → `/set-password`. Deactivation is
+  `profiles.is_active` (admin-only; `getMyProfile` also rejects inactive users).
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.
@@ -167,4 +173,9 @@ warm editorial typography with contemporary Maghreb architecture and a cinematic
   and wrap interpolated values in `<bdi>` (`t.rich(..., { n: (c) => <bdi>{c}</bdi> })`).
 - Nav items for modules that aren't built yet stay `available: false` (disabled "Bientôt" pill).
   Flip the flag in the same PR that ships the module. Never add a dead link.
+- Supabase sign-out is **global**: logging an account out ends all its sessions. e2e specs that
+  mutate data use their own seeded account (`admin2@almanar.test`) so parallel specs don't log each other out.
+- GoTrue's invite inserts the user, then sets `invited_at` in a later UPDATE: provisioning must hook both.
+- Port 3100 may be held by another tool: run e2e with `E2E_PORT=3190 pnpm test:e2e`. Invite emails
+  are read from Mailpit (`http://127.0.0.1:54324`) in tests.
 - Toolchain pins and their reasons: [ADR 0006](docs/decisions/0006-toolchain-versions.md).

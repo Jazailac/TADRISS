@@ -102,3 +102,10 @@ insert into auth.users (
   '{"signup_intent":"accept_invitation","invitation_id":"10000000-0000-4000-8000-0000000003a1","locale":"fr"}',
   now(), now(), '', '', '', ''
 );
+
+-- A second Al Manar admin, used by the people e2e suite so its sessions are independent of
+-- the shared `direction@` account (Supabase sign-out is global: logging one out ends all its sessions).
+select pg_temp.seed_user('10000000-0000-4000-8000-0000000000a2', 'admin2@almanar.test');
+insert into public.profiles (id, institution_id, role, first_name, last_name, locale, email)
+values ('10000000-0000-4000-8000-0000000000a2', '10000000-0000-4000-8000-000000000001',
+        'institution_admin', 'Rachid', 'Lahlou', 'fr', 'admin2@almanar.test');

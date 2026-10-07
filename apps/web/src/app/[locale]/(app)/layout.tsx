@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
 import { AppShell } from '@/components/app-shell/app-shell';
+import { ToastProvider } from '@/components/ui/toast';
 import { redirect } from '@/i18n/navigation';
 import { getViewer } from '@/lib/viewer';
 
@@ -19,16 +20,18 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   const { session } = viewer;
   const { firstName, lastName, institution } = viewer.profile;
   return (
-    <AppShell
-      nav={session.role}
-      user={{
-        name: `${firstName} ${lastName}`,
-        initials: `${firstName.slice(0, 1)}${lastName.slice(0, 1)}`.toUpperCase(),
-        role: t(`roles.${session.role}`),
-        school: institution?.name ?? t('platform'),
-      }}
-    >
-      {children}
-    </AppShell>
+    <ToastProvider>
+      <AppShell
+        nav={session.role}
+        user={{
+          name: `${firstName} ${lastName}`,
+          initials: `${firstName.slice(0, 1)}${lastName.slice(0, 1)}`.toUpperCase(),
+          role: t(`roles.${session.role}`),
+          school: institution?.name ?? t('platform'),
+        }}
+      >
+        {children}
+      </AppShell>
+    </ToastProvider>
   );
 }

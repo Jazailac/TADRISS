@@ -147,6 +147,61 @@ create trigger profiles_guard_activation
 -- Provisioning: replaces the onboarding trigger so it also handles invitations.
 -- ─────────────────────────────────────────────────────────────────────────────
 
+-- Turns a pending invitation into a profile. Raises `invalid_invitation` when the invitation id,
+-- address, status or expiry don't line up. Idempotent for users that already have a profile.
+create function private.provision_invited_user(uid uuid, mail text, meta jsonb)
+returns void
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  inv public.invitations;
+  locale text := case when meta ->> 'locale' in ('fr', 'ar', 'en') then meta ->> 'locale' else 'fr' end;
+begin
+  if exists (select 1 from public.profiles p where p.id = uid) then
+    return;
+  end if;
+
+  select * into inv
+    from public.invitations i
+   where i.id = nullif(meta ->> 'invitation_id', '')::uuid
+     and i.email = lower(mail)
+     and i.status = 'pending'
+     and i.expires_at > now()
+   for update;
+  if not found then
+    raise exception 'invalid_invitation' using errcode = 'P0001';
+  end if;
+
+  insert into public.profiles (id, institution_id, role, first_name, last_name, locale, email)
+  values (uid, inv.institution_id, inv.role, inv.first_name, inv.last_name, locale, lower(mail));
+end;
+$$;
+revoke execute on function private.provision_invited_user(uuid, text, jsonb) from public, anon, authenticated;
+
+-- GoTrue's admin invite inserts the user and sets `invited_at` in a later UPDATE, so provisioning
+-- must also run when the column flips from null. Only the service-role invite endpoint writes it.
+create function private.handle_user_invited()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if new.raw_user_meta_data ->> 'signup_intent' = 'accept_invitation' then
+    perform private.provision_invited_user(new.id, new.email, new.raw_user_meta_data);
+  end if;
+  return new;
+end;
+$$;
+revoke execute on function private.handle_user_invited() from public, anon, authenticated;
+
+create trigger on_auth_user_invited
+  after update of invited_at on auth.users
+  for each row when (old.invited_at is null and new.invited_at is not null)
+  execute function private.handle_user_invited();
+
 create or replace function private.handle_new_user()
 returns trigger
 language plpgsql
@@ -161,28 +216,13 @@ declare
   candidate text;
   n int := 1;
   new_institution uuid;
-  inv public.invitations;
 begin
   if intent = 'accept_invitation' then
-    -- `invited_at` is only ever set by the service-role invite endpoint. A public sign-up that
-    -- merely claims this intent is ignored (no profile, so no claims, so no access).
-    if new.invited_at is null then
-      return new;
+    -- Public sign-up can claim this intent but never sets `invited_at`, so it gets no profile.
+    -- (GoTrue's invite endpoint usually sets it in a later UPDATE: see handle_user_invited.)
+    if new.invited_at is not null then
+      perform private.provision_invited_user(new.id, new.email, meta);
     end if;
-
-    select * into inv
-      from public.invitations i
-     where i.id = nullif(meta ->> 'invitation_id', '')::uuid
-       and i.email = lower(new.email)
-       and i.status = 'pending'
-       and i.expires_at > now()
-     for update;
-    if not found then
-      raise exception 'invalid_invitation' using errcode = 'P0001';
-    end if;
-
-    insert into public.profiles (id, institution_id, role, first_name, last_name, locale, email)
-    values (new.id, inv.institution_id, inv.role, inv.first_name, inv.last_name, locale, lower(new.email));
     return new;
   end if;
 

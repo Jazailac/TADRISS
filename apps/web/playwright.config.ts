@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const PORT = 3100;
+const PORT = Number(process.env.E2E_PORT ?? 3100);
 const widths = [375, 768, 1280] as const;
 
 /**
@@ -30,6 +30,8 @@ export default defineConfig({
   webServer: {
     // Always test the production build, never the dev server.
     command: `pnpm build && pnpm start --port ${PORT}`,
+    // Redirects and emailed links are built from this URL, so it must be the port under test.
+    env: { NEXT_PUBLIC_APP_URL: `http://localhost:${PORT}` },
     url: `http://localhost:${PORT}`,
     // Never reuse: a stale server from an earlier build silently tests old code.
     reuseExistingServer: false,

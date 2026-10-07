@@ -4,7 +4,10 @@
     "description": "School management for private institutions in Morocco: attendance, grades, timetables, fees and receipts in MAD."
   },
   "common": {
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save"
   },
   "nav": {
     "brand": "Tadriss",
@@ -254,6 +257,15 @@
       "checkEmailTitle": "Check your inbox",
       "checkEmailBody": "We sent you a link to confirm your address. Your workspace will be ready as soon as you confirm.",
       "linkExpired": "This link has expired or was already used. Log in, or request a new link."
+    },
+    "setPassword": {
+      "title": "Choose your password",
+      "subtitle": "Last step: secure your account to enter your school’s workspace.",
+      "submit": "Save and continue",
+      "fields": {
+        "password": "New password",
+        "confirm": "Confirm password"
+      }
     }
   },
   "validation": {
@@ -261,7 +273,8 @@
     "email": "Invalid email address.",
     "passwordMin": "At least 8 characters.",
     "nameMin": "At least 2 characters.",
-    "tooLong": "Too long."
+    "tooLong": "Too long.",
+    "passwordMismatch": "The passwords do not match."
   },
   "shell": {
     "navigation": "App navigation",
@@ -450,7 +463,7 @@
         },
         "team": {
           "label": "Invite teachers and students",
-          "detail": "Available in the next step (users & invitations)."
+          "detail": "Invite them from the Teachers and Students pages."
         },
         "classes": {
           "label": "Create classes",
@@ -701,6 +714,125 @@
         "two": "DOM panels keep the experience fast, accessible, and indexable.",
         "three": "Depth supports orientation; it never becomes a show by itself."
       }
+    }
+  },
+  "people": {
+    "title": {
+      "teacher": "Teachers",
+      "student": "Students"
+    },
+    "subtitle": {
+      "teacher": "Invite your teaching staff and manage their access.",
+      "student": "Invite your students and manage their access."
+    },
+    "stats": {
+      "active": "Active",
+      "inactive": "Deactivated",
+      "invited": "Pending invitations"
+    },
+    "search": {
+      "label": "Search",
+      "placeholder": "Name or email…",
+      "submit": "Search"
+    },
+    "filters": {
+      "label": "Status",
+      "all": "All",
+      "active": "Active",
+      "inactive": "Deactivated"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Deactivated",
+      "invited": "Invited"
+    },
+    "actions": {
+      "invite": {
+        "teacher": "Invite a teacher",
+        "student": "Invite a student"
+      },
+      "edit": "Edit",
+      "deactivate": "Deactivate",
+      "activate": "Reactivate",
+      "resend": "Resend",
+      "revoke": "Revoke",
+      "editLabel": "Edit {name}",
+      "deactivateLabel": "Deactivate {name}",
+      "activateLabel": "Reactivate {name}",
+      "resendLabel": "Resend the invitation to {email}",
+      "revokeLabel": "Revoke the invitation for {email}"
+    },
+    "list": {
+      "label": {
+        "teacher": "Teachers list",
+        "student": "Students list"
+      },
+      "noEmail": "No email"
+    },
+    "empty": {
+      "teacher": {
+        "title": "No teachers yet",
+        "body": "Invite your first teacher: they’ll get an email to choose their password."
+      },
+      "student": {
+        "title": "No students yet",
+        "body": "Invite your first student: they’ll get an email to choose their password."
+      }
+    },
+    "noResults": {
+      "title": "No results",
+      "body": "Nobody matches your search or this filter.",
+      "clear": "Reset"
+    },
+    "error": {
+      "title": "Couldn’t load the list",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "range": "{from, number}–{to, number} of {total, number}"
+    },
+    "invitations": {
+      "title": "Pending invitations",
+      "subtitle": "These people haven’t chosen their password yet.",
+      "expires": "Expires {date}",
+      "expired": "Expired",
+      "sentTo": "Sent to <e>{email}</e>"
+    },
+    "invite": {
+      "title": {
+        "teacher": "Invite a teacher",
+        "student": "Invite a student"
+      },
+      "description": "An invitation email valid for 7 days will be sent. They will choose their own password.",
+      "fields": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email address"
+      },
+      "placeholders": {
+        "email": "first.last@school.ma"
+      },
+      "submit": "Send invitation"
+    },
+    "edit": {
+      "title": "Edit {name}",
+      "description": "Email and role can’t be changed here."
+    },
+    "deactivate": {
+      "title": "Deactivate {name}?",
+      "body": "They will no longer be able to sign in. Their data is kept and you can reactivate them at any time.",
+      "confirm": "Deactivate"
+    },
+    "feedback": {
+      "invited": "Invitation sent to {email}.",
+      "resent": "Invitation resent.",
+      "revoked": "Invitation revoked.",
+      "activated": "Account reactivated.",
+      "deactivated": "Account deactivated.",
+      "saved": "Changes saved."
     }
   }
 }

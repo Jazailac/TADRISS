@@ -2,7 +2,7 @@
 -- cross-tenant denial, and the provisioning triggers' trust boundary (invited_at).
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(36);
+select plan(38);
 
 -- ── fixtures (as postgres, bypassing RLS) ────────────────────────────────────
 insert into public.institutions (id, name, slug) values
@@ -156,6 +156,20 @@ insert into auth.users (id, email, raw_user_meta_data) values
    '{"signup_intent":"accept_invitation","invitation_id":"a1000000-0000-4000-8000-000000000001"}');
 select is_empty($$ select 1 from public.profiles where id = 'c0000000-0000-4000-8000-000000000001' $$,
   'trigger: intent without invited_at creates no profile');
+
+-- GoTrue's real order: insert the user, then set invited_at in a separate UPDATE.
+update auth.users set invited_at = now() where id = 'c0000000-0000-4000-8000-000000000001';
+select results_eq(
+  $$ select institution_id, role, email from public.profiles where id = 'c0000000-0000-4000-8000-000000000001' $$,
+  $$ values ('a0000000-0000-4000-8000-000000000001'::uuid, 'student', 'pending-a@test.ma') $$,
+  'trigger: invite endpoint order (insert, then set invited_at) provisions the profile');
+
+insert into auth.users (id, email, raw_user_meta_data) values
+  ('c0000000-0000-4000-8000-000000000005', 'nobody@test.ma',
+   '{"signup_intent":"accept_invitation","invitation_id":"a1000000-0000-4000-8000-000000000001"}');
+select throws_ok(
+  $$ update auth.users set invited_at = now() where id = 'c0000000-0000-4000-8000-000000000005' $$,
+  'P0001', 'invalid_invitation', 'trigger: invitation for another address is rejected on the later UPDATE too');
 
 select throws_ok(
   $$ insert into auth.users (id, email, invited_at, raw_user_meta_data)

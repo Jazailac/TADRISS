@@ -59,6 +59,7 @@
     "email": "Invalid email address.",
     "passwordMin": "At least 8 characters.",
     "nameMin": "At least 2 characters.",
-    "tooLong": "Too long."
+    "tooLong": "Too long.",
+    "passwordMismatch": "The passwords do not match."
   }
 }

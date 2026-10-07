@@ -39,8 +39,8 @@ const admin: NavGroup[] = [
   {
     key: 'school',
     items: [
-      item('students', '/dashboard/students', Users),
-      item('teachers', '/dashboard/teachers', GraduationCap),
+      item('students', '/dashboard/students', Users, true),
+      item('teachers', '/dashboard/teachers', GraduationCap, true),
       item('classes', '/dashboard/classes', BookOpen),
       item('schedule', '/dashboard/schedule', Clock),
     ],

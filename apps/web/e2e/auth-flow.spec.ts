@@ -45,8 +45,11 @@ test.describe('sign-in by role', () => {
     await expect(page).toHaveURL(/\/dashboard$/);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Bonjour, Salma');
     if (wide(page)) await expect(page.getByText('Groupe scolaire Al Manar').first()).toBeVisible();
-    // Modules not built yet are disabled, never dead links.
-    if (wide(page)) await expect(page.getByRole('link', { name: 'Élèves' })).toHaveCount(0);
+    // Built modules are links; modules not built yet stay disabled, never dead links.
+    if (wide(page)) {
+      await expect(page.getByRole('link', { name: 'Élèves' })).toBeVisible();
+      await expect(page.getByRole('link', { name: 'Classes' })).toHaveCount(0);
+    }
   });
 
   test('teacher lands on /teacher and cannot open the admin area', async ({ page }) => {

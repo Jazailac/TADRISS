@@ -2,11 +2,14 @@
 
 import {
   areaFor,
+  currentSession,
   defaultLocale,
   fieldErrors,
   homePath,
   isLocale,
   loginInput,
+  setPassword,
+  setPasswordInput,
   signIn,
   signOut,
   signUp,
@@ -89,4 +92,24 @@ export async function logout(fd: FormData): Promise<void> {
   const supabase = await getServerClient();
   await signOut(supabase);
   redirect({ href: '/login', locale: localeOf(fd) });
+}
+
+/** First password after accepting an invitation. Needs the session `/auth/confirm` created. */
+export async function choosePassword(_prev: AuthState, fd: FormData): Promise<AuthState> {
+  const locale = localeOf(fd);
+  const parsed = setPasswordInput.safeParse({
+    password: fd.get('password'),
+    confirm: fd.get('confirm'),
+  });
+  if (!parsed.success) return { error: 'validation', fields: fieldErrors(parsed.error) };
+
+  const supabase = await getServerClient();
+  const { data } = await supabase.auth.getUser();
+  if (!data.user) return redirect({ href: '/login?error=link', locale });
+
+  const res = await setPassword(supabase, parsed.data.password);
+  if (!res.ok) return { error: res.error };
+
+  const session = await currentSession(supabase);
+  return redirect({ href: homePath[session?.role ?? 'student'], locale });
 }
