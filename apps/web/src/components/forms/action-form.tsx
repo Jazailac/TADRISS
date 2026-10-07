@@ -4,8 +4,12 @@ import {
   classInput,
   fieldErrors,
   inviteInput,
+  slotInput,
+  subjectInput,
   updateClassInput,
   updateMemberInput,
+  updateSlotInput,
+  updateSubjectInput,
   type ValidationKey,
 } from '@tadriss/shared';
 import { AlertCircle } from 'lucide-react';
@@ -18,7 +22,7 @@ import { Field, FieldError, Input, Label, Select } from '../ui/field';
 export type FormField = {
   name: string;
   label: string;
-  kind: 'text' | 'email' | 'number' | 'select';
+  kind: 'text' | 'email' | 'number' | 'select' | 'time';
   /** Required for `select`. */
   options?: { value: string; label: string }[];
   autoComplete?: string;
@@ -33,6 +37,10 @@ const schemas = {
   updateMember: updateMemberInput,
   createClass: classInput,
   updateClass: updateClassInput,
+  createSlot: slotInput,
+  updateSlot: updateSlotInput,
+  createSubject: subjectInput,
+  updateSubject: updateSubjectInput,
 } as const;
 
 /**
@@ -156,7 +164,9 @@ export function ActionForm({
                 inputMode={
                   f.kind === 'email' ? 'email' : f.kind === 'number' ? 'numeric' : undefined
                 }
-                dir={f.kind === 'email' || f.kind === 'number' ? 'ltr' : 'auto'}
+                dir={
+                  f.kind === 'email' || f.kind === 'number' || f.kind === 'time' ? 'ltr' : 'auto'
+                }
                 placeholder={f.placeholder}
                 defaultValue={state?.values?.[f.name] ?? defaults?.[f.name]}
                 aria-invalid={err ? true : undefined}

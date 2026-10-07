@@ -13,6 +13,8 @@ export const validationKeys = [
   'tooLong',
   'capacityRange',
   'invalidYear',
+  'invalidTime',
+  'timeOrder',
 ] as const;
 export type ValidationKey = (typeof validationKeys)[number];
 

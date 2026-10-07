@@ -42,7 +42,7 @@ const admin: NavGroup[] = [
       item('students', '/dashboard/students', Users, true),
       item('teachers', '/dashboard/teachers', GraduationCap, true),
       item('classes', '/dashboard/classes', BookOpen, true),
-      item('schedule', '/dashboard/schedule', Clock),
+      item('schedule', '/dashboard/schedule', Clock, true),
     ],
   },
   {
@@ -69,7 +69,7 @@ const teacher: NavGroup[] = [
     key: 'daily',
     items: [
       item('classes', '/teacher/classes', BookOpen, true),
-      item('schedule', '/teacher/schedule', Clock),
+      item('schedule', '/teacher/schedule', Clock, true),
       item('attendance', '/teacher/attendance', CalendarCheck),
       item('homework', '/teacher/homework', ClipboardList),
       item('grades', '/teacher/grades', BarChart3),
@@ -83,7 +83,7 @@ const student: NavGroup[] = [
   {
     key: 'daily',
     items: [
-      item('schedule', '/student/schedule', Clock),
+      item('schedule', '/student/schedule', Clock, true),
       item('homework', '/student/homework', ClipboardList),
       item('attendance', '/student/attendance', CalendarCheck),
       item('grades', '/student/grades', BarChart3),

@@ -173,3 +173,10 @@ from (values
   ('404','501','103', 1, 645, 705, 'D4'), ('404','505','103', 2, 645, 705, 'D4'),
   ('404','501','103', 3, 510, 570, 'D4'), ('404','506','103', 4, 570, 630, 'D4')
 ) as m(cls, subj, tch, wd, s, e, room);
+
+-- A student who never gets a class (sorts last by surname, so e2e "first two candidates" never pick
+-- them): used to show the "no class yet" states on student pages.
+select pg_temp.seed_user('10000000-0000-4000-8000-000000000231', 'eleve31@almanar.test');
+insert into public.profiles (id, institution_id, role, first_name, last_name, locale, email)
+values ('10000000-0000-4000-8000-000000000231', '10000000-0000-4000-8000-000000000001',
+        'student', 'Anouar', 'Zahiri', 'fr', 'eleve31@almanar.test');

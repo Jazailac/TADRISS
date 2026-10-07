@@ -276,7 +276,9 @@
     "tooLong": "Trop long.",
     "passwordMismatch": "Les mots de passe ne correspondent pas.",
     "capacityRange": "Entre 1 et 200.",
-    "invalidYear": "Année scolaire invalide."
+    "invalidYear": "Année scolaire invalide.",
+    "invalidTime": "Heure invalide (entre 06:00 et 22:00).",
+    "timeOrder": "La fin doit être après le début."
   },
   "shell": {
     "navigation": "Navigation de l’application",
@@ -452,7 +454,9 @@
     "email_not_confirmed": "Confirmez votre adresse e-mail avant de vous connecter.",
     "account_disabled": "Ce compte est désactivé. Contactez votre établissement.",
     "class_full": "Cette classe est complète.",
-    "class_archived": "Cette classe est archivée."
+    "class_archived": "Cette classe est archivée.",
+    "slot_class_busy": "Cette classe a déjà un cours sur ce créneau.",
+    "slot_teacher_busy": "Cet enseignant a déjà un cours sur ce créneau."
   },
   "app": {
     "greeting": "Bonjour, <n>{name}</n>",
@@ -963,6 +967,120 @@
     "notFound": {
       "title": "Classe introuvable",
       "body": "Cette classe n’existe pas ou vous n’y avez pas accès."
+    }
+  },
+  "schedule": {
+    "title": "Emploi du temps",
+    "subtitle": {
+      "admin": "Construisez la semaine de chaque classe, sans chevauchement ni double réservation.",
+      "teacher": "Vos cours de la semaine.",
+      "student": "Les cours de votre classe."
+    },
+    "class": {
+      "label": "Classe",
+      "nav": "Choisir une classe",
+      "year": "Année scolaire",
+      "apply": "Afficher"
+    },
+    "grid": {
+      "label": "Emploi du temps hebdomadaire",
+      "agenda": "Cours par jour",
+      "room": "Salle {room}",
+      "noLessons": "Aucun cours",
+      "open": "Modifier le cours {subject}, {day} {time}"
+    },
+    "actions": {
+      "add": "Ajouter un cours",
+      "subjects": "Matières"
+    },
+    "lesson": {
+      "newTitle": "Nouveau cours",
+      "editTitle": "Modifier le cours",
+      "description": "Un cours ne peut pas chevaucher un autre cours de la classe ni de l’enseignant.",
+      "fields": {
+        "subject": "Matière",
+        "teacher": "Enseignant",
+        "weekday": "Jour",
+        "start": "Début",
+        "end": "Fin",
+        "room": "Salle (facultatif)"
+      },
+      "placeholders": {
+        "room": "A1"
+      },
+      "create": "Ajouter le cours",
+      "noTeachers": "Affectez d’abord un enseignant à cette classe.",
+      "noSubjects": "Créez d’abord une matière.",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer ce cours ?",
+      "deleteBody": "Il disparaît de l’emploi du temps. Cette action est définitive."
+    },
+    "subjects": {
+      "title": "Matières",
+      "description": "Les matières de l’établissement, utilisées dans tous les emplois du temps.",
+      "fields": {
+        "name": "Nom de la matière",
+        "color": "Couleur"
+      },
+      "placeholders": {
+        "name": "Mathématiques"
+      },
+      "add": "Ajouter",
+      "save": "Enregistrer",
+      "archive": "Archiver",
+      "restore": "Restaurer",
+      "archived": "Archivée",
+      "empty": "Aucune matière pour l’instant.",
+      "list": "Liste des matières",
+      "colors": {
+        "primary": "Bleu",
+        "accent": "Terre cuite",
+        "info": "Azur",
+        "success": "Vert",
+        "warning": "Ocre"
+      },
+      "edit": "Modifier",
+      "editLabel": "Modifier {name}",
+      "archiveLabel": "Archiver {name}",
+      "restoreLabel": "Restaurer {name}"
+    },
+    "feedback": {
+      "created": "Cours ajouté.",
+      "updated": "Cours mis à jour.",
+      "deleted": "Cours supprimé.",
+      "subjectCreated": "Matière ajoutée.",
+      "subjectUpdated": "Matière mise à jour.",
+      "subjectArchived": "Matière archivée.",
+      "subjectRestored": "Matière restaurée."
+    },
+    "empty": {
+      "noClasses": {
+        "title": "Aucune classe",
+        "body": "Créez d’abord une classe pour construire son emploi du temps.",
+        "cta": "Créer une classe"
+      },
+      "noLessons": {
+        "admin": {
+          "title": "Aucun cours dans cette classe",
+          "body": "Ajoutez le premier cours de la semaine."
+        },
+        "teacher": {
+          "title": "Aucun cours pour l’instant",
+          "body": "Votre direction n’a pas encore planifié vos cours."
+        },
+        "student": {
+          "title": "Aucun cours pour l’instant",
+          "body": "L’emploi du temps de votre classe n’est pas encore publié."
+        }
+      },
+      "noClassStudent": {
+        "title": "Vous n’avez pas encore de classe",
+        "body": "Votre direction doit d’abord vous inscrire dans une classe."
+      }
+    },
+    "error": {
+      "title": "Impossible de charger l’emploi du temps",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
     }
   }
 }

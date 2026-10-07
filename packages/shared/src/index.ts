@@ -8,5 +8,7 @@ export * from './schemas/auth';
 export * from './schemas/people';
 export * from './schemas/classes';
 export * from './classes';
+export * from './schemas/schedule';
+export * from './schedule';
 export * from './people';
 export * from './auth';

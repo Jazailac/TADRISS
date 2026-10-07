@@ -79,6 +79,12 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   capacity. Bulk writes are `SECURITY INVOKER` RPCs (`enrol_students`, `set_class_teachers`,
   `enrolable_students`). Teachers read only the classes they teach and those students' profiles.
   Pages: `/dashboard/classes[/id]` (admin), `/teacher/classes[/id]` (read-only).
+- **Schedule (Phase 4):** `subjects` (colour is a token name) and `timetable_slots` (weekday 1–6, times as
+  minutes since midnight). Exclusion constraints forbid class and teacher overlaps; a composite FK to
+  `class_teachers` means only assigned teachers can teach a class. `private.my_class_ids()` is the one
+  SECURITY DEFINER helper that breaks the enrolments↔class_teachers policy cycle
+  ([ADR 0013](docs/decisions/0013-security-definer-membership-helper.md)). Pages: `/dashboard/schedule`
+  (edit), `/teacher/schedule`, `/student/schedule` (read-only). Desktop grid, phone agenda.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.

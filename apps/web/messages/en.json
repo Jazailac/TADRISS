@@ -276,7 +276,9 @@
     "tooLong": "Too long.",
     "passwordMismatch": "The passwords do not match.",
     "capacityRange": "Between 1 and 200.",
-    "invalidYear": "Invalid school year."
+    "invalidYear": "Invalid school year.",
+    "invalidTime": "Invalid time (between 06:00 and 22:00).",
+    "timeOrder": "The end must be after the start."
   },
   "shell": {
     "navigation": "App navigation",
@@ -452,7 +454,9 @@
     "email_not_confirmed": "Confirm your email address before signing in.",
     "account_disabled": "This account is disabled. Contact your school.",
     "class_full": "This class is full.",
-    "class_archived": "This class is archived."
+    "class_archived": "This class is archived.",
+    "slot_class_busy": "This class already has a lesson at that time.",
+    "slot_teacher_busy": "This teacher already has a lesson at that time."
   },
   "app": {
     "greeting": "Hello, <n>{name}</n>",
@@ -963,6 +967,120 @@
     "notFound": {
       "title": "Class not found",
       "body": "This class doesn’t exist or you don’t have access to it."
+    }
+  },
+  "schedule": {
+    "title": "Timetable",
+    "subtitle": {
+      "admin": "Build each class’s week, with no overlaps or double-booked teachers.",
+      "teacher": "Your lessons this week.",
+      "student": "Your class’s lessons."
+    },
+    "class": {
+      "label": "Class",
+      "nav": "Choose a class",
+      "year": "School year",
+      "apply": "Show"
+    },
+    "grid": {
+      "label": "Weekly timetable",
+      "agenda": "Lessons by day",
+      "room": "Room {room}",
+      "noLessons": "No lessons",
+      "open": "Edit the {subject} lesson, {day} {time}"
+    },
+    "actions": {
+      "add": "Add a lesson",
+      "subjects": "Subjects"
+    },
+    "lesson": {
+      "newTitle": "New lesson",
+      "editTitle": "Edit lesson",
+      "description": "A lesson cannot overlap another lesson of the class or of the teacher.",
+      "fields": {
+        "subject": "Subject",
+        "teacher": "Teacher",
+        "weekday": "Day",
+        "start": "Start",
+        "end": "End",
+        "room": "Room (optional)"
+      },
+      "placeholders": {
+        "room": "A1"
+      },
+      "create": "Add lesson",
+      "noTeachers": "Assign a teacher to this class first.",
+      "noSubjects": "Create a subject first.",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this lesson?",
+      "deleteBody": "It disappears from the timetable. This cannot be undone."
+    },
+    "subjects": {
+      "title": "Subjects",
+      "description": "The school’s subjects, used in every timetable.",
+      "fields": {
+        "name": "Subject name",
+        "color": "Colour"
+      },
+      "placeholders": {
+        "name": "Mathematics"
+      },
+      "add": "Add",
+      "save": "Save",
+      "archive": "Archive",
+      "restore": "Restore",
+      "archived": "Archived",
+      "empty": "No subjects yet.",
+      "list": "Subjects list",
+      "colors": {
+        "primary": "Blue",
+        "accent": "Terracotta",
+        "info": "Azure",
+        "success": "Green",
+        "warning": "Ochre"
+      },
+      "edit": "Edit",
+      "editLabel": "Edit {name}",
+      "archiveLabel": "Archive {name}",
+      "restoreLabel": "Restore {name}"
+    },
+    "feedback": {
+      "created": "Lesson added.",
+      "updated": "Lesson updated.",
+      "deleted": "Lesson deleted.",
+      "subjectCreated": "Subject added.",
+      "subjectUpdated": "Subject updated.",
+      "subjectArchived": "Subject archived.",
+      "subjectRestored": "Subject restored."
+    },
+    "empty": {
+      "noClasses": {
+        "title": "No classes",
+        "body": "Create a class first to build its timetable.",
+        "cta": "Create a class"
+      },
+      "noLessons": {
+        "admin": {
+          "title": "No lessons in this class",
+          "body": "Add the first lesson of the week."
+        },
+        "teacher": {
+          "title": "No lessons yet",
+          "body": "Your administration hasn’t scheduled your lessons yet."
+        },
+        "student": {
+          "title": "No lessons yet",
+          "body": "Your class’s timetable isn’t published yet."
+        }
+      },
+      "noClassStudent": {
+        "title": "You don’t have a class yet",
+        "body": "Your administration needs to enrol you in a class first."
+      }
+    },
+    "error": {
+      "title": "Couldn’t load the timetable",
+      "body": "Your data was not changed. Try again in a moment."
     }
   }
 }

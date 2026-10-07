@@ -18,6 +18,8 @@ export const errorCodes = [
   'account_disabled',
   'class_full',
   'class_archived',
+  'slot_class_busy',
+  'slot_teacher_busy',
   'unknown',
 ] as const;
 export type ErrorCode = (typeof errorCodes)[number];
@@ -34,6 +36,10 @@ export function toErrorCode(
       if (e.message === 'class_full') return 'class_full';
       if (e.message === 'class_archived') return 'class_archived';
       return 'unknown';
+    case '23P01': // exclusion_violation: the timetable overlap constraints
+      if (e.message?.includes('timetable_slots_class_no_overlap')) return 'slot_class_busy';
+      if (e.message?.includes('timetable_slots_teacher_no_overlap')) return 'slot_teacher_busy';
+      return 'conflict';
     case 'P0002': // no_data_found (e.g. the class is invisible or archived)
       return 'not_found';
     case '23505': // unique_violation

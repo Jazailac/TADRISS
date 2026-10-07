@@ -36,7 +36,9 @@
     "email_not_confirmed": "Confirmez votre adresse e-mail avant de vous connecter.",
     "account_disabled": "Ce compte est désactivé. Contactez votre établissement.",
     "class_full": "Cette classe est complète.",
-    "class_archived": "Cette classe est archivée."
+    "class_archived": "Cette classe est archivée.",
+    "slot_class_busy": "Cette classe a déjà un cours sur ce créneau.",
+    "slot_teacher_busy": "Cet enseignant a déjà un cours sur ce créneau."
   },
   "login": {
     "title": "Bon retour",
@@ -64,6 +66,8 @@
     "tooLong": "Trop long.",
     "passwordMismatch": "Les mots de passe ne correspondent pas.",
     "capacityRange": "Entre 1 et 200.",
-    "invalidYear": "Année scolaire invalide."
+    "invalidYear": "Année scolaire invalide.",
+    "invalidTime": "Heure invalide (entre 06:00 et 22:00).",
+    "timeOrder": "La fin doit être après le début."
   }
 }
