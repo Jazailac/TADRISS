@@ -198,3 +198,28 @@ select s.institution_id, s.id, e.student_id,
 from public.attendance_sessions s
 join public.enrolments e on e.class_id = s.class_id and e.status = 'active'
 cross join lateral (select abs(hashtext(e.student_id::text || s.session_date::text)) % 100 as v) x;
+
+-- ── Phase 6: homework and who has done it (Al Manar) ────────────────────────
+insert into public.homework (id, institution_id, class_id, subject_id, teacher_id, title, description, due_date) values
+  ('10000000-0000-4000-8000-000000000601', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000401',
+   '10000000-0000-4000-8000-000000000501', '10000000-0000-4000-8000-000000000101', 'Exercices 1 à 5, page 42', 'Les fractions : refaire les exercices en détaillant chaque étape.', '2026-10-02'),
+  ('10000000-0000-4000-8000-000000000602', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000401',
+   '10000000-0000-4000-8000-000000000502', '10000000-0000-4000-8000-000000000101', 'Rédaction : mon quartier', 'Une page, avec au moins trois adjectifs par paragraphe.', '2026-10-09'),
+  ('10000000-0000-4000-8000-000000000603', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000401',
+   '10000000-0000-4000-8000-000000000505', '10000000-0000-4000-8000-000000000101', 'Fiche de révision', null, '2026-10-14'),
+  ('10000000-0000-4000-8000-000000000604', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000402',
+   '10000000-0000-4000-8000-000000000501', '10000000-0000-4000-8000-000000000102', 'Problèmes de géométrie', 'Problèmes 3, 4 et 7 du manuel.', '2026-10-08'),
+  ('10000000-0000-4000-8000-000000000605', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000402',
+   '10000000-0000-4000-8000-000000000502', '10000000-0000-4000-8000-000000000101', 'Lecture du chapitre 3', null, '2026-10-12'),
+  ('10000000-0000-4000-8000-000000000606', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000403',
+   '10000000-0000-4000-8000-000000000505', '10000000-0000-4000-8000-000000000102', 'Exposé sur le cycle de l’eau', 'Par groupes de deux, cinq minutes à l’oral.', '2026-10-16'),
+  ('10000000-0000-4000-8000-000000000607', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000403',
+   '10000000-0000-4000-8000-000000000506', '10000000-0000-4000-8000-000000000103', 'Frise chronologique', 'Placer les dix dates clés du chapitre.', '2026-10-10');
+
+-- ~65% of students have finished the older homework, ~30% the newer (deterministic hash).
+insert into public.homework_completions (institution_id, homework_id, student_id, completed_at)
+select h.institution_id, h.id, e.student_id, (h.due_date - 1)::timestamptz + interval '18 hours'
+from public.homework h
+join public.enrolments e on e.class_id = h.class_id and e.status = 'active'
+cross join lateral (select abs(hashtext(e.student_id::text || h.id::text)) % 100 as v) x
+where x.v < case when h.due_date < '2026-10-08' then 65 else 30 end;

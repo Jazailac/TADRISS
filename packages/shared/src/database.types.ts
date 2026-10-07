@@ -266,6 +266,109 @@ export type Database = {
           },
         ];
       };
+      homework: {
+        Row: {
+          class_id: string;
+          created_at: string;
+          deleted_at: string | null;
+          description: string | null;
+          due_date: string;
+          id: string;
+          institution_id: string;
+          subject_id: string;
+          teacher_id: string;
+          title: string;
+          updated_at: string;
+        };
+        Insert: {
+          class_id: string;
+          created_at?: string;
+          deleted_at?: string | null;
+          description?: string | null;
+          due_date: string;
+          id?: string;
+          institution_id: string;
+          subject_id: string;
+          teacher_id?: string;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          class_id?: string;
+          created_at?: string;
+          deleted_at?: string | null;
+          description?: string | null;
+          due_date?: string;
+          id?: string;
+          institution_id?: string;
+          subject_id?: string;
+          teacher_id?: string;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'homework_class_id_institution_id_fkey';
+            columns: ['class_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'classes';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'homework_class_id_teacher_id_fkey';
+            columns: ['class_id', 'teacher_id'];
+            isOneToOne: false;
+            referencedRelation: 'class_teachers';
+            referencedColumns: ['class_id', 'teacher_id'];
+          },
+          {
+            foreignKeyName: 'homework_subject_id_institution_id_fkey';
+            columns: ['subject_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'subjects';
+            referencedColumns: ['id', 'institution_id'];
+          },
+        ];
+      };
+      homework_completions: {
+        Row: {
+          completed_at: string;
+          homework_id: string;
+          id: string;
+          institution_id: string;
+          student_id: string;
+        };
+        Insert: {
+          completed_at?: string;
+          homework_id: string;
+          id?: string;
+          institution_id: string;
+          student_id?: string;
+        };
+        Update: {
+          completed_at?: string;
+          homework_id?: string;
+          id?: string;
+          institution_id?: string;
+          student_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'homework_completions_homework_id_institution_id_fkey';
+            columns: ['homework_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'homework';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'homework_completions_institution_id_student_id_fkey';
+            columns: ['institution_id', 'student_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
       institutions: {
         Row: {
           created_at: string;
