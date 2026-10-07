@@ -49,7 +49,9 @@
     "payment_exceeds_balance": "The amount is more than what’s left to pay.",
     "invoice_void": "This invoice is void.",
     "has_payments": "Void this invoice’s payments first.",
-    "recipient_inactive": "This account is deactivated and can no longer receive messages."
+    "recipient_inactive": "This account is deactivated and can no longer receive messages.",
+    "file_too_large": "This file is over 10 MB.",
+    "file_type": "This file type isn’t accepted."
   },
   "login": {
     "title": "Welcome back",
@@ -83,6 +85,9 @@
     "invalidDate": "Invalid date.",
     "maxScoreRange": "Between 1 and 100.",
     "coefficientRange": "Between 0.5 and 10, in steps of 0.5.",
-    "invalidAmount": "Invalid amount (0.01 to 1,000,000 MAD)."
+    "invalidAmount": "Invalid amount (0.01 to 1,000,000 MAD).",
+    "fileRequired": "Choose a file.",
+    "fileTooLarge": "This file is over 10 MB.",
+    "fileType": "This file type isn’t accepted."
   }
 }

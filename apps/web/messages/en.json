@@ -282,7 +282,10 @@
     "invalidDate": "Invalid date.",
     "maxScoreRange": "Between 1 and 100.",
     "coefficientRange": "Between 0.5 and 10, in steps of 0.5.",
-    "invalidAmount": "Invalid amount (0.01 to 1,000,000 MAD)."
+    "invalidAmount": "Invalid amount (0.01 to 1,000,000 MAD).",
+    "fileRequired": "Choose a file.",
+    "fileTooLarge": "This file is over 10 MB.",
+    "fileType": "This file type isn’t accepted."
   },
   "shell": {
     "navigation": "App navigation",
@@ -472,7 +475,9 @@
     "payment_exceeds_balance": "The amount is more than what’s left to pay.",
     "invoice_void": "This invoice is void.",
     "has_payments": "Void this invoice’s payments first.",
-    "recipient_inactive": "This account is deactivated and can no longer receive messages."
+    "recipient_inactive": "This account is deactivated and can no longer receive messages.",
+    "file_too_large": "This file is over 10 MB.",
+    "file_type": "This file type isn’t accepted."
   },
   "app": {
     "greeting": "Hello, <n>{name}</n>",
@@ -1849,6 +1854,86 @@
     },
     "feedback": {
       "sent": "Message sent."
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "subtitle": {
+      "admin": "Share rules, circulars and course material with the whole school or a class.",
+      "teacher": "Documents from the administration, and the ones you share with your classes.",
+      "student": "Documents from your school and your teachers."
+    },
+    "views": {
+      "label": "View",
+      "active": "Published",
+      "deleted": "Deleted"
+    },
+    "list": "Documents",
+    "actions": {
+      "upload": "Add a document",
+      "download": "Download",
+      "downloadNamed": "Download {title}",
+      "edit": "Edit",
+      "editNamed": "Edit {title}",
+      "delete": "Delete",
+      "deleteNamed": "Delete {title}",
+      "restore": "Restore",
+      "restoreNamed": "Restore {title}"
+    },
+    "audience": {
+      "all": "The whole school",
+      "teachers": "All teachers",
+      "students": "All students",
+      "class": "Class <n>{name}</n>",
+      "classOption": "Class: {name}"
+    },
+    "by": "By <n>{name}</n>",
+    "size": {
+      "b": "B",
+      "kb": "KB",
+      "mb": "MB"
+    },
+    "form": {
+      "uploadTitle": "Add a document",
+      "uploadDescription": "It is available to its recipients right away.",
+      "editTitle": "Edit document",
+      "fields": {
+        "file": "File",
+        "audience": "Recipients",
+        "title": "Title",
+        "description": "Description (optional)"
+      },
+      "placeholders": {
+        "title": "School rules",
+        "description": "What is this document for?"
+      },
+      "limits": "PDF, images, Word, Excel, PowerPoint, text or CSV. 10 MB maximum.",
+      "upload": "Upload document",
+      "noClasses": "No class is assigned to you this year: you can’t share a document yet."
+    },
+    "feedback": {
+      "uploaded": "Document added.",
+      "updated": "Document updated.",
+      "deleted": "Document deleted.",
+      "restored": "Document restored."
+    },
+    "empty": {
+      "feed": {
+        "title": "No documents yet",
+        "body": "Your school’s documents will appear here."
+      },
+      "authored": {
+        "title": "No documents shared",
+        "body": "Add a document: it is available to its recipients right away."
+      },
+      "deleted": {
+        "title": "No deleted documents",
+        "body": "Documents you delete can be restored here."
+      }
+    },
+    "error": {
+      "title": "Couldn’t load documents",
+      "body": "Your data was not changed. Try again in a moment."
     }
   }
 }

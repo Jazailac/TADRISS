@@ -327,6 +327,72 @@ export type Database = {
           },
         ];
       };
+      documents: {
+        Row: {
+          audience: string;
+          class_id: string | null;
+          created_at: string;
+          deleted_at: string | null;
+          description: string | null;
+          file_name: string;
+          id: string;
+          institution_id: string;
+          mime_type: string;
+          size_bytes: number;
+          storage_path: string;
+          title: string;
+          updated_at: string;
+          uploader_id: string;
+        };
+        Insert: {
+          audience: string;
+          class_id?: string | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          description?: string | null;
+          file_name: string;
+          id?: string;
+          institution_id: string;
+          mime_type: string;
+          size_bytes: number;
+          storage_path: string;
+          title: string;
+          updated_at?: string;
+          uploader_id?: string;
+        };
+        Update: {
+          audience?: string;
+          class_id?: string | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          description?: string | null;
+          file_name?: string;
+          id?: string;
+          institution_id?: string;
+          mime_type?: string;
+          size_bytes?: number;
+          storage_path?: string;
+          title?: string;
+          updated_at?: string;
+          uploader_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'documents_class_id_institution_id_fkey';
+            columns: ['class_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'classes';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'documents_institution_id_uploader_id_fkey';
+            columns: ['institution_id', 'uploader_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
       enrolments: {
         Row: {
           class_id: string;

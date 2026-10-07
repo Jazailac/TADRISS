@@ -31,6 +31,8 @@ export const errorCodes = [
   'invoice_void',
   'has_payments',
   'recipient_inactive',
+  'file_too_large',
+  'file_type',
   'unknown',
 ] as const;
 export type ErrorCode = (typeof errorCodes)[number];

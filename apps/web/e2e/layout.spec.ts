@@ -25,6 +25,7 @@ const pages: Record<string, string[]> = {
     '/dashboard/finance',
     '/dashboard/announcements',
     '/dashboard/messages',
+    '/dashboard/documents',
   ],
   'prof1@almanar.test': [
     '/teacher',
@@ -35,6 +36,7 @@ const pages: Record<string, string[]> = {
     '/teacher/grades',
     '/teacher/announcements',
     '/teacher/messages',
+    '/teacher/documents',
   ],
   'eleve01@almanar.test': [
     '/student',
@@ -45,6 +47,7 @@ const pages: Record<string, string[]> = {
     '/student/payments',
     '/student/announcements',
     '/student/messages',
+    '/student/documents',
   ],
 };
 

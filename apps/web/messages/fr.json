@@ -282,7 +282,10 @@
     "invalidDate": "Date invalide.",
     "maxScoreRange": "Entre 1 et 100.",
     "coefficientRange": "Entre 0,5 et 10, par pas de 0,5.",
-    "invalidAmount": "Montant invalide (de 0,01 à 1 000 000 MAD)."
+    "invalidAmount": "Montant invalide (de 0,01 à 1 000 000 MAD).",
+    "fileRequired": "Choisissez un fichier.",
+    "fileTooLarge": "Ce fichier dépasse 10 Mo.",
+    "fileType": "Ce type de fichier n’est pas accepté."
   },
   "shell": {
     "navigation": "Navigation de l’application",
@@ -472,7 +475,9 @@
     "payment_exceeds_balance": "Le montant dépasse le reste à payer.",
     "invoice_void": "Cette facture est annulée.",
     "has_payments": "Annulez d’abord les paiements de cette facture.",
-    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages."
+    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
+    "file_too_large": "Ce fichier dépasse 10 Mo.",
+    "file_type": "Ce type de fichier n’est pas accepté."
   },
   "app": {
     "greeting": "Bonjour, <n>{name}</n>",
@@ -1849,6 +1854,86 @@
     },
     "feedback": {
       "sent": "Message envoyé."
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "subtitle": {
+      "admin": "Partagez règlements, circulaires et supports avec tout l’établissement ou une classe.",
+      "teacher": "Les documents de la direction, et ceux que vous partagez avec vos classes.",
+      "student": "Les documents de votre établissement et de vos enseignants."
+    },
+    "views": {
+      "label": "Affichage",
+      "active": "Publiés",
+      "deleted": "Supprimés"
+    },
+    "list": "Liste des documents",
+    "actions": {
+      "upload": "Ajouter un document",
+      "download": "Télécharger",
+      "downloadNamed": "Télécharger {title}",
+      "edit": "Modifier",
+      "editNamed": "Modifier {title}",
+      "delete": "Supprimer",
+      "deleteNamed": "Supprimer {title}",
+      "restore": "Restaurer",
+      "restoreNamed": "Restaurer {title}"
+    },
+    "audience": {
+      "all": "Tout l’établissement",
+      "teachers": "Tous les enseignants",
+      "students": "Tous les élèves",
+      "class": "Classe <n>{name}</n>",
+      "classOption": "Classe : {name}"
+    },
+    "by": "Par <n>{name}</n>",
+    "size": {
+      "b": "o",
+      "kb": "Ko",
+      "mb": "Mo"
+    },
+    "form": {
+      "uploadTitle": "Ajouter un document",
+      "uploadDescription": "Il est disponible tout de suite pour ses destinataires.",
+      "editTitle": "Modifier le document",
+      "fields": {
+        "file": "Fichier",
+        "audience": "Destinataires",
+        "title": "Titre",
+        "description": "Description (facultatif)"
+      },
+      "placeholders": {
+        "title": "Règlement intérieur",
+        "description": "À quoi sert ce document ?"
+      },
+      "limits": "PDF, images, Word, Excel, PowerPoint, texte ou CSV. 10 Mo maximum.",
+      "upload": "Envoyer le document",
+      "noClasses": "Aucune classe ne vous est affectée cette année : vous ne pouvez pas encore partager de document."
+    },
+    "feedback": {
+      "uploaded": "Document ajouté.",
+      "updated": "Document mis à jour.",
+      "deleted": "Document supprimé.",
+      "restored": "Document restauré."
+    },
+    "empty": {
+      "feed": {
+        "title": "Aucun document pour le moment",
+        "body": "Les documents de votre établissement apparaîtront ici."
+      },
+      "authored": {
+        "title": "Aucun document partagé",
+        "body": "Ajoutez un document : il est disponible tout de suite pour ses destinataires."
+      },
+      "deleted": {
+        "title": "Aucun document supprimé",
+        "body": "Les documents que vous supprimez peuvent être restaurés ici."
+      }
+    },
+    "error": {
+      "title": "Impossible de charger les documents",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
     }
   }
 }

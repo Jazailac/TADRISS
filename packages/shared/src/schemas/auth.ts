@@ -19,6 +19,9 @@ export const validationKeys = [
   'maxScoreRange',
   'coefficientRange',
   'invalidAmount',
+  'fileRequired',
+  'fileTooLarge',
+  'fileType',
 ] as const;
 export type ValidationKey = (typeof validationKeys)[number];
 

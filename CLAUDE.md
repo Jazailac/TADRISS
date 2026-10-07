@@ -117,6 +117,18 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   admins are visible to every member (`profiles_select_school_admins`). `unread_counts()` feeds the nav badges and
   the bell (`getUnreadCounts` in the `(app)` layout). One form value carries audience+class (`class:<uuid>`).
   Reading marks read from a client effect (never during render); a thread re-reads every 15 s.
+- **Documents (Phase 10):** `documents` rows decide who may see a file (same audiences and publish rules as
+  announcements; audience and file are immutable; soft delete, the file stays in Storage) and the private
+  `documents` bucket defers to them: `storage.objects` policies allow a read when the row is visible, an upload
+  only into your own school's folder by admins/teachers, and a delete only of your own object that has no row.
+  Objects live at `<institution_id>/<document_id>/<ascii-slug>`, tied to the row by a check constraint; the
+  bucket caps size (10 MB) and file types, and `validateDocumentFile` mirrors that client-side. All `.storage`
+  calls are in `packages/shared/src/documents.ts`. Downloads go through `GET /api/documents/[id]`: session check,
+  RLS read of the row, then a 60 s signed URL redirect (never public). Uploads are a Server Action with the
+  `File` in the FormData (`bodySizeLimit` 11 MB in `next.config.ts`); the upload dialog calls the action
+  directly instead of using `ActionForm`, because React resets a form after its action and would empty the
+  file picker. Seed rows are in `seed.sql`; `scripts/seed-documents.sh` (run by `dev:setup`) uploads their files,
+  so after a bare `supabase db reset` run it yourself or the seeded downloads 404.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.
@@ -208,6 +220,8 @@ warm editorial typography with contemporary Maghreb architecture and a cinematic
   (server alerts must not vanish on blur-validation; `FieldError` reserves its line), or the submit button
   slides away and the click is lost. A toast that must survive the form unmounting after `revalidatePath`
   (e.g. voiding removes the very button) is fired from a wrapper around the action, not from `onDone`.
+- Supabase blocks raw `delete from storage.objects` unless `storage.allow_delete_query` is set (pgTAP does so); the
+  Storage API sets it itself. A storage DELETE policy also needs a matching SELECT policy to see the row.
 - Generation-style e2e tests must use run-unique inputs (idempotent RPCs bill nobody the second time).
 
 - Visual snapshots are Linux-only. Regenerate them with the **Update visual baselines** workflow,

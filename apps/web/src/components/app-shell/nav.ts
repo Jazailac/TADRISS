@@ -58,7 +58,7 @@ const admin: NavGroup[] = [
     items: [
       item('announcements', '/dashboard/announcements', Megaphone, true),
       item('messages', '/dashboard/messages', MessageSquare, true),
-      item('documents', '/dashboard/documents', FolderOpen),
+      item('documents', '/dashboard/documents', FolderOpen, true),
     ],
   },
 ];
@@ -80,6 +80,7 @@ const teacher: NavGroup[] = [
     items: [
       item('announcements', '/teacher/announcements', Megaphone, true),
       item('messages', '/teacher/messages', MessageSquare, true),
+      item('documents', '/teacher/documents', FolderOpen, true),
     ],
   },
 ];
@@ -101,6 +102,7 @@ const student: NavGroup[] = [
     items: [
       item('announcements', '/student/announcements', Megaphone, true),
       item('messages', '/student/messages', MessageSquare, true),
+      item('documents', '/student/documents', FolderOpen, true),
     ],
   },
 ];

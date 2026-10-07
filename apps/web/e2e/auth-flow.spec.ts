@@ -45,10 +45,9 @@ test.describe('sign-in by role', () => {
     await expect(page).toHaveURL(/\/dashboard$/);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Bonjour, Salma');
     if (wide(page)) await expect(page.getByText('Groupe scolaire Al Manar').first()).toBeVisible();
-    // Built modules are links; modules not built yet stay disabled, never dead links.
+    // Built modules are links (a module not built yet would stay disabled, never a dead link).
     if (wide(page)) {
       await expect(page.getByRole('link', { name: 'Élèves' })).toBeVisible();
-      await expect(page.getByRole('link', { name: 'Documents' })).toHaveCount(0);
     }
   });
 

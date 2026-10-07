@@ -16,6 +16,7 @@ import {
   subjectInput,
   updateAnnouncementInput,
   updateClassInput,
+  updateDocumentInput,
   updateExamInput,
   updateFeePlanInput,
   updateHomeworkInput,
@@ -66,6 +67,7 @@ const schemas = {
   voidDocument: voidInput,
   createAnnouncement: announcementInput,
   updateAnnouncement: updateAnnouncementInput,
+  updateDocument: updateDocumentInput,
   sendMessage: messageInput,
 } as const;
 

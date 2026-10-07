@@ -49,7 +49,9 @@
     "payment_exceeds_balance": "Le montant dépasse le reste à payer.",
     "invoice_void": "Cette facture est annulée.",
     "has_payments": "Annulez d’abord les paiements de cette facture.",
-    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages."
+    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
+    "file_too_large": "Ce fichier dépasse 10 Mo.",
+    "file_type": "Ce type de fichier n’est pas accepté."
   },
   "login": {
     "title": "Bon retour",
@@ -83,6 +85,9 @@
     "invalidDate": "Date invalide.",
     "maxScoreRange": "Entre 1 et 100.",
     "coefficientRange": "Entre 0,5 et 10, par pas de 0,5.",
-    "invalidAmount": "Montant invalide (de 0,01 à 1 000 000 MAD)."
+    "invalidAmount": "Montant invalide (de 0,01 à 1 000 000 MAD).",
+    "fileRequired": "Choisissez un fichier.",
+    "fileTooLarge": "Ce fichier dépasse 10 Mo.",
+    "fileType": "Ce type de fichier n’est pas accepté."
   }
 }

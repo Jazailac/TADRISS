@@ -336,3 +336,21 @@ insert into public.messages (id, institution_id, sender_id, recipient_id, body, 
    'N’oublie pas ta fiche de révision pour mardi.', '2026-10-06 16:00+00', null),
   ('10000000-0000-4000-8000-000000000a04', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-0000000000a1', '10000000-0000-4000-8000-000000000101',
    'Bonjour Ahmed, pouvez-vous me remettre le calendrier de vos évaluations avant vendredi ?', '2026-10-06 09:00+00', null);
+
+-- ── Phase 10: documents (Al Manar) ──────────────────────────────────────────
+-- The rows are seeded here; scripts/seed-documents.sh uploads the matching files (each file's content
+-- is its title and a newline, so `size_bytes` is deterministic) because SQL cannot write Storage bytes.
+insert into public.documents (id, institution_id, uploader_id, audience, class_id, title, description, storage_path, file_name, mime_type, size_bytes, created_at)
+select v.id, '10000000-0000-4000-8000-000000000001', v.uploader, v.audience, v.class_id, v.title, v.description,
+       '10000000-0000-4000-8000-000000000001/' || v.id || '/' || v.file_name, v.file_name, 'text/plain',
+       octet_length(v.title || E'\n'), v.created_at
+from (values
+  ('10000000-0000-4000-8000-000000000b01'::uuid, '10000000-0000-4000-8000-0000000000a1'::uuid, 'all', null::uuid,
+   'Règlement intérieur', 'À lire et à respecter par tous.', 'reglement-interieur.txt', '2026-09-05 08:00+00'::timestamptz),
+  ('10000000-0000-4000-8000-000000000b02', '10000000-0000-4000-8000-0000000000a1', 'all', null,
+   'Calendrier scolaire 2026-2027', 'Vacances, jours fériés et examens.', 'calendrier-2026-2027.txt', '2026-09-05 08:30+00'),
+  ('10000000-0000-4000-8000-000000000b03', '10000000-0000-4000-8000-0000000000a1', 'teachers', null,
+   'Circulaire : évaluations du premier trimestre', null, 'circulaire-evaluations.txt', '2026-10-01 09:00+00'),
+  ('10000000-0000-4000-8000-000000000b04', '10000000-0000-4000-8000-000000000101', 'class', '10000000-0000-4000-8000-000000000401',
+   'Fiche de révision : les fractions', 'Pour le contrôle de lundi.', 'fiche-fractions.txt', '2026-10-05 15:30+00')
+) as v(id, uploader, audience, class_id, title, description, file_name, created_at);

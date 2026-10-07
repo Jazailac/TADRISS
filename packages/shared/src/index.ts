@@ -24,3 +24,5 @@ export * from './auth';
 export * from './schemas/communication';
 export * from './announcements';
 export * from './messages';
+export * from './schemas/documents';
+export * from './documents';
