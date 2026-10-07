@@ -180,3 +180,21 @@ select pg_temp.seed_user('10000000-0000-4000-8000-000000000231', 'eleve31@almana
 insert into public.profiles (id, institution_id, role, first_name, last_name, locale, email)
 values ('10000000-0000-4000-8000-000000000231', '10000000-0000-4000-8000-000000000001',
         'student', 'Anouar', 'Zahiri', 'fr', 'eleve31@almanar.test');
+
+-- ── Phase 5: three weeks of roll calls on fixed dates (14 Sep – 6 Oct 2026) ──
+-- Statuses come from a hash of (student, date), so the seed is deterministic but looks organic:
+-- ~90% present, ~5% late, ~4% absent, ~1% excused.
+insert into public.attendance_sessions
+  (institution_id, class_id, slot_id, subject_id, teacher_id, session_date, starts_min, ends_min, taken_by)
+select ts.institution_id, ts.class_id, ts.id, ts.subject_id, ts.teacher_id, d::date, ts.starts_min, ts.ends_min, ts.teacher_id
+from public.timetable_slots ts
+join generate_series('2026-09-14'::date, '2026-10-06'::date, interval '1 day') d
+  on extract(isodow from d) = ts.weekday
+where ts.institution_id = '10000000-0000-4000-8000-000000000001';
+
+insert into public.attendance_records (institution_id, session_id, student_id, status)
+select s.institution_id, s.id, e.student_id,
+       case when x.v < 4 then 'absent' when x.v < 9 then 'late' when x.v < 10 then 'excused' else 'present' end
+from public.attendance_sessions s
+join public.enrolments e on e.class_id = s.class_id and e.status = 'active'
+cross join lateral (select abs(hashtext(e.student_id::text || s.session_date::text)) % 100 as v) x;

@@ -3,6 +3,128 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      attendance_records: {
+        Row: {
+          created_at: string;
+          id: string;
+          institution_id: string;
+          note: string | null;
+          session_id: string;
+          status: string;
+          student_id: string;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          institution_id: string;
+          note?: string | null;
+          session_id: string;
+          status: string;
+          student_id: string;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          institution_id?: string;
+          note?: string | null;
+          session_id?: string;
+          status?: string;
+          student_id?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'attendance_records_institution_id_student_id_fkey';
+            columns: ['institution_id', 'student_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+          {
+            foreignKeyName: 'attendance_records_session_id_institution_id_fkey';
+            columns: ['session_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'attendance_sessions';
+            referencedColumns: ['id', 'institution_id'];
+          },
+        ];
+      };
+      attendance_sessions: {
+        Row: {
+          class_id: string;
+          created_at: string;
+          ends_min: number;
+          id: string;
+          institution_id: string;
+          session_date: string;
+          slot_id: string | null;
+          starts_min: number;
+          subject_id: string;
+          taken_by: string;
+          teacher_id: string;
+          updated_at: string;
+        };
+        Insert: {
+          class_id: string;
+          created_at?: string;
+          ends_min: number;
+          id?: string;
+          institution_id: string;
+          session_date: string;
+          slot_id?: string | null;
+          starts_min: number;
+          subject_id: string;
+          taken_by?: string;
+          teacher_id: string;
+          updated_at?: string;
+        };
+        Update: {
+          class_id?: string;
+          created_at?: string;
+          ends_min?: number;
+          id?: string;
+          institution_id?: string;
+          session_date?: string;
+          slot_id?: string | null;
+          starts_min?: number;
+          subject_id?: string;
+          taken_by?: string;
+          teacher_id?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'attendance_sessions_class_id_institution_id_fkey';
+            columns: ['class_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'classes';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'attendance_sessions_institution_id_teacher_id_fkey';
+            columns: ['institution_id', 'teacher_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+          {
+            foreignKeyName: 'attendance_sessions_slot_id_institution_id_fkey';
+            columns: ['slot_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'timetable_slots';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'attendance_sessions_subject_id_institution_id_fkey';
+            columns: ['subject_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'subjects';
+            referencedColumns: ['id', 'institution_id'];
+          },
+        ];
+      };
       class_teachers: {
         Row: {
           class_id: string;
@@ -397,6 +519,32 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      attendance_class_summary: {
+        Args: { p_from: string; p_to: string };
+        Returns: {
+          absent: number;
+          class_id: string;
+          excused: number;
+          late: number;
+          present: number;
+        }[];
+      };
+      attendance_day: {
+        Args: { p_date: string };
+        Returns: {
+          absent: number;
+          class_id: string;
+          ends_min: number;
+          excused: number;
+          late: number;
+          present: number;
+          session_id: string;
+          slot_id: string;
+          starts_min: number;
+          subject_id: string;
+          teacher_id: string;
+        }[];
+      };
       enrol_students: { Args: { p_class_id: string; p_student_ids: string[] }; Returns: number };
       enrolable_students: {
         Args: { p_limit?: number; p_query?: string; p_school_year: string };
@@ -410,6 +558,10 @@ export type Database = {
       set_class_teachers: {
         Args: { p_class_id: string; p_teacher_ids: string[] };
         Returns: undefined;
+      };
+      submit_attendance: {
+        Args: { p_date: string; p_records: Json; p_slot_id: string };
+        Returns: string;
       };
     };
     Enums: {
