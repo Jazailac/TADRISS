@@ -36,10 +36,74 @@ export type Database = {
         };
         Relationships: [];
       };
+      invitations: {
+        Row: {
+          accepted_at: string | null;
+          created_at: string;
+          email: string;
+          expires_at: string;
+          first_name: string;
+          id: string;
+          institution_id: string;
+          invited_by: string;
+          last_name: string;
+          revoked_at: string | null;
+          role: string;
+          status: string;
+          updated_at: string;
+        };
+        Insert: {
+          accepted_at?: string | null;
+          created_at?: string;
+          email: string;
+          expires_at?: string;
+          first_name: string;
+          id?: string;
+          institution_id: string;
+          invited_by?: string;
+          last_name: string;
+          revoked_at?: string | null;
+          role: string;
+          status?: string;
+          updated_at?: string;
+        };
+        Update: {
+          accepted_at?: string | null;
+          created_at?: string;
+          email?: string;
+          expires_at?: string;
+          first_name?: string;
+          id?: string;
+          institution_id?: string;
+          invited_by?: string;
+          last_name?: string;
+          revoked_at?: string | null;
+          role?: string;
+          status?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'invitations_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'institutions';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'invitations_invited_by_fkey';
+            columns: ['invited_by'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       profiles: {
         Row: {
           created_at: string;
           deleted_at: string | null;
+          email: string | null;
           first_name: string;
           id: string;
           institution_id: string | null;
@@ -52,6 +116,7 @@ export type Database = {
         Insert: {
           created_at?: string;
           deleted_at?: string | null;
+          email?: string | null;
           first_name: string;
           id: string;
           institution_id?: string | null;
@@ -64,6 +129,7 @@ export type Database = {
         Update: {
           created_at?: string;
           deleted_at?: string | null;
+          email?: string | null;
           first_name?: string;
           id?: string;
           institution_id?: string | null;

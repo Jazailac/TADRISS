@@ -78,3 +78,27 @@ select pg_temp.seed_user('20000000-0000-4000-8000-0000000000a1', 'direction@ibnr
 insert into public.profiles (id, institution_id, role, first_name, last_name, locale)
 values ('20000000-0000-4000-8000-0000000000a1', '20000000-0000-4000-8000-000000000001',
         'institution_admin', 'Karim', 'Bensouda', 'ar');
+
+-- ── Phase 2: emails, one pending invitation, one deactivated student ────────
+update public.profiles p set email = lower(u.email) from auth.users u where u.id = p.id;
+
+update public.profiles set is_active = false
+where id = '10000000-0000-4000-8000-000000000230'::uuid; -- eleve30 (Taha Jaidi): deactivated
+
+-- A pending invite goes through the real path: invitation row first, then an auth user with
+-- `invited_at` set (what the admin invite API does), so `handle_new_user` provisions the profile.
+insert into public.invitations (id, institution_id, email, role, first_name, last_name, invited_by)
+values ('10000000-0000-4000-8000-0000000003a1', '10000000-0000-4000-8000-000000000001',
+        'nadia@almanar.test', 'teacher', 'Nadia', 'Cherkaoui',
+        '10000000-0000-4000-8000-0000000000a1');
+
+insert into auth.users (
+  instance_id, id, aud, role, email, invited_at, raw_app_meta_data, raw_user_meta_data,
+  created_at, updated_at, confirmation_token, email_change, email_change_token_new, recovery_token
+) values (
+  '00000000-0000-0000-0000-000000000000', '10000000-0000-4000-8000-000000000104',
+  'authenticated', 'authenticated', 'nadia@almanar.test', now(),
+  '{"provider":"email","providers":["email"]}',
+  '{"signup_intent":"accept_invitation","invitation_id":"10000000-0000-4000-8000-0000000003a1","locale":"fr"}',
+  now(), now(), '', '', '', ''
+);
