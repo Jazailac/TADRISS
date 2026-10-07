@@ -121,7 +121,10 @@ export async function signUp(
 }
 
 export async function signOut(client: TadrissClient): Promise<Result<null>> {
-  const { error } = await client.auth.signOut();
+  // 'local': ending a session on one device must not log the person out of their other devices.
+  // Deactivation does not rely on sign-out: claims vanish at the next refresh and getMyProfile
+  // rejects inactive users immediately.
+  const { error } = await client.auth.signOut({ scope: 'local' });
   return error ? err(authErrorCode(error)) : ok(null);
 }
 

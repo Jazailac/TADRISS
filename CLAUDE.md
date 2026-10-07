@@ -179,8 +179,8 @@ warm editorial typography with contemporary Maghreb architecture and a cinematic
   and wrap interpolated values in `<bdi>` (`t.rich(..., { n: (c) => <bdi>{c}</bdi> })`).
 - Nav items for modules that aren't built yet stay `available: false` (disabled "Bientôt" pill).
   Flip the flag in the same PR that ships the module. Never add a dead link.
-- Supabase sign-out is **global**: logging an account out ends all its sessions. e2e specs that
-  mutate data use their own seeded account (`admin2@almanar.test`) so parallel specs don't log each other out.
+- Sign-out is **local** (this device only; `signOut` in `@tadriss/shared`). e2e specs that mutate data still
+  use their own seeded account (`admin2@almanar.test`) so parallel specs don't share one account's state.
 - GoTrue's invite inserts the user, then sets `invited_at` in a later UPDATE: provisioning must hook both.
 - Port 3100 may be held by another tool: run e2e with `E2E_PORT=3190 pnpm test:e2e`. Invite emails
   are read from Mailpit (`http://127.0.0.1:54324`) in tests.
