@@ -135,12 +135,13 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
 
 ## Design system
 
-"Zellige & Ink" ([ADR 0009](docs/decisions/0009-visual-identity.md)). Reuse, don't restyle:
+"Courtyard Studio" ([ADR 0011](docs/decisions/0011-visual-direction-selection.md)). The production identity merges
+warm editorial typography with contemporary Maghreb architecture and a cinematic product stage. Reuse, don't restyle:
 
 - **Components:** `apps/web/src/components/ui/`: `Button`/`ButtonLink` (variants: primary, secondary,
   ghost, ink, accent; built-in `pending`), `Card`, `Badge` (tones), `Field`/`Label`/`Input`/`FieldError`,
   `Logo`/`Mark`, `ZelligePattern`, `Spinner`, `cx()`.
-- **Type utilities:** `.display` (Fraunces, for headings only), `.eyebrow` (brass mono caps). Numbers,
+- **Type utilities:** `.display` (Fraunces, for headings only), `.eyebrow` (mono caps). Numbers,
   amounts and times use `font-mono tabular-nums`.
 - **Tokens:** `bg-background/surface/surface-muted`, `text-text/text-muted`, `primary`, `accent`, `ink`,
   status `success|warning|danger|info` + `-soft`, `shadow-xs…lg`. New colours go in

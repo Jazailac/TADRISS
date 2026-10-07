@@ -1,13 +1,27 @@
-// Data-segment loading state (allowed here; never at the [locale] root, see CLAUDE.md rule 17).
+import { useTranslations } from 'next-intl';
+import { Skeleton } from '@/components/ui/skeleton';
 export default function Loading() {
+  const t = useTranslations('common');
   return (
-    <div className="mx-auto grid max-w-6xl gap-6" aria-busy="true">
-      <div className="h-4 w-40 animate-pulse rounded bg-surface-muted" />
-      <div className="h-10 w-72 animate-pulse rounded bg-surface-muted" />
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {[0, 1, 2, 3].map((i) => (
-          <div key={i} className="h-28 animate-pulse rounded-xl bg-surface-muted" />
+    <div
+      className="mx-auto grid max-w-6xl gap-7"
+      aria-busy="true"
+      role="status"
+      aria-label={t('loading')}
+    >
+      <div className="grid gap-4">
+        <Skeleton className="h-3 w-40" />
+        <Skeleton className="h-12 w-3/4 max-w-md" />
+        <Skeleton className="h-4 w-2/3" />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-3">
+        {[0, 1, 2].map((i) => (
+          <Skeleton key={i} className="h-36 rounded-xl" />
         ))}
+      </div>
+      <div className="grid gap-6 md:grid-cols-[1.3fr_.8fr]">
+        <Skeleton className="h-80 rounded-xl" />
+        <Skeleton className="h-64 rounded-xl" />
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ test.describe('marketing home', () => {
     await page.goto('/');
     await expect(page.locator('html')).toHaveAttribute('lang', 'fr');
     await expect(page.locator('html')).toHaveAttribute('dir', 'ltr');
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('tenu avec soin');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Plus d’élan.');
   });
 
   test('Arabic renders RTL', async ({ page }) => {

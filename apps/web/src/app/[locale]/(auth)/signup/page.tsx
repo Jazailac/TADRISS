@@ -1,14 +1,41 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { Badge } from '@/components/ui/badge';
 import { signup } from '@/app/actions/auth';
 import { AuthForm } from '@/components/auth/auth-form';
 import { Link } from '@/i18n/navigation';
 
-export default function SignupPage() {
-  const t = useTranslations('auth.signup');
+export default async function SignupPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ schoolType?: string; modules?: string; role?: string }>;
+}) {
+  const [t, s, query] = await Promise.all([
+    getTranslations('auth.signup'),
+    getTranslations('studio'),
+    searchParams,
+  ]);
+  const types = ['primary', 'college', 'lycee', 'support'] as const;
+  const modules = ['attendance', 'grades', 'schedule', 'finance'] as const;
+  const selectedType = types.find((type) => type === query.schoolType);
+  const selectedModules = modules.filter((module) => query.modules?.split(',').includes(module));
   return (
     <>
       <h1 className="display text-4xl font-medium">{t('title')}</h1>
       <p className="mt-3 text-text-muted">{t('subtitle')}</p>
+      {selectedType ? (
+        <div className="mt-5 rounded-xl border border-primary/20 bg-primary-soft/40 p-4">
+          <p className="text-xs font-semibold text-primary">{s('selected')}</p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            <Badge tone="info">{s(selectedType)}</Badge>
+            {selectedModules.map((module) => (
+              <Badge key={module} tone="neutral">
+                {s(module)}
+              </Badge>
+            ))}
+          </div>
+          <p className="mt-2 text-xs leading-relaxed text-text-muted">{s('configNote')}</p>
+        </div>
+      ) : null}
       <div className="mt-9">
         <AuthForm
           schema="signup"

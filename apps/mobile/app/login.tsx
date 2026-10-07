@@ -53,10 +53,18 @@ export default function Login() {
     <SafeAreaView className="flex-1 bg-background">
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        className="flex-1 justify-center gap-5 px-6"
+        className="flex-1 gap-5 px-6 pb-6 pt-5"
       >
-        <Text className="text-3xl font-bold text-text">{t('login.title')}</Text>
-        <Text className="text-base text-text-muted">{t('login.subtitle')}</Text>
+        <View className="min-h-[11rem] justify-between overflow-hidden rounded-3xl bg-ink p-6">
+          <View className="absolute -end-12 -top-20 size-48 rounded-full bg-primary/30" />
+          <Text className="text-lg font-bold text-ink-foreground">{t('brand')}</Text>
+          <View className="gap-2">
+            <Text className="text-3xl font-bold leading-10 text-ink-foreground">
+              {t('login.title')}
+            </Text>
+            <Text className="text-base leading-6 text-ink-muted">{t('login.subtitle')}</Text>
+          </View>
+        </View>
 
         {serverError ? (
           <Text
@@ -68,7 +76,7 @@ export default function Login() {
           </Text>
         ) : null}
 
-        <View className="gap-1.5">
+        <View className="gap-1.5 rounded-2xl border border-border bg-surface p-4">
           <Text className="text-sm font-medium text-text">{t('login.email')}</Text>
           <TextInput
             testID="email"
@@ -86,7 +94,7 @@ export default function Login() {
           ) : null}
         </View>
 
-        <View className="gap-1.5">
+        <View className="gap-1.5 rounded-2xl border border-border bg-surface p-4">
           <Text className="text-sm font-medium text-text">{t('login.password')}</Text>
           <TextInput
             testID="password"

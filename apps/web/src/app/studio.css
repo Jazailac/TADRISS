@@ -1,0 +1,258 @@
+/* Courtyard Studio: architectural framing, warm editorial type, cinematic product light. */
+.hero-world {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: rgb(var(--color-ink));
+  color: rgb(var(--color-ink-foreground));
+}
+.hero-heading {
+  font-family: var(--font-display);
+  font-size: var(--type-hero);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+  max-width: 12ch;
+}
+.hero-orbit {
+  position: absolute;
+  z-index: -1;
+  inset-block-start: -24rem;
+  inset-inline-end: -18rem;
+  inline-size: 64rem;
+  block-size: 64rem;
+  border: 1px solid rgb(var(--color-ink-muted) / 0.17);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 5rem rgb(var(--color-ink-muted) / 0.025),
+    0 0 0 10rem rgb(var(--color-ink-muted) / 0.018);
+}
+.school-studio {
+  position: relative;
+  min-width: 0;
+  scroll-margin-block-start: 6rem;
+}
+.studio-scene {
+  position: relative;
+  padding: 2rem 0.75rem 2rem;
+  perspective: 1000px;
+}
+.studio-arch {
+  position: absolute;
+  inset: 0 10% 0;
+  border-radius: 50% 50% 0 0;
+  background: linear-gradient(145deg, rgb(var(--color-info) / 0.5), rgb(var(--color-ink)));
+  border: 1px solid rgb(var(--color-ink-muted) / 0.2);
+  box-shadow: 0 -30px 100px -35px rgb(var(--color-info) / 0.4);
+}
+.studio-frame {
+  position: relative;
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 1.15rem;
+  overflow: hidden;
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-text));
+  box-shadow: var(--tadriss-shadow-lg);
+  transform: rotateY(-5deg) rotateX(3deg);
+  transition: transform var(--motion-scene) var(--motion-ease);
+}
+[dir='rtl'] .studio-frame {
+  transform: rotateY(5deg) rotateX(3deg);
+}
+.studio-scene[data-school='primary'] .studio-frame {
+  transform: rotateY(0deg) rotateX(0deg);
+}
+.studio-scene[data-school='college'] .studio-frame {
+  transform: rotateY(3deg) rotateX(2deg);
+}
+.studio-scene[data-school='support'] .studio-frame {
+  transform: rotateY(-2deg) rotateX(0deg);
+}
+.studio-window-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.8rem 1rem;
+  border-block-end: 1px solid rgb(var(--color-border));
+  background: rgb(var(--color-surface));
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.studio-floating-note {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: 0.7rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  background: rgb(var(--color-ink));
+  color: rgb(var(--color-ink-foreground));
+  border: 1px solid rgb(var(--color-ink-muted) / 0.35);
+  border-radius: 99px;
+  font-size: 0.65rem;
+  box-shadow: var(--tadriss-shadow-lg);
+}
+.studio-controls {
+  display: grid;
+  gap: 1rem;
+  padding: 1.2rem 1rem 0;
+}
+.studio-controls legend {
+  font-size: 0.7rem;
+  color: rgb(var(--color-ink-muted));
+  margin-block-end: 0.6rem;
+}
+.studio-option {
+  border: 1px solid rgb(var(--color-ink-muted) / 0.4);
+  padding: 0.55rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  color: rgb(var(--color-ink-muted));
+  cursor: pointer;
+  transition: background var(--motion-fast);
+}
+.studio-option.is-selected {
+  background: rgb(var(--color-ink-foreground));
+  color: rgb(var(--color-ink));
+  border-color: transparent;
+}
+.studio-option:focus-within {
+  outline: 2px solid rgb(var(--color-info));
+  outline-offset: 3px;
+}
+.studio-module {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 2rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 99px;
+  font-size: 0.6rem;
+  color: rgb(var(--color-text-muted));
+}
+.studio-module svg {
+  opacity: 0.25;
+}
+.studio-module.is-selected {
+  background: rgb(var(--color-primary-soft));
+  color: rgb(var(--color-primary));
+  border-color: rgb(var(--color-primary) / 0.3);
+}
+.studio-module.is-selected svg {
+  opacity: 1;
+}
+.workflow-preview {
+  min-height: 14rem;
+  animation: rise var(--motion-normal) var(--motion-ease) both;
+}
+.story-fallback {
+  display: none;
+}
+.auth-architecture {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: rgb(var(--color-ink));
+  color: rgb(var(--color-ink-foreground));
+}
+.auth-architecture::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 3rem 8% -12rem;
+  border: 1px solid rgb(var(--color-ink-muted) / 0.3);
+  border-radius: 48% 48% 0 0;
+  box-shadow:
+    0 0 0 2rem rgb(var(--color-ink-muted) / 0.025),
+    0 0 0 4rem rgb(var(--color-ink-muted) / 0.02);
+  background: radial-gradient(ellipse at 50% 20%, rgb(var(--color-info) / 0.3), transparent 65%);
+}
+.auth-card {
+  box-shadow: var(--tadriss-shadow-md);
+}
+.empty-architecture {
+  display: grid;
+  place-items: center;
+  inline-size: 5rem;
+  block-size: 6rem;
+  border-radius: 3rem 3rem 0.8rem 0.8rem;
+  border: 1px solid rgb(var(--color-primary) / 0.25);
+  background: rgb(var(--color-primary-soft));
+  position: relative;
+}
+.empty-architecture::after {
+  content: '';
+  position: absolute;
+  inset: 0.65rem;
+  border: 1px dashed rgb(var(--color-primary) / 0.25);
+  border-radius: inherit;
+}
+.app-sidebar {
+  background: rgb(var(--color-surface));
+}
+.shell-dialog {
+  border: 1px solid rgb(var(--color-border));
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-text));
+  border-radius: 1.5rem;
+  box-shadow: var(--tadriss-shadow-lg);
+  padding: 0;
+  max-inline-size: min(92vw, 36rem);
+  inline-size: 36rem;
+  margin: auto;
+}
+.shell-dialog::backdrop {
+  background: rgb(var(--color-ink) / 0.55);
+  backdrop-filter: blur(6px);
+}
+.shell-dialog[open] {
+  animation: rise var(--motion-normal) var(--motion-ease);
+}
+[lang='ar'] .hero-heading {
+  line-height: 1.35;
+  letter-spacing: 0;
+  max-width: 15ch;
+}
+[lang='ar'] .eyebrow {
+  letter-spacing: 0;
+}
+@media (max-width: 767px) {
+  .hero-heading {
+    max-width: 13ch;
+  }
+  .studio-scene {
+    padding: 1rem 0 1.5rem;
+  }
+  .studio-frame {
+    transform: none !important;
+  }
+  .story-fallback {
+    display: block;
+  }
+  .workflow-preview {
+    min-height: 12rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .studio-frame {
+    transform: none !important;
+  }
+  .story-fallback {
+    display: block;
+  }
+  .story-sticky {
+    display: none !important;
+  }
+  .story-chapter {
+    min-height: auto !important;
+  }
+}

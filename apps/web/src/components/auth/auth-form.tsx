@@ -85,6 +85,19 @@ export function AuthForm({
       noValidate
       action={formAction}
       onSubmit={onSubmit}
+      onBlur={(event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement) || !fields.some((f) => f.name === target.name))
+          return;
+        const form = event.currentTarget;
+        const parsed = schema.safeParse(Object.fromEntries(new FormData(form)));
+        const issues = parsed.success ? {} : fieldErrors(parsed.error);
+        setClientErrors((current) => ({
+          ...state?.fields,
+          ...current,
+          [target.name]: issues[target.name],
+        }));
+      }}
       className="grid grid-cols-2 gap-x-3 gap-y-5"
     >
       <input type="hidden" name="locale" value={locale} />
@@ -114,7 +127,7 @@ export function AuthForm({
           <Field key={f.name} className={f.half ? 'col-span-2 sm:col-span-1' : 'col-span-2'}>
             <Label htmlFor={f.name}>{f.label}</Label>
             {f.kind === 'password' ? (
-              <PasswordInput {...common} />
+              <PasswordInput {...common} showStrength={schemaName === 'signup'} />
             ) : (
               <Input
                 {...common}

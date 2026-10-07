@@ -35,12 +35,27 @@ export default function Welcome() {
 
   return (
     <SafeAreaView className="flex-1 bg-background">
-      <View className="flex-1 justify-center gap-6 px-6">
-        <Text className="text-3xl font-extrabold text-primary" testID="brand">
-          {t('brand')}
-        </Text>
-        <Text className="text-2xl font-bold text-text">{t('welcome.title')}</Text>
-        <Text className="text-base text-text-muted">{t('welcome.subtitle')}</Text>
+      <View className="flex-1 gap-6 px-6 pb-6 pt-4">
+        <View className="min-h-[18rem] justify-between overflow-hidden rounded-3xl bg-ink p-6">
+          <View className="absolute -end-16 -top-16 size-56 rounded-full bg-primary/30" />
+          <View className="absolute -bottom-24 -start-20 size-64 rounded-full bg-accent/20" />
+          <View className="flex-row items-center justify-between">
+            <Text className="text-lg font-bold text-ink-foreground" testID="brand">
+              {t('brand')}
+            </Text>
+            <View className="size-10 items-center justify-center rounded-2xl bg-primary">
+              <Text className="text-lg font-bold text-primary-foreground">
+                {t('brand').charAt(0)}
+              </Text>
+            </View>
+          </View>
+          <View className="gap-3">
+            <Text className="text-3xl font-bold leading-10 text-ink-foreground">
+              {t('welcome.title')}
+            </Text>
+            <Text className="text-base leading-6 text-ink-muted">{t('welcome.subtitle')}</Text>
+          </View>
+        </View>
 
         <View className="gap-3">
           <Pressable
@@ -64,7 +79,7 @@ export default function Welcome() {
           </Pressable>
         </View>
 
-        <View className="gap-2">
+        <View className="gap-2 rounded-2xl border border-border bg-surface p-4">
           <Text className="text-sm font-medium text-text-muted">{t('settings.language')}</Text>
           <View className="flex-row flex-wrap gap-2">
             {locales.map((l) => (

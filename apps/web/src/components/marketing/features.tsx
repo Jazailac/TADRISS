@@ -40,13 +40,22 @@ export function Features() {
             <Card
               key={key}
               className={cx(
-                'group relative overflow-hidden p-7 transition-shadow hover:shadow-md',
+                'group relative overflow-hidden p-7 transition-[transform,box-shadow] hover:-translate-y-1 hover:shadow-md',
                 span,
                 Visual && 'lg:grid lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-8',
               )}
             >
               <div>
-                <span className="inline-flex size-11 items-center justify-center rounded-lg bg-primary-soft text-primary ring-1 ring-primary/10 ring-inset">
+                <span
+                  className={cx(
+                    'inline-flex size-11 items-center justify-center rounded-lg',
+                    key === 'finance'
+                      ? 'bg-accent-soft text-accent'
+                      : key === 'grades'
+                        ? 'bg-info-soft text-info'
+                        : 'bg-primary-soft text-primary',
+                  )}
+                >
                   <Icon className="size-5" strokeWidth={1.75} aria-hidden />
                 </span>
                 <h3 className="mt-6 text-lg font-semibold tracking-tight">

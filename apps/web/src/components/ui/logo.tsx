@@ -8,11 +8,8 @@ import { cx } from './cx';
 export function Mark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 32 32" aria-hidden className={cx('size-7', className)}>
-      <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
-        <rect x="7" y="7" width="18" height="18" rx="1.5" />
-        <rect x="7" y="7" width="18" height="18" rx="1.5" transform="rotate(45 16 16)" />
-      </g>
-      <circle cx="16" cy="16" r="3" fill="currentColor" />
+      <path d="M5 28V13a11 11 0 0 1 22 0v15h-7V13a4 4 0 0 0-8 0v15Z" fill="currentColor" />
+      <path d="M15 22h2v6h-2z" fill="currentColor" />
     </svg>
   );
 }

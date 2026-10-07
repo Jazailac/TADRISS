@@ -11,5 +11,5 @@ export default async function Home() {
     detail: t(`steps.${key}.detail`),
     done: i === 0,
   }));
-  return <Welcome firstName={firstName} subtitle={t('subtitle')} steps={steps} />;
+  return <Welcome role="teacher" firstName={firstName} subtitle={t('subtitle')} steps={steps} />;
 }
