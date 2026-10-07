@@ -73,6 +73,12 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   `auth.users.invited_at` is set ([ADR 0012](docs/decisions/0012-invitations-and-member-management.md)).
   Emailed link → `/auth/confirm` (token hash) → `/set-password`. Deactivation is
   `profiles.is_active` (admin-only; `getMyProfile` also rejects inactive users).
+- **Classes (Phase 3):** `classes` (per school year, archived via `deleted_at`), `class_teachers`,
+  `enrolments` (history kept: withdraw, never delete). Composite FKs keep rows in one institution; a
+  partial unique index allows one ACTIVE enrolment per student per year; a row-locking trigger enforces
+  capacity. Bulk writes are `SECURITY INVOKER` RPCs (`enrol_students`, `set_class_teachers`,
+  `enrolable_students`). Teachers read only the classes they teach and those students' profiles.
+  Pages: `/dashboard/classes[/id]` (admin), `/teacher/classes[/id]` (read-only).
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.
@@ -178,4 +184,10 @@ warm editorial typography with contemporary Maghreb architecture and a cinematic
 - GoTrue's invite inserts the user, then sets `invited_at` in a later UPDATE: provisioning must hook both.
 - Port 3100 may be held by another tool: run e2e with `E2E_PORT=3190 pnpm test:e2e`. Invite emails
   are read from Mailpit (`http://127.0.0.1:54324`) in tests.
+- New RPCs must `revoke execute … from public, anon` as well as grant to `authenticated`: PUBLIC holds
+  EXECUTE by default and the schema-level default privilege cannot undo it (the meta pgTAP fails otherwise).
+- BEFORE triggers run ahead of RLS checks: raise `42501` for rows the caller cannot see, not a domain error.
+- `notFound()` under `(app)` still answers HTTP 200 (the loading boundary streams first). Use a route-level
+  `not-found.tsx` for an in-shell page and assert on its heading, not the status.
+- Nav active state uses `matchNav` (most specific prefix), so nested routes don't light up `/dashboard`.
 - Toolchain pins and their reasons: [ADR 0006](docs/decisions/0006-toolchain-versions.md).

@@ -11,6 +11,8 @@ export const validationKeys = [
   'passwordMismatch',
   'nameMin',
   'tooLong',
+  'capacityRange',
+  'invalidYear',
 ] as const;
 export type ValidationKey = (typeof validationKeys)[number];
 

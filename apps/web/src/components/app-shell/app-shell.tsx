@@ -22,7 +22,7 @@ import { cx } from '../ui/cx';
 import { Logo, Mark } from '../ui/logo';
 import { Spinner } from '../ui/spinner';
 import { EmptyState } from '../ui/empty-state';
-import { navSets, settingsItem, type NavGroup, type NavItem, type NavSet } from './nav';
+import { matchNav, navSets, settingsItem, type NavGroup, type NavItem, type NavSet } from './nav';
 
 export type ShellUser = { name: string; initials: string; role: string; school: string };
 function SignOutButton() {
@@ -54,6 +54,10 @@ function Sidebar({
   const s = useTranslations('studio');
   const locale = useLocale();
   const pathname = usePathname();
+  const activeItem = matchNav(
+    nav.flatMap((g) => g.items).filter((i) => i.available),
+    pathname,
+  );
   return (
     <div className="flex h-full flex-col gap-6 p-4">
       <div className="flex h-9 items-center gap-3 ps-2">
@@ -97,9 +101,7 @@ function Sidebar({
             <div className="grid gap-1">
               {group.items.map((item) => {
                 const Icon = item.icon;
-                const active =
-                  item.available &&
-                  (pathname === item.href || pathname.startsWith(item.href + '/'));
+                const active = item.available && item.href === activeItem?.href;
                 const classes = cx(
                   'flex min-h-10 items-center rounded-lg text-sm',
                   collapsed ? 'justify-center px-2' : 'gap-3 px-3',
@@ -201,7 +203,7 @@ export function AppShell({
   const available = [...nav.flatMap((g) => g.items), settingsItem].filter(
     (item: NavItem) => item.available,
   );
-  const current = available.find((item) => pathname === item.href);
+  const current = matchNav(available, pathname);
   const home = available[0]?.href ?? '/';
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {

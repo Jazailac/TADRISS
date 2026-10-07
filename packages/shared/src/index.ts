@@ -6,5 +6,7 @@ export * from './money';
 export * from './result';
 export * from './schemas/auth';
 export * from './schemas/people';
+export * from './schemas/classes';
+export * from './classes';
 export * from './people';
 export * from './auth';

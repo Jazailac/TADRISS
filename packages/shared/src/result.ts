@@ -16,6 +16,8 @@ export const errorCodes = [
   'email_taken',
   'email_not_confirmed',
   'account_disabled',
+  'class_full',
+  'class_archived',
   'unknown',
 ] as const;
 export type ErrorCode = (typeof errorCodes)[number];
@@ -24,8 +26,16 @@ export const ok = <T>(data: T): Result<T> => ({ ok: true, data });
 export const err = <T = never>(error: ErrorCode): Result<T> => ({ ok: false, error });
 
 /** Maps a PostgREST / Postgres error to a stable code. */
-export function toErrorCode(e: { code?: string | null } | null | undefined): ErrorCode {
+export function toErrorCode(
+  e: { code?: string | null; message?: string | null } | null | undefined,
+): ErrorCode {
   switch (e?.code) {
+    case 'P0001': // raise exception 'class_full' / 'class_archived' from our triggers
+      if (e.message === 'class_full') return 'class_full';
+      if (e.message === 'class_archived') return 'class_archived';
+      return 'unknown';
+    case 'P0002': // no_data_found (e.g. the class is invisible or archived)
+      return 'not_found';
     case '23505': // unique_violation
       return 'conflict';
     case '23503': // foreign_key_violation

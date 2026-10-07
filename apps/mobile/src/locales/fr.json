@@ -34,7 +34,9 @@
     "invalid_credentials": "E-mail ou mot de passe incorrect.",
     "email_taken": "Un compte existe déjà avec cette adresse.",
     "email_not_confirmed": "Confirmez votre adresse e-mail avant de vous connecter.",
-    "account_disabled": "Ce compte est désactivé. Contactez votre établissement."
+    "account_disabled": "Ce compte est désactivé. Contactez votre établissement.",
+    "class_full": "Cette classe est complète.",
+    "class_archived": "Cette classe est archivée."
   },
   "login": {
     "title": "Bon retour",
@@ -60,6 +62,8 @@
     "passwordMin": "8 caractères minimum.",
     "nameMin": "2 caractères minimum.",
     "tooLong": "Trop long.",
-    "passwordMismatch": "Les mots de passe ne correspondent pas."
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "capacityRange": "Entre 1 et 200.",
+    "invalidYear": "Année scolaire invalide."
   }
 }

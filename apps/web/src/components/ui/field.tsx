@@ -1,3 +1,4 @@
+import { ChevronDown } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { cx } from './cx';
 
@@ -45,4 +46,19 @@ export function FieldError({ id, children }: { id: string; children?: ReactNode 
 
 export function Field({ children, className }: { children: ReactNode; className?: string }) {
   return <div className={cx('grid gap-1.5', className)}>{children}</div>;
+}
+
+/** Native select (best accessibility and mobile UX) with a custom chevron on the logical end. */
+export function Select({ className, children, ...rest }: ComponentProps<'select'>) {
+  return (
+    <div className="relative">
+      <select {...rest} className={cx(inputStyles, 'appearance-none pe-10', className)}>
+        {children}
+      </select>
+      <ChevronDown
+        className="pointer-events-none absolute inset-y-0 end-3.5 my-auto size-4 text-text-muted"
+        aria-hidden
+      />
+    </div>
+  );
 }

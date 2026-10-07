@@ -274,7 +274,9 @@
     "passwordMin": "8 caractères minimum.",
     "nameMin": "2 caractères minimum.",
     "tooLong": "Trop long.",
-    "passwordMismatch": "Les mots de passe ne correspondent pas."
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "capacityRange": "Entre 1 et 200.",
+    "invalidYear": "Année scolaire invalide."
   },
   "shell": {
     "navigation": "Navigation de l’application",
@@ -448,7 +450,9 @@
     "invalid_credentials": "E-mail ou mot de passe incorrect.",
     "email_taken": "Un compte existe déjà avec cette adresse.",
     "email_not_confirmed": "Confirmez votre adresse e-mail avant de vous connecter.",
-    "account_disabled": "Ce compte est désactivé. Contactez votre établissement."
+    "account_disabled": "Ce compte est désactivé. Contactez votre établissement.",
+    "class_full": "Cette classe est complète.",
+    "class_archived": "Cette classe est archivée."
   },
   "app": {
     "greeting": "Bonjour, <n>{name}</n>",
@@ -833,6 +837,132 @@
       "activated": "Compte réactivé.",
       "deactivated": "Compte désactivé.",
       "saved": "Modifications enregistrées."
+    }
+  },
+  "classes": {
+    "title": "Classes",
+    "subtitle": {
+      "admin": "Créez les classes, affectez les enseignants et inscrivez les élèves.",
+      "teacher": "Les classes qui vous sont confiées."
+    },
+    "filters": {
+      "year": "Année scolaire",
+      "search": "Rechercher une classe…",
+      "searchLabel": "Rechercher une classe",
+      "apply": "Filtrer",
+      "archived": "Voir les archives",
+      "active": "Voir les classes actives"
+    },
+    "card": {
+      "students": "{count, plural, one {# élève} other {# élèves}}",
+      "seats": "{enrolled, number} / {capacity, number}",
+      "full": "Complète",
+      "archived": "Archivée",
+      "noTeacher": "Aucun enseignant",
+      "noLevel": "Niveau libre",
+      "seatsLabel": "Places occupées"
+    },
+    "actions": {
+      "new": "Nouvelle classe"
+    },
+    "new": {
+      "title": "Nouvelle classe",
+      "description": "Vous pourrez ensuite affecter des enseignants et inscrire des élèves.",
+      "fields": {
+        "name": "Nom de la classe",
+        "level": "Niveau (facultatif)",
+        "schoolYear": "Année scolaire",
+        "capacity": "Capacité (facultatif)"
+      },
+      "placeholders": {
+        "name": "6ème A",
+        "level": "6ème",
+        "capacity": "30"
+      },
+      "submit": "Créer la classe"
+    },
+    "edit": {
+      "button": "Modifier",
+      "title": "Modifier la classe",
+      "yearLocked": "L’année scolaire ne peut plus être modifiée."
+    },
+    "detail": {
+      "back": "Toutes les classes",
+      "year": "Année <y>{year}</y>"
+    },
+    "roster": {
+      "title": "Élèves inscrits",
+      "empty": "Aucun élève inscrit",
+      "emptyBody": "Ajoutez des élèves pour constituer la classe.",
+      "since": "Inscrit le {date}",
+      "list": "Liste des élèves inscrits"
+    },
+    "teachers": {
+      "title": "Enseignants",
+      "empty": "Aucun enseignant affecté",
+      "manage": "Gérer",
+      "dialogTitle": "Enseignants de la classe",
+      "dialogBody": "Cochez les enseignants qui interviennent dans cette classe.",
+      "none": "Aucun enseignant actif. Invitez-en depuis la page Enseignants.",
+      "save": "Enregistrer"
+    },
+    "enrol": {
+      "button": "Ajouter des élèves",
+      "title": "Ajouter des élèves",
+      "description": "Seuls les élèves actifs sans classe cette année sont proposés.",
+      "search": "Rechercher un élève…",
+      "none": "Aucun élève disponible pour cette année.",
+      "noMatch": "Aucun élève ne correspond.",
+      "submit": "{count, plural, =0 {Choisissez des élèves} one {Inscrire # élève} other {Inscrire # élèves}}",
+      "seatsLeft": "{count, plural, one {# place restante} other {# places restantes}}",
+      "unlimited": "Capacité illimitée",
+      "loadError": "Impossible de charger les élèves."
+    },
+    "withdraw": {
+      "label": "Retirer {name} de la classe",
+      "title": "Retirer {name} ?",
+      "body": "L’élève ne fera plus partie de la classe. L’historique est conservé.",
+      "confirm": "Retirer"
+    },
+    "archive": {
+      "button": "Archiver",
+      "title": "Archiver cette classe ?",
+      "body": "Elle disparaîtra pour les enseignants et les élèves. Rien n’est supprimé et vous pourrez la restaurer.",
+      "confirm": "Archiver",
+      "restore": "Restaurer"
+    },
+    "feedback": {
+      "created": "Classe créée.",
+      "updated": "Classe mise à jour.",
+      "archived": "Classe archivée.",
+      "restored": "Classe restaurée.",
+      "enrolled": "{enrolled, plural, one {# élève inscrit.} other {# élèves inscrits.}}",
+      "enrolledSkipped": "{enrolled, plural, one {# élève inscrit} other {# élèves inscrits}}, {skipped, plural, one {# ignoré (déjà en classe).} other {# ignorés (déjà en classe).}}",
+      "withdrawn": "Élève retiré de la classe.",
+      "teachersSaved": "Enseignants mis à jour."
+    },
+    "empty": {
+      "admin": {
+        "title": "Aucune classe pour cette année",
+        "body": "Créez votre première classe pour y affecter des enseignants et inscrire des élèves."
+      },
+      "teacher": {
+        "title": "Aucune classe pour l’instant",
+        "body": "Votre direction ne vous a pas encore affecté de classe cette année."
+      }
+    },
+    "noResults": {
+      "title": "Aucune classe trouvée",
+      "body": "Aucune classe ne correspond à cette recherche.",
+      "clear": "Réinitialiser"
+    },
+    "error": {
+      "title": "Impossible de charger les classes",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Classe introuvable",
+      "body": "Cette classe n’existe pas ou vous n’y avez pas accès."
     }
   }
 }

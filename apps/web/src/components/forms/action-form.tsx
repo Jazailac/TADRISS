@@ -1,17 +1,26 @@
 'use client';
 
-import { fieldErrors, inviteInput, updateMemberInput, type ValidationKey } from '@tadriss/shared';
+import {
+  classInput,
+  fieldErrors,
+  inviteInput,
+  updateClassInput,
+  updateMemberInput,
+  type ValidationKey,
+} from '@tadriss/shared';
 import { AlertCircle } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useActionState, useEffect, useState, type SubmitEvent } from 'react';
-import type { PeopleState } from '@/app/actions/people';
+import type { FormState } from '@/lib/form-state';
 import { Button } from '../ui/button';
-import { Field, FieldError, Input, Label } from '../ui/field';
+import { Field, FieldError, Input, Label, Select } from '../ui/field';
 
 export type FormField = {
   name: string;
   label: string;
-  kind: 'text' | 'email';
+  kind: 'text' | 'email' | 'number' | 'select';
+  /** Required for `select`. */
+  options?: { value: string; label: string }[];
   autoComplete?: string;
   placeholder?: string;
   half?: boolean;
@@ -19,7 +28,12 @@ export type FormField = {
 
 // Schemas are resolved by name: zod schemas are class instances and can't cross the
 // server→client boundary as props.
-const schemas = { invite: inviteInput, updateMember: updateMemberInput } as const;
+const schemas = {
+  invite: inviteInput,
+  updateMember: updateMemberInput,
+  createClass: classInput,
+  updateClass: updateClassInput,
+} as const;
 
 /**
  * Dialog form: validates with the shared zod schema for instant inline errors, then posts to a
@@ -37,7 +51,7 @@ export function ActionForm({
   onDone,
 }: {
   schema: keyof typeof schemas;
-  action: (prev: PeopleState, fd: FormData) => Promise<PeopleState>;
+  action: (prev: FormState, fd: FormData) => Promise<FormState>;
   fields: FormField[];
   hidden?: Record<string, string>;
   defaults?: Record<string, string>;
@@ -119,18 +133,36 @@ export function ActionForm({
         return (
           <Field key={f.name} className={f.half ? 'col-span-2 sm:col-span-1' : 'col-span-2'}>
             <Label htmlFor={f.name}>{f.label}</Label>
-            <Input
-              id={f.name}
-              name={f.name}
-              type={f.kind}
-              autoComplete={f.autoComplete ?? 'off'}
-              inputMode={f.kind === 'email' ? 'email' : undefined}
-              dir={f.kind === 'email' ? 'ltr' : 'auto'}
-              placeholder={f.placeholder}
-              defaultValue={state?.values?.[f.name] ?? defaults?.[f.name]}
-              aria-invalid={err ? true : undefined}
-              aria-describedby={err ? errId : undefined}
-            />
+            {f.kind === 'select' ? (
+              <Select
+                id={f.name}
+                name={f.name}
+                defaultValue={state?.values?.[f.name] ?? defaults?.[f.name]}
+                aria-invalid={err ? true : undefined}
+                aria-describedby={err ? errId : undefined}
+              >
+                {f.options?.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </Select>
+            ) : (
+              <Input
+                id={f.name}
+                name={f.name}
+                type={f.kind === 'number' ? 'text' : f.kind}
+                autoComplete={f.autoComplete ?? 'off'}
+                inputMode={
+                  f.kind === 'email' ? 'email' : f.kind === 'number' ? 'numeric' : undefined
+                }
+                dir={f.kind === 'email' || f.kind === 'number' ? 'ltr' : 'auto'}
+                placeholder={f.placeholder}
+                defaultValue={state?.values?.[f.name] ?? defaults?.[f.name]}
+                aria-invalid={err ? true : undefined}
+                aria-describedby={err ? errId : undefined}
+              />
+            )}
             <FieldError id={errId}>{err ? v(err) : null}</FieldError>
           </Field>
         );

@@ -2,7 +2,6 @@
 
 import {
   createInvitation,
-  currentSession,
   defaultLocale,
   deliverInvitation,
   discardInvitedUser,
@@ -17,25 +16,15 @@ import {
   setMemberActive as setMemberActiveRow,
   updateMember as updateMemberRow,
   updateMemberInput,
-  type ErrorCode,
   type Locale,
   type Result,
-  type TadrissClient,
-  type ValidationKey,
 } from '@tadriss/shared';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { env } from '@/env';
+import type { FormState } from '@/lib/form-state';
+import { requireAdmin } from '@/lib/require-admin';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { getServerClient } from '@/lib/supabase/server';
-
-/** useActionState state for the people dialogs. `done` flips on success so the dialog can close. */
-export type PeopleState = {
-  done?: boolean;
-  error?: ErrorCode;
-  fields?: Partial<Record<string, ValidationKey>>;
-  values?: Record<string, string>;
-} | null;
 
 const echo = (fd: FormData, names: string[]) =>
   Object.fromEntries(
@@ -51,19 +40,6 @@ const localeOf = (fd: FormData): Locale => {
   return isLocale(l) ? l : defaultLocale;
 };
 
-/**
- * Every people mutation starts here: `getUser()` asks the Auth server (a forged cookie fails),
- * then the role and institution come from the verified claims. RLS is still the real boundary.
- */
-async function requireAdmin(): Promise<Result<{ supabase: TadrissClient; institutionId: string }>> {
-  const supabase = await getServerClient();
-  const { error } = await supabase.auth.getUser();
-  if (error) return err('unauthenticated');
-  const session = await currentSession(supabase);
-  if (session?.role !== 'institution_admin' || !session.institutionId) return err('forbidden');
-  return ok({ supabase, institutionId: session.institutionId });
-}
-
 const refresh = () => {
   revalidatePath('/[locale]/dashboard/teachers', 'page');
   revalidatePath('/[locale]/dashboard/students', 'page');
@@ -72,7 +48,7 @@ const refresh = () => {
 
 const redirectTo = (locale: Locale) => `${env.NEXT_PUBLIC_APP_URL}/auth/confirm?locale=${locale}`;
 
-export async function inviteMember(_prev: PeopleState, fd: FormData): Promise<PeopleState> {
+export async function inviteMember(_prev: FormState, fd: FormData): Promise<FormState> {
   const locale = localeOf(fd);
   const values = echo(fd, ['firstName', 'lastName', 'email', 'role']);
   const parsed = inviteInput.safeParse({
@@ -155,7 +131,7 @@ export async function setMemberActive(id: string, active: boolean): Promise<Resu
   return res;
 }
 
-export async function updateMember(_prev: PeopleState, fd: FormData): Promise<PeopleState> {
+export async function updateMember(_prev: FormState, fd: FormData): Promise<FormState> {
   const values = echo(fd, ['firstName', 'lastName']);
   const parsed = updateMemberInput.safeParse({
     id: fd.get('id'),

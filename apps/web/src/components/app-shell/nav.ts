@@ -41,7 +41,7 @@ const admin: NavGroup[] = [
     items: [
       item('students', '/dashboard/students', Users, true),
       item('teachers', '/dashboard/teachers', GraduationCap, true),
-      item('classes', '/dashboard/classes', BookOpen),
+      item('classes', '/dashboard/classes', BookOpen, true),
       item('schedule', '/dashboard/schedule', Clock),
     ],
   },
@@ -68,7 +68,7 @@ const teacher: NavGroup[] = [
   {
     key: 'daily',
     items: [
-      item('classes', '/teacher/classes', BookOpen),
+      item('classes', '/teacher/classes', BookOpen, true),
       item('schedule', '/teacher/schedule', Clock),
       item('attendance', '/teacher/attendance', CalendarCheck),
       item('homework', '/teacher/homework', ClipboardList),
@@ -108,3 +108,13 @@ export const navSets: Record<Role, NavGroup[]> = {
 export type NavSet = Role;
 
 export const settingsItem: NavItem = item('settings', '/dashboard/settings', Settings);
+
+/**
+ * The nav item a pathname belongs to: the MOST SPECIFIC prefix, so `/dashboard/classes/abc` is
+ * "Classes" rather than "Dashboard" (which is also a prefix of it).
+ */
+export function matchNav<T extends { href: string }>(items: T[], pathname: string): T | undefined {
+  return items
+    .filter((i) => pathname === i.href || pathname.startsWith(`${i.href}/`))
+    .sort((a, b) => b.href.length - a.href.length)[0];
+}

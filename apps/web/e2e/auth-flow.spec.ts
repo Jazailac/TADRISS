@@ -48,7 +48,7 @@ test.describe('sign-in by role', () => {
     // Built modules are links; modules not built yet stay disabled, never dead links.
     if (wide(page)) {
       await expect(page.getByRole('link', { name: 'Élèves' })).toBeVisible();
-      await expect(page.getByRole('link', { name: 'Classes' })).toHaveCount(0);
+      await expect(page.getByRole('link', { name: 'Présences' })).toHaveCount(0);
     }
   });
 

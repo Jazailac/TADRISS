@@ -274,7 +274,9 @@
     "passwordMin": "At least 8 characters.",
     "nameMin": "At least 2 characters.",
     "tooLong": "Too long.",
-    "passwordMismatch": "The passwords do not match."
+    "passwordMismatch": "The passwords do not match.",
+    "capacityRange": "Between 1 and 200.",
+    "invalidYear": "Invalid school year."
   },
   "shell": {
     "navigation": "App navigation",
@@ -448,7 +450,9 @@
     "invalid_credentials": "Incorrect email or password.",
     "email_taken": "An account already exists with this email.",
     "email_not_confirmed": "Confirm your email address before signing in.",
-    "account_disabled": "This account is disabled. Contact your school."
+    "account_disabled": "This account is disabled. Contact your school.",
+    "class_full": "This class is full.",
+    "class_archived": "This class is archived."
   },
   "app": {
     "greeting": "Hello, <n>{name}</n>",
@@ -833,6 +837,132 @@
       "activated": "Account reactivated.",
       "deactivated": "Account deactivated.",
       "saved": "Changes saved."
+    }
+  },
+  "classes": {
+    "title": "Classes",
+    "subtitle": {
+      "admin": "Create classes, assign teachers and enrol students.",
+      "teacher": "The classes you teach."
+    },
+    "filters": {
+      "year": "School year",
+      "search": "Search a class…",
+      "searchLabel": "Search a class",
+      "apply": "Filter",
+      "archived": "View archive",
+      "active": "View active classes"
+    },
+    "card": {
+      "students": "{count, plural, one {# student} other {# students}}",
+      "seats": "{enrolled, number} / {capacity, number}",
+      "full": "Full",
+      "archived": "Archived",
+      "noTeacher": "No teacher",
+      "noLevel": "No level",
+      "seatsLabel": "Seats taken"
+    },
+    "actions": {
+      "new": "New class"
+    },
+    "new": {
+      "title": "New class",
+      "description": "You can then assign teachers and enrol students.",
+      "fields": {
+        "name": "Class name",
+        "level": "Level (optional)",
+        "schoolYear": "School year",
+        "capacity": "Capacity (optional)"
+      },
+      "placeholders": {
+        "name": "Grade 6 A",
+        "level": "Grade 6",
+        "capacity": "30"
+      },
+      "submit": "Create class"
+    },
+    "edit": {
+      "button": "Edit",
+      "title": "Edit class",
+      "yearLocked": "The school year can no longer be changed."
+    },
+    "detail": {
+      "back": "All classes",
+      "year": "Year <y>{year}</y>"
+    },
+    "roster": {
+      "title": "Enrolled students",
+      "empty": "No students enrolled",
+      "emptyBody": "Add students to build the class.",
+      "since": "Enrolled {date}",
+      "list": "Enrolled students list"
+    },
+    "teachers": {
+      "title": "Teachers",
+      "empty": "No teacher assigned",
+      "manage": "Manage",
+      "dialogTitle": "Class teachers",
+      "dialogBody": "Tick the teachers who teach this class.",
+      "none": "No active teachers. Invite some from the Teachers page.",
+      "save": "Save"
+    },
+    "enrol": {
+      "button": "Add students",
+      "title": "Add students",
+      "description": "Only active students without a class this year are listed.",
+      "search": "Search a student…",
+      "none": "No students available for this year.",
+      "noMatch": "No student matches.",
+      "submit": "{count, plural, =0 {Choose students} one {Enrol # student} other {Enrol # students}}",
+      "seatsLeft": "{count, plural, one {# seat left} other {# seats left}}",
+      "unlimited": "Unlimited capacity",
+      "loadError": "Couldn’t load students."
+    },
+    "withdraw": {
+      "label": "Remove {name} from the class",
+      "title": "Remove {name}?",
+      "body": "The student will no longer be in this class. History is kept.",
+      "confirm": "Remove"
+    },
+    "archive": {
+      "button": "Archive",
+      "title": "Archive this class?",
+      "body": "It will disappear for teachers and students. Nothing is deleted and you can restore it.",
+      "confirm": "Archive",
+      "restore": "Restore"
+    },
+    "feedback": {
+      "created": "Class created.",
+      "updated": "Class updated.",
+      "archived": "Class archived.",
+      "restored": "Class restored.",
+      "enrolled": "{enrolled, plural, one {# student enrolled.} other {# students enrolled.}}",
+      "enrolledSkipped": "{enrolled, plural, one {# student enrolled} other {# students enrolled}}, {skipped, plural, one {# skipped (already in a class).} other {# skipped (already in a class).}}",
+      "withdrawn": "Student removed from the class.",
+      "teachersSaved": "Teachers updated."
+    },
+    "empty": {
+      "admin": {
+        "title": "No classes this year",
+        "body": "Create your first class to assign teachers and enrol students."
+      },
+      "teacher": {
+        "title": "No classes yet",
+        "body": "Your administration hasn’t assigned you a class this year."
+      }
+    },
+    "noResults": {
+      "title": "No classes found",
+      "body": "No class matches this search.",
+      "clear": "Reset"
+    },
+    "error": {
+      "title": "Couldn’t load classes",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "notFound": {
+      "title": "Class not found",
+      "body": "This class doesn’t exist or you don’t have access to it."
     }
   }
 }
