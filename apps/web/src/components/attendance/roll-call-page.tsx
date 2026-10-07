@@ -44,7 +44,7 @@ export async function RollCallPage({
   // A lesson that does not exist for this viewer, or does not run on that weekday.
   if (!res.ok || weekdayOf(date) !== res.data.slot.weekday) {
     return (
-      <div className="mx-auto grid max-w-3xl gap-7">
+      <div className="mx-auto grid grid-cols-1 max-w-3xl gap-7">
         <Card>
           <EmptyState
             heading="h1"
@@ -76,7 +76,7 @@ export async function RollCallPage({
           : null;
 
   return (
-    <div className="mx-auto grid max-w-3xl gap-6">
+    <div className="mx-auto grid grid-cols-1 max-w-3xl gap-6">
       <Link
         href={{ pathname: base, query: { date } }}
         className="inline-flex w-fit items-center gap-2 text-sm text-text-muted hover:text-primary"

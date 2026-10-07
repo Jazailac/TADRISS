@@ -43,7 +43,9 @@
     "too_old": "After 14 days, only the administration can correct attendance.",
     "not_your_lesson": "This lesson is taught by another teacher.",
     "student_not_in_class": "This student isn’t in the class.",
-    "wrong_weekday": "That date isn’t on the right day of the week."
+    "wrong_weekday": "That date isn’t on the right day of the week.",
+    "score_out_of_range": "A mark is above the exam’s maximum.",
+    "not_your_exam": "Only the exam’s own teacher can enter its marks."
   },
   "login": {
     "title": "Welcome back",
@@ -74,6 +76,8 @@
     "invalidYear": "Invalid school year.",
     "invalidTime": "Invalid time (between 06:00 and 22:00).",
     "timeOrder": "The end must be after the start.",
-    "invalidDate": "Invalid date."
+    "invalidDate": "Invalid date.",
+    "maxScoreRange": "Between 1 and 100.",
+    "coefficientRange": "Between 0.5 and 10, in steps of 0.5."
   }
 }

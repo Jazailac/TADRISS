@@ -279,7 +279,9 @@
     "invalidYear": "Année scolaire invalide.",
     "invalidTime": "Heure invalide (entre 06:00 et 22:00).",
     "timeOrder": "La fin doit être après le début.",
-    "invalidDate": "Date invalide."
+    "invalidDate": "Date invalide.",
+    "maxScoreRange": "Entre 1 et 100.",
+    "coefficientRange": "Entre 0,5 et 10, par pas de 0,5."
   },
   "shell": {
     "navigation": "Navigation de l’application",
@@ -462,7 +464,9 @@
     "too_old": "Au-delà de 14 jours, seule la direction peut corriger l’appel.",
     "not_your_lesson": "Ce cours est assuré par un autre enseignant.",
     "student_not_in_class": "Cet élève ne fait pas partie de la classe.",
-    "wrong_weekday": "Cette date ne tombe pas le bon jour de la semaine."
+    "wrong_weekday": "Cette date ne tombe pas le bon jour de la semaine.",
+    "score_out_of_range": "Une note dépasse le barème de l’examen.",
+    "not_your_exam": "Seul l’enseignant de cet examen peut saisir ses notes."
   },
   "app": {
     "greeting": "Bonjour, <n>{name}</n>",
@@ -1298,6 +1302,179 @@
     "notFound": {
       "title": "Devoir introuvable",
       "body": "Ce devoir n’existe pas ou vous n’y avez pas accès."
+    }
+  },
+  "grades": {
+    "title": "Notes",
+    "subtitle": {
+      "teacher": "Créez vos examens, saisissez les notes et publiez-les quand vous êtes prêt.",
+      "admin": "Suivez les examens et les moyennes de chaque classe.",
+      "student": "Vos notes publiées et vos moyennes."
+    },
+    "filters": {
+      "term": "Semestre",
+      "all": "Tous",
+      "view": "Affichage",
+      "current": "Examens",
+      "deleted": "Supprimés",
+      "class": "Classe",
+      "allClasses": "Toutes les classes",
+      "apply": "Filtrer"
+    },
+    "terms": {
+      "1": "Semestre 1",
+      "2": "Semestre 2"
+    },
+    "status": {
+      "draft": "Brouillon",
+      "published": "Publié"
+    },
+    "actions": {
+      "new": "Nouvel examen",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "restore": "Restaurer",
+      "publish": "Publier les notes",
+      "unpublish": "Retirer la publication"
+    },
+    "form": {
+      "newTitle": "Nouvel examen",
+      "newDescription": "Les notes restent privées tant que vous ne les publiez pas.",
+      "editTitle": "Modifier l’examen",
+      "fields": {
+        "class": "Classe",
+        "subject": "Matière",
+        "title": "Intitulé",
+        "date": "Date",
+        "maxScore": "Barème (sur)",
+        "coefficient": "Coefficient",
+        "term": "Semestre"
+      },
+      "placeholders": {
+        "title": "Contrôle 1 : les fractions"
+      },
+      "create": "Créer l’examen",
+      "noClasses": "Aucune classe ne vous est affectée cette année.",
+      "noSubjects": "Votre direction n’a pas encore créé de matières."
+    },
+    "row": {
+      "coef": "Coef. {value, number}",
+      "out": "sur {max, number}",
+      "progress": "{graded, number}/{total, number} notés",
+      "progressOnly": "{graded, number} notés",
+      "average": "Moyenne {avg, number, ::.##}",
+      "noAverage": "Aucune note",
+      "teacher": "Par {name}"
+    },
+    "detail": {
+      "back": "Tous les examens",
+      "class": "Classe {name}",
+      "archivedNotice": "Cet examen est supprimé : les élèves ne le voient plus.",
+      "draftNotice": "Brouillon : les élèves ne voient ni cet examen ni leurs notes tant que vous ne les publiez pas.",
+      "publishedNotice": "Publié : chaque élève voit sa propre note.",
+      "stats": {
+        "average": "Moyenne /20",
+        "min": "Plus basse",
+        "max": "Plus haute",
+        "graded": "Notés"
+      }
+    },
+    "sheet": {
+      "title": "Saisie des notes",
+      "student": "Élève",
+      "score": "Note",
+      "absent": "Absent",
+      "remark": "Remarque",
+      "remarkPlaceholder": "Facultatif",
+      "scoreFor": "Note de {name}",
+      "absentFor": "{name} : absent",
+      "remarkFor": "Remarque pour {name}",
+      "invalid": "Entre 0 et {max, number}",
+      "hint": "Laissez vide si l’élève n’a pas encore de note. Entrée passe à l’élève suivant.",
+      "save": "Enregistrer les notes",
+      "saved": "Notes enregistrées.",
+      "unsaved": "Modifications non enregistrées",
+      "readOnly": "Seul l’enseignant qui a créé cet examen peut saisir les notes.",
+      "noStudents": {
+        "title": "Aucun élève dans cette classe",
+        "body": "Inscrivez des élèves avant de saisir des notes."
+      },
+      "totals": "{graded, number} notés · {absent, number} absents"
+    },
+    "publishDialog": {
+      "title": "Publier les notes ?",
+      "body": "{missing, plural, one {# élève n’a pas encore de note.} other {# élèves n’ont pas encore de note.}} Chaque élève verra sa propre note. Vous pourrez retirer la publication.",
+      "confirm": "Publier"
+    },
+    "delete": {
+      "title": "Supprimer cet examen ?",
+      "body": "Les élèves ne le verront plus. Vous pourrez le restaurer depuis l’onglet « Supprimés ».",
+      "confirm": "Supprimer"
+    },
+    "feedback": {
+      "created": "Examen créé.",
+      "updated": "Examen mis à jour.",
+      "deleted": "Examen supprimé.",
+      "restored": "Examen restauré.",
+      "published": "Notes publiées.",
+      "unpublished": "Publication retirée."
+    },
+    "admin": {
+      "summary": {
+        "exams": "Examens",
+        "published": "Publiés",
+        "average": "Moyenne des examens publiés"
+      },
+      "table": "Liste des examens",
+      "noAverage": "—"
+    },
+    "student": {
+      "overall": "Moyenne générale",
+      "subject": "Moyenne en {subject}",
+      "exams": "Examens",
+      "absent": "Absent",
+      "noScore": "—",
+      "termLabel": "Semestre",
+      "list": "Détail des notes",
+      "mention": {
+        "tresBien": "Très bien",
+        "bien": "Bien",
+        "assezBien": "Assez bien",
+        "passable": "Passable",
+        "insuffisant": "Insuffisant"
+      },
+      "help": "Chaque note est ramenée sur 20 puis pondérée par son coefficient. Les absences ne comptent pas.",
+      "bySubject": "Par matière"
+    },
+    "empty": {
+      "teacher": {
+        "title": "Aucun examen",
+        "body": "Créez un examen pour saisir les notes de votre classe."
+      },
+      "teacherDeleted": {
+        "title": "Aucun examen supprimé",
+        "body": "Les examens que vous supprimez peuvent être restaurés ici."
+      },
+      "admin": {
+        "title": "Aucun examen",
+        "body": "Les examens créés par les enseignants apparaîtront ici."
+      },
+      "student": {
+        "title": "Aucune note publiée",
+        "body": "Vos notes apparaîtront ici dès que vos enseignants les publieront."
+      },
+      "noClass": {
+        "title": "Vous n’avez pas encore de classe",
+        "body": "Votre direction doit d’abord vous inscrire dans une classe."
+      }
+    },
+    "error": {
+      "title": "Impossible de charger les notes",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Examen introuvable",
+      "body": "Cet examen n’existe pas ou vous n’y avez pas accès."
     }
   }
 }

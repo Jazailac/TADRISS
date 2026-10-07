@@ -35,7 +35,7 @@ export async function ClassDetail({ id, area }: { id: string; area: ClassesArea 
 
   if (!cls.ok || !roster.ok || (teacherPool && !teacherPool.ok)) {
     return (
-      <div className="mx-auto grid max-w-6xl gap-7">
+      <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
             <AlertCircle className="size-5" aria-hidden />
@@ -63,7 +63,7 @@ export async function ClassDetail({ id, area }: { id: string; area: ClassesArea 
       : [];
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-7">
+    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
       <Link
         href={back}
         className="inline-flex w-fit items-center gap-2 text-sm text-text-muted hover:text-primary"

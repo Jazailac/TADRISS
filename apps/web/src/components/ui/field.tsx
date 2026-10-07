@@ -35,12 +35,20 @@ export function Input({ icon, trailing, className, dir, ...rest }: InputProps) {
   );
 }
 
+/**
+ * A field's error line. The line's height is always reserved: errors appear on blur, and if they
+ * pushed the layout down, a tap on the submit button (which is what caused the blur) would land
+ * on something else and be lost. Reserving the space means nothing ever moves.
+ */
 export function FieldError({ id, children }: { id: string; children?: ReactNode }) {
-  if (!children) return null;
   return (
-    <p id={id} role="alert" className="text-sm text-danger">
-      {children}
-    </p>
+    <div className="min-h-5">
+      {children ? (
+        <p id={id} role="alert" className="text-sm leading-5 text-danger">
+          {children}
+        </p>
+      ) : null}
+    </div>
   );
 }
 

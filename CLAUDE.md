@@ -96,6 +96,11 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   `homework_completions` (a student's own tick: they insert/delete only their own row). Student buckets:
   done / overdue / upcoming by `homeworkBucket` against the school's "today". The tick is optimistic
   (`useOptimistic`); e2e must wait for the server response before reloading.
+- **Grades (Phase 7):** `exams` (drafts until `published_at`; students see only published exams and their
+  OWN mark; soft delete, author keeps sight) and `grades` (a score within `[0, max_score]` or `absent`; blank =
+  no row). Marks are written by `save_grades` (whole sheet, one transaction; a blank row clears). Averages are
+  never stored: `weightedAverage20` normalises to /20 and weights by coefficient, absences excluded; the general
+  average is the mean of subject averages. `parseScore` accepts `15,5` and `15.5`.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.
@@ -210,4 +215,9 @@ warm editorial typography with contemporary Maghreb architecture and a cinematic
 - Postgres applies SELECT policies (incl. restrictive soft-delete ones) to the NEW row of an UPDATE: a soft
   delete only works for roles that can still see the deleted row. Use `update(..., {count: 'exact'})` without
   `.select()` for soft deletes, since the returned row is no longer visible.
+- Page roots use `grid grid-cols-1`: an implicit `auto` grid column grows to its widest child's min-content
+  and stretches the whole page on phones. `e2e/layout.spec.ts` asserts no page overflows at 375px.
+- Validate-on-blur must not move the layout: `FieldError` always reserves its line, or a tap on the submit
+  button (the thing that blurred the field) lands on something else and is lost.
+- Long dialogs need `max-h` + `overflow-y-auto` (already in `Dialog`), or the title is clipped on phones.
 - Toolchain pins and their reasons: [ADR 0006](docs/decisions/0006-toolchain-versions.md).

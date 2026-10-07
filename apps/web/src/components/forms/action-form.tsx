@@ -2,12 +2,14 @@
 
 import {
   classInput,
+  examInput,
   fieldErrors,
   homeworkInput,
   inviteInput,
   slotInput,
   subjectInput,
   updateClassInput,
+  updateExamInput,
   updateHomeworkInput,
   updateMemberInput,
   updateSlotInput,
@@ -24,7 +26,7 @@ import { Field, FieldError, Input, Label, Select, Textarea } from '../ui/field';
 export type FormField = {
   name: string;
   label: string;
-  kind: 'text' | 'email' | 'number' | 'select' | 'time' | 'date' | 'textarea';
+  kind: 'text' | 'email' | 'number' | 'decimal' | 'select' | 'time' | 'date' | 'textarea';
   /** Required for `select`. */
   options?: { value: string; label: string }[];
   autoComplete?: string;
@@ -45,6 +47,8 @@ const schemas = {
   updateSubject: updateSubjectInput,
   createHomework: homeworkInput,
   updateHomework: updateHomeworkInput,
+  createExam: examInput,
+  updateExam: updateExamInput,
 } as const;
 
 /**
@@ -122,7 +126,7 @@ export function ActionForm({
           [target.name]: issues[target.name],
         }));
       }}
-      className="grid grid-cols-2 gap-x-3 gap-y-4"
+      className="grid grid-cols-2 gap-x-3 gap-y-1"
     >
       <input type="hidden" name="locale" value={locale} />
       {Object.entries(hidden ?? {}).map(([name, value]) => (
@@ -173,10 +177,16 @@ export function ActionForm({
               <Input
                 id={f.name}
                 name={f.name}
-                type={f.kind === 'number' ? 'text' : f.kind}
+                type={f.kind === 'number' || f.kind === 'decimal' ? 'text' : f.kind}
                 autoComplete={f.autoComplete ?? 'off'}
                 inputMode={
-                  f.kind === 'email' ? 'email' : f.kind === 'number' ? 'numeric' : undefined
+                  f.kind === 'email'
+                    ? 'email'
+                    : f.kind === 'number'
+                      ? 'numeric'
+                      : f.kind === 'decimal'
+                        ? 'decimal'
+                        : undefined
                 }
                 dir={
                   f.kind === 'email' ||

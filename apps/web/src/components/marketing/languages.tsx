@@ -11,7 +11,7 @@ export function Languages() {
   const [lang, setLang] = useState<'fr' | 'ar'>('fr');
   return (
     <section className="auth-architecture">
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 py-24 md:px-8 lg:grid-cols-2">
+      <div className="mx-auto grid grid-cols-1 max-w-6xl items-center gap-14 px-5 py-24 md:px-8 lg:grid-cols-2">
         <SectionHeading
           eyebrow={t('eyebrow')}
           title={t('title')}

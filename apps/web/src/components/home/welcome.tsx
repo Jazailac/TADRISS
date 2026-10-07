@@ -29,7 +29,7 @@ export function Welcome({
         ? (['schedule', 'attendance', 'grades'] as const)
         : (['attendance', 'schedule', 'finance'] as const);
   return (
-    <div className="mx-auto grid max-w-6xl gap-7">
+    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
       <header className="flex flex-wrap items-end justify-between gap-5">
         <div>
           <p className="eyebrow">

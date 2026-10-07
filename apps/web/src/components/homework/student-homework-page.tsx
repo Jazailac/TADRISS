@@ -44,7 +44,7 @@ export async function StudentHomeworkPage() {
 
   if (!homework.ok) {
     return (
-      <div className="mx-auto grid max-w-3xl gap-7">
+      <div className="mx-auto grid grid-cols-1 max-w-3xl gap-7">
         {head}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -69,7 +69,7 @@ export async function StudentHomeworkPage() {
   const sections: HomeworkBucket[] = ['overdue', 'upcoming', 'done'];
 
   return (
-    <div className="mx-auto grid max-w-3xl gap-8">
+    <div className="mx-auto grid grid-cols-1 max-w-3xl gap-8">
       {head}
       {homework.data.length === 0 ? (
         <Card>

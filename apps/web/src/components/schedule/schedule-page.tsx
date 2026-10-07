@@ -95,7 +95,7 @@ export async function AdminSchedulePage({ params }: { params: SchedulePageParams
     />
   );
   const failed = (href: string) => (
-    <div className="mx-auto grid max-w-6xl gap-7">
+    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {head()}
       <ScheduleError
         title={t('error.title')}
@@ -111,7 +111,7 @@ export async function AdminSchedulePage({ params }: { params: SchedulePageParams
   const selected = classes.data.find((c) => c.id === params.class) ?? classes.data[0];
   if (!selected) {
     return (
-      <div className="mx-auto grid max-w-6xl gap-7">
+      <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
         {head()}
         <Card>
           <EmptyState
@@ -141,7 +141,7 @@ export async function AdminSchedulePage({ params }: { params: SchedulePageParams
   const common = { classId: selected.id, subjects: subjects.data, teachers, weekdayNames };
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-7">
+    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {head(
         <>
           <SubjectsDialog subjects={subjects.data} />
@@ -232,7 +232,7 @@ export async function MySchedulePage({
 
   if (!slots.ok || (classes && !classes.ok)) {
     return (
-      <div className="mx-auto grid max-w-6xl gap-7">
+      <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
         {head}
         <ScheduleError
           title={t('error.title')}
@@ -245,7 +245,7 @@ export async function MySchedulePage({
   }
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-7">
+    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {head}
       {slots.data.length === 0 ? (
         <Card>

@@ -24,7 +24,7 @@ export function Catalogue() {
   const [grades, setGrades] = useState(['16', '14.5', '18']);
   const [selected, setSelected] = useState<string[]>([]);
   return (
-    <div className="mx-auto grid max-w-6xl gap-8">
+    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-8">
       <header>
         <p className="eyebrow">{t('preview')}</p>
         <h1 className="display mt-4 text-4xl">{t('catalogue')}</h1>

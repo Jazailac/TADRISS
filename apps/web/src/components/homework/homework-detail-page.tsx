@@ -37,7 +37,7 @@ export async function HomeworkDetailPage({ id }: { id: string }) {
   const total = progress?.ok ? progress.data.length : 0;
 
   return (
-    <div className="mx-auto grid max-w-4xl gap-7">
+    <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
       <Link
         href="/teacher/homework"
         className="inline-flex w-fit items-center gap-2 text-sm text-text-muted hover:text-primary"

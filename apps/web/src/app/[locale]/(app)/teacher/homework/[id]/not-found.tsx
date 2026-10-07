@@ -7,7 +7,7 @@ import { EmptyState } from '@/components/ui/empty-state';
 export default function NotFound() {
   const t = useTranslations('homework');
   return (
-    <div className="mx-auto grid max-w-4xl gap-7">
+    <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
       <Card>
         <EmptyState
           heading="h1"

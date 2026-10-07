@@ -4,7 +4,7 @@ export default function Loading() {
   const t = useTranslations('common');
   return (
     <div
-      className="mx-auto grid max-w-6xl gap-7"
+      className="mx-auto grid grid-cols-1 max-w-6xl gap-7"
       aria-busy="true"
       role="status"
       aria-label={t('loading')}

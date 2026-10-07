@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <section className="hero-world">
       <div className="hero-orbit" aria-hidden />
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-12 md:px-10 md:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
+      <div className="mx-auto grid grid-cols-1 max-w-7xl gap-12 px-5 py-12 md:px-10 md:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
         <div className="relative z-10">
           <p className="flex items-center gap-3 font-mono text-[0.65rem] tracking-[0.18em] text-ink-muted uppercase">
             <span className="h-px w-8 bg-ink-muted" aria-hidden />

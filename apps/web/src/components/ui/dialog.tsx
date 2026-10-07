@@ -48,7 +48,7 @@ export function Dialog({
         if (event.target === ref.current) onClose();
       }}
       className={cx(
-        'm-auto w-[calc(100%-2rem)] max-w-lg rounded-2xl border border-border bg-surface p-0 text-text shadow-lg backdrop:bg-ink/55 backdrop:backdrop-blur-[2px] open:animate-rise',
+        'm-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto overscroll-contain rounded-2xl border border-border bg-surface p-0 text-text shadow-lg backdrop:bg-ink/55 backdrop:backdrop-blur-[2px] open:animate-rise',
         className,
       )}
     >

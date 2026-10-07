@@ -82,7 +82,7 @@ export async function AttendanceDayPage({
 
   if (!lessons.ok || (summary && !summary.ok)) {
     return (
-      <div className="mx-auto grid max-w-6xl gap-7">
+      <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
         {header}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -106,7 +106,7 @@ export async function AttendanceDayPage({
   const tooOld = area === 'teacher' && date < addDays(today, -ATTENDANCE_EDIT_WINDOW_DAYS);
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-7">
+    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {header}
 
       <Card className="flex flex-wrap items-center gap-3 p-4 sm:p-5">

@@ -104,7 +104,7 @@ export function AuthForm({
           [target.name]: issues[target.name],
         }));
       }}
-      className="grid grid-cols-2 gap-x-3 gap-y-5"
+      className="grid grid-cols-2 gap-x-3 gap-y-1.5"
     >
       <input type="hidden" name="locale" value={locale} />
       {next ? <input type="hidden" name="next" value={next} /> : null}

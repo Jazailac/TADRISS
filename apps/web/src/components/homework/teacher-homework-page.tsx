@@ -55,7 +55,7 @@ export async function TeacherHomeworkPage({ params }: { params: TeacherHomeworkP
 
   if (!homework.ok || !classes.ok || !subjects.ok) {
     return (
-      <div className="mx-auto grid max-w-5xl gap-7">
+      <div className="mx-auto grid grid-cols-1 max-w-5xl gap-7">
         {head()}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -82,7 +82,7 @@ export async function TeacherHomeworkPage({ params }: { params: TeacherHomeworkP
     view === 'upcoming' ? 'teacher' : view === 'past' ? 'teacherPast' : 'teacherDeleted';
 
   return (
-    <div className="mx-auto grid max-w-5xl gap-7">
+    <div className="mx-auto grid grid-cols-1 max-w-5xl gap-7">
       {head(
         <NewHomeworkButton
           classes={classes.data.map((c) => ({ id: c.id, name: c.name }))}

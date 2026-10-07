@@ -61,7 +61,7 @@ export function DashboardPreview() {
         : format.number(v.n);
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-8">
+    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-8">
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="eyebrow">

@@ -15,5 +15,7 @@ export * from './schemas/attendance';
 export * from './attendance';
 export * from './schemas/homework';
 export * from './homework';
+export * from './schemas/grades';
+export * from './grades';
 export * from './people';
 export * from './auth';

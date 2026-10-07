@@ -4,7 +4,7 @@ import { Skeleton } from '../ui/skeleton';
 /** Loading state shaped like the real page, so nothing jumps when data arrives. */
 export function PeopleSkeleton() {
   return (
-    <div className="mx-auto grid max-w-6xl gap-7" aria-busy="true">
+    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7" aria-busy="true">
       <div className="flex flex-wrap items-end justify-between gap-5">
         <div className="grid gap-3">
           <Skeleton className="h-4 w-24" />

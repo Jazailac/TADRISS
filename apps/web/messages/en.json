@@ -279,7 +279,9 @@
     "invalidYear": "Invalid school year.",
     "invalidTime": "Invalid time (between 06:00 and 22:00).",
     "timeOrder": "The end must be after the start.",
-    "invalidDate": "Invalid date."
+    "invalidDate": "Invalid date.",
+    "maxScoreRange": "Between 1 and 100.",
+    "coefficientRange": "Between 0.5 and 10, in steps of 0.5."
   },
   "shell": {
     "navigation": "App navigation",
@@ -462,7 +464,9 @@
     "too_old": "After 14 days, only the administration can correct attendance.",
     "not_your_lesson": "This lesson is taught by another teacher.",
     "student_not_in_class": "This student isn’t in the class.",
-    "wrong_weekday": "That date isn’t on the right day of the week."
+    "wrong_weekday": "That date isn’t on the right day of the week.",
+    "score_out_of_range": "A mark is above the exam’s maximum.",
+    "not_your_exam": "Only the exam’s own teacher can enter its marks."
   },
   "app": {
     "greeting": "Hello, <n>{name}</n>",
@@ -1298,6 +1302,179 @@
     "notFound": {
       "title": "Homework not found",
       "body": "This homework doesn’t exist or you don’t have access to it."
+    }
+  },
+  "grades": {
+    "title": "Grades",
+    "subtitle": {
+      "teacher": "Create your exams, enter marks and publish them when you’re ready.",
+      "admin": "Follow exams and each class’s averages.",
+      "student": "Your published marks and averages."
+    },
+    "filters": {
+      "term": "Semester",
+      "all": "All",
+      "view": "View",
+      "current": "Exams",
+      "deleted": "Deleted",
+      "class": "Class",
+      "allClasses": "All classes",
+      "apply": "Filter"
+    },
+    "terms": {
+      "1": "Semester 1",
+      "2": "Semester 2"
+    },
+    "status": {
+      "draft": "Draft",
+      "published": "Published"
+    },
+    "actions": {
+      "new": "New exam",
+      "edit": "Edit",
+      "delete": "Delete",
+      "restore": "Restore",
+      "publish": "Publish marks",
+      "unpublish": "Unpublish"
+    },
+    "form": {
+      "newTitle": "New exam",
+      "newDescription": "Marks stay private until you publish them.",
+      "editTitle": "Edit exam",
+      "fields": {
+        "class": "Class",
+        "subject": "Subject",
+        "title": "Title",
+        "date": "Date",
+        "maxScore": "Out of",
+        "coefficient": "Coefficient",
+        "term": "Semester"
+      },
+      "placeholders": {
+        "title": "Test 1: fractions"
+      },
+      "create": "Create exam",
+      "noClasses": "No class is assigned to you this year.",
+      "noSubjects": "Your administration hasn’t created any subjects yet."
+    },
+    "row": {
+      "coef": "Coef. {value, number}",
+      "out": "out of {max, number}",
+      "progress": "{graded, number}/{total, number} graded",
+      "progressOnly": "{graded, number} graded",
+      "average": "Average {avg, number, ::.##}",
+      "noAverage": "No marks",
+      "teacher": "By {name}"
+    },
+    "detail": {
+      "back": "All exams",
+      "class": "Class {name}",
+      "archivedNotice": "This exam is deleted: students no longer see it.",
+      "draftNotice": "Draft: students can’t see this exam or their marks until you publish them.",
+      "publishedNotice": "Published: each student sees their own mark.",
+      "stats": {
+        "average": "Average /20",
+        "min": "Lowest",
+        "max": "Highest",
+        "graded": "Graded"
+      }
+    },
+    "sheet": {
+      "title": "Mark entry",
+      "student": "Student",
+      "score": "Mark",
+      "absent": "Absent",
+      "remark": "Remark",
+      "remarkPlaceholder": "Optional",
+      "scoreFor": "Mark for {name}",
+      "absentFor": "{name}: absent",
+      "remarkFor": "Remark for {name}",
+      "invalid": "Between 0 and {max, number}",
+      "hint": "Leave blank if the student has no mark yet. Enter moves to the next student.",
+      "save": "Save marks",
+      "saved": "Marks saved.",
+      "unsaved": "Unsaved changes",
+      "readOnly": "Only the teacher who created this exam can enter marks.",
+      "noStudents": {
+        "title": "No students in this class",
+        "body": "Enrol students before entering marks."
+      },
+      "totals": "{graded, number} graded · {absent, number} absent"
+    },
+    "publishDialog": {
+      "title": "Publish the marks?",
+      "body": "{missing, plural, one {# student doesn’t have a mark yet.} other {# students don’t have a mark yet.}} Each student will see their own mark. You can unpublish.",
+      "confirm": "Publish"
+    },
+    "delete": {
+      "title": "Delete this exam?",
+      "body": "Students will no longer see it. You can restore it from the “Deleted” tab.",
+      "confirm": "Delete"
+    },
+    "feedback": {
+      "created": "Exam created.",
+      "updated": "Exam updated.",
+      "deleted": "Exam deleted.",
+      "restored": "Exam restored.",
+      "published": "Marks published.",
+      "unpublished": "Unpublished."
+    },
+    "admin": {
+      "summary": {
+        "exams": "Exams",
+        "published": "Published",
+        "average": "Average of published exams"
+      },
+      "table": "Exams list",
+      "noAverage": "—"
+    },
+    "student": {
+      "overall": "Overall average",
+      "subject": "Average in {subject}",
+      "exams": "Exams",
+      "absent": "Absent",
+      "noScore": "—",
+      "termLabel": "Semester",
+      "list": "Marks in detail",
+      "mention": {
+        "tresBien": "Excellent",
+        "bien": "Very good",
+        "assezBien": "Good",
+        "passable": "Pass",
+        "insuffisant": "Below pass"
+      },
+      "help": "Each mark is scaled to 20 then weighted by its coefficient. Absences don’t count.",
+      "bySubject": "By subject"
+    },
+    "empty": {
+      "teacher": {
+        "title": "No exams",
+        "body": "Create an exam to enter your class’s marks."
+      },
+      "teacherDeleted": {
+        "title": "No deleted exams",
+        "body": "Exams you delete can be restored here."
+      },
+      "admin": {
+        "title": "No exams",
+        "body": "Exams created by teachers will show up here."
+      },
+      "student": {
+        "title": "No published marks",
+        "body": "Your marks will show up here as soon as your teachers publish them."
+      },
+      "noClass": {
+        "title": "You don’t have a class yet",
+        "body": "Your administration needs to enrol you in a class first."
+      }
+    },
+    "error": {
+      "title": "Couldn’t load grades",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "notFound": {
+      "title": "Exam not found",
+      "body": "This exam doesn’t exist or you don’t have access to it."
     }
   }
 }
