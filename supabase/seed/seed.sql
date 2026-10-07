@@ -109,3 +109,33 @@ select pg_temp.seed_user('10000000-0000-4000-8000-0000000000a2', 'admin2@almanar
 insert into public.profiles (id, institution_id, role, first_name, last_name, locale, email)
 values ('10000000-0000-4000-8000-0000000000a2', '10000000-0000-4000-8000-000000000001',
         'institution_admin', 'Rachid', 'Lahlou', 'fr', 'admin2@almanar.test');
+
+-- ── Phase 3: classes, teachers, enrolments (Al Manar, 2026-2027) ────────────
+insert into public.classes (id, institution_id, name, level, school_year, capacity) values
+  ('10000000-0000-4000-8000-000000000401', '10000000-0000-4000-8000-000000000001', '6ème A', '6ème', '2026-2027', 30),
+  ('10000000-0000-4000-8000-000000000402', '10000000-0000-4000-8000-000000000001', '6ème B', '6ème', '2026-2027', 30),
+  ('10000000-0000-4000-8000-000000000403', '10000000-0000-4000-8000-000000000001', '5ème A', '5ème', '2026-2027', 25),
+  -- Deliberately full (capacity 2) to demonstrate the capacity rule.
+  ('10000000-0000-4000-8000-000000000404', '10000000-0000-4000-8000-000000000001', '3ème Sciences', '3ème', '2026-2027', 2);
+
+insert into public.class_teachers (class_id, teacher_id, institution_id)
+select c.id, t.id, '10000000-0000-4000-8000-000000000001'
+from (values
+  ('10000000-0000-4000-8000-000000000401'::uuid, '10000000-0000-4000-8000-000000000101'::uuid),
+  ('10000000-0000-4000-8000-000000000402', '10000000-0000-4000-8000-000000000101'),
+  ('10000000-0000-4000-8000-000000000402', '10000000-0000-4000-8000-000000000102'),
+  ('10000000-0000-4000-8000-000000000403', '10000000-0000-4000-8000-000000000102'),
+  ('10000000-0000-4000-8000-000000000403', '10000000-0000-4000-8000-000000000103'),
+  ('10000000-0000-4000-8000-000000000404', '10000000-0000-4000-8000-000000000103')
+) as m(class_id, teacher_id)
+join public.classes c on c.id = m.class_id
+join public.profiles t on t.id = m.teacher_id;
+
+-- Students 1-8 → 6ème A, 9-16 → 6ème B, 17-24 → 5ème A, 25-26 → 3ème Sciences (full).
+-- Students 27-29 stay unenrolled (and 30 is deactivated) so "add students" has candidates.
+insert into public.enrolments (institution_id, class_id, school_year, student_id)
+select '10000000-0000-4000-8000-000000000001',
+       ('10000000-0000-4000-8000-00000000040' || (case when n <= 8 then 1 when n <= 16 then 2 when n <= 24 then 3 else 4 end))::uuid,
+       '2026-2027',
+       ('10000000-0000-4000-8000-0000000002' || lpad(n::text, 2, '0'))::uuid
+from generate_series(1, 26) as n;

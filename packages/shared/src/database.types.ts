@@ -3,6 +3,147 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      class_teachers: {
+        Row: {
+          class_id: string;
+          created_at: string;
+          institution_id: string;
+          teacher_id: string;
+        };
+        Insert: {
+          class_id: string;
+          created_at?: string;
+          institution_id: string;
+          teacher_id: string;
+        };
+        Update: {
+          class_id?: string;
+          created_at?: string;
+          institution_id?: string;
+          teacher_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'class_teachers_class_id_institution_id_fkey';
+            columns: ['class_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'classes';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'class_teachers_institution_id_teacher_id_fkey';
+            columns: ['institution_id', 'teacher_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
+      classes: {
+        Row: {
+          capacity: number | null;
+          created_at: string;
+          deleted_at: string | null;
+          id: string;
+          institution_id: string;
+          level: string | null;
+          name: string;
+          school_year: string;
+          updated_at: string;
+        };
+        Insert: {
+          capacity?: number | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: string;
+          institution_id: string;
+          level?: string | null;
+          name: string;
+          school_year: string;
+          updated_at?: string;
+        };
+        Update: {
+          capacity?: number | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: string;
+          institution_id?: string;
+          level?: string | null;
+          name?: string;
+          school_year?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'classes_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'institutions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      enrolments: {
+        Row: {
+          class_id: string;
+          created_at: string;
+          enrolled_on: string;
+          id: string;
+          institution_id: string;
+          school_year: string;
+          status: string;
+          student_id: string;
+          updated_at: string;
+          withdrawn_on: string | null;
+        };
+        Insert: {
+          class_id: string;
+          created_at?: string;
+          enrolled_on?: string;
+          id?: string;
+          institution_id: string;
+          school_year: string;
+          status?: string;
+          student_id: string;
+          updated_at?: string;
+          withdrawn_on?: string | null;
+        };
+        Update: {
+          class_id?: string;
+          created_at?: string;
+          enrolled_on?: string;
+          id?: string;
+          institution_id?: string;
+          school_year?: string;
+          status?: string;
+          student_id?: string;
+          updated_at?: string;
+          withdrawn_on?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'enrolments_class_id_institution_id_fkey';
+            columns: ['class_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'classes';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'enrolments_class_id_school_year_fkey';
+            columns: ['class_id', 'school_year'];
+            isOneToOne: false;
+            referencedRelation: 'classes';
+            referencedColumns: ['id', 'school_year'];
+          },
+          {
+            foreignKeyName: 'enrolments_institution_id_student_id_fkey';
+            columns: ['institution_id', 'student_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
       institutions: {
         Row: {
           created_at: string;
@@ -154,7 +295,20 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      enrol_students: { Args: { p_class_id: string; p_student_ids: string[] }; Returns: number };
+      enrolable_students: {
+        Args: { p_limit?: number; p_query?: string; p_school_year: string };
+        Returns: {
+          email: string;
+          first_name: string;
+          id: string;
+          last_name: string;
+        }[];
+      };
+      set_class_teachers: {
+        Args: { p_class_id: string; p_teacher_ids: string[] };
+        Returns: undefined;
+      };
     };
     Enums: {
       [_ in never]: never;
