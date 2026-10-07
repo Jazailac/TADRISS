@@ -3,17 +3,23 @@
 import {
   classInput,
   examInput,
+  feePlanInput,
   fieldErrors,
+  generateInvoicesInput,
   homeworkInput,
   inviteInput,
+  invoiceInput,
+  paymentInput,
   slotInput,
   subjectInput,
   updateClassInput,
   updateExamInput,
+  updateFeePlanInput,
   updateHomeworkInput,
   updateMemberInput,
   updateSlotInput,
   updateSubjectInput,
+  voidInput,
   type ValidationKey,
 } from '@tadriss/shared';
 import { AlertCircle } from 'lucide-react';
@@ -49,6 +55,12 @@ const schemas = {
   updateHomework: updateHomeworkInput,
   createExam: examInput,
   updateExam: updateExamInput,
+  createFeePlan: feePlanInput,
+  updateFeePlan: updateFeePlanInput,
+  createInvoice: invoiceInput,
+  generateInvoices: generateInvoicesInput,
+  recordPayment: paymentInput,
+  voidDocument: voidInput,
 } as const;
 
 /**
@@ -65,6 +77,7 @@ export function ActionForm({
   cancelLabel,
   onCancel,
   onDone,
+  onFieldChange,
 }: {
   schema: keyof typeof schemas;
   action: (prev: FormState, fd: FormData) => Promise<FormState>;
@@ -75,6 +88,8 @@ export function ActionForm({
   cancelLabel: string;
   onCancel: () => void;
   onDone: (values: Record<string, string>) => void;
+  /** Called as a field changes, for UI beside the form that depends on it (e.g. a price preview). */
+  onFieldChange?: (name: string, value: string) => void;
 }) {
   const schema = schemas[schemaName];
   const locale = useLocale();
@@ -92,8 +107,10 @@ export function ActionForm({
   }, [state?.done]);
 
   const errors = clientErrors ?? state?.fields ?? {};
-  const serverError =
-    !clientErrors && state?.error && state.error !== 'validation' ? state.error : null;
+  // Not hidden while the user edits: blur-validation would remove the alert on mousedown, the
+  // form would shrink and the submit button would slide away from the click. A new submit
+  // replaces the state, which clears it.
+  const serverError = state?.error && state.error !== 'validation' ? state.error : null;
 
   const onSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
@@ -114,6 +131,16 @@ export function ActionForm({
       noValidate
       action={formAction}
       onSubmit={onSubmit}
+      onChange={(event) => {
+        const target = event.target;
+        if (
+          (target instanceof HTMLInputElement ||
+            target instanceof HTMLSelectElement ||
+            target instanceof HTMLTextAreaElement) &&
+          fields.some((f) => f.name === target.name)
+        )
+          onFieldChange?.(target.name, target.value);
+      }}
       onBlur={(event) => {
         const target = event.target;
         if (!(target instanceof HTMLInputElement) || !fields.some((f) => f.name === target.name))

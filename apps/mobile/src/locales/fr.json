@@ -45,7 +45,10 @@
     "student_not_in_class": "Cet élève ne fait pas partie de la classe.",
     "wrong_weekday": "Cette date ne tombe pas le bon jour de la semaine.",
     "score_out_of_range": "Une note dépasse le barème de l’examen.",
-    "not_your_exam": "Seul l’enseignant de cet examen peut saisir ses notes."
+    "not_your_exam": "Seul l’enseignant de cet examen peut saisir ses notes.",
+    "payment_exceeds_balance": "Le montant dépasse le reste à payer.",
+    "invoice_void": "Cette facture est annulée.",
+    "has_payments": "Annulez d’abord les paiements de cette facture."
   },
   "login": {
     "title": "Bon retour",
@@ -78,6 +81,7 @@
     "timeOrder": "La fin doit être après le début.",
     "invalidDate": "Date invalide.",
     "maxScoreRange": "Entre 1 et 100.",
-    "coefficientRange": "Entre 0,5 et 10, par pas de 0,5."
+    "coefficientRange": "Entre 0,5 et 10, par pas de 0,5.",
+    "invalidAmount": "Montant invalide (de 0,01 à 1 000 000 MAD)."
   }
 }

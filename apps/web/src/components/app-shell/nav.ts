@@ -50,7 +50,7 @@ const admin: NavGroup[] = [
     items: [
       item('attendance', '/dashboard/attendance', CalendarCheck, true),
       item('grades', '/dashboard/grades', BarChart3, true),
-      item('finance', '/dashboard/finance', CreditCard),
+      item('finance', '/dashboard/finance', CreditCard, true),
     ],
   },
   {
@@ -87,7 +87,7 @@ const student: NavGroup[] = [
       item('homework', '/student/homework', ClipboardList, true),
       item('attendance', '/student/attendance', CalendarCheck, true),
       item('grades', '/student/grades', BarChart3, true),
-      item('payments', '/student/payments', CreditCard),
+      item('payments', '/student/payments', CreditCard, true),
     ],
   },
   { key: 'communication', items: [item('messages', '/student/messages', MessageSquare)] },

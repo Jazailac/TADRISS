@@ -281,7 +281,8 @@
     "timeOrder": "La fin doit être après le début.",
     "invalidDate": "Date invalide.",
     "maxScoreRange": "Entre 1 et 100.",
-    "coefficientRange": "Entre 0,5 et 10, par pas de 0,5."
+    "coefficientRange": "Entre 0,5 et 10, par pas de 0,5.",
+    "invalidAmount": "Montant invalide (de 0,01 à 1 000 000 MAD)."
   },
   "shell": {
     "navigation": "Navigation de l’application",
@@ -466,7 +467,10 @@
     "student_not_in_class": "Cet élève ne fait pas partie de la classe.",
     "wrong_weekday": "Cette date ne tombe pas le bon jour de la semaine.",
     "score_out_of_range": "Une note dépasse le barème de l’examen.",
-    "not_your_exam": "Seul l’enseignant de cet examen peut saisir ses notes."
+    "not_your_exam": "Seul l’enseignant de cet examen peut saisir ses notes.",
+    "payment_exceeds_balance": "Le montant dépasse le reste à payer.",
+    "invoice_void": "Cette facture est annulée.",
+    "has_payments": "Annulez d’abord les paiements de cette facture."
   },
   "app": {
     "greeting": "Bonjour, <n>{name}</n>",
@@ -1475,6 +1479,220 @@
     "notFound": {
       "title": "Examen introuvable",
       "body": "Cet examen n’existe pas ou vous n’y avez pas accès."
+    }
+  },
+  "finance": {
+    "title": "Finances",
+    "subtitle": {
+      "admin": "Facturez, encaissez et éditez des reçus numérotés, sans jamais perdre une trace.",
+      "student": "Vos factures, vos paiements et vos reçus."
+    },
+    "summary": {
+      "billed": "Facturé",
+      "collected": "Encaissé",
+      "outstanding": "Reste à payer",
+      "overdue": "En retard",
+      "overdueCount": "{count, plural, one {# facture} other {# factures}}",
+      "help": "Les factures et paiements annulés ne sont pas comptés."
+    },
+    "status": {
+      "unpaid": "Impayée",
+      "partial": "Partielle",
+      "paid": "Payée",
+      "overdue": "En retard",
+      "void": "Annulée"
+    },
+    "filters": {
+      "status": "Statut",
+      "all": "Toutes",
+      "search": "Rechercher",
+      "placeholder": "Élève, n° de facture…",
+      "apply": "Rechercher"
+    },
+    "list": {
+      "label": "Liste des factures",
+      "empty": {
+        "title": "Aucune facture",
+        "body": "Générez les factures d’une classe à partir d’un tarif, ou créez-en une."
+      },
+      "noResults": {
+        "title": "Aucune facture trouvée",
+        "body": "Aucune facture ne correspond à cette recherche ou à ce filtre.",
+        "clear": "Réinitialiser"
+      }
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "range": "{from, number}–{to, number} sur {total, number}"
+    },
+    "row": {
+      "due": "Échéance {date}",
+      "paidOf": "{paid} sur {total}",
+      "issued": "Émise le {date}"
+    },
+    "actions": {
+      "newInvoice": "Nouvelle facture",
+      "generate": "Générer des factures",
+      "plans": "Tarifs",
+      "pay": "Enregistrer un paiement",
+      "voidPayment": "Annuler",
+      "voidInvoice": "Annuler la facture",
+      "receipt": "Reçu",
+      "print": "Imprimer"
+    },
+    "plans": {
+      "title": "Tarifs",
+      "description": "Les frais que vous facturez (inscription, scolarité, transport…). Le montant est figé : pour le changer, créez un nouveau tarif.",
+      "fields": {
+        "name": "Nom du tarif",
+        "description": "Description (facultatif)",
+        "amount": "Montant (MAD)"
+      },
+      "placeholders": {
+        "name": "Scolarité mensuelle",
+        "amount": "1 200,00"
+      },
+      "add": "Ajouter",
+      "save": "Enregistrer",
+      "archive": "Archiver",
+      "restore": "Restaurer",
+      "archived": "Archivé",
+      "empty": "Aucun tarif pour l’instant.",
+      "list": "Liste des tarifs",
+      "edit": "Modifier",
+      "editLabel": "Modifier {name}",
+      "archiveLabel": "Archiver {name}",
+      "restoreLabel": "Restaurer {name}"
+    },
+    "invoice": {
+      "title": "Nouvelle facture",
+      "description": "Une facture libre pour un seul élève. Pour facturer toute une classe, utilisez « Générer des factures ».",
+      "fields": {
+        "student": "Élève",
+        "description": "Libellé",
+        "amount": "Montant (MAD)",
+        "dueDate": "Échéance"
+      },
+      "placeholders": {
+        "student": "Rechercher un élève…",
+        "description": "Sortie pédagogique",
+        "amount": "350,00"
+      },
+      "noMatch": "Aucun élève ne correspond.",
+      "pickStudent": "Choisissez un élève dans la liste.",
+      "submit": "Émettre la facture",
+      "selected": "Élève choisi : {name}"
+    },
+    "generate": {
+      "title": "Générer des factures",
+      "description": "Une facture par élève inscrit dans la classe. Relancer ne facture jamais deux fois le même élève pour le même tarif et la même échéance.",
+      "fields": {
+        "plan": "Tarif",
+        "class": "Classe",
+        "dueDate": "Échéance",
+        "description": "Libellé (facultatif)"
+      },
+      "placeholders": {
+        "description": "Scolarité octobre 2026"
+      },
+      "noPlans": "Créez d’abord un tarif.",
+      "noClasses": "Aucune classe cette année.",
+      "preview": "Chaque élève sera facturé {amount}.",
+      "submit": "Générer"
+    },
+    "payment": {
+      "title": "Enregistrer un paiement",
+      "remaining": "Reste à payer : {amount}",
+      "fields": {
+        "amount": "Montant (MAD)",
+        "method": "Mode de paiement",
+        "paidOn": "Date du paiement",
+        "reference": "Référence (facultatif)"
+      },
+      "placeholders": {
+        "reference": "N° de virement ou de chèque"
+      },
+      "methods": {
+        "cash": "Espèces",
+        "transfer": "Virement",
+        "cheque": "Chèque",
+        "card": "Carte bancaire"
+      },
+      "submit": "Enregistrer et créer le reçu"
+    },
+    "void": {
+      "paymentTitle": "Annuler ce paiement ?",
+      "invoiceTitle": "Annuler cette facture ?",
+      "paymentBody": "Le reçu {receipt} sera marqué « annulé » et son montant redevient dû. Cette action est définitive et le reçu garde son numéro.",
+      "invoiceBody": "La facture sera marquée « annulée » et l’élève ne la verra plus. Cette action est définitive. Pour corriger un montant, annulez puis émettez une nouvelle facture.",
+      "reason": "Motif (obligatoire)",
+      "reasonPlaceholder": "Saisie en double, erreur de montant…",
+      "confirm": "Annuler définitivement"
+    },
+    "detail": {
+      "back": "Toutes les factures",
+      "amount": "Montant",
+      "paid": "Payé",
+      "balance": "Reste à payer",
+      "payments": "Paiements",
+      "list": "Liste des paiements",
+      "noPayments": "Aucun paiement enregistré.",
+      "voidedInvoice": "Facture annulée. Motif : {reason}",
+      "voidedPayment": "Annulé : {reason}",
+      "dueOn": "Échéance {date}",
+      "issuedOn": "Émise le {date}",
+      "ref": "Réf. {reference}"
+    },
+    "receipt": {
+      "title": "Reçu de paiement",
+      "number": "N° {number}",
+      "date": "Date",
+      "student": "Élève",
+      "invoice": "Facture",
+      "for": "Objet",
+      "amount": "Montant reçu",
+      "method": "Mode de paiement",
+      "reference": "Référence",
+      "balance": "Reste à payer sur cette facture",
+      "settled": "Facture soldée",
+      "voided": "ANNULÉ",
+      "voidedReason": "Annulé : {reason}",
+      "signature": "Cachet et signature",
+      "footer": "Document généré par Tadriss",
+      "back": "Retour"
+    },
+    "student": {
+      "owed": "Reste à payer",
+      "paid": "Déjà payé",
+      "list": "Mes factures",
+      "receipts": "Reçus",
+      "empty": {
+        "title": "Aucune facture",
+        "body": "Vos factures apparaîtront ici dès que l’établissement en émettra."
+      },
+      "allPaid": "Tout est à jour."
+    },
+    "feedback": {
+      "planCreated": "Tarif créé.",
+      "planUpdated": "Tarif mis à jour.",
+      "planArchived": "Tarif archivé.",
+      "planRestored": "Tarif restauré.",
+      "invoiceCreated": "Facture émise.",
+      "generated": "{count, plural, one {# facture émise.} other {# factures émises.}}",
+      "nothingToGenerate": "Rien à générer : tous les élèves de la classe sont déjà facturés.",
+      "paymentRecorded": "Paiement enregistré, reçu {receipt}.",
+      "paymentVoided": "Paiement annulé.",
+      "invoiceVoided": "Facture annulée."
+    },
+    "error": {
+      "title": "Impossible de charger les finances",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Document introuvable",
+      "body": "Cette facture ou ce reçu n’existe pas ou vous n’y avez pas accès."
     }
   }
 }

@@ -81,7 +81,8 @@ create table public.invoices (
   institution_id uuid not null,
   student_id uuid not null,
   fee_plan_id uuid,
-  number text not null,
+  -- Assigned by a trigger on insert (the '' is only a placeholder so inserts need not supply one).
+  number text not null default '',
   description text not null check (char_length(btrim(description)) between 1 and 200),
   amount_centimes bigint not null check (amount_centimes > 0 and amount_centimes <= 100000000),
   due_date date not null,
@@ -121,7 +122,8 @@ create table public.payments (
   method text not null check (method in ('cash', 'transfer', 'cheque', 'card')),
   paid_on date not null,
   reference text check (reference is null or char_length(btrim(reference)) between 1 and 100),
-  receipt_number text not null,
+  -- Assigned by a trigger on insert (the '' is only a placeholder).
+  receipt_number text not null default '',
   voided_at timestamptz,
   void_reason text check (void_reason is null or char_length(btrim(void_reason)) between 1 and 300),
   created_by uuid default auth.uid(),

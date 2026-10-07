@@ -101,6 +101,13 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   no row). Marks are written by `save_grades` (whole sheet, one transaction; a blank row clears). Averages are
   never stored: `weightedAverage20` normalises to /20 and weights by coefficient, absences excluded; the general
   average is the mean of subject averages. `parseScore` accepts `15,5` and `15.5`.
+- **Finance (Phase 8, [ADR 0014](docs/decisions/0014-finance-rules.md)):** `fee_plans`, `invoices`, `payments`,
+  gapless `F-YYYY-NNNN` / `R-YYYY-NNNN` numbers from a trigger-fed counter, and the `invoice_balances` view
+  (`security_invoker`; precomputed `balance_centimes`, since PostgREST can't compare two columns). Payments are
+  per invoice, overpayment is refused by `guard_payment` (authorises first, then locks the invoice), corrections
+  are void-only and final. Generation (`generate_invoices`) is idempotent per (plan, class, due date). Receipts
+  print from `(print)/receipt/[paymentId]`, outside the app shell. View columns are typed nullable: narrow with
+  `isComplete`.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.
@@ -187,6 +194,12 @@ warm editorial typography with contemporary Maghreb architecture and a cinematic
 - **Copy:** French uses a narrow no-break space before `: ; ? !`. ICU numbers are `{value, number}`.
 
 ## Gotchas
+
+- Dialog forms: never change the form's height between a field's blur and the click that caused it
+  (server alerts must not vanish on blur-validation; `FieldError` reserves its line), or the submit button
+  slides away and the click is lost. A toast that must survive the form unmounting after `revalidatePath`
+  (e.g. voiding removes the very button) is fired from a wrapper around the action, not from `onDone`.
+- Generation-style e2e tests must use run-unique inputs (idempotent RPCs bill nobody the second time).
 
 - Visual snapshots are Linux-only. Regenerate them with the **Update visual baselines** workflow,
   never on a Mac ([ADR 0008](docs/decisions/0008-visual-baselines-on-linux.md)).

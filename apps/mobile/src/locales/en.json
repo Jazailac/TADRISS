@@ -45,7 +45,10 @@
     "student_not_in_class": "This student isn’t in the class.",
     "wrong_weekday": "That date isn’t on the right day of the week.",
     "score_out_of_range": "A mark is above the exam’s maximum.",
-    "not_your_exam": "Only the exam’s own teacher can enter its marks."
+    "not_your_exam": "Only the exam’s own teacher can enter its marks.",
+    "payment_exceeds_balance": "The amount is more than what’s left to pay.",
+    "invoice_void": "This invoice is void.",
+    "has_payments": "Void this invoice’s payments first."
   },
   "login": {
     "title": "Welcome back",
@@ -78,6 +81,7 @@
     "timeOrder": "The end must be after the start.",
     "invalidDate": "Invalid date.",
     "maxScoreRange": "Between 1 and 100.",
-    "coefficientRange": "Between 0.5 and 10, in steps of 0.5."
+    "coefficientRange": "Between 0.5 and 10, in steps of 0.5.",
+    "invalidAmount": "Invalid amount (0.01 to 1,000,000 MAD)."
   }
 }

@@ -686,7 +686,7 @@ export type Database = {
           id?: string;
           institution_id: string;
           issued_on?: string;
-          number: string;
+          number?: string;
           student_id: string;
           updated_at?: string;
           void_reason?: string | null;
@@ -751,7 +751,7 @@ export type Database = {
           invoice_id: string;
           method: string;
           paid_on: string;
-          receipt_number: string;
+          receipt_number?: string;
           reference?: string | null;
           student_id: string;
           updated_at?: string;

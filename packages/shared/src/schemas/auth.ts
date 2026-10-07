@@ -18,6 +18,7 @@ export const validationKeys = [
   'invalidDate',
   'maxScoreRange',
   'coefficientRange',
+  'invalidAmount',
 ] as const;
 export type ValidationKey = (typeof validationKeys)[number];
 

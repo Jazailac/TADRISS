@@ -27,6 +27,9 @@ export const errorCodes = [
   'wrong_weekday',
   'score_out_of_range',
   'not_your_exam',
+  'payment_exceeds_balance',
+  'invoice_void',
+  'has_payments',
   'unknown',
 ] as const;
 export type ErrorCode = (typeof errorCodes)[number];
@@ -48,6 +51,10 @@ export function toErrorCode(
       if (e.message === 'student_not_in_class') return 'student_not_in_class';
       if (e.message === 'score_out_of_range') return 'score_out_of_range';
       if (e.message === 'not_your_exam') return 'not_your_exam';
+      if (e.message === 'payment_exceeds_balance') return 'payment_exceeds_balance';
+      if (e.message === 'invoice_void') return 'invoice_void';
+      if (e.message === 'has_payments') return 'has_payments';
+      if (e.message === 'cannot_unvoid') return 'conflict';
       return 'unknown';
     case '22023': // invalid_parameter_value: wrong_weekday
       return e.message === 'wrong_weekday' ? 'wrong_weekday' : 'validation';

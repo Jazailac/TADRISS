@@ -281,7 +281,8 @@
     "timeOrder": "The end must be after the start.",
     "invalidDate": "Invalid date.",
     "maxScoreRange": "Between 1 and 100.",
-    "coefficientRange": "Between 0.5 and 10, in steps of 0.5."
+    "coefficientRange": "Between 0.5 and 10, in steps of 0.5.",
+    "invalidAmount": "Invalid amount (0.01 to 1,000,000 MAD)."
   },
   "shell": {
     "navigation": "App navigation",
@@ -466,7 +467,10 @@
     "student_not_in_class": "This student isn’t in the class.",
     "wrong_weekday": "That date isn’t on the right day of the week.",
     "score_out_of_range": "A mark is above the exam’s maximum.",
-    "not_your_exam": "Only the exam’s own teacher can enter its marks."
+    "not_your_exam": "Only the exam’s own teacher can enter its marks.",
+    "payment_exceeds_balance": "The amount is more than what’s left to pay.",
+    "invoice_void": "This invoice is void.",
+    "has_payments": "Void this invoice’s payments first."
   },
   "app": {
     "greeting": "Hello, <n>{name}</n>",
@@ -1475,6 +1479,220 @@
     "notFound": {
       "title": "Exam not found",
       "body": "This exam doesn’t exist or you don’t have access to it."
+    }
+  },
+  "finance": {
+    "title": "Finance",
+    "subtitle": {
+      "admin": "Invoice, collect and issue numbered receipts, without ever losing a trace.",
+      "student": "Your invoices, payments and receipts."
+    },
+    "summary": {
+      "billed": "Billed",
+      "collected": "Collected",
+      "outstanding": "Outstanding",
+      "overdue": "Overdue",
+      "overdueCount": "{count, plural, one {# invoice} other {# invoices}}",
+      "help": "Void invoices and payments are not counted."
+    },
+    "status": {
+      "unpaid": "Unpaid",
+      "partial": "Partial",
+      "paid": "Paid",
+      "overdue": "Overdue",
+      "void": "Void"
+    },
+    "filters": {
+      "status": "Status",
+      "all": "All",
+      "search": "Search",
+      "placeholder": "Student, invoice no…",
+      "apply": "Search"
+    },
+    "list": {
+      "label": "Invoices list",
+      "empty": {
+        "title": "No invoices",
+        "body": "Generate a class’s invoices from a fee plan, or create one."
+      },
+      "noResults": {
+        "title": "No invoices found",
+        "body": "No invoice matches this search or filter.",
+        "clear": "Reset"
+      }
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "range": "{from, number}–{to, number} of {total, number}"
+    },
+    "row": {
+      "due": "Due {date}",
+      "paidOf": "{paid} of {total}",
+      "issued": "Issued {date}"
+    },
+    "actions": {
+      "newInvoice": "New invoice",
+      "generate": "Generate invoices",
+      "plans": "Fee plans",
+      "pay": "Record a payment",
+      "voidPayment": "Void",
+      "voidInvoice": "Void invoice",
+      "receipt": "Receipt",
+      "print": "Print"
+    },
+    "plans": {
+      "title": "Fee plans",
+      "description": "What you bill (registration, tuition, transport…). The amount is fixed: to change it, create a new plan.",
+      "fields": {
+        "name": "Plan name",
+        "description": "Description (optional)",
+        "amount": "Amount (MAD)"
+      },
+      "placeholders": {
+        "name": "Monthly tuition",
+        "amount": "1,200.00"
+      },
+      "add": "Add",
+      "save": "Save",
+      "archive": "Archive",
+      "restore": "Restore",
+      "archived": "Archived",
+      "empty": "No fee plans yet.",
+      "list": "Fee plans list",
+      "edit": "Edit",
+      "editLabel": "Edit {name}",
+      "archiveLabel": "Archive {name}",
+      "restoreLabel": "Restore {name}"
+    },
+    "invoice": {
+      "title": "New invoice",
+      "description": "A one-off invoice for a single student. To bill a whole class, use “Generate invoices”.",
+      "fields": {
+        "student": "Student",
+        "description": "Description",
+        "amount": "Amount (MAD)",
+        "dueDate": "Due date"
+      },
+      "placeholders": {
+        "student": "Search a student…",
+        "description": "School trip",
+        "amount": "350.00"
+      },
+      "noMatch": "No student matches.",
+      "pickStudent": "Pick a student from the list.",
+      "submit": "Issue invoice",
+      "selected": "Selected student: {name}"
+    },
+    "generate": {
+      "title": "Generate invoices",
+      "description": "One invoice per student enrolled in the class. Running it again never bills the same student twice for the same plan and due date.",
+      "fields": {
+        "plan": "Fee plan",
+        "class": "Class",
+        "dueDate": "Due date",
+        "description": "Description (optional)"
+      },
+      "placeholders": {
+        "description": "Tuition October 2026"
+      },
+      "noPlans": "Create a fee plan first.",
+      "noClasses": "No classes this year.",
+      "preview": "Each student will be billed {amount}.",
+      "submit": "Generate"
+    },
+    "payment": {
+      "title": "Record a payment",
+      "remaining": "Remaining: {amount}",
+      "fields": {
+        "amount": "Amount (MAD)",
+        "method": "Payment method",
+        "paidOn": "Payment date",
+        "reference": "Reference (optional)"
+      },
+      "placeholders": {
+        "reference": "Transfer or cheque number"
+      },
+      "methods": {
+        "cash": "Cash",
+        "transfer": "Bank transfer",
+        "cheque": "Cheque",
+        "card": "Card"
+      },
+      "submit": "Record and create receipt"
+    },
+    "void": {
+      "paymentTitle": "Void this payment?",
+      "invoiceTitle": "Void this invoice?",
+      "paymentBody": "Receipt {receipt} will be marked “void” and its amount becomes due again. This is final and the receipt keeps its number.",
+      "invoiceBody": "The invoice will be marked “void” and the student will no longer see it. This is final. To correct an amount, void it and issue a new invoice.",
+      "reason": "Reason (required)",
+      "reasonPlaceholder": "Duplicate entry, wrong amount…",
+      "confirm": "Void permanently"
+    },
+    "detail": {
+      "back": "All invoices",
+      "amount": "Amount",
+      "paid": "Paid",
+      "balance": "Remaining",
+      "payments": "Payments",
+      "list": "Payments list",
+      "noPayments": "No payments recorded.",
+      "voidedInvoice": "Invoice voided, reason: {reason}",
+      "voidedPayment": "Void: {reason}",
+      "dueOn": "Due {date}",
+      "issuedOn": "Issued {date}",
+      "ref": "Ref. {reference}"
+    },
+    "receipt": {
+      "title": "Payment receipt",
+      "number": "No. {number}",
+      "date": "Date",
+      "student": "Student",
+      "invoice": "Invoice",
+      "for": "For",
+      "amount": "Amount received",
+      "method": "Payment method",
+      "reference": "Reference",
+      "balance": "Still due on this invoice",
+      "settled": "Invoice settled",
+      "voided": "VOID",
+      "voidedReason": "Void: {reason}",
+      "signature": "Stamp and signature",
+      "footer": "Document generated by Tadriss",
+      "back": "Back"
+    },
+    "student": {
+      "owed": "Still to pay",
+      "paid": "Already paid",
+      "list": "My invoices",
+      "receipts": "Receipts",
+      "empty": {
+        "title": "No invoices",
+        "body": "Your invoices will appear here as soon as the school issues them."
+      },
+      "allPaid": "All settled."
+    },
+    "feedback": {
+      "planCreated": "Fee plan created.",
+      "planUpdated": "Fee plan updated.",
+      "planArchived": "Fee plan archived.",
+      "planRestored": "Fee plan restored.",
+      "invoiceCreated": "Invoice issued.",
+      "generated": "{count, plural, one {# invoice issued.} other {# invoices issued.}}",
+      "nothingToGenerate": "Nothing to generate: every student in the class is already billed.",
+      "paymentRecorded": "Payment recorded, receipt {receipt}.",
+      "paymentVoided": "Payment voided.",
+      "invoiceVoided": "Invoice voided."
+    },
+    "error": {
+      "title": "Couldn’t load finance",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "notFound": {
+      "title": "Document not found",
+      "body": "This invoice or receipt doesn’t exist or you don’t have access to it."
     }
   }
 }
