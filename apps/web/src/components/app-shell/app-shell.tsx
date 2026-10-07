@@ -24,6 +24,7 @@ import { Spinner } from '../ui/spinner';
 import { EmptyState } from '../ui/empty-state';
 import { matchNav, navSets, settingsItem, type NavGroup, type NavItem, type NavSet } from './nav';
 
+export type UnreadCounts = { announcements: number; messages: number };
 export type ShellUser = { name: string; initials: string; role: string; school: string };
 function SignOutButton() {
   const t = useTranslations('shell');
@@ -42,11 +43,13 @@ function SignOutButton() {
 function Sidebar({
   nav,
   user,
+  unread,
   collapsed = false,
   close,
 }: {
   nav: NavGroup[];
   user: ShellUser;
+  unread: UnreadCounts;
   collapsed?: boolean;
   close?: () => void;
 }) {
@@ -101,6 +104,8 @@ function Sidebar({
             <div className="grid gap-1">
               {group.items.map((item) => {
                 const Icon = item.icon;
+                const count =
+                  item.key === 'announcements' || item.key === 'messages' ? unread[item.key] : 0;
                 const active = item.available && item.href === activeItem?.href;
                 const classes = cx(
                   'flex min-h-10 items-center rounded-lg text-sm',
@@ -121,8 +126,29 @@ function Sidebar({
                     onClick={close}
                     className={classes}
                   >
-                    <Icon className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
-                    {!collapsed ? t(`nav.${item.key}`) : null}
+                    <span className="relative grid shrink-0 place-items-center">
+                      <Icon className="size-4" strokeWidth={1.75} aria-hidden />
+                      {collapsed && count > 0 ? (
+                        <span
+                          aria-hidden
+                          className="absolute -end-1 -top-1 size-2 rounded-full bg-accent"
+                        />
+                      ) : null}
+                    </span>
+                    {!collapsed ? <span className="flex-1">{t(`nav.${item.key}`)}</span> : null}
+                    {count > 0 ? (
+                      <span
+                        className={cx(
+                          'rounded-full bg-primary text-primary-foreground tabular-nums',
+                          collapsed
+                            ? 'sr-only'
+                            : 'min-w-5 px-1.5 py-0.5 text-center text-[0.65rem] font-semibold',
+                        )}
+                      >
+                        <span aria-hidden={!collapsed}>{count}</span>
+                        <span className="sr-only">{t('unread', { count })}</span>
+                      </span>
+                    ) : null}
                   </Link>
                 ) : (
                   <span
@@ -185,10 +211,13 @@ function Sidebar({
 export function AppShell({
   nav: navSet,
   user,
+  unread = { announcements: 0, messages: 0 },
   children,
 }: {
   nav: NavSet;
   user: ShellUser;
+  /** Badges for the communication items; the design previews have none. */
+  unread?: UnreadCounts;
   children: ReactNode;
 }) {
   const t = useTranslations('shell');
@@ -204,6 +233,10 @@ export function AppShell({
     (item: NavItem) => item.available,
   );
   const current = matchNav(available, pathname);
+  const unreadLinks = available.flatMap((item) => {
+    const count = item.key === 'announcements' || item.key === 'messages' ? unread[item.key] : 0;
+    return count > 0 ? [{ ...item, count }] : [];
+  });
   const home = available[0]?.href ?? '/';
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -226,14 +259,14 @@ export function AppShell({
       style={{ gridTemplateColumns: collapsed ? '5.25rem minmax(0,1fr)' : '16rem minmax(0,1fr)' }}
     >
       <aside className="app-sidebar sticky top-0 hidden h-dvh border-e border-border lg:block">
-        <Sidebar nav={nav} user={user} collapsed={collapsed} />
+        <Sidebar nav={nav} user={user} unread={unread} collapsed={collapsed} />
       </aside>
       <dialog
         ref={drawer}
         className="shell-dialog fixed inset-y-0 m-0 h-dvh max-h-dvh w-72 max-w-[90vw] rounded-none"
         aria-label={t('navigation')}
       >
-        <Sidebar nav={nav} user={user} close={closeDrawer} />
+        <Sidebar nav={nav} user={user} unread={unread} close={closeDrawer} />
       </dialog>
       <dialog ref={command} className="shell-dialog" aria-label={s('command')}>
         <div className="flex items-center gap-3 border-b border-border p-5">
@@ -299,7 +332,29 @@ export function AppShell({
             <X className="size-4" aria-hidden />
           </button>
         </div>
-        <EmptyState title={s('noNotifications')} description={s('notificationBody')} />
+        {unreadLinks.length === 0 ? (
+          <EmptyState title={s('noNotifications')} description={s('notificationBody')} />
+        ) : (
+          <ul className="grid gap-1 p-3">
+            {unreadLinks.map((item) => (
+              <li key={item.key}>
+                <Link
+                  href={item.href}
+                  onClick={() => {
+                    notifications.current?.close();
+                  }}
+                  className="flex items-center gap-3 rounded-xl p-3 text-sm hover:bg-primary-soft hover:text-primary"
+                >
+                  <item.icon className="size-4" aria-hidden />
+                  <span className="flex-1">{t(`nav.${item.key}`)}</span>
+                  <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-primary-foreground">
+                    {t('unread', { count: item.count })}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </dialog>
       <div className="min-w-0">
         <header className="sticky top-0 z-30 flex h-18 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur-xl md:px-8">
@@ -351,7 +406,15 @@ export function AppShell({
               }}
               className="grid size-9 place-items-center rounded-lg text-text-muted hover:bg-surface-muted"
             >
-              <Bell className="size-4" aria-hidden />
+              <span className="relative grid place-items-center">
+                <Bell className="size-4" aria-hidden />
+                {unreadLinks.length > 0 ? (
+                  <span
+                    aria-hidden
+                    className="absolute -end-0.5 -top-0.5 size-2 rounded-full bg-accent"
+                  />
+                ) : null}
+              </span>
             </button>
             <div className="hidden sm:block">
               <LocaleSwitcher />

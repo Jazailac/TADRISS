@@ -324,7 +324,8 @@
       "student": "Élève"
     },
     "platform": "Tadriss",
-    "soon": "Bientôt"
+    "soon": "Bientôt",
+    "unread": "{count, plural, one {# non lu} other {# non lus}}"
   },
   "demo": {
     "user": {
@@ -470,7 +471,8 @@
     "not_your_exam": "Seul l’enseignant de cet examen peut saisir ses notes.",
     "payment_exceeds_balance": "Le montant dépasse le reste à payer.",
     "invoice_void": "Cette facture est annulée.",
-    "has_payments": "Annulez d’abord les paiements de cette facture."
+    "has_payments": "Annulez d’abord les paiements de cette facture.",
+    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages."
   },
   "app": {
     "greeting": "Bonjour, <n>{name}</n>",
@@ -1693,6 +1695,160 @@
     "notFound": {
       "title": "Document introuvable",
       "body": "Cette facture ou ce reçu n’existe pas ou vous n’y avez pas accès."
+    }
+  },
+  "announcements": {
+    "title": "Annonces",
+    "subtitle": {
+      "admin": "Informez tout l’établissement, une catégorie ou une classe, et voyez qui a lu.",
+      "teacher": "Les annonces de la direction, et celles que vous adressez à vos classes.",
+      "student": "Les nouvelles de votre établissement et de vos enseignants."
+    },
+    "views": {
+      "label": "Affichage",
+      "active": "Publiées",
+      "deleted": "Supprimées"
+    },
+    "actions": {
+      "new": "Nouvelle annonce",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "restore": "Restaurer",
+      "pin": "Épingler",
+      "unpin": "Désépingler",
+      "markAllRead": "Tout marquer comme lu"
+    },
+    "audience": {
+      "label": "Destinataires",
+      "all": "Tout l’établissement",
+      "teachers": "Tous les enseignants",
+      "students": "Tous les élèves",
+      "class": "Classe <n>{name}</n>",
+      "classOption": "Classe : {name}"
+    },
+    "form": {
+      "newTitle": "Nouvelle annonce",
+      "newDescription": "Elle apparaît tout de suite chez ses destinataires.",
+      "editTitle": "Modifier l’annonce",
+      "fields": {
+        "audience": "Destinataires",
+        "title": "Titre",
+        "body": "Message"
+      },
+      "placeholders": {
+        "title": "Réunion de rentrée",
+        "body": "Écrivez votre annonce…"
+      },
+      "create": "Publier l’annonce",
+      "noClasses": "Aucune classe ne vous est affectée cette année : vous ne pouvez pas encore publier."
+    },
+    "card": {
+      "pinned": "Épinglée",
+      "unread": "Non lue",
+      "by": "Par <n>{name}</n>",
+      "reach": "{read, number}/{total, number} ont lu",
+      "list": "Liste des annonces",
+      "open": "Lire l’annonce"
+    },
+    "detail": {
+      "back": "Toutes les annonces",
+      "archivedNotice": "Cette annonce est supprimée : ses destinataires ne la voient plus.",
+      "reachTitle": "Lectures",
+      "reachNone": "Personne n’a encore lu cette annonce.",
+      "reachAll": "Tous les destinataires l’ont lue."
+    },
+    "feedback": {
+      "created": "Annonce publiée.",
+      "updated": "Annonce mise à jour.",
+      "deleted": "Annonce supprimée.",
+      "restored": "Annonce restaurée.",
+      "pinned": "Annonce épinglée.",
+      "unpinned": "Annonce désépinglée."
+    },
+    "empty": {
+      "feed": {
+        "title": "Aucune annonce pour le moment",
+        "body": "Les annonces de votre établissement apparaîtront ici."
+      },
+      "authored": {
+        "title": "Aucune annonce publiée",
+        "body": "Publiez une annonce : elle apparaît tout de suite chez ses destinataires."
+      },
+      "deleted": {
+        "title": "Aucune annonce supprimée",
+        "body": "Les annonces que vous supprimez peuvent être restaurées ici."
+      }
+    },
+    "error": {
+      "title": "Impossible de charger les annonces",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Annonce introuvable",
+      "body": "Cette annonce n’existe pas ou vous n’y avez pas accès."
+    }
+  },
+  "messages": {
+    "title": "Messages",
+    "subtitle": {
+      "admin": "Écrivez à un enseignant ou à un élève, en privé.",
+      "teacher": "Échangez en privé avec vos élèves et la direction.",
+      "student": "Échangez en privé avec vos enseignants et la direction."
+    },
+    "actions": {
+      "new": "Nouveau message",
+      "send": "Envoyer"
+    },
+    "roles": {
+      "institution_admin": "Direction",
+      "teacher": "Enseignant",
+      "student": "Élève",
+      "super_admin": "Plateforme"
+    },
+    "list": {
+      "label": "Conversations",
+      "you": "Vous : <n>{text}</n>",
+      "unknown": "Ancien contact",
+      "open": "Ouvrir la conversation avec {name}"
+    },
+    "new": {
+      "title": "Nouveau message",
+      "description": "Seules les personnes avec qui vous pouvez échanger sont proposées.",
+      "fields": {
+        "recipient": "Destinataire",
+        "body": "Message"
+      },
+      "placeholders": {
+        "body": "Écrivez votre message…"
+      },
+      "send": "Envoyer le message",
+      "noContacts": "Personne à qui écrire pour le moment."
+    },
+    "thread": {
+      "back": "Toutes les conversations",
+      "messages": "Messages",
+      "composer": "Votre message",
+      "placeholder": "Écrivez votre message…",
+      "empty": "Aucun message pour l’instant. Écrivez le premier.",
+      "read": "Lu",
+      "sent": "Envoyé",
+      "today": "Aujourd’hui",
+      "yesterday": "Hier"
+    },
+    "empty": {
+      "title": "Aucune conversation",
+      "body": "Écrivez un premier message : il reste privé entre vous et votre destinataire."
+    },
+    "error": {
+      "title": "Impossible de charger les messages",
+      "body": "Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Conversation introuvable",
+      "body": "Cette personne n’existe pas ou vous ne pouvez pas lui écrire."
+    },
+    "feedback": {
+      "sent": "Message envoyé."
     }
   }
 }

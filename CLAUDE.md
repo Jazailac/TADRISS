@@ -108,6 +108,15 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   are void-only and final. Generation (`generate_invoices`) is idempotent per (plan, class, due date). Receipts
   print from `(print)/receipt/[paymentId]`, outside the app shell. View columns are typed nullable: narrow with
   `isComplete`.
+- **Communication (Phase 9):** `announcements` (audience `all|teachers|students|class`; a class notice names its class;
+  admins address any audience, teachers only classes they teach and cannot pin; audience is immutable; soft
+  delete, author keeps sight) with `announcement_reads` (a user marks only their own, only what they can see, via
+  `mark_announcements_read`). `announcement_reach` gives readers/addressees to authors and admins. `messages` are
+  one-to-one and private (not even the administration reads them): `guard_message` is `SECURITY INVOKER` and only
+  lets you write to profiles you can already see, with role pairs admin↔anyone and teacher↔student. The school's
+  admins are visible to every member (`profiles_select_school_admins`). `unread_counts()` feeds the nav badges and
+  the bell (`getUnreadCounts` in the `(app)` layout). One form value carries audience+class (`class:<uuid>`).
+  Reading marks read from a client effect (never during render); a thread re-reads every 15 s.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.

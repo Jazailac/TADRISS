@@ -56,8 +56,8 @@ const admin: NavGroup[] = [
   {
     key: 'communication',
     items: [
-      item('announcements', '/dashboard/announcements', Megaphone),
-      item('messages', '/dashboard/messages', MessageSquare),
+      item('announcements', '/dashboard/announcements', Megaphone, true),
+      item('messages', '/dashboard/messages', MessageSquare, true),
       item('documents', '/dashboard/documents', FolderOpen),
     ],
   },
@@ -75,7 +75,13 @@ const teacher: NavGroup[] = [
       item('grades', '/teacher/grades', BarChart3, true),
     ],
   },
-  { key: 'communication', items: [item('messages', '/teacher/messages', MessageSquare)] },
+  {
+    key: 'communication',
+    items: [
+      item('announcements', '/teacher/announcements', Megaphone, true),
+      item('messages', '/teacher/messages', MessageSquare, true),
+    ],
+  },
 ];
 
 const student: NavGroup[] = [
@@ -90,7 +96,13 @@ const student: NavGroup[] = [
       item('payments', '/student/payments', CreditCard, true),
     ],
   },
-  { key: 'communication', items: [item('messages', '/student/messages', MessageSquare)] },
+  {
+    key: 'communication',
+    items: [
+      item('announcements', '/student/announcements', Megaphone, true),
+      item('messages', '/student/messages', MessageSquare, true),
+    ],
+  },
 ];
 
 const superAdmin: NavGroup[] = [

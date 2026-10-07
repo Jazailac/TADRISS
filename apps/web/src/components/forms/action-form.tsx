@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  announcementInput,
   classInput,
   examInput,
   feePlanInput,
@@ -9,9 +10,11 @@ import {
   homeworkInput,
   inviteInput,
   invoiceInput,
+  messageInput,
   paymentInput,
   slotInput,
   subjectInput,
+  updateAnnouncementInput,
   updateClassInput,
   updateExamInput,
   updateFeePlanInput,
@@ -61,6 +64,9 @@ const schemas = {
   generateInvoices: generateInvoicesInput,
   recordPayment: paymentInput,
   voidDocument: voidInput,
+  createAnnouncement: announcementInput,
+  updateAnnouncement: updateAnnouncementInput,
+  sendMessage: messageInput,
 } as const;
 
 /**

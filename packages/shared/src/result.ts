@@ -30,6 +30,7 @@ export const errorCodes = [
   'payment_exceeds_balance',
   'invoice_void',
   'has_payments',
+  'recipient_inactive',
   'unknown',
 ] as const;
 export type ErrorCode = (typeof errorCodes)[number];
@@ -54,6 +55,7 @@ export function toErrorCode(
       if (e.message === 'payment_exceeds_balance') return 'payment_exceeds_balance';
       if (e.message === 'invoice_void') return 'invoice_void';
       if (e.message === 'has_payments') return 'has_payments';
+      if (e.message === 'recipient_inactive') return 'recipient_inactive';
       if (e.message === 'cannot_unvoid') return 'conflict';
       return 'unknown';
     case '22023': // invalid_parameter_value: wrong_weekday

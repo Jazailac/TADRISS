@@ -21,3 +21,6 @@ export * from './schemas/finance';
 export * from './finance';
 export * from './people';
 export * from './auth';
+export * from './schemas/communication';
+export * from './announcements';
+export * from './messages';

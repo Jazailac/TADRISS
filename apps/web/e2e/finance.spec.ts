@@ -42,9 +42,7 @@ test.describe('finance: admin overview', () => {
     await expect(rows(page).first()).toBeVisible();
   });
 
-  test('status filters show only that status; void ones are listed apart', async ({
-    page,
-  }) => {
+  test('status filters show only that status; void ones are listed apart', async ({ page }) => {
     await login(page, ADMIN);
     await page.goto('/dashboard/finance?status=void');
     // The seed holds one; the journey test below voids more, so don't pin the count.

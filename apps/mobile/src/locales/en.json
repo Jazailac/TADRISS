@@ -48,7 +48,8 @@
     "not_your_exam": "Only the exam’s own teacher can enter its marks.",
     "payment_exceeds_balance": "The amount is more than what’s left to pay.",
     "invoice_void": "This invoice is void.",
-    "has_payments": "Void this invoice’s payments first."
+    "has_payments": "Void this invoice’s payments first.",
+    "recipient_inactive": "This account is deactivated and can no longer receive messages."
   },
   "login": {
     "title": "Welcome back",

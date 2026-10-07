@@ -1,8 +1,10 @@
+import { getUnreadCounts } from '@tadriss/shared';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
 import { AppShell } from '@/components/app-shell/app-shell';
 import { ToastProvider } from '@/components/ui/toast';
 import { redirect } from '@/i18n/navigation';
+import { getServerClient } from '@/lib/supabase/server';
 import { getViewer } from '@/lib/viewer';
 
 /**
@@ -18,11 +20,17 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   if (!viewer) return redirect({ href: '/login', locale });
 
   const { session } = viewer;
+  // Super admins have no school and no inbox.
+  const unread =
+    session.role === 'super_admin'
+      ? { announcements: 0, messages: 0 }
+      : await getUnreadCounts(await getServerClient());
   const { firstName, lastName, institution } = viewer.profile;
   return (
     <ToastProvider>
       <AppShell
         nav={session.role}
+        unread={unread}
         user={{
           name: `${firstName} ${lastName}`,
           initials: `${firstName.slice(0, 1)}${lastName.slice(0, 1)}`.toUpperCase(),

@@ -22,6 +22,9 @@ const pages: Record<string, string[]> = {
     `/dashboard/schedule?year=${SEED_YEAR}`,
     '/dashboard/attendance?date=2026-10-05',
     '/dashboard/grades',
+    '/dashboard/finance',
+    '/dashboard/announcements',
+    '/dashboard/messages',
   ],
   'prof1@almanar.test': [
     '/teacher',
@@ -30,6 +33,8 @@ const pages: Record<string, string[]> = {
     '/teacher/attendance?date=2026-10-05',
     '/teacher/homework',
     '/teacher/grades',
+    '/teacher/announcements',
+    '/teacher/messages',
   ],
   'eleve01@almanar.test': [
     '/student',
@@ -37,6 +42,9 @@ const pages: Record<string, string[]> = {
     '/student/attendance',
     '/student/homework',
     '/student/grades',
+    '/student/payments',
+    '/student/announcements',
+    '/student/messages',
   ],
 };
 

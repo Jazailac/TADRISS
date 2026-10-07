@@ -324,7 +324,8 @@
       "student": "Student"
     },
     "platform": "Tadriss",
-    "soon": "Soon"
+    "soon": "Soon",
+    "unread": "{count, plural, one {# unread} other {# unread}}"
   },
   "demo": {
     "user": {
@@ -470,7 +471,8 @@
     "not_your_exam": "Only the exam’s own teacher can enter its marks.",
     "payment_exceeds_balance": "The amount is more than what’s left to pay.",
     "invoice_void": "This invoice is void.",
-    "has_payments": "Void this invoice’s payments first."
+    "has_payments": "Void this invoice’s payments first.",
+    "recipient_inactive": "This account is deactivated and can no longer receive messages."
   },
   "app": {
     "greeting": "Hello, <n>{name}</n>",
@@ -1693,6 +1695,160 @@
     "notFound": {
       "title": "Document not found",
       "body": "This invoice or receipt doesn’t exist or you don’t have access to it."
+    }
+  },
+  "announcements": {
+    "title": "Announcements",
+    "subtitle": {
+      "admin": "Inform the whole school, a group or a class, and see who has read.",
+      "teacher": "Announcements from the administration, and the ones you send to your classes.",
+      "student": "News from your school and your teachers."
+    },
+    "views": {
+      "label": "View",
+      "active": "Published",
+      "deleted": "Deleted"
+    },
+    "actions": {
+      "new": "New announcement",
+      "edit": "Edit",
+      "delete": "Delete",
+      "restore": "Restore",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "markAllRead": "Mark all as read"
+    },
+    "audience": {
+      "label": "Recipients",
+      "all": "The whole school",
+      "teachers": "All teachers",
+      "students": "All students",
+      "class": "Class <n>{name}</n>",
+      "classOption": "Class: {name}"
+    },
+    "form": {
+      "newTitle": "New announcement",
+      "newDescription": "It shows up for its recipients right away.",
+      "editTitle": "Edit announcement",
+      "fields": {
+        "audience": "Recipients",
+        "title": "Title",
+        "body": "Message"
+      },
+      "placeholders": {
+        "title": "Back-to-school meeting",
+        "body": "Write your announcement…"
+      },
+      "create": "Publish announcement",
+      "noClasses": "No class is assigned to you this year: you can’t publish yet."
+    },
+    "card": {
+      "pinned": "Pinned",
+      "unread": "Unread",
+      "by": "By <n>{name}</n>",
+      "reach": "{read, number}/{total, number} have read",
+      "list": "Announcements",
+      "open": "Read the announcement"
+    },
+    "detail": {
+      "back": "All announcements",
+      "archivedNotice": "This announcement is deleted: its recipients no longer see it.",
+      "reachTitle": "Reads",
+      "reachNone": "Nobody has read this announcement yet.",
+      "reachAll": "Every recipient has read it."
+    },
+    "feedback": {
+      "created": "Announcement published.",
+      "updated": "Announcement updated.",
+      "deleted": "Announcement deleted.",
+      "restored": "Announcement restored.",
+      "pinned": "Announcement pinned.",
+      "unpinned": "Announcement unpinned."
+    },
+    "empty": {
+      "feed": {
+        "title": "No announcements yet",
+        "body": "Your school’s announcements will appear here."
+      },
+      "authored": {
+        "title": "No announcements published",
+        "body": "Publish an announcement: it shows up for its recipients right away."
+      },
+      "deleted": {
+        "title": "No deleted announcements",
+        "body": "Announcements you delete can be restored here."
+      }
+    },
+    "error": {
+      "title": "Couldn’t load announcements",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "notFound": {
+      "title": "Announcement not found",
+      "body": "This announcement doesn’t exist or you don’t have access to it."
+    }
+  },
+  "messages": {
+    "title": "Messages",
+    "subtitle": {
+      "admin": "Write privately to a teacher or a student.",
+      "teacher": "Talk privately with your students and the administration.",
+      "student": "Talk privately with your teachers and the administration."
+    },
+    "actions": {
+      "new": "New message",
+      "send": "Send"
+    },
+    "roles": {
+      "institution_admin": "Administration",
+      "teacher": "Teacher",
+      "student": "Student",
+      "super_admin": "Platform"
+    },
+    "list": {
+      "label": "Conversations",
+      "you": "You: <n>{text}</n>",
+      "unknown": "Former contact",
+      "open": "Open the conversation with {name}"
+    },
+    "new": {
+      "title": "New message",
+      "description": "Only people you can talk to are offered.",
+      "fields": {
+        "recipient": "Recipient",
+        "body": "Message"
+      },
+      "placeholders": {
+        "body": "Write your message…"
+      },
+      "send": "Send message",
+      "noContacts": "Nobody to write to yet."
+    },
+    "thread": {
+      "back": "All conversations",
+      "messages": "Messages",
+      "composer": "Your message",
+      "placeholder": "Write your message…",
+      "empty": "No messages yet. Write the first one.",
+      "read": "Read",
+      "sent": "Sent",
+      "today": "Today",
+      "yesterday": "Yesterday"
+    },
+    "empty": {
+      "title": "No conversations",
+      "body": "Write a first message: it stays private between you and its recipient."
+    },
+    "error": {
+      "title": "Couldn’t load messages",
+      "body": "Try again in a moment."
+    },
+    "notFound": {
+      "title": "Conversation not found",
+      "body": "This person doesn’t exist or you can’t write to them."
+    },
+    "feedback": {
+      "sent": "Message sent."
     }
   }
 }

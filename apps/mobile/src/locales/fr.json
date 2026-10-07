@@ -48,7 +48,8 @@
     "not_your_exam": "Seul l’enseignant de cet examen peut saisir ses notes.",
     "payment_exceeds_balance": "Le montant dépasse le reste à payer.",
     "invoice_void": "Cette facture est annulée.",
-    "has_payments": "Annulez d’abord les paiements de cette facture."
+    "has_payments": "Annulez d’abord les paiements de cette facture.",
+    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages."
   },
   "login": {
     "title": "Bon retour",
