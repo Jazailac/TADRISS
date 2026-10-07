@@ -290,3 +290,49 @@ where id = (select i.id from public.invoices i
 
 -- `issued_on` defaults to the day the seed ran: pin it so the seed stays deterministic.
 update public.invoices set issued_on = due_date - 14 where institution_id = '10000000-0000-4000-8000-000000000001';
+
+-- ── Phase 9: announcements, who has read them, and a few conversations (Al Manar) ──
+-- A is direction (Salma Benali); prof1 = Ahmed Tazi teaches 6ème A (401), eleve01 is in 6ème A.
+insert into public.announcements (id, institution_id, author_id, audience, class_id, title, body, pinned, created_at) values
+  ('10000000-0000-4000-8000-000000000901', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-0000000000a1', 'all', null,
+   'Rentrée scolaire 2026-2027',
+   E'Chers parents, chers élèves, chers enseignants,\n\nLa rentrée a eu lieu dans de très bonnes conditions. L’emploi du temps définitif est disponible dans votre espace.\n\nBonne année à toutes et à tous.', true, '2026-09-07 08:00+00'),
+  ('10000000-0000-4000-8000-000000000902', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-0000000000a1', 'teachers', null,
+   'Réunion pédagogique vendredi',
+   E'Une réunion pédagogique aura lieu vendredi à 16 h en salle des professeurs.\nOrdre du jour : évaluations du premier trimestre et sorties scolaires.', false, '2026-10-01 09:30+00'),
+  ('10000000-0000-4000-8000-000000000903', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-0000000000a1', 'students', null,
+   'Journée sportive',
+   E'La journée sportive de l’établissement aura lieu le 24 octobre. Prévoyez une tenue de sport et une gourde.', false, '2026-10-03 10:00+00'),
+  ('10000000-0000-4000-8000-000000000904', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000101', 'class', '10000000-0000-4000-8000-000000000401',
+   'Contrôle de mathématiques lundi',
+   E'Contrôle sur les fractions lundi prochain, première heure. Apportez votre matériel de géométrie.', false, '2026-10-05 15:00+00'),
+  ('10000000-0000-4000-8000-000000000905', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-0000000000a1', 'all', null,
+   'Fermeture exceptionnelle',
+   E'L’établissement sera fermé le lundi 20 octobre. Les cours reprendront normalement le lendemain.', false, '2026-10-06 12:00+00');
+
+-- Readers: about 70% of the people addressed have read the older notices, ~35% the newest.
+insert into public.announcement_reads (institution_id, announcement_id, user_id, read_at)
+select a.institution_id, a.id, p.id, a.created_at + interval '3 hours'
+from public.announcements a
+join public.profiles p on p.institution_id = a.institution_id and p.is_active and p.id <> a.author_id
+  and (case a.audience when 'all' then p.role in ('teacher', 'student')
+                       when 'teachers' then p.role = 'teacher'
+                       when 'students' then p.role = 'student'
+                       else p.id in (select e.student_id from public.enrolments e where e.class_id = a.class_id and e.status = 'active') end)
+cross join lateral (select abs(hashtext(p.id::text || a.id::text)) % 100 as v) x
+where x.v < case when a.created_at < '2026-10-05' then 70 else 35 end;
+
+-- eleve01 has read everything except the newest two, so the unread dot is demonstrable.
+delete from public.announcement_reads
+where user_id = '10000000-0000-4000-8000-000000000201'
+  and announcement_id in ('10000000-0000-4000-8000-000000000904', '10000000-0000-4000-8000-000000000905');
+
+insert into public.messages (id, institution_id, sender_id, recipient_id, body, created_at, read_at) values
+  ('10000000-0000-4000-8000-000000000a01', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000201', '10000000-0000-4000-8000-000000000101',
+   'Bonjour Monsieur, je n’ai pas bien compris l’exercice 4 de la page 42. Pouvez-vous m’expliquer ?', '2026-10-05 17:10+00', '2026-10-05 18:00+00'),
+  ('10000000-0000-4000-8000-000000000a02', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000101', '10000000-0000-4000-8000-000000000201',
+   'Bonjour Yasmine. Pense à simplifier la fraction avant de comparer. Nous en reparlons en classe demain.', '2026-10-05 18:20+00', '2026-10-05 19:00+00'),
+  ('10000000-0000-4000-8000-000000000a03', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000101', '10000000-0000-4000-8000-000000000201',
+   'N’oublie pas ta fiche de révision pour mardi.', '2026-10-06 16:00+00', null),
+  ('10000000-0000-4000-8000-000000000a04', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-0000000000a1', '10000000-0000-4000-8000-000000000101',
+   'Bonjour Ahmed, pouvez-vous me remettre le calendrier de vos évaluations avant vendredi ?', '2026-10-06 09:00+00', null);

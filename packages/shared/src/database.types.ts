@@ -3,6 +3,99 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      announcement_reads: {
+        Row: {
+          announcement_id: string;
+          institution_id: string;
+          read_at: string;
+          user_id: string;
+        };
+        Insert: {
+          announcement_id: string;
+          institution_id: string;
+          read_at?: string;
+          user_id?: string;
+        };
+        Update: {
+          announcement_id?: string;
+          institution_id?: string;
+          read_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'announcement_reads_announcement_id_institution_id_fkey';
+            columns: ['announcement_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'announcements';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'announcement_reads_institution_id_user_id_fkey';
+            columns: ['institution_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
+      announcements: {
+        Row: {
+          audience: string;
+          author_id: string;
+          body: string;
+          class_id: string | null;
+          created_at: string;
+          deleted_at: string | null;
+          id: string;
+          institution_id: string;
+          pinned: boolean;
+          title: string;
+          updated_at: string;
+        };
+        Insert: {
+          audience: string;
+          author_id?: string;
+          body: string;
+          class_id?: string | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: string;
+          institution_id: string;
+          pinned?: boolean;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          audience?: string;
+          author_id?: string;
+          body?: string;
+          class_id?: string | null;
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: string;
+          institution_id?: string;
+          pinned?: boolean;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'announcements_class_id_institution_id_fkey';
+            columns: ['class_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'classes';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'announcements_institution_id_author_id_fkey';
+            columns: ['institution_id', 'author_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
       attendance_records: {
         Row: {
           created_at: string;
@@ -725,6 +818,51 @@ export type Database = {
           },
         ];
       };
+      messages: {
+        Row: {
+          body: string;
+          created_at: string;
+          id: string;
+          institution_id: string;
+          read_at: string | null;
+          recipient_id: string;
+          sender_id: string;
+        };
+        Insert: {
+          body: string;
+          created_at?: string;
+          id?: string;
+          institution_id: string;
+          read_at?: string | null;
+          recipient_id: string;
+          sender_id?: string;
+        };
+        Update: {
+          body?: string;
+          created_at?: string;
+          id?: string;
+          institution_id?: string;
+          read_at?: string | null;
+          recipient_id?: string;
+          sender_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'messages_institution_id_recipient_id_fkey';
+            columns: ['institution_id', 'recipient_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+          {
+            foreignKeyName: 'messages_institution_id_sender_id_fkey';
+            columns: ['institution_id', 'sender_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
       payments: {
         Row: {
           amount_centimes: number;
@@ -995,6 +1133,14 @@ export type Database = {
       };
     };
     Functions: {
+      announcement_reach: {
+        Args: { p_ids: string[] };
+        Returns: {
+          announcement_id: string;
+          audience_count: number;
+          read_count: number;
+        }[];
+      };
       attendance_class_summary: {
         Args: { p_from: string; p_to: string };
         Returns: {
@@ -1019,6 +1165,19 @@ export type Database = {
           starts_min: number;
           subject_id: string;
           teacher_id: string;
+        }[];
+      };
+      conversations: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          first_name: string;
+          last_at: string;
+          last_body: string;
+          last_from_me: boolean;
+          last_name: string;
+          other_id: string;
+          role: string;
+          unread_count: number;
         }[];
       };
       enrol_students: { Args: { p_class_id: string; p_student_ids: string[] }; Returns: number };
@@ -1062,6 +1221,7 @@ export type Database = {
         };
         Returns: number;
       };
+      mark_announcements_read: { Args: { p_ids: string[] }; Returns: number };
       record_payment: {
         Args: {
           p_amount_centimes: number;
@@ -1083,6 +1243,13 @@ export type Database = {
       submit_attendance: {
         Args: { p_date: string; p_records: Json; p_slot_id: string };
         Returns: string;
+      };
+      unread_counts: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          announcements: number;
+          messages: number;
+        }[];
       };
     };
     Enums: {

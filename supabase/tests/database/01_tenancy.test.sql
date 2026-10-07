@@ -92,7 +92,8 @@ select is((select name from public.institutions where id = 'b0000000-0000-4000-8
 -- ── teacher (A) ──────────────────────────────────────────────────────────────
 reset role;
 select pg_temp.as_user('a0000000-0000-4000-8000-0000000000a7');
-select results_eq('select first_name from public.profiles', $$ values ('Tarik') $$, 'teacher: sees only own profile');
+-- Their own profile and their school's administration (it is who they write to), nobody else.
+select results_eq('select first_name from public.profiles order by first_name', $$ values ('Amal'), ('Tarik') $$, 'teacher: sees only own profile and the school administration');
 select is((select count(*)::int from public.institutions), 1, 'teacher: sees own institution');
 update public.institutions set name = 'Teacher edit';
 update public.profiles set first_name = 'Tariq' where id = 'a0000000-0000-4000-8000-0000000000a7';
@@ -108,7 +109,7 @@ select is((select first_name from public.profiles where id = 'a0000000-0000-4000
 -- ── student (A) ──────────────────────────────────────────────────────────────
 reset role;
 select pg_temp.as_user('a0000000-0000-4000-8000-0000000000a5');
-select results_eq('select first_name from public.profiles', $$ values ('Sara') $$, 'student: sees only own profile');
+select results_eq('select first_name from public.profiles order by first_name', $$ values ('Amal'), ('Sara') $$, 'student: sees only own profile and the school administration');
 select throws_ok($$ update public.profiles set is_active = false where id = 'a0000000-0000-4000-8000-0000000000a5' $$,
   '42501', null, 'student: cannot deactivate self');
 update public.profiles set locale = 'ar' where id = 'a0000000-0000-4000-8000-0000000000a5';
