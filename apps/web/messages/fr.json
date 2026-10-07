@@ -456,7 +456,12 @@
     "class_full": "Cette classe est complète.",
     "class_archived": "Cette classe est archivée.",
     "slot_class_busy": "Cette classe a déjà un cours sur ce créneau.",
-    "slot_teacher_busy": "Cet enseignant a déjà un cours sur ce créneau."
+    "slot_teacher_busy": "Cet enseignant a déjà un cours sur ce créneau.",
+    "future_date": "Cette date n’est pas encore arrivée.",
+    "too_old": "Au-delà de 14 jours, seule la direction peut corriger l’appel.",
+    "not_your_lesson": "Ce cours est assuré par un autre enseignant.",
+    "student_not_in_class": "Cet élève ne fait pas partie de la classe.",
+    "wrong_weekday": "Cette date ne tombe pas le bon jour de la semaine."
   },
   "app": {
     "greeting": "Bonjour, <n>{name}</n>",
@@ -1080,6 +1085,107 @@
     },
     "error": {
       "title": "Impossible de charger l’emploi du temps",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    }
+  },
+  "attendance": {
+    "title": "Présences",
+    "subtitle": {
+      "admin": "Suivez l’appel de chaque cours et repérez les classes qui décrochent.",
+      "teacher": "Faites l’appel de vos cours en quelques secondes.",
+      "student": "Vos présences, retards et absences."
+    },
+    "date": {
+      "label": "Date",
+      "previous": "Jour précédent",
+      "next": "Jour suivant",
+      "today": "Aujourd’hui",
+      "go": "Afficher",
+      "sunday": "Pas de cours le dimanche."
+    },
+    "status": {
+      "present": "Présent",
+      "late": "En retard",
+      "absent": "Absent",
+      "excused": "Excusé"
+    },
+    "short": {
+      "present": "P",
+      "late": "R",
+      "absent": "A",
+      "excused": "E"
+    },
+    "lessons": {
+      "title": "Cours du jour",
+      "list": "Cours de la journée",
+      "empty": {
+        "title": "Aucun cours ce jour-là",
+        "bodyAdmin": "Aucun cours n’est planifié à cette date.",
+        "bodyTeacher": "Vous n’avez pas de cours à cette date."
+      },
+      "done": "Appel fait",
+      "todo": "À faire",
+      "upcoming": "À venir",
+      "take": "Faire l’appel",
+      "edit": "Modifier l’appel",
+      "view": "Voir l’appel",
+      "counts": "{present, number} présents · {late, number} en retard · {absent, number} absents · {excused, number} excusés",
+      "teacher": "Enseignant : {name}"
+    },
+    "summary": {
+      "title": "Assiduité par classe",
+      "subtitle": "30 jours jusqu’au {date}",
+      "class": "Classe",
+      "rate": "Assiduité",
+      "absences": "Absences",
+      "lates": "Retards",
+      "empty": "Aucun appel enregistré sur cette période.",
+      "rateLabel": "Taux d’assiduité",
+      "help": "Un retard compte comme présent ; une absence excusée n’est pas comptée."
+    },
+    "rollcall": {
+      "back": "Retour aux cours",
+      "title": "Appel",
+      "markAll": "Tout le monde présent",
+      "save": "Enregistrer l’appel",
+      "saved": "Appel enregistré.",
+      "noStudents": {
+        "title": "Aucun élève dans cette classe",
+        "body": "Inscrivez des élèves avant de faire l’appel."
+      },
+      "note": "Note (facultatif)",
+      "notePlaceholder": "Motif, remarque…",
+      "students": "Élèves",
+      "group": "Statut de {name}",
+      "totals": "{present, number} présents · {late, number} retards · {absent, number} absents · {excused, number} excusés",
+      "unsaved": "Modifications non enregistrées",
+      "readOnly": {
+        "future": "Cette date n’est pas encore arrivée : l’appel n’est pas possible.",
+        "old": "Au-delà de 14 jours, seule la direction peut corriger l’appel.",
+        "other": "Ce cours est assuré par un autre enseignant : vous pouvez consulter l’appel, pas le modifier."
+      },
+      "notFound": {
+        "title": "Cours introuvable",
+        "body": "Ce cours n’existe pas, n’a pas lieu à cette date ou vous n’y avez pas accès."
+      },
+      "noteFor": "Note pour {name}"
+    },
+    "mine": {
+      "stats": {
+        "rate": "Assiduité",
+        "absences": "Absences",
+        "lates": "Retards"
+      },
+      "list": "Historique de présence",
+      "empty": {
+        "title": "Aucun appel enregistré",
+        "body": "Vos présences apparaîtront ici dès le premier appel."
+      },
+      "time": "{subject}",
+      "noNote": "Sans note"
+    },
+    "error": {
+      "title": "Impossible de charger les présences",
       "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
     }
   }

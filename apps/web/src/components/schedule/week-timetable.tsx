@@ -1,5 +1,6 @@
 import {
   minutesToTime,
+  timeRange,
   weekdays,
   type SlotView,
   type Subject,
@@ -12,9 +13,6 @@ import { LessonBlockButton, type TeacherOption } from './lesson-dialog';
 
 /** Pixels per minute: a 60-minute lesson is 90px tall, enough for subject, time, teacher and room. */
 const PX_PER_MIN = 1.5;
-
-const range = (s: { startMin: number; endMin: number }) =>
-  `${minutesToTime(s.startMin)}–${minutesToTime(s.endMin)}`;
 
 export type Editable = { classId: string; subjects: Subject[]; teachers: TeacherOption[] };
 
@@ -59,7 +57,7 @@ export async function WeekTimetable({
     t('grid.open', {
       subject: s.subjectName,
       day: dayName(s.weekday, 'long'),
-      time: range(s),
+      time: timeRange(s),
     });
 
   const body = (s: SlotView, compact: boolean) => (
@@ -67,7 +65,7 @@ export async function WeekTimetable({
       <span className="truncate text-sm font-semibold">
         <bdi>{s.subjectName}</bdi>
       </span>
-      <span className="font-mono text-[0.6875rem] tabular-nums opacity-80">{range(s)}</span>
+      <span className="font-mono text-[0.6875rem] tabular-nums opacity-80">{timeRange(s)}</span>
       {!compact ? (
         <span className="truncate text-xs opacity-90">
           <bdi>{secondLine(s)}</bdi>

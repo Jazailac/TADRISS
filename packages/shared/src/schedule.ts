@@ -99,7 +99,7 @@ const SLOT_COLUMNS =
  */
 export async function listSlots(
   client: TadrissClient,
-  opts: { classId?: string; teacherId?: string } = {},
+  opts: { classId?: string; teacherId?: string; slotId?: string } = {},
 ): Promise<Result<SlotView[]>> {
   let query = client
     .from('timetable_slots')
@@ -109,6 +109,7 @@ export async function listSlots(
     .limit(1000);
   if (opts.classId) query = query.eq('class_id', opts.classId);
   if (opts.teacherId) query = query.eq('teacher_id', opts.teacherId);
+  if (opts.slotId) query = query.eq('id', opts.slotId);
   const { data, error } = await query;
   if (error) return err(toErrorCode(error));
 

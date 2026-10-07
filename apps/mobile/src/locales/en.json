@@ -38,7 +38,12 @@
     "class_full": "This class is full.",
     "class_archived": "This class is archived.",
     "slot_class_busy": "This class already has a lesson at that time.",
-    "slot_teacher_busy": "This teacher already has a lesson at that time."
+    "slot_teacher_busy": "This teacher already has a lesson at that time.",
+    "future_date": "That date hasn’t arrived yet.",
+    "too_old": "After 14 days, only the administration can correct attendance.",
+    "not_your_lesson": "This lesson is taught by another teacher.",
+    "student_not_in_class": "This student isn’t in the class.",
+    "wrong_weekday": "That date isn’t on the right day of the week."
   },
   "login": {
     "title": "Welcome back",

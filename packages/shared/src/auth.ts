@@ -134,7 +134,7 @@ export type MyProfile = {
   firstName: string;
   lastName: string;
   locale: Locale | null;
-  institution: { id: string; name: string; slug: string } | null;
+  institution: { id: string; name: string; slug: string; timezone: string } | null;
 };
 
 /** The signed-in user's profile and institution (RLS limits it to their own row). */
@@ -145,7 +145,7 @@ export async function getMyProfile(
   const { data, error } = await client
     .from('profiles')
     .select(
-      'id, role, first_name, last_name, locale, is_active, institution:institutions(id, name, slug)',
+      'id, role, first_name, last_name, locale, is_active, institution:institutions(id, name, slug, timezone)',
     )
     .eq('id', userId)
     .single();

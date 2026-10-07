@@ -10,5 +10,8 @@ export * from './schemas/classes';
 export * from './classes';
 export * from './schemas/schedule';
 export * from './schedule';
+export * from './dates';
+export * from './schemas/attendance';
+export * from './attendance';
 export * from './people';
 export * from './auth';

@@ -18,6 +18,10 @@ export const timeToMinutes = (hhmm: string): number => {
 export const minutesToTime = (min: number): string =>
   `${String(Math.floor(min / 60)).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}`;
 
+/** `08:30–09:30` for a lesson's start and end (minutes since midnight). */
+export const timeRange = (r: { startMin: number; endMin: number }): string =>
+  `${minutesToTime(r.startMin)}–${minutesToTime(r.endMin)}`;
+
 const time = z
   .string()
   .regex(/^([01]\d|2[0-3]):[0-5]\d$/, { error: 'invalidTime' })

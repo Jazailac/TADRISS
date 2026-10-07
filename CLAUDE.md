@@ -85,6 +85,12 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   SECURITY DEFINER helper that breaks the enrolments↔class_teachers policy cycle
   ([ADR 0013](docs/decisions/0013-security-definer-membership-helper.md)). Pages: `/dashboard/schedule`
   (edit), `/teacher/schedule`, `/student/schedule` (read-only). Desktop grid, phone agenda.
+- **Attendance (Phase 5):** `attendance_sessions` (one per lesson per date, copies subject/time so
+  timetable edits don't rewrite history) and `attendance_records`. The only write path is the
+  `submit_attendance` RPC: teacher owns the lesson, not in the future, teachers within 14 days (admins
+  unlimited), date matches the lesson's weekday, only enrolled students. "Today" is the institution's
+  timezone (`todayIn`), never the server's. Dates are `YYYY-MM-DD` strings: format with `timeZone: 'UTC'`.
+  Rate = (present + late) / (all − excused). Pages: `/teacher|dashboard/attendance[/slotId]`, `/student/attendance`.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.

@@ -456,7 +456,12 @@
     "class_full": "This class is full.",
     "class_archived": "This class is archived.",
     "slot_class_busy": "This class already has a lesson at that time.",
-    "slot_teacher_busy": "This teacher already has a lesson at that time."
+    "slot_teacher_busy": "This teacher already has a lesson at that time.",
+    "future_date": "That date hasn’t arrived yet.",
+    "too_old": "After 14 days, only the administration can correct attendance.",
+    "not_your_lesson": "This lesson is taught by another teacher.",
+    "student_not_in_class": "This student isn’t in the class.",
+    "wrong_weekday": "That date isn’t on the right day of the week."
   },
   "app": {
     "greeting": "Hello, <n>{name}</n>",
@@ -1080,6 +1085,107 @@
     },
     "error": {
       "title": "Couldn’t load the timetable",
+      "body": "Your data was not changed. Try again in a moment."
+    }
+  },
+  "attendance": {
+    "title": "Attendance",
+    "subtitle": {
+      "admin": "Follow each lesson’s roll call and spot the classes that are slipping.",
+      "teacher": "Take your lessons’ roll call in seconds.",
+      "student": "Your attendance, lates and absences."
+    },
+    "date": {
+      "label": "Date",
+      "previous": "Previous day",
+      "next": "Next day",
+      "today": "Today",
+      "go": "Show",
+      "sunday": "No school on Sunday."
+    },
+    "status": {
+      "present": "Present",
+      "late": "Late",
+      "absent": "Absent",
+      "excused": "Excused"
+    },
+    "short": {
+      "present": "P",
+      "late": "L",
+      "absent": "A",
+      "excused": "E"
+    },
+    "lessons": {
+      "title": "Today’s lessons",
+      "list": "Lessons of the day",
+      "empty": {
+        "title": "No lessons that day",
+        "bodyAdmin": "No lessons are scheduled on this date.",
+        "bodyTeacher": "You have no lessons on this date."
+      },
+      "done": "Roll call done",
+      "todo": "To do",
+      "upcoming": "Upcoming",
+      "take": "Take roll call",
+      "edit": "Edit roll call",
+      "view": "View roll call",
+      "counts": "{present, number} present · {late, number} late · {absent, number} absent · {excused, number} excused",
+      "teacher": "Teacher: {name}"
+    },
+    "summary": {
+      "title": "Attendance by class",
+      "subtitle": "30 days up to {date}",
+      "class": "Class",
+      "rate": "Attendance",
+      "absences": "Absences",
+      "lates": "Lates",
+      "empty": "No roll call recorded in this period.",
+      "rateLabel": "Attendance rate",
+      "help": "A late student counts as present; an excused absence isn’t counted."
+    },
+    "rollcall": {
+      "back": "Back to lessons",
+      "title": "Roll call",
+      "markAll": "Everyone present",
+      "save": "Save roll call",
+      "saved": "Roll call saved.",
+      "noStudents": {
+        "title": "No students in this class",
+        "body": "Enrol students before taking the roll call."
+      },
+      "note": "Note (optional)",
+      "notePlaceholder": "Reason, remark…",
+      "students": "Students",
+      "group": "Status of {name}",
+      "totals": "{present, number} present · {late, number} late · {absent, number} absent · {excused, number} excused",
+      "unsaved": "Unsaved changes",
+      "readOnly": {
+        "future": "That date hasn’t arrived yet: roll call isn’t possible.",
+        "old": "After 14 days, only the administration can correct attendance.",
+        "other": "This lesson is taught by another teacher: you can view the roll call, not change it."
+      },
+      "notFound": {
+        "title": "Lesson not found",
+        "body": "This lesson doesn’t exist, doesn’t take place on that date, or you don’t have access to it."
+      },
+      "noteFor": "Note for {name}"
+    },
+    "mine": {
+      "stats": {
+        "rate": "Attendance",
+        "absences": "Absences",
+        "lates": "Lates"
+      },
+      "list": "Attendance history",
+      "empty": {
+        "title": "No roll call recorded",
+        "body": "Your attendance will show up here after the first roll call."
+      },
+      "time": "{subject}",
+      "noNote": "No note"
+    },
+    "error": {
+      "title": "Couldn’t load attendance",
       "body": "Your data was not changed. Try again in a moment."
     }
   }

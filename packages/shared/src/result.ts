@@ -20,6 +20,11 @@ export const errorCodes = [
   'class_archived',
   'slot_class_busy',
   'slot_teacher_busy',
+  'future_date',
+  'too_old',
+  'not_your_lesson',
+  'student_not_in_class',
+  'wrong_weekday',
   'unknown',
 ] as const;
 export type ErrorCode = (typeof errorCodes)[number];
@@ -35,7 +40,13 @@ export function toErrorCode(
     case 'P0001': // raise exception 'class_full' / 'class_archived' from our triggers
       if (e.message === 'class_full') return 'class_full';
       if (e.message === 'class_archived') return 'class_archived';
+      if (e.message === 'future_date') return 'future_date';
+      if (e.message === 'too_old') return 'too_old';
+      if (e.message === 'not_your_lesson') return 'not_your_lesson';
+      if (e.message === 'student_not_in_class') return 'student_not_in_class';
       return 'unknown';
+    case '22023': // invalid_parameter_value: wrong_weekday
+      return e.message === 'wrong_weekday' ? 'wrong_weekday' : 'validation';
     case '23P01': // exclusion_violation: the timetable overlap constraints
       if (e.message?.includes('timetable_slots_class_no_overlap')) return 'slot_class_busy';
       if (e.message?.includes('timetable_slots_teacher_no_overlap')) return 'slot_teacher_busy';

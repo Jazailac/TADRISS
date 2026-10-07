@@ -38,7 +38,12 @@
     "class_full": "Cette classe est complète.",
     "class_archived": "Cette classe est archivée.",
     "slot_class_busy": "Cette classe a déjà un cours sur ce créneau.",
-    "slot_teacher_busy": "Cet enseignant a déjà un cours sur ce créneau."
+    "slot_teacher_busy": "Cet enseignant a déjà un cours sur ce créneau.",
+    "future_date": "Cette date n’est pas encore arrivée.",
+    "too_old": "Au-delà de 14 jours, seule la direction peut corriger l’appel.",
+    "not_your_lesson": "Ce cours est assuré par un autre enseignant.",
+    "student_not_in_class": "Cet élève ne fait pas partie de la classe.",
+    "wrong_weekday": "Cette date ne tombe pas le bon jour de la semaine."
   },
   "login": {
     "title": "Bon retour",
