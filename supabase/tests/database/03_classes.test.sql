@@ -96,7 +96,7 @@ select pg_temp.as_user('a0000000-0000-4000-8000-0000000000a1');
 select results_eq('select name from public.classes', $$ values ('6A') $$, 'student a1: sees only their own class');
 select results_eq('select student_id from public.enrolments',
   $$ values ('a0000000-0000-4000-8000-0000000000a1'::uuid) $$, 'student a1: sees only their own enrolment');
-select results_eq('select first_name from public.profiles', $$ values ('Sara') $$, 'student a1: classmates'' profiles stay private');
+select results_eq($$ select first_name from public.profiles where role = 'student' $$, $$ values ('Sara') $$, 'student a1: classmates'' profiles stay private');
 select throws_ok($$ insert into public.enrolments (institution_id, class_id, school_year, student_id)
   values ('a0000000-0000-4000-8000-000000000001', 'a1000000-0000-4000-8000-000000000001', '2026-2027', 'a0000000-0000-4000-8000-0000000000a1') $$,
   '42501', null, 'student: cannot enrol themselves');

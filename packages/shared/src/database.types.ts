@@ -290,6 +290,108 @@ export type Database = {
           },
         ];
       };
+      subjects: {
+        Row: {
+          color: string;
+          created_at: string;
+          deleted_at: string | null;
+          id: string;
+          institution_id: string;
+          name: string;
+          updated_at: string;
+        };
+        Insert: {
+          color?: string;
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: string;
+          institution_id: string;
+          name: string;
+          updated_at?: string;
+        };
+        Update: {
+          color?: string;
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: string;
+          institution_id?: string;
+          name?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'subjects_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'institutions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      timetable_slots: {
+        Row: {
+          class_id: string;
+          created_at: string;
+          ends_min: number;
+          id: string;
+          institution_id: string;
+          room: string | null;
+          starts_min: number;
+          subject_id: string;
+          teacher_id: string;
+          updated_at: string;
+          weekday: number;
+        };
+        Insert: {
+          class_id: string;
+          created_at?: string;
+          ends_min: number;
+          id?: string;
+          institution_id: string;
+          room?: string | null;
+          starts_min: number;
+          subject_id: string;
+          teacher_id: string;
+          updated_at?: string;
+          weekday: number;
+        };
+        Update: {
+          class_id?: string;
+          created_at?: string;
+          ends_min?: number;
+          id?: string;
+          institution_id?: string;
+          room?: string | null;
+          starts_min?: number;
+          subject_id?: string;
+          teacher_id?: string;
+          updated_at?: string;
+          weekday?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'timetable_slots_class_id_institution_id_fkey';
+            columns: ['class_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'classes';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'timetable_slots_class_id_teacher_id_fkey';
+            columns: ['class_id', 'teacher_id'];
+            isOneToOne: false;
+            referencedRelation: 'class_teachers';
+            referencedColumns: ['class_id', 'teacher_id'];
+          },
+          {
+            foreignKeyName: 'timetable_slots_subject_id_institution_id_fkey';
+            columns: ['subject_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'subjects';
+            referencedColumns: ['id', 'institution_id'];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
