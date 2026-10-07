@@ -40,3 +40,10 @@ export function utcDate(iso: string): Date {
   const [y = 0, m = 0, d = 0] = iso.split('-').map(Number);
   return new Date(Date.UTC(y, m - 1, d));
 }
+
+/** Whole days from `from` to `to` (negative when `to` is earlier). Both are `YYYY-MM-DD`. */
+export function daysBetween(from: string, to: string): number {
+  const [fy = 0, fm = 0, fd = 0] = from.split('-').map(Number);
+  const [ty = 0, tm = 0, td = 0] = to.split('-').map(Number);
+  return Math.round((Date.UTC(ty, tm - 1, td) - Date.UTC(fy, fm - 1, fd)) / 86_400_000);
+}

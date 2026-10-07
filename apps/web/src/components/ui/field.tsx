@@ -62,3 +62,13 @@ export function Select({ className, children, ...rest }: ComponentProps<'select'
     </div>
   );
 }
+
+/** Multi-line input with the same look as `Input`. */
+export function Textarea({ className, ...rest }: ComponentProps<'textarea'>) {
+  return (
+    <textarea
+      {...rest}
+      className={cx(inputStyles, 'h-auto min-h-28 resize-y py-2.5 leading-relaxed', className)}
+    />
+  );
+}

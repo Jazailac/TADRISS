@@ -15,6 +15,7 @@ export const validationKeys = [
   'invalidYear',
   'invalidTime',
   'timeOrder',
+  'invalidDate',
 ] as const;
 export type ValidationKey = (typeof validationKeys)[number];
 

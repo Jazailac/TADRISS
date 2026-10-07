@@ -13,5 +13,7 @@ export * from './schedule';
 export * from './dates';
 export * from './schemas/attendance';
 export * from './attendance';
+export * from './schemas/homework';
+export * from './homework';
 export * from './people';
 export * from './auth';

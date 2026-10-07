@@ -278,7 +278,8 @@
     "capacityRange": "Between 1 and 200.",
     "invalidYear": "Invalid school year.",
     "invalidTime": "Invalid time (between 06:00 and 22:00).",
-    "timeOrder": "The end must be after the start."
+    "timeOrder": "The end must be after the start.",
+    "invalidDate": "Invalid date."
   },
   "shell": {
     "navigation": "App navigation",
@@ -1187,6 +1188,116 @@
     "error": {
       "title": "Couldn’t load attendance",
       "body": "Your data was not changed. Try again in a moment."
+    }
+  },
+  "homework": {
+    "title": "Homework",
+    "subtitle": {
+      "teacher": "Set work for your classes and see who has done it.",
+      "student": "What you have to do, and what is overdue."
+    },
+    "views": {
+      "label": "View",
+      "upcoming": "Upcoming",
+      "past": "Past",
+      "deleted": "Deleted"
+    },
+    "actions": {
+      "new": "New homework",
+      "edit": "Edit",
+      "delete": "Delete",
+      "restore": "Restore"
+    },
+    "form": {
+      "newTitle": "New homework",
+      "newDescription": "Your students see it straight away in their space.",
+      "editTitle": "Edit homework",
+      "fields": {
+        "class": "Class",
+        "subject": "Subject",
+        "title": "Title",
+        "description": "Instructions (optional)",
+        "dueDate": "Due on"
+      },
+      "placeholders": {
+        "title": "Exercises 1 to 5, page 42",
+        "description": "Explain what needs doing…"
+      },
+      "create": "Publish homework",
+      "noClasses": "No class is assigned to you this year.",
+      "noSubjects": "Your administration hasn’t created any subjects yet."
+    },
+    "due": {
+      "on": "Due {date}",
+      "today": "Due today",
+      "tomorrow": "Due tomorrow",
+      "late": "{days, plural, one {# day late} other {# days late}}",
+      "in": "{days, plural, one {In # day} other {In # days}}"
+    },
+    "progress": {
+      "done": "{done, number}/{total, number} have finished",
+      "doneOnly": "{done, number} have finished",
+      "title": "Progress",
+      "list": "Students’ progress",
+      "finished": "Done",
+      "pending": "Not yet"
+    },
+    "detail": {
+      "back": "All homework",
+      "class": "Class {name}",
+      "archivedNotice": "This homework is deleted: your students no longer see it.",
+      "noDescription": "No instructions."
+    },
+    "delete": {
+      "title": "Delete this homework?",
+      "body": "Your students will no longer see it. You can restore it from the “Deleted” tab.",
+      "confirm": "Delete"
+    },
+    "student": {
+      "overdue": "Overdue",
+      "upcoming": "To do",
+      "done": "Done",
+      "teacher": "By {name}",
+      "mark": "Mark “{title}” as done",
+      "unmark": "Mark “{title}” as not done",
+      "allClear": "Nothing to do right now.",
+      "list": "Homework list"
+    },
+    "feedback": {
+      "created": "Homework published.",
+      "updated": "Homework updated.",
+      "deleted": "Homework deleted.",
+      "restored": "Homework restored."
+    },
+    "empty": {
+      "teacher": {
+        "title": "No homework here",
+        "body": "Publish homework: your students see it immediately."
+      },
+      "teacherPast": {
+        "title": "No past homework",
+        "body": "Homework whose due date has passed appears here."
+      },
+      "teacherDeleted": {
+        "title": "No deleted homework",
+        "body": "Homework you delete can be restored here."
+      },
+      "student": {
+        "title": "No homework yet",
+        "body": "Your teachers haven’t posted anything."
+      },
+      "noClass": {
+        "title": "You don’t have a class yet",
+        "body": "Your administration needs to enrol you in a class first."
+      }
+    },
+    "error": {
+      "title": "Couldn’t load homework",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "notFound": {
+      "title": "Homework not found",
+      "body": "This homework doesn’t exist or you don’t have access to it."
     }
   }
 }

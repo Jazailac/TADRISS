@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { attendanceRate, countStatuses, emptyCounts } from './attendance';
-import { addDays, utcDate, isIsoDate, todayIn, weekdayOf } from './dates';
+import { addDays, daysBetween, isIsoDate, todayIn, utcDate, weekdayOf } from './dates';
 import { toErrorCode } from './result';
 import { submitAttendanceInput } from './schemas/attendance';
 
@@ -15,6 +15,13 @@ describe('dates', () => {
     expect(weekdayOf('2026-10-05')).toBe(1); // Monday
     expect(weekdayOf('2026-10-10')).toBe(6); // Saturday
     expect(weekdayOf('2026-10-11')).toBe(7); // Sunday
+  });
+  it('counts whole days between dates, across month ends and DST changes', () => {
+    expect(daysBetween('2026-10-07', '2026-10-09')).toBe(2);
+    expect(daysBetween('2026-10-09', '2026-10-07')).toBe(-2);
+    expect(daysBetween('2026-10-31', '2026-11-01')).toBe(1);
+    expect(daysBetween('2026-03-28', '2026-03-30')).toBe(2);
+    expect(daysBetween('2026-10-07', '2026-10-07')).toBe(0);
   });
   it('adds days across month and year ends', () => {
     expect(addDays('2026-10-31', 1)).toBe('2026-11-01');

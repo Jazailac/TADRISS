@@ -73,6 +73,7 @@
     "capacityRange": "Entre 1 et 200.",
     "invalidYear": "Année scolaire invalide.",
     "invalidTime": "Heure invalide (entre 06:00 et 22:00).",
-    "timeOrder": "La fin doit être après le début."
+    "timeOrder": "La fin doit être après le début.",
+    "invalidDate": "Date invalide."
   }
 }

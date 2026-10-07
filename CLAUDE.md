@@ -91,6 +91,11 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   unlimited), date matches the lesson's weekday, only enrolled students. "Today" is the institution's
   timezone (`todayIn`), never the server's. Dates are `YYYY-MM-DD` strings: format with `timeZone: 'UTC'`.
   Rate = (present + late) / (all − excused). Pages: `/teacher|dashboard/attendance[/slotId]`, `/student/attendance`.
+- **Homework (Phase 6):** `homework` (teacher sets it for a class they teach: composite FK to
+  `class_teachers`; soft delete, and the author keeps seeing it so it can be restored) and
+  `homework_completions` (a student's own tick: they insert/delete only their own row). Student buckets:
+  done / overdue / upcoming by `homeworkBucket` against the school's "today". The tick is optimistic
+  (`useOptimistic`); e2e must wait for the server response before reloading.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.
@@ -202,4 +207,7 @@ warm editorial typography with contemporary Maghreb architecture and a cinematic
 - `notFound()` under `(app)` still answers HTTP 200 (the loading boundary streams first). Use a route-level
   `not-found.tsx` for an in-shell page and assert on its heading, not the status.
 - Nav active state uses `matchNav` (most specific prefix), so nested routes don't light up `/dashboard`.
+- Postgres applies SELECT policies (incl. restrictive soft-delete ones) to the NEW row of an UPDATE: a soft
+  delete only works for roles that can still see the deleted row. Use `update(..., {count: 'exact'})` without
+  `.select()` for soft deletes, since the returned row is no longer visible.
 - Toolchain pins and their reasons: [ADR 0006](docs/decisions/0006-toolchain-versions.md).

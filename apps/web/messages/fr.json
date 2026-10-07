@@ -278,7 +278,8 @@
     "capacityRange": "Entre 1 et 200.",
     "invalidYear": "Année scolaire invalide.",
     "invalidTime": "Heure invalide (entre 06:00 et 22:00).",
-    "timeOrder": "La fin doit être après le début."
+    "timeOrder": "La fin doit être après le début.",
+    "invalidDate": "Date invalide."
   },
   "shell": {
     "navigation": "Navigation de l’application",
@@ -1187,6 +1188,116 @@
     "error": {
       "title": "Impossible de charger les présences",
       "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    }
+  },
+  "homework": {
+    "title": "Devoirs",
+    "subtitle": {
+      "teacher": "Donnez du travail à vos classes et suivez qui l’a fait.",
+      "student": "Ce que vous avez à faire, et ce qui est en retard."
+    },
+    "views": {
+      "label": "Affichage",
+      "upcoming": "À venir",
+      "past": "Passés",
+      "deleted": "Supprimés"
+    },
+    "actions": {
+      "new": "Nouveau devoir",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "restore": "Restaurer"
+    },
+    "form": {
+      "newTitle": "Nouveau devoir",
+      "newDescription": "Vos élèves le verront tout de suite dans leur espace.",
+      "editTitle": "Modifier le devoir",
+      "fields": {
+        "class": "Classe",
+        "subject": "Matière",
+        "title": "Titre",
+        "description": "Consignes (facultatif)",
+        "dueDate": "À rendre pour le"
+      },
+      "placeholders": {
+        "title": "Exercices 1 à 5, page 42",
+        "description": "Précisez ce qu’il faut faire…"
+      },
+      "create": "Publier le devoir",
+      "noClasses": "Aucune classe ne vous est affectée cette année.",
+      "noSubjects": "Votre direction n’a pas encore créé de matières."
+    },
+    "due": {
+      "on": "Pour le {date}",
+      "today": "Pour aujourd’hui",
+      "tomorrow": "Pour demain",
+      "late": "{days, plural, one {En retard d’# jour} other {En retard de # jours}}",
+      "in": "{days, plural, one {Dans # jour} other {Dans # jours}}"
+    },
+    "progress": {
+      "done": "{done, number}/{total, number} ont terminé",
+      "doneOnly": "{done, number} ont terminé",
+      "title": "Avancement",
+      "list": "Avancement des élèves",
+      "finished": "Terminé",
+      "pending": "Pas encore"
+    },
+    "detail": {
+      "back": "Tous les devoirs",
+      "class": "Classe {name}",
+      "archivedNotice": "Ce devoir est supprimé : vos élèves ne le voient plus.",
+      "noDescription": "Aucune consigne."
+    },
+    "delete": {
+      "title": "Supprimer ce devoir ?",
+      "body": "Vos élèves ne le verront plus. Vous pourrez le restaurer depuis l’onglet « Supprimés ».",
+      "confirm": "Supprimer"
+    },
+    "student": {
+      "overdue": "En retard",
+      "upcoming": "À faire",
+      "done": "Terminés",
+      "teacher": "Par {name}",
+      "mark": "Marquer « {title} » comme fait",
+      "unmark": "Marquer « {title} » comme non fait",
+      "allClear": "Rien à faire pour le moment.",
+      "list": "Liste de devoirs"
+    },
+    "feedback": {
+      "created": "Devoir publié.",
+      "updated": "Devoir mis à jour.",
+      "deleted": "Devoir supprimé.",
+      "restored": "Devoir restauré."
+    },
+    "empty": {
+      "teacher": {
+        "title": "Aucun devoir ici",
+        "body": "Publiez un devoir : vos élèves le voient immédiatement."
+      },
+      "teacherPast": {
+        "title": "Aucun devoir passé",
+        "body": "Les devoirs dont l’échéance est dépassée apparaissent ici."
+      },
+      "teacherDeleted": {
+        "title": "Aucun devoir supprimé",
+        "body": "Les devoirs que vous supprimez peuvent être restaurés ici."
+      },
+      "student": {
+        "title": "Aucun devoir pour l’instant",
+        "body": "Vos enseignants n’ont rien publié."
+      },
+      "noClass": {
+        "title": "Vous n’avez pas encore de classe",
+        "body": "Votre direction doit d’abord vous inscrire dans une classe."
+      }
+    },
+    "error": {
+      "title": "Impossible de charger les devoirs",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Devoir introuvable",
+      "body": "Ce devoir n’existe pas ou vous n’y avez pas accès."
     }
   }
 }

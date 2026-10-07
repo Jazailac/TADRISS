@@ -3,10 +3,12 @@
 import {
   classInput,
   fieldErrors,
+  homeworkInput,
   inviteInput,
   slotInput,
   subjectInput,
   updateClassInput,
+  updateHomeworkInput,
   updateMemberInput,
   updateSlotInput,
   updateSubjectInput,
@@ -17,12 +19,12 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useActionState, useEffect, useState, type SubmitEvent } from 'react';
 import type { FormState } from '@/lib/form-state';
 import { Button } from '../ui/button';
-import { Field, FieldError, Input, Label, Select } from '../ui/field';
+import { Field, FieldError, Input, Label, Select, Textarea } from '../ui/field';
 
 export type FormField = {
   name: string;
   label: string;
-  kind: 'text' | 'email' | 'number' | 'select' | 'time';
+  kind: 'text' | 'email' | 'number' | 'select' | 'time' | 'date' | 'textarea';
   /** Required for `select`. */
   options?: { value: string; label: string }[];
   autoComplete?: string;
@@ -41,6 +43,8 @@ const schemas = {
   updateSlot: updateSlotInput,
   createSubject: subjectInput,
   updateSubject: updateSubjectInput,
+  createHomework: homeworkInput,
+  updateHomework: updateHomeworkInput,
 } as const;
 
 /**
@@ -155,6 +159,16 @@ export function ActionForm({
                   </option>
                 ))}
               </Select>
+            ) : f.kind === 'textarea' ? (
+              <Textarea
+                id={f.name}
+                name={f.name}
+                dir="auto"
+                placeholder={f.placeholder}
+                defaultValue={state?.values?.[f.name] ?? defaults?.[f.name]}
+                aria-invalid={err ? true : undefined}
+                aria-describedby={err ? errId : undefined}
+              />
             ) : (
               <Input
                 id={f.name}
@@ -165,7 +179,12 @@ export function ActionForm({
                   f.kind === 'email' ? 'email' : f.kind === 'number' ? 'numeric' : undefined
                 }
                 dir={
-                  f.kind === 'email' || f.kind === 'number' || f.kind === 'time' ? 'ltr' : 'auto'
+                  f.kind === 'email' ||
+                  f.kind === 'number' ||
+                  f.kind === 'time' ||
+                  f.kind === 'date'
+                    ? 'ltr'
+                    : 'auto'
                 }
                 placeholder={f.placeholder}
                 defaultValue={state?.values?.[f.name] ?? defaults?.[f.name]}
