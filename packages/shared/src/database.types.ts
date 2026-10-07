@@ -266,6 +266,130 @@ export type Database = {
           },
         ];
       };
+      exams: {
+        Row: {
+          class_id: string;
+          coefficient: number;
+          created_at: string;
+          deleted_at: string | null;
+          exam_date: string;
+          id: string;
+          institution_id: string;
+          max_score: number;
+          published_at: string | null;
+          subject_id: string;
+          teacher_id: string;
+          term: number;
+          title: string;
+          updated_at: string;
+        };
+        Insert: {
+          class_id: string;
+          coefficient?: number;
+          created_at?: string;
+          deleted_at?: string | null;
+          exam_date: string;
+          id?: string;
+          institution_id: string;
+          max_score?: number;
+          published_at?: string | null;
+          subject_id: string;
+          teacher_id?: string;
+          term?: number;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          class_id?: string;
+          coefficient?: number;
+          created_at?: string;
+          deleted_at?: string | null;
+          exam_date?: string;
+          id?: string;
+          institution_id?: string;
+          max_score?: number;
+          published_at?: string | null;
+          subject_id?: string;
+          teacher_id?: string;
+          term?: number;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'exams_class_id_institution_id_fkey';
+            columns: ['class_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'classes';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'exams_class_id_teacher_id_fkey';
+            columns: ['class_id', 'teacher_id'];
+            isOneToOne: false;
+            referencedRelation: 'class_teachers';
+            referencedColumns: ['class_id', 'teacher_id'];
+          },
+          {
+            foreignKeyName: 'exams_subject_id_institution_id_fkey';
+            columns: ['subject_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'subjects';
+            referencedColumns: ['id', 'institution_id'];
+          },
+        ];
+      };
+      grades: {
+        Row: {
+          absent: boolean;
+          created_at: string;
+          exam_id: string;
+          id: string;
+          institution_id: string;
+          remark: string | null;
+          score: number | null;
+          student_id: string;
+          updated_at: string;
+        };
+        Insert: {
+          absent?: boolean;
+          created_at?: string;
+          exam_id: string;
+          id?: string;
+          institution_id: string;
+          remark?: string | null;
+          score?: number | null;
+          student_id: string;
+          updated_at?: string;
+        };
+        Update: {
+          absent?: boolean;
+          created_at?: string;
+          exam_id?: string;
+          id?: string;
+          institution_id?: string;
+          remark?: string | null;
+          score?: number | null;
+          student_id?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'grades_exam_id_institution_id_fkey';
+            columns: ['exam_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'exams';
+            referencedColumns: ['id', 'institution_id'];
+          },
+          {
+            foreignKeyName: 'grades_institution_id_student_id_fkey';
+            columns: ['institution_id', 'student_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
       homework: {
         Row: {
           class_id: string;
@@ -658,6 +782,18 @@ export type Database = {
           last_name: string;
         }[];
       };
+      exam_summary: {
+        Args: { p_class_id?: string };
+        Returns: {
+          absent: number;
+          avg20: number;
+          exam_id: string;
+          graded: number;
+          max20: number;
+          min20: number;
+        }[];
+      };
+      save_grades: { Args: { p_exam_id: string; p_grades: Json }; Returns: number };
       set_class_teachers: {
         Args: { p_class_id: string; p_teacher_ids: string[] };
         Returns: undefined;

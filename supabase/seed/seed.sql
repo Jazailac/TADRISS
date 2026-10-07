@@ -223,3 +223,31 @@ from public.homework h
 join public.enrolments e on e.class_id = h.class_id and e.status = 'active'
 cross join lateral (select abs(hashtext(e.student_id::text || h.id::text)) % 100 as v) x
 where x.v < case when h.due_date < '2026-10-08' then 65 else 30 end;
+
+-- ── Phase 7: exams and marks (Al Manar) ─────────────────────────────────────
+-- Exam 703 is a DRAFT (unpublished) with only some marks entered.
+insert into public.exams (id, institution_id, class_id, subject_id, teacher_id, title, exam_date, max_score, coefficient, term, published_at) values
+  ('10000000-0000-4000-8000-000000000701', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000401', '10000000-0000-4000-8000-000000000501', '10000000-0000-4000-8000-000000000101', 'Contrôle 1 : les fractions', '2026-09-25', 20, 2, 1, '2026-09-28 09:00+00'),
+  ('10000000-0000-4000-8000-000000000702', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000401', '10000000-0000-4000-8000-000000000502', '10000000-0000-4000-8000-000000000101', 'Dictée n°1', '2026-10-01', 10, 1, 1, '2026-10-02 09:00+00'),
+  ('10000000-0000-4000-8000-000000000703', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000401', '10000000-0000-4000-8000-000000000505', '10000000-0000-4000-8000-000000000101', 'TP : le cycle de l’eau', '2026-10-06', 20, 1, 1, null),
+  ('10000000-0000-4000-8000-000000000704', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000402', '10000000-0000-4000-8000-000000000501', '10000000-0000-4000-8000-000000000102', 'Contrôle 1 : la géométrie', '2026-09-26', 20, 2, 1, '2026-09-29 09:00+00'),
+  ('10000000-0000-4000-8000-000000000705', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000402', '10000000-0000-4000-8000-000000000502', '10000000-0000-4000-8000-000000000101', 'Rédaction', '2026-10-02', 20, 1, 1, '2026-10-05 09:00+00'),
+  ('10000000-0000-4000-8000-000000000706', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000403', '10000000-0000-4000-8000-000000000505', '10000000-0000-4000-8000-000000000102', 'Interrogation écrite', '2026-09-30', 20, 1, 1, '2026-10-01 09:00+00'),
+  ('10000000-0000-4000-8000-000000000707', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000403', '10000000-0000-4000-8000-000000000506', '10000000-0000-4000-8000-000000000103', 'Frise chronologique', '2026-10-03', 10, 1, 1, '2026-10-05 09:00+00'),
+  ('10000000-0000-4000-8000-000000000708', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000404', '10000000-0000-4000-8000-000000000501', '10000000-0000-4000-8000-000000000103', 'Brevet blanc', '2026-10-05', 20, 3, 1, '2026-10-06 09:00+00');
+
+-- Marks come from a hash of (student, exam): 8-19 out of 20 scaled to the exam's maximum, in quarter
+-- points, with an occasional absence. The draft exam only has marks for about half the class.
+insert into public.grades (institution_id, exam_id, student_id, score, absent)
+select x.institution_id, x.exam_id, x.student_id,
+       case when x.is_absent then null else x.score end, x.is_absent
+from (
+  select ex.institution_id, ex.id as exam_id, e.student_id,
+         abs(hashtext(e.student_id::text || ex.id::text || 'a')) % 23 = 0 as is_absent,
+         round(((8 + (abs(hashtext(e.student_id::text || ex.id::text)) % 1100) / 100.0) / 20.0 * ex.max_score) * 4) / 4 as score,
+         abs(hashtext(e.student_id::text || ex.id::text || 'd')) % 2 as half
+  from public.exams ex
+  join public.enrolments e on e.class_id = ex.class_id and e.status = 'active'
+) x
+join public.exams ex2 on ex2.id = x.exam_id
+where ex2.published_at is not null or x.half = 0;
