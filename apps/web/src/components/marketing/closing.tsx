@@ -1,3 +1,4 @@
+import { Link } from '@/i18n/navigation';
 import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { ButtonLink } from '../ui/button';
@@ -31,9 +32,14 @@ export function SiteFooter() {
           <span className="hidden h-5 w-px bg-border sm:block" aria-hidden />
           <span className="hidden sm:block">{t('tagline')}</span>
         </div>
-        <p className="font-mono text-xs tabular-nums">
-          {t('rights', { year: new Date().getFullYear() })}
-        </p>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          <Link href="/privacy" className="hover:text-primary">
+            {t('privacy')}
+          </Link>
+          <p className="font-mono text-xs tabular-nums">
+            {t('rights', { year: new Date().getFullYear() })}
+          </p>
+        </div>
       </div>
     </footer>
   );

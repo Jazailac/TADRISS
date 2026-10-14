@@ -208,7 +208,8 @@
     },
     "footer": {
       "tagline": "Gestion scolaire pour les établissements privés au Maroc.",
-      "rights": "© {year} Tadriss"
+      "rights": "© {year} Tadriss",
+      "privacy": "Confidentialité"
     }
   },
   "auth": {
@@ -2278,5 +2279,42 @@
     "done": "{sent, number} invitations envoyées sur {total, number}",
     "resultList": "Résultat de l’import",
     "sent": "Invitation envoyée"
+  },
+  "privacy": {
+    "eyebrow": "Confidentialité",
+    "title": "Politique de confidentialité",
+    "intro": "Tadriss traite les données de votre établissement pour qu’il puisse gérer sa scolarité. Voici, simplement, ce que nous faisons de ces données.",
+    "who": {
+      "title": "Qui est responsable",
+      "body": "L’établissement est responsable du traitement des données de ses élèves, parents et enseignants. Tadriss agit comme sous-traitant : nous hébergeons et sécurisons ces données selon les instructions de l’établissement."
+    },
+    "data": {
+      "title": "Données traitées",
+      "body": "Identité et coordonnées des membres, classes, présences, notes, devoirs, factures et paiements, messages et documents déposés par l’établissement. Nous ne collectons aucune donnée à des fins publicitaires."
+    },
+    "why": {
+      "title": "Finalités",
+      "body": "Uniquement la gestion de la vie scolaire : emploi du temps, suivi des présences et des notes, communication avec les familles, facturation. Les données ne sont ni vendues ni utilisées pour du profilage."
+    },
+    "who_sees": {
+      "title": "Qui voit quoi",
+      "body": "Chaque établissement est isolé des autres. Un élève voit ses propres données, un parent celles de ses enfants, un enseignant celles de ses classes, l’administration celles de son établissement. Les messages privés ne sont lisibles que par leurs deux participants."
+    },
+    "location": {
+      "title": "Hébergement et durée",
+      "body": "Les données sont hébergées chez un prestataire cloud sécurisé et sauvegardées régulièrement. Elles sont conservées tant que l’établissement utilise Tadriss, puis supprimées ou restituées à sa demande."
+    },
+    "rights": {
+      "title": "Vos droits",
+      "body": "Conformément à la loi 09-08, toute personne peut demander l’accès, la rectification ou la suppression de ses données en s’adressant à son établissement, qui nous donne les instructions nécessaires. Le traitement est déclaré auprès de la CNDP par l’établissement."
+    },
+    "security": {
+      "title": "Sécurité",
+      "body": "Connexions chiffrées, mots de passe jamais stockés en clair, cloisonnement strict entre établissements, journal d’audit des opérations sensibles et sauvegardes."
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "Pour toute question sur vos données, contactez d’abord l’administration de votre établissement ; vous pouvez aussi nous écrire à privacy@tadriss.ma."
+    }
   }
 }

@@ -208,7 +208,8 @@
     },
     "footer": {
       "tagline": "School management for private institutions in Morocco.",
-      "rights": "© {year} Tadriss"
+      "rights": "© {year} Tadriss",
+      "privacy": "Privacy"
     }
   },
   "auth": {
@@ -2278,5 +2279,42 @@
     "done": "{sent, number} of {total, number} invitations sent",
     "resultList": "Import result",
     "sent": "Invitation sent"
+  },
+  "privacy": {
+    "eyebrow": "Privacy",
+    "title": "Privacy policy",
+    "intro": "Tadriss processes your school’s data so it can run its school life. Here, in plain words, is what we do with it.",
+    "who": {
+      "title": "Who is responsible",
+      "body": "The school is responsible for processing the data of its students, parents and teachers. Tadriss acts as a processor: we host and secure that data on the school’s instructions."
+    },
+    "data": {
+      "title": "Data we process",
+      "body": "Members’ identity and contact details, classes, attendance, marks, homework, invoices and payments, messages and documents the school uploads. We collect no data for advertising."
+    },
+    "why": {
+      "title": "Purposes",
+      "body": "Only running school life: timetables, attendance and marks, communication with families, billing. Data is never sold or used for profiling."
+    },
+    "who_sees": {
+      "title": "Who sees what",
+      "body": "Each school is isolated from the others. A student sees their own data, a parent their children’s, a teacher their classes’, the administration their school’s. Private messages are readable only by the two people involved."
+    },
+    "location": {
+      "title": "Hosting and retention",
+      "body": "Data is hosted with a secure cloud provider and backed up regularly. It is kept while the school uses Tadriss, then deleted or returned on request."
+    },
+    "rights": {
+      "title": "Your rights",
+      "body": "Under Moroccan law 09-08, anyone may ask to access, correct or delete their data by contacting their school, which gives us the necessary instructions. The school declares the processing to the CNDP."
+    },
+    "security": {
+      "title": "Security",
+      "body": "Encrypted connections, passwords never stored in clear, strict separation between schools, an audit log of sensitive actions, and backups."
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "For questions about your data, contact your school’s administration first; you can also write to privacy@tadriss.ma."
+    }
   }
 }
