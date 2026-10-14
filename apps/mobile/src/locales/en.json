@@ -19,7 +19,8 @@
     "en": "English"
   },
   "common": {
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "back": "Back"
   },
   "errors": {
     "genericTitle": "Something went wrong",
@@ -64,7 +65,23 @@
   "home": {
     "greeting": "Hello, {{name}}",
     "comingSoon": "Your classes, homework and grades are coming to the app soon.",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "noLessons": "No lessons today.",
+    "rollCallDone": "Roll call done",
+    "rollCallTodo": "Roll call to do",
+    "news": "Latest announcements",
+    "attendance": "Attendance",
+    "average": "Average",
+    "homeworkTodo": "Homework to do",
+    "owed": "Balance due",
+    "today": "Today",
+    "lessonsToday": "Lessons today",
+    "rollCalls": "Today’s roll calls",
+    "unreadMessages": "Unread messages",
+    "students": "Students",
+    "teachers": "Teachers",
+    "outstanding": "Outstanding",
+    "platform": "The platform console is available on the web."
   },
   "roles": {
     "super_admin": "Platform",
@@ -91,5 +108,92 @@
     "fileTooLarge": "This file is over 10 MB.",
     "fileType": "This file type isn’t accepted.",
     "tooShort": "That’s too short."
+  },
+  "tabs": {
+    "home": "Home",
+    "schedule": "Schedule",
+    "homework": "Homework",
+    "messages": "Messages",
+    "more": "More"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "empty": "No announcements yet.",
+    "unread": "Unread",
+    "pinned": "Pinned",
+    "by": "By {{name}}"
+  },
+  "schedule": {
+    "title": "Timetable",
+    "none": "No lessons that day."
+  },
+  "homework": {
+    "title": "Homework",
+    "studentSubtitle": "What you have to do.",
+    "teacherSubtitle": "Homework to follow.",
+    "none": "No homework yet.",
+    "overdue": "Overdue",
+    "upcoming": "To do",
+    "done": "Done",
+    "mark": "Mark “{{title}}” as done or not done",
+    "check": "✓",
+    "due": "Due {{date}}",
+    "finished": "Finished: {{count}}"
+  },
+  "messages": {
+    "title": "Messages",
+    "new": "New message",
+    "newHint": "Choose who to write to.",
+    "empty": "No conversations.",
+    "unknown": "Former contact",
+    "you": "You: {{text}}",
+    "noContacts": "Nobody to write to yet.",
+    "startThread": "Write the first message.",
+    "placeholder": "Write your message…",
+    "send": "Send"
+  },
+  "more": {
+    "announcements": "Announcements",
+    "grades": "Marks",
+    "attendance": "Attendance",
+    "payments": "Payments",
+    "documents": "Documents",
+    "settings": "Settings"
+  },
+  "grades": {
+    "title": "Marks",
+    "empty": "No marks published yet.",
+    "average": "Overall average",
+    "absent": "Absent",
+    "term": "Term {{term}}"
+  },
+  "attendance": {
+    "title": "Attendance",
+    "empty": "No attendance recorded.",
+    "rate": "Attendance rate",
+    "status": {
+      "present": "Present",
+      "late": "Late",
+      "absent": "Absent",
+      "excused": "Excused"
+    }
+  },
+  "payments": {
+    "title": "Payments",
+    "empty": "No invoices.",
+    "owed": "Balance due",
+    "of": "{{paid}} paid of {{total}}",
+    "status": {
+      "paid": "Paid",
+      "partial": "Partial",
+      "unpaid": "Unpaid",
+      "overdue": "Overdue",
+      "void": "Void"
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "empty": "No documents.",
+    "open": "Open"
   }
 }

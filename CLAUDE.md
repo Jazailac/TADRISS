@@ -153,6 +153,15 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   `components/home/{admin,teacher,student}-home.tsx` with `StatTile`/`Panel` from `dash-parts.tsx`. They respect module
   switches (`getDisabledModules`: a disabled module's tile/panel is dropped) and use the school's "today". A school
   with no people and no classes sees a "getting started" panel instead of zeros.
+- **Mobile (Expo):** `app/(app)/_layout.tsx` wraps everything in `MeProvider` (profile, the school's "today", locale;
+  signed-out people go to `/login`) and a token-styled tab bar limited by role (student/teacher: Home, Schedule,
+  Homework, Messages, More; admin: Home, Messages, More). Screens call the **same shared functions** as the web through
+  `supabase` and `useLoad` (`src/lib/load.ts`: loading / error with retry / data, pull-to-refresh), with small
+  primitives in `src/ui/kit.tsx`. More → announcements (opening marks read), grades, attendance, payments, documents
+  (signed URL opened with `Linking`), settings (language, theme, sign-out). Mutations the mobile does: homework tick,
+  send message, mark read. Everything else (roll call, grading, invoicing, platform console) is web-only.
+  `pnpm --filter @tadriss/mobile export:check` must bundle. Interpolated strings must be built outside JSX
+  (`react/jsx-no-literals`). Mobile i18n uses `{{x}}` interpolation (i18next), not ICU.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.

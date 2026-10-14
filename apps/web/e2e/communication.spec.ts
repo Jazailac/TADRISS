@@ -117,19 +117,19 @@ test.describe('announcements', () => {
     // No school-wide option, and no class they do not teach.
     await expect(audience.getByRole('option', { name: 'Tout l’établissement' })).toHaveCount(0);
     await expect(audience.getByRole('option', { name: 'Tous les élèves' })).toHaveCount(0);
-    await expect(audience.getByRole('option', { name: 'Classe : 6ème A' })).toHaveCount(0);
+    await expect(audience.getByRole('option', { name: /Classe\s*:\s*6ème A/ })).toHaveCount(0);
     await audience.selectOption({ index: 0 });
     const label = await audience.locator('option:checked').innerText();
     await form.getByLabel('Titre').fill(title);
     await form.getByLabel('Message').fill('Pour la classe.');
     await form.getByRole('button', { name: 'Publier l’annonce' }).click();
     await expect(page).toHaveURL(/\/teacher\/announcements\/[0-9a-f-]{36}$/);
-    await expect(page.getByText(label.replace('Classe : ', '')).first()).toBeVisible();
+    await expect(page.getByText(label.replace(/^Classe\s*:\s*/, '')).first()).toBeVisible();
     // A teacher cannot pin.
     await expect(page.getByRole('button', { name: 'Épingler' })).toHaveCount(0);
 
     // prof3 teaches 6ème B? Whichever class it is, a student of another class never sees it.
-    const className = label.replace('Classe : ', '');
+    const className = label.replace(/^Classe\s*:\s*/, '');
     const other = className === '6ème A' ? 'eleve09@almanar.test' : 'eleve01@almanar.test';
     const outsider = await (await browser.newContext(testInfo.project.use)).newPage();
     await login(outsider, other);

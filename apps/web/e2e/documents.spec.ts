@@ -176,7 +176,7 @@ test.describe('documents: publishing', () => {
     const form = page.getByRole('dialog');
     const audience = form.getByLabel('Destinataires');
     await expect(audience.getByRole('option', { name: 'Tout l’établissement' })).toHaveCount(0);
-    await expect(audience.getByRole('option', { name: 'Classe : 6ème A' })).toHaveCount(0);
+    await expect(audience.getByRole('option', { name: /Classe\s*:\s*6ème A/ })).toHaveCount(0);
     const label = await audience.locator('option').first().innerText();
     await form.getByLabel('Fichier').setInputFiles({
       name: 'cours.pdf',
@@ -186,9 +186,9 @@ test.describe('documents: publishing', () => {
     await form.getByLabel('Titre').fill(title);
     await form.getByRole('button', { name: 'Envoyer le document' }).click();
     await expect(page.getByText('Document ajouté.')).toBeVisible();
-    await expect(row(page, title)).toContainText(label.replace('Classe : ', ''));
+    await expect(row(page, title)).toContainText(label.replace(/^Classe\s*:\s*/, ''));
 
-    const className = label.replace('Classe : ', '');
+    const className = label.replace(/^Classe\s*:\s*/, '');
     const outsider = await (await browser.newContext(testInfo.project.use)).newPage();
     await login(outsider, className === '6ème A' ? 'eleve09@almanar.test' : 'eleve01@almanar.test');
     await outsider.goto('/student/documents');

@@ -19,7 +19,8 @@
     "en": "English"
   },
   "common": {
-    "loading": "Chargement…"
+    "loading": "Chargement…",
+    "back": "Retour"
   },
   "errors": {
     "genericTitle": "Une erreur est survenue",
@@ -49,7 +50,7 @@
     "payment_exceeds_balance": "Le montant dépasse le reste à payer.",
     "invoice_void": "Cette facture est annulée.",
     "has_payments": "Annulez d’abord les paiements de cette facture.",
-    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
+    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
     "file_too_large": "Ce fichier dépasse 10 Mo.",
     "file_type": "Ce type de fichier n’est pas accepté.",
     "plan_limit_reached": "Votre formule a atteint sa limite de places. Contactez-nous pour la faire évoluer."
@@ -64,7 +65,23 @@
   "home": {
     "greeting": "Bonjour, {{name}}",
     "comingSoon": "Vos classes, devoirs et notes arrivent bientôt dans l’application.",
-    "signOut": "Se déconnecter"
+    "signOut": "Se déconnecter",
+    "noLessons": "Aucun cours aujourd’hui.",
+    "rollCallDone": "Appel fait",
+    "rollCallTodo": "Appel à faire",
+    "news": "Dernières annonces",
+    "attendance": "Assiduité",
+    "average": "Moyenne",
+    "homeworkTodo": "Devoirs à faire",
+    "owed": "Reste à payer",
+    "today": "Aujourd’hui",
+    "lessonsToday": "Cours aujourd’hui",
+    "rollCalls": "Appels du jour",
+    "unreadMessages": "Messages non lus",
+    "students": "Élèves",
+    "teachers": "Enseignants",
+    "outstanding": "Reste à encaisser",
+    "platform": "La console de la plateforme est disponible sur le web."
   },
   "roles": {
     "super_admin": "Plateforme",
@@ -91,5 +108,92 @@
     "fileTooLarge": "Ce fichier dépasse 10 Mo.",
     "fileType": "Ce type de fichier n’est pas accepté.",
     "tooShort": "C’est trop court."
+  },
+  "tabs": {
+    "home": "Accueil",
+    "schedule": "Horaires",
+    "homework": "Devoirs",
+    "messages": "Messages",
+    "more": "Plus"
+  },
+  "announcements": {
+    "title": "Annonces",
+    "empty": "Aucune annonce pour le moment.",
+    "unread": "Non lue",
+    "pinned": "Épinglée",
+    "by": "Par {{name}}"
+  },
+  "schedule": {
+    "title": "Emploi du temps",
+    "none": "Aucun cours ce jour-là."
+  },
+  "homework": {
+    "title": "Devoirs",
+    "studentSubtitle": "Ce que vous avez à faire.",
+    "teacherSubtitle": "Les devoirs à suivre.",
+    "none": "Aucun devoir pour l’instant.",
+    "overdue": "En retard",
+    "upcoming": "À faire",
+    "done": "Terminés",
+    "mark": "Marquer « {{title}} » comme fait ou non fait",
+    "check": "✓",
+    "due": "Pour le {{date}}",
+    "finished": "Terminés : {{count}}"
+  },
+  "messages": {
+    "title": "Messages",
+    "new": "Nouveau message",
+    "newHint": "Choisissez la personne à qui écrire.",
+    "empty": "Aucune conversation.",
+    "unknown": "Ancien contact",
+    "you": "Vous : {{text}}",
+    "noContacts": "Personne à qui écrire pour le moment.",
+    "startThread": "Écrivez le premier message.",
+    "placeholder": "Écrivez votre message…",
+    "send": "Envoyer"
+  },
+  "more": {
+    "announcements": "Annonces",
+    "grades": "Notes",
+    "attendance": "Présences",
+    "payments": "Paiements",
+    "documents": "Documents",
+    "settings": "Réglages"
+  },
+  "grades": {
+    "title": "Notes",
+    "empty": "Aucune note publiée.",
+    "average": "Moyenne générale",
+    "absent": "Absent",
+    "term": "Trimestre {{term}}"
+  },
+  "attendance": {
+    "title": "Présences",
+    "empty": "Aucune présence enregistrée.",
+    "rate": "Assiduité",
+    "status": {
+      "present": "Présent",
+      "late": "En retard",
+      "absent": "Absent",
+      "excused": "Excusé"
+    }
+  },
+  "payments": {
+    "title": "Paiements",
+    "empty": "Aucune facture.",
+    "owed": "Reste à payer",
+    "of": "{{paid}} réglés sur {{total}}",
+    "status": {
+      "paid": "Payée",
+      "partial": "Partielle",
+      "unpaid": "Impayée",
+      "overdue": "En retard",
+      "void": "Annulée"
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "empty": "Aucun document.",
+    "open": "Ouvrir"
   }
 }

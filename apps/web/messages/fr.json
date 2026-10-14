@@ -260,7 +260,7 @@
     },
     "setPassword": {
       "title": "Choisissez votre mot de passe",
-      "subtitle": "Dernière étape : sécurisez votre compte pour accéder à votre établissement.",
+      "subtitle": "Dernière étape : sécurisez votre compte pour accéder à votre établissement.",
       "submit": "Enregistrer et continuer",
       "fields": {
         "password": "Nouveau mot de passe",
@@ -477,7 +477,7 @@
     "payment_exceeds_balance": "Le montant dépasse le reste à payer.",
     "invoice_void": "Cette facture est annulée.",
     "has_payments": "Annulez d’abord les paiements de cette facture.",
-    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
+    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
     "file_too_large": "Ce fichier dépasse 10 Mo.",
     "file_type": "Ce type de fichier n’est pas accepté.",
     "plan_limit_reached": "Votre formule a atteint sa limite de places. Contactez-nous pour la faire évoluer."
@@ -654,7 +654,7 @@
     "password": "Mot de passe",
     "remember": "Se souvenir de moi",
     "signIn": "Se connecter",
-    "forgot": "Mot de passe oublié ?",
+    "forgot": "Mot de passe oublié ?",
     "school": "Groupe scolaire Al Manar",
     "today": "Aujourd’hui",
     "students": "Élèves",
@@ -735,7 +735,7 @@
       "hero": "Construisez votre école avant de la créer.",
       "body": "Choisissez votre contexte et regardez un espace Tadriss cohérent se composer sous vos yeux.",
       "featureTitle": "Une scène qui répond",
-      "featureBody": "Une configuration légère, accessible et sans vidéo : les vrais panneaux DOM changent de place.",
+      "featureBody": "Une configuration légère, accessible et sans vidéo : les vrais panneaux DOM changent de place.",
       "typeValue": "Geist Display · 14–76 px",
       "colourValue": "Noir bleuté · cyan · ambre",
       "radiusValue": "14 px · panneaux flottants",
@@ -804,11 +804,11 @@
     "empty": {
       "teacher": {
         "title": "Aucun enseignant pour l’instant",
-        "body": "Invitez votre premier enseignant : il recevra un e-mail pour choisir son mot de passe."
+        "body": "Invitez votre premier enseignant : il recevra un e-mail pour choisir son mot de passe."
       },
       "student": {
         "title": "Aucun élève pour l’instant",
-        "body": "Invitez votre premier élève : il recevra un e-mail pour choisir son mot de passe."
+        "body": "Invitez votre premier élève : il recevra un e-mail pour choisir son mot de passe."
       }
     },
     "noResults": {
@@ -854,7 +854,7 @@
       "description": "L’e-mail et le rôle ne peuvent pas être modifiés ici."
     },
     "deactivate": {
-      "title": "Désactiver {name} ?",
+      "title": "Désactiver {name} ?",
       "body": "Cette personne ne pourra plus se connecter. Ses données sont conservées et vous pourrez la réactiver à tout moment.",
       "confirm": "Désactiver"
     },
@@ -948,13 +948,13 @@
     },
     "withdraw": {
       "label": "Retirer {name} de la classe",
-      "title": "Retirer {name} ?",
+      "title": "Retirer {name} ?",
       "body": "L’élève ne fera plus partie de la classe. L’historique est conservé.",
       "confirm": "Retirer"
     },
     "archive": {
       "button": "Archiver",
-      "title": "Archiver cette classe ?",
+      "title": "Archiver cette classe ?",
       "body": "Elle disparaîtra pour les enseignants et les élèves. Rien n’est supprimé et vous pourrez la restaurer.",
       "confirm": "Archiver",
       "restore": "Restaurer"
@@ -1036,7 +1036,7 @@
       "noTeachers": "Affectez d’abord un enseignant à cette classe.",
       "noSubjects": "Créez d’abord une matière.",
       "delete": "Supprimer",
-      "deleteConfirm": "Supprimer ce cours ?",
+      "deleteConfirm": "Supprimer ce cours ?",
       "deleteBody": "Il disparaît de l’emploi du temps. Cette action est définitive."
     },
     "subjects": {
@@ -1149,7 +1149,7 @@
       "edit": "Modifier l’appel",
       "view": "Voir l’appel",
       "counts": "{present, number} présents · {late, number} en retard · {absent, number} absents · {excused, number} excusés",
-      "teacher": "Enseignant : {name}"
+      "teacher": "Enseignant : {name}"
     },
     "summary": {
       "title": "Assiduité par classe",
@@ -1160,7 +1160,7 @@
       "lates": "Retards",
       "empty": "Aucun appel enregistré sur cette période.",
       "rateLabel": "Taux d’assiduité",
-      "help": "Un retard compte comme présent ; une absence excusée n’est pas comptée."
+      "help": "Un retard compte comme présent ; une absence excusée n’est pas comptée."
     },
     "rollcall": {
       "back": "Retour aux cours",
@@ -1179,9 +1179,9 @@
       "totals": "{present, number} présents · {late, number} retards · {absent, number} absents · {excused, number} excusés",
       "unsaved": "Modifications non enregistrées",
       "readOnly": {
-        "future": "Cette date n’est pas encore arrivée : l’appel n’est pas possible.",
+        "future": "Cette date n’est pas encore arrivée : l’appel n’est pas possible.",
         "old": "Au-delà de 14 jours, seule la direction peut corriger l’appel.",
-        "other": "Ce cours est assuré par un autre enseignant : vous pouvez consulter l’appel, pas le modifier."
+        "other": "Ce cours est assuré par un autre enseignant : vous pouvez consulter l’appel, pas le modifier."
       },
       "notFound": {
         "title": "Cours introuvable",
@@ -1263,11 +1263,11 @@
     "detail": {
       "back": "Tous les devoirs",
       "class": "Classe {name}",
-      "archivedNotice": "Ce devoir est supprimé : vos élèves ne le voient plus.",
+      "archivedNotice": "Ce devoir est supprimé : vos élèves ne le voient plus.",
       "noDescription": "Aucune consigne."
     },
     "delete": {
-      "title": "Supprimer ce devoir ?",
+      "title": "Supprimer ce devoir ?",
       "body": "Vos élèves ne le verront plus. Vous pourrez le restaurer depuis l’onglet « Supprimés ».",
       "confirm": "Supprimer"
     },
@@ -1290,7 +1290,7 @@
     "empty": {
       "teacher": {
         "title": "Aucun devoir ici",
-        "body": "Publiez un devoir : vos élèves le voient immédiatement."
+        "body": "Publiez un devoir : vos élèves le voient immédiatement."
       },
       "teacherPast": {
         "title": "Aucun devoir passé",
@@ -1365,7 +1365,7 @@
         "term": "Semestre"
       },
       "placeholders": {
-        "title": "Contrôle 1 : les fractions"
+        "title": "Contrôle 1 : les fractions"
       },
       "create": "Créer l’examen",
       "noClasses": "Aucune classe ne vous est affectée cette année.",
@@ -1383,9 +1383,9 @@
     "detail": {
       "back": "Tous les examens",
       "class": "Classe {name}",
-      "archivedNotice": "Cet examen est supprimé : les élèves ne le voient plus.",
-      "draftNotice": "Brouillon : les élèves ne voient ni cet examen ni leurs notes tant que vous ne les publiez pas.",
-      "publishedNotice": "Publié : chaque élève voit sa propre note.",
+      "archivedNotice": "Cet examen est supprimé : les élèves ne le voient plus.",
+      "draftNotice": "Brouillon : les élèves ne voient ni cet examen ni leurs notes tant que vous ne les publiez pas.",
+      "publishedNotice": "Publié : chaque élève voit sa propre note.",
       "stats": {
         "average": "Moyenne /20",
         "min": "Plus basse",
@@ -1401,7 +1401,7 @@
       "remark": "Remarque",
       "remarkPlaceholder": "Facultatif",
       "scoreFor": "Note de {name}",
-      "absentFor": "{name} : absent",
+      "absentFor": "{name} : absent",
       "remarkFor": "Remarque pour {name}",
       "invalid": "Entre 0 et {max, number}",
       "hint": "Laissez vide si l’élève n’a pas encore de note. Entrée passe à l’élève suivant.",
@@ -1416,12 +1416,12 @@
       "totals": "{graded, number} notés · {absent, number} absents"
     },
     "publishDialog": {
-      "title": "Publier les notes ?",
+      "title": "Publier les notes ?",
       "body": "{missing, plural, one {# élève n’a pas encore de note.} other {# élèves n’ont pas encore de note.}} Chaque élève verra sa propre note. Vous pourrez retirer la publication.",
       "confirm": "Publier"
     },
     "delete": {
-      "title": "Supprimer cet examen ?",
+      "title": "Supprimer cet examen ?",
       "body": "Les élèves ne le verront plus. Vous pourrez le restaurer depuis l’onglet « Supprimés ».",
       "confirm": "Supprimer"
     },
@@ -1554,7 +1554,7 @@
     },
     "plans": {
       "title": "Tarifs",
-      "description": "Les frais que vous facturez (inscription, scolarité, transport…). Le montant est figé : pour le changer, créez un nouveau tarif.",
+      "description": "Les frais que vous facturez (inscription, scolarité, transport…). Le montant est figé : pour le changer, créez un nouveau tarif.",
       "fields": {
         "name": "Nom du tarif",
         "description": "Description (facultatif)",
@@ -1593,7 +1593,7 @@
       "noMatch": "Aucun élève ne correspond.",
       "pickStudent": "Choisissez un élève dans la liste.",
       "submit": "Émettre la facture",
-      "selected": "Élève choisi : {name}"
+      "selected": "Élève choisi : {name}"
     },
     "generate": {
       "title": "Générer des factures",
@@ -1614,7 +1614,7 @@
     },
     "payment": {
       "title": "Enregistrer un paiement",
-      "remaining": "Reste à payer : {amount}",
+      "remaining": "Reste à payer : {amount}",
       "fields": {
         "amount": "Montant (MAD)",
         "method": "Mode de paiement",
@@ -1633,8 +1633,8 @@
       "submit": "Enregistrer et créer le reçu"
     },
     "void": {
-      "paymentTitle": "Annuler ce paiement ?",
-      "invoiceTitle": "Annuler cette facture ?",
+      "paymentTitle": "Annuler ce paiement ?",
+      "invoiceTitle": "Annuler cette facture ?",
       "paymentBody": "Le reçu {receipt} sera marqué « annulé » et son montant redevient dû. Cette action est définitive et le reçu garde son numéro.",
       "invoiceBody": "La facture sera marquée « annulée » et l’élève ne la verra plus. Cette action est définitive. Pour corriger un montant, annulez puis émettez une nouvelle facture.",
       "reason": "Motif (obligatoire)",
@@ -1649,8 +1649,8 @@
       "payments": "Paiements",
       "list": "Liste des paiements",
       "noPayments": "Aucun paiement enregistré.",
-      "voidedInvoice": "Facture annulée. Motif : {reason}",
-      "voidedPayment": "Annulé : {reason}",
+      "voidedInvoice": "Facture annulée. Motif : {reason}",
+      "voidedPayment": "Annulé : {reason}",
       "dueOn": "Échéance {date}",
       "issuedOn": "Émise le {date}",
       "ref": "Réf. {reference}"
@@ -1668,7 +1668,7 @@
       "balance": "Reste à payer sur cette facture",
       "settled": "Facture soldée",
       "voided": "ANNULÉ",
-      "voidedReason": "Annulé : {reason}",
+      "voidedReason": "Annulé : {reason}",
       "signature": "Cachet et signature",
       "footer": "Document généré par Tadriss",
       "back": "Retour"
@@ -1691,7 +1691,7 @@
       "planRestored": "Tarif restauré.",
       "invoiceCreated": "Facture émise.",
       "generated": "{count, plural, one {# facture émise.} other {# factures émises.}}",
-      "nothingToGenerate": "Rien à générer : tous les élèves de la classe sont déjà facturés.",
+      "nothingToGenerate": "Rien à générer : tous les élèves de la classe sont déjà facturés.",
       "paymentRecorded": "Paiement enregistré, reçu {receipt}.",
       "paymentVoided": "Paiement annulé.",
       "invoiceVoided": "Facture annulée."
@@ -1732,7 +1732,7 @@
       "teachers": "Tous les enseignants",
       "students": "Tous les élèves",
       "class": "Classe <n>{name}</n>",
-      "classOption": "Classe : {name}"
+      "classOption": "Classe : {name}"
     },
     "form": {
       "newTitle": "Nouvelle annonce",
@@ -1748,7 +1748,7 @@
         "body": "Écrivez votre annonce…"
       },
       "create": "Publier l’annonce",
-      "noClasses": "Aucune classe ne vous est affectée cette année : vous ne pouvez pas encore publier."
+      "noClasses": "Aucune classe ne vous est affectée cette année : vous ne pouvez pas encore publier."
     },
     "card": {
       "pinned": "Épinglée",
@@ -1760,7 +1760,7 @@
     },
     "detail": {
       "back": "Toutes les annonces",
-      "archivedNotice": "Cette annonce est supprimée : ses destinataires ne la voient plus.",
+      "archivedNotice": "Cette annonce est supprimée : ses destinataires ne la voient plus.",
       "reachTitle": "Lectures",
       "reachNone": "Personne n’a encore lu cette annonce.",
       "reachAll": "Tous les destinataires l’ont lue."
@@ -1780,7 +1780,7 @@
       },
       "authored": {
         "title": "Aucune annonce publiée",
-        "body": "Publiez une annonce : elle apparaît tout de suite chez ses destinataires."
+        "body": "Publiez une annonce : elle apparaît tout de suite chez ses destinataires."
       },
       "deleted": {
         "title": "Aucune annonce supprimée",
@@ -1815,7 +1815,7 @@
     },
     "list": {
       "label": "Conversations",
-      "you": "Vous : <n>{text}</n>",
+      "you": "Vous : <n>{text}</n>",
       "unknown": "Ancien contact",
       "open": "Ouvrir la conversation avec {name}"
     },
@@ -1845,7 +1845,7 @@
     },
     "empty": {
       "title": "Aucune conversation",
-      "body": "Écrivez un premier message : il reste privé entre vous et votre destinataire."
+      "body": "Écrivez un premier message : il reste privé entre vous et votre destinataire."
     },
     "error": {
       "title": "Impossible de charger les messages",
@@ -1888,7 +1888,7 @@
       "teachers": "Tous les enseignants",
       "students": "Tous les élèves",
       "class": "Classe <n>{name}</n>",
-      "classOption": "Classe : {name}"
+      "classOption": "Classe : {name}"
     },
     "by": "Par <n>{name}</n>",
     "size": {
@@ -1908,11 +1908,11 @@
       },
       "placeholders": {
         "title": "Règlement intérieur",
-        "description": "À quoi sert ce document ?"
+        "description": "À quoi sert ce document ?"
       },
       "limits": "PDF, images, Word, Excel, PowerPoint, texte ou CSV. 10 Mo maximum.",
       "upload": "Envoyer le document",
-      "noClasses": "Aucune classe ne vous est affectée cette année : vous ne pouvez pas encore partager de document."
+      "noClasses": "Aucune classe ne vous est affectée cette année : vous ne pouvez pas encore partager de document."
     },
     "feedback": {
       "uploaded": "Document ajouté.",
@@ -1927,7 +1927,7 @@
       },
       "authored": {
         "title": "Aucun document partagé",
-        "body": "Ajoutez un document : il est disponible tout de suite pour ses destinataires."
+        "body": "Ajoutez un document : il est disponible tout de suite pour ses destinataires."
       },
       "deleted": {
         "title": "Aucun document supprimé",
@@ -2046,15 +2046,15 @@
       "created": "Créé le {date}",
       "suspend": "Suspendre",
       "restore": "Rétablir l’accès",
-      "suspendedNotice": "Cet établissement est suspendu : ses membres ne peuvent plus se connecter. Ses données sont conservées."
+      "suspendedNotice": "Cet établissement est suspendu : ses membres ne peuvent plus se connecter. Ses données sont conservées."
     },
     "suspend": {
-      "title": "Suspendre cet établissement ?",
+      "title": "Suspendre cet établissement ?",
       "body": "Ses membres ne pourront plus se connecter ni utiliser l’application. Les données sont conservées et l’accès peut être rétabli à tout moment.",
       "confirm": "Suspendre"
     },
     "feedback": {
-      "planChanged": "Formule changée : {plan}.",
+      "planChanged": "Formule changée : {plan}.",
       "suspended": "Établissement suspendu.",
       "restored": "Accès rétabli."
     },
@@ -2099,7 +2099,7 @@
       "module": "{module} · {role} · {state}",
       "on": "activé",
       "off": "désactivé",
-      "voided": "{ref} : {reason}"
+      "voided": "{ref} : {reason}"
     },
     "empty": {
       "title": "Aucune activité",
@@ -2122,7 +2122,7 @@
       "unread": "Non lue"
     },
     "admin": {
-      "subtitle": "L’établissement aujourd’hui : présences, finances et nouvelles.",
+      "subtitle": "L’établissement aujourd’hui : présences, finances et nouvelles.",
       "actions": {
         "announce": "Annonces",
         "invite": "Inviter des élèves"

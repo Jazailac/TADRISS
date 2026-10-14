@@ -172,7 +172,7 @@ test.describe('finance: admin actions', () => {
     // A part payment.
     await page.getByRole('button', { name: 'Enregistrer un paiement' }).click();
     const pay = page.getByRole('dialog');
-    await expect(pay.getByText(/Reste à payer : 350,50\s*MAD/)).toBeVisible();
+    await expect(pay.getByText(/Reste à payer\s*:\s*350,50\s*MAD/)).toBeVisible();
     await pay.getByLabel('Montant (MAD)').fill('100');
     await pay.getByLabel('Mode de paiement').selectOption({ label: 'Virement' });
     await pay.getByLabel('Référence (facultatif)').fill('VIR-42');

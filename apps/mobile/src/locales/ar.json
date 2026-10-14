@@ -19,7 +19,8 @@
     "en": "English"
   },
   "common": {
-    "loading": "جارٍ التحميل…"
+    "loading": "جارٍ التحميل…",
+    "back": "رجوع"
   },
   "errors": {
     "genericTitle": "حدث خطأ",
@@ -64,7 +65,23 @@
   "home": {
     "greeting": "مرحبًا، {{name}}",
     "comingSoon": "ستصل أقسامك وواجباتك ونقطك إلى التطبيق قريبًا.",
-    "signOut": "تسجيل الخروج"
+    "signOut": "تسجيل الخروج",
+    "noLessons": "لا توجد دروس اليوم.",
+    "rollCallDone": "تم أخذ الغياب",
+    "rollCallTodo": "الغياب لم يؤخذ",
+    "news": "آخر الإعلانات",
+    "attendance": "الحضور",
+    "average": "المعدل",
+    "homeworkTodo": "واجبات للإنجاز",
+    "owed": "المتبقي للأداء",
+    "today": "اليوم",
+    "lessonsToday": "دروس اليوم",
+    "rollCalls": "غياب اليوم",
+    "unreadMessages": "رسائل غير مقروءة",
+    "students": "التلاميذ",
+    "teachers": "الأساتذة",
+    "outstanding": "المتبقي للتحصيل",
+    "platform": "لوحة المنصة متاحة على الويب."
   },
   "roles": {
     "super_admin": "المنصة",
@@ -91,5 +108,92 @@
     "fileTooLarge": "يتجاوز هذا الملف 10 ميغابايت.",
     "fileType": "نوع هذا الملف غير مقبول.",
     "tooShort": "النص قصير جدًا."
+  },
+  "tabs": {
+    "home": "الرئيسية",
+    "schedule": "الحصص",
+    "homework": "الواجبات",
+    "messages": "الرسائل",
+    "more": "المزيد"
+  },
+  "announcements": {
+    "title": "الإعلانات",
+    "empty": "لا توجد إعلانات حاليًا.",
+    "unread": "غير مقروء",
+    "pinned": "مثبّت",
+    "by": "من {{name}}"
+  },
+  "schedule": {
+    "title": "جدول الحصص",
+    "none": "لا توجد دروس في هذا اليوم."
+  },
+  "homework": {
+    "title": "الواجبات",
+    "studentSubtitle": "ما عليك إنجازه.",
+    "teacherSubtitle": "الواجبات التي تتابعها.",
+    "none": "لا توجد واجبات حاليًا.",
+    "overdue": "متأخرة",
+    "upcoming": "للإنجاز",
+    "done": "منجزة",
+    "mark": "تعيين «{{title}}» كمنجز أو غير منجز",
+    "check": "✓",
+    "due": "لتاريخ {{date}}",
+    "finished": "المنجزون: {{count}}"
+  },
+  "messages": {
+    "title": "الرسائل",
+    "new": "رسالة جديدة",
+    "newHint": "اختر الشخص الذي تريد مراسلته.",
+    "empty": "لا توجد محادثات.",
+    "unknown": "جهة اتصال سابقة",
+    "you": "أنت: {{text}}",
+    "noContacts": "لا يوجد من تراسله حاليًا.",
+    "startThread": "اكتب أول رسالة.",
+    "placeholder": "اكتب رسالتك…",
+    "send": "إرسال"
+  },
+  "more": {
+    "announcements": "الإعلانات",
+    "grades": "النقط",
+    "attendance": "الحضور",
+    "payments": "الأداءات",
+    "documents": "الوثائق",
+    "settings": "الإعدادات"
+  },
+  "grades": {
+    "title": "النقط",
+    "empty": "لا توجد نقط منشورة.",
+    "average": "المعدل العام",
+    "absent": "غائب",
+    "term": "الدورة {{term}}"
+  },
+  "attendance": {
+    "title": "الحضور",
+    "empty": "لا يوجد حضور مسجّل.",
+    "rate": "نسبة الحضور",
+    "status": {
+      "present": "حاضر",
+      "late": "متأخر",
+      "absent": "غائب",
+      "excused": "معذور"
+    }
+  },
+  "payments": {
+    "title": "الأداءات",
+    "empty": "لا توجد فواتير.",
+    "owed": "المتبقي للأداء",
+    "of": "تم أداء {{paid}} من {{total}}",
+    "status": {
+      "paid": "مؤدّاة",
+      "partial": "جزئية",
+      "unpaid": "غير مؤدّاة",
+      "overdue": "متأخرة",
+      "void": "ملغاة"
+    }
+  },
+  "documents": {
+    "title": "الوثائق",
+    "empty": "لا توجد وثائق.",
+    "open": "فتح"
   }
 }
