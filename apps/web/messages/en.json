@@ -2316,5 +2316,32 @@
       "title": "Contact",
       "body": "For questions about your data, contact your school’s administration first; you can also write to privacy@tadriss.ma."
     }
+  },
+  "demoSchool": {
+    "eyebrow": "Demo",
+    "title": "Try Tadriss with a real-looking school",
+    "intro": "Sign in with one click to the fictional school “Al Manar”: classes, marks, attendance, invoices and messages are already there. Pick the role you want to see.",
+    "roles": {
+      "admin": {
+        "name": "Administration",
+        "body": "Students, classes, finance, announcements, import and school settings."
+      },
+      "teacher": {
+        "name": "Teacher",
+        "body": "Roll call, homework, marks and messages to families."
+      },
+      "student": {
+        "name": "Student",
+        "body": "Timetable, homework, marks, report card and payments."
+      },
+      "parent": {
+        "name": "Parent",
+        "body": "Following two children: attendance, marks, report card, invoices."
+      }
+    },
+    "enter": "Enter the demo",
+    "note": "The data is fictional and shared: other visitors may change it.",
+    "stripBody": "Explore a complete school with no sign-up, as administration, teacher, student or parent.",
+    "cta": "See the demo"
   }
 }

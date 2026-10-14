@@ -10,6 +10,8 @@ decision that code cannot make.
   `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (server only). No fallbacks: the app refuses to
   start if one is missing.
 - Mobile: `EXPO_PUBLIC_SUPABASE_URL` / `EXPO_PUBLIC_SUPABASE_ANON_KEY` in the EAS build profile.
+- `DEMO_PASSWORD` is optional and only for a throwaway demo deployment (seeded accounts, shared data). Leave it
+  unset in production.
 - Deploy order: `supabase db push` (migrations) → web. Never edit a merged migration.
 
 ## 2. Auth and email (real sending)

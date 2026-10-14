@@ -2316,5 +2316,32 @@
       "title": "Contact",
       "body": "Pour toute question sur vos données, contactez d’abord l’administration de votre établissement ; vous pouvez aussi nous écrire à privacy@tadriss.ma."
     }
+  },
+  "demoSchool": {
+    "eyebrow": "Démo",
+    "title": "Essayez Tadriss avec une vraie école",
+    "intro": "Connectez-vous en un clic à l’école fictive « Al Manar » : classes, notes, présences, factures et messages sont déjà là. Choisissez le rôle que vous voulez voir.",
+    "roles": {
+      "admin": {
+        "name": "Direction",
+        "body": "Élèves, classes, finances, annonces, import et paramètres de l’école."
+      },
+      "teacher": {
+        "name": "Enseignant",
+        "body": "Appel, devoirs, notes et messages aux familles."
+      },
+      "student": {
+        "name": "Élève",
+        "body": "Emploi du temps, devoirs, notes, bulletin et paiements."
+      },
+      "parent": {
+        "name": "Parent",
+        "body": "Le suivi de deux enfants : présences, notes, bulletin, factures."
+      }
+    },
+    "enter": "Entrer dans la démo",
+    "note": "Les données sont fictives et partagées : d’autres visiteurs peuvent les modifier.",
+    "stripBody": "Parcourez une école complète, sans inscription, en tant que direction, enseignant, élève ou parent.",
+    "cta": "Voir la démo"
   }
 }

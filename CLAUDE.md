@@ -168,6 +168,10 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   `;` or `,`, max 200 rows). `parseMembersCsv` (shared, pure) validates with the single-invite schema and flags
   duplicates; the browser previews with it, and `importMembersAction` parses the text again and invites row by row
   through the same path as the manual invite (plan limits and duplicate emails decided by the DB).
+- **Pilot readiness (Phase 13):** `/privacy` (public policy, fr/ar/en, law 09-08), `GET /api/health`, and
+  `docs/deployment.md` (SMTP, auth hook, backups, monitoring, go-live smoke test). The public demo (`/demo`, one-click
+  sign-in as seeded Al Manar accounts from `lib/demo-accounts.ts`) exists only when `DEMO_PASSWORD` is set; unset
+  = 404 and no landing strip. Never set it on a deployment with real schools.
 - **Mobile (Expo):** `app/(app)/_layout.tsx` wraps everything in `MeProvider` (profile, the school's "today", locale;
   signed-out people go to `/login`) and a token-styled tab bar limited by role (student/teacher: Home, Schedule,
   Homework, Messages, More; admin: Home, Messages, More). Screens call the **same shared functions** as the web through

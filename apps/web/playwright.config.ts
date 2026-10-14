@@ -43,7 +43,7 @@ export default defineConfig({
     // Always test the production build, never the dev server.
     command: `pnpm build && pnpm start --port ${PORT}`,
     // Redirects and emailed links are built from this URL, so it must be the port under test.
-    env: { NEXT_PUBLIC_APP_URL: `http://localhost:${PORT}` },
+    env: { NEXT_PUBLIC_APP_URL: `http://localhost:${PORT}`, DEMO_PASSWORD: 'Tadriss-dev-2026' },
     url: `http://localhost:${PORT}`,
     // Never reuse: a stale server from an earlier build silently tests old code.
     reuseExistingServer: false,
