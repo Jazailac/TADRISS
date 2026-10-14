@@ -194,7 +194,7 @@ export async function AdminHome() {
               </div>
               <div>
                 <dt className="text-xs text-text-muted">{t('admin.overdue')}</dt>
-                <dd className="flex items-center gap-2 font-mono text-lg tabular-nums">
+                <dd className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-lg tabular-nums">
                   {formatMoney(fin.overdueCentimes, locale)}
                   {fin.overdueInvoices > 0 ? (
                     <Badge tone="danger">
