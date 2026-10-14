@@ -16,6 +16,8 @@ import {
   setMemberActive as setMemberActiveRow,
   updateMember as updateMemberRow,
   updateMemberInput,
+  parseMembersCsv,
+  type ErrorCode,
   type Locale,
   type Result,
 } from '@tadriss/shared';
@@ -146,4 +148,50 @@ export async function updateMember(_prev: FormState, fd: FormData): Promise<Form
   if (!res.ok) return { error: res.error, values };
   refresh();
   return { done: true };
+}
+
+export type ImportOutcome = { line: number; email: string; status: 'sent' | ErrorCode };
+
+/**
+ * Bulk invitations from a CSV. The file is parsed again here (the browser's preview is only a
+ * courtesy) and each row goes through the same path as the single invite, one at a time, so plan
+ * limits and duplicates are decided by the database exactly as for a manual invite.
+ */
+export async function importMembersAction(
+  csv: string,
+  locale: Locale,
+): Promise<Result<ImportOutcome[]>> {
+  if (typeof csv !== 'string' || csv.length > 200_000 || !isLocale(locale))
+    return err('validation');
+  const parsed = parseMembersCsv(csv);
+  if (!parsed.ok) return err('validation');
+  const auth = await requireAdmin();
+  if (!auth.ok) return auth;
+  const { supabase, institutionId } = auth.data;
+
+  const outcomes: ImportOutcome[] = [];
+  for (const row of parsed.rows) {
+    if (!row.result.ok) continue;
+    const data = row.result.data;
+    const invitation = await createInvitation(supabase, institutionId, data);
+    if (!invitation.ok) {
+      outcomes.push({ line: row.line, email: data.email, status: invitation.error });
+      continue;
+    }
+    const sent = await deliverInvitation(getAdminClient(), {
+      invitationId: invitation.data.id,
+      email: data.email,
+      locale,
+      redirectTo: redirectTo(locale),
+    });
+    if (!sent.ok) {
+      await revokeInvitationRow(supabase, invitation.data.id);
+      outcomes.push({ line: row.line, email: data.email, status: sent.error });
+      continue;
+    }
+    outcomes.push({ line: row.line, email: data.email, status: 'sent' });
+  }
+  refresh();
+  revalidatePath('/[locale]/dashboard/parents', 'page');
+  return ok(outcomes);
 }

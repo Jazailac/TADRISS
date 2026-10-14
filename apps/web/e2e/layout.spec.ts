@@ -18,6 +18,7 @@ const pages: Record<string, string[]> = {
     '/dashboard',
     '/dashboard/students',
     '/dashboard/parents',
+    '/dashboard/import',
     '/dashboard/teachers',
     '/dashboard/classes',
     `/dashboard/schedule?year=${SEED_YEAR}`,

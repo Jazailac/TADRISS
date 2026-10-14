@@ -321,7 +321,8 @@
       "payments": "Payments",
       "institutions": "Schools",
       "audit": "Activity log",
-      "parents": "Parents"
+      "parents": "Parents",
+      "import": "Import"
     },
     "roles": {
       "super_admin": "Platform",
@@ -2250,5 +2251,32 @@
     "back": "Back",
     "print": "Report card",
     "notFound": "Report card not found"
+  },
+  "import": {
+    "title": "Import people",
+    "subtitle": "Invite your students, parents and teachers at once from a CSV file.",
+    "format": "Columns: first name, last name, email, role (student, parent or teacher). Separator \";\" or \",\". Up to {max, number} rows. Everyone receives an email invitation.",
+    "choose": "Choose a CSV file",
+    "paste": "…or paste the content here",
+    "parseError": {
+      "empty": "The file is empty or only has a header.",
+      "columns": "Missing columns: first name, last name, email and role are required.",
+      "tooMany": "Too many rows: {max, number} at most per import."
+    },
+    "preview": "{ready, number} of {total, number} rows ready to invite",
+    "previewList": "Row preview",
+    "rowError": {
+      "validation": "Needs fixing",
+      "duplicate": "Duplicate"
+    },
+    "role": {
+      "teacher": "Teacher",
+      "student": "Student",
+      "parent": "Parent"
+    },
+    "send": "{count, plural, one {Invite # person} other {Invite # people}}",
+    "done": "{sent, number} of {total, number} invitations sent",
+    "resultList": "Import result",
+    "sent": "Invitation sent"
   }
 }

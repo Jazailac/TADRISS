@@ -321,7 +321,8 @@
       "payments": "Paiements",
       "institutions": "Établissements",
       "audit": "Journal d’activité",
-      "parents": "Parents"
+      "parents": "Parents",
+      "import": "Importer"
     },
     "roles": {
       "super_admin": "Plateforme",
@@ -2250,5 +2251,32 @@
     "back": "Retour",
     "print": "Bulletin",
     "notFound": "Bulletin introuvable"
+  },
+  "import": {
+    "title": "Importer des personnes",
+    "subtitle": "Invitez d’un coup vos élèves, parents et enseignants depuis un fichier CSV.",
+    "format": "Colonnes : prénom, nom, email, rôle (élève, parent ou enseignant). Séparateur « ; » ou « , ». {max, number} lignes au plus. Chaque personne reçoit une invitation par e-mail.",
+    "choose": "Choisir un fichier CSV",
+    "paste": "…ou collez le contenu ici",
+    "parseError": {
+      "empty": "Le fichier est vide ou ne contient que l’en-tête.",
+      "columns": "Colonnes manquantes : il faut prénom, nom, email et rôle.",
+      "tooMany": "Trop de lignes : {max, number} au maximum par import."
+    },
+    "preview": "{ready, number} sur {total, number} lignes prêtes à être invitées",
+    "previewList": "Aperçu des lignes",
+    "rowError": {
+      "validation": "À corriger",
+      "duplicate": "Doublon"
+    },
+    "role": {
+      "teacher": "Enseignant",
+      "student": "Élève",
+      "parent": "Parent"
+    },
+    "send": "{count, plural, one {Inviter # personne} other {Inviter # personnes}}",
+    "done": "{sent, number} invitations envoyées sur {total, number}",
+    "resultList": "Résultat de l’import",
+    "sent": "Invitation envoyée"
   }
 }

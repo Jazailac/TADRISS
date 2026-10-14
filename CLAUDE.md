@@ -164,6 +164,10 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   grades page (`listMyGrades({studentId})`, published exams only, `getReportStudent`, attendance totals). Access is
   whatever RLS lets the viewer read: admin, the student, their parents, their teachers. Linked from the student/parent
   grades page.
+- **CSV import (Phase 13):** `/dashboard/import` bulk-invites people (columns first name, last name, email, role;
+  `;` or `,`, max 200 rows). `parseMembersCsv` (shared, pure) validates with the single-invite schema and flags
+  duplicates; the browser previews with it, and `importMembersAction` parses the text again and invites row by row
+  through the same path as the manual invite (plan limits and duplicate emails decided by the DB).
 - **Mobile (Expo):** `app/(app)/_layout.tsx` wraps everything in `MeProvider` (profile, the school's "today", locale;
   signed-out people go to `/login`) and a token-styled tab bar limited by role (student/teacher: Home, Schedule,
   Homework, Messages, More; admin: Home, Messages, More). Screens call the **same shared functions** as the web through
