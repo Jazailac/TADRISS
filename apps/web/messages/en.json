@@ -285,7 +285,8 @@
     "invalidAmount": "Invalid amount (0.01 to 1,000,000 MAD).",
     "fileRequired": "Choose a file.",
     "fileTooLarge": "This file is over 10 MB.",
-    "fileType": "This file type isn’t accepted."
+    "fileType": "This file type isn’t accepted.",
+    "tooShort": "That’s too short."
   },
   "shell": {
     "navigation": "App navigation",
@@ -477,7 +478,8 @@
     "has_payments": "Void this invoice’s payments first.",
     "recipient_inactive": "This account is deactivated and can no longer receive messages.",
     "file_too_large": "This file is over 10 MB.",
-    "file_type": "This file type isn’t accepted."
+    "file_type": "This file type isn’t accepted.",
+    "plan_limit_reached": "Your plan has reached its seat limit. Contact us to upgrade."
   },
   "app": {
     "greeting": "Hello, <n>{name}</n>",
@@ -1933,6 +1935,66 @@
     },
     "error": {
       "title": "Couldn’t load documents",
+      "body": "Your data was not changed. Try again in a moment."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Your school’s profile, your plan, and the modules open to each role.",
+    "profile": {
+      "title": "School profile",
+      "edit": "Edit",
+      "editTitle": "School profile",
+      "editDescription": "This information appears on documents and receipts.",
+      "empty": "Not set",
+      "fields": {
+        "name": "Name",
+        "defaultLocale": "Default language",
+        "timezone": "Time zone",
+        "phone": "Phone",
+        "city": "City",
+        "address": "Address"
+      }
+    },
+    "feedback": {
+      "saved": "Settings saved."
+    },
+    "plan": {
+      "title": "Plan",
+      "body": "Seats count active members and pending invitations.",
+      "students": "Students",
+      "teachers": "Teachers",
+      "usage": "{used, number} of {limit, number}",
+      "unlimited": "{used, number} · unlimited",
+      "names": {
+        "essential": "Essential",
+        "standard": "Standard",
+        "premium": "Premium"
+      }
+    },
+    "modules": {
+      "title": "Modules by role",
+      "body": "Turn a module off to remove it from a role’s navigation and pages. No data is deleted.",
+      "roles": {
+        "teacher": "Teachers",
+        "student": "Students"
+      },
+      "list": {
+        "teacher": "Teacher modules",
+        "student": "Student modules"
+      },
+      "on": "On",
+      "off": "Off",
+      "switchLabel": "{name} for {role}",
+      "feedback": {
+        "enabled": "{name} is on.",
+        "disabled": "{name} is off."
+      },
+      "disabledTitle": "This module isn’t available",
+      "disabledBody": "Your school’s administration has turned it off for your role."
+    },
+    "error": {
+      "title": "Couldn’t load settings",
       "body": "Your data was not changed. Try again in a moment."
     }
   }

@@ -33,6 +33,7 @@ export const errorCodes = [
   'recipient_inactive',
   'file_too_large',
   'file_type',
+  'plan_limit_reached',
   'unknown',
 ] as const;
 export type ErrorCode = (typeof errorCodes)[number];
@@ -58,6 +59,7 @@ export function toErrorCode(
       if (e.message === 'invoice_void') return 'invoice_void';
       if (e.message === 'has_payments') return 'has_payments';
       if (e.message === 'recipient_inactive') return 'recipient_inactive';
+      if (e.message === 'plan_limit_reached') return 'plan_limit_reached';
       if (e.message === 'cannot_unvoid') return 'conflict';
       return 'unknown';
     case '22023': // invalid_parameter_value: wrong_weekday

@@ -129,6 +129,16 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   directly instead of using `ActionForm`, because React resets a form after its action and would empty the
   file picker. Seed rows are in `seed.sql`; `scripts/seed-documents.sh` (run by `dev:setup`) uploads their files,
   so after a bare `supabase db reset` run it yourself or the seeded downloads 404.
+- **Settings (Phase 11):** `/dashboard/settings` edits the school profile (name, default language, time zone,
+  contact; the **plan** and slug are not editable by the school), shows plan usage and the module switches.
+  Plan seats live in `private.plan_limit` (essential 50 students / 5 teachers, standard 300 / 30, premium
+  unlimited; `institutions.plan`, changed by the platform operator in Phase 12). `private.seats_used` counts active
+  members **plus pending invitations** (SECURITY INVOKER: only the admin reaches the triggers), and
+  `invitations_plan_limit` / `profiles_plan_limit` raise `plan_limit_reached` on invite and on reactivation.
+  `module_access` rows switch a module off for `teacher`/`student` (no row = on). It is a visibility control only:
+  `getDisabledModules` (per request, `lib/modules.ts`) hides nav items and `components/settings/module-gate.tsx`,
+  mounted as `layout.tsx` in each `teacher|student/<module>` segment, replaces the page with an explanation; RLS and
+  the data rules do not change. A new module must get its `ModuleGate` layout and an entry in `roleModules`.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.
@@ -222,6 +232,9 @@ warm editorial typography with contemporary Maghreb architecture and a cinematic
   (e.g. voiding removes the very button) is fired from a wrapper around the action, not from `onDone`.
 - Supabase blocks raw `delete from storage.objects` unless `storage.allow_delete_query` is set (pgTAP does so); the
   Storage API sets it itself. A storage DELETE policy also needs a matching SELECT policy to see the row.
+- Specs that change what a whole role sees (module switches) live in `settings-modules.spec.ts`, which only the
+  `modules` Playwright project runs, after all width projects. A full e2e run mutates the seed (some specs are not
+  idempotent): `supabase db reset` + `scripts/seed-documents.sh` before re-running it.
 - Generation-style e2e tests must use run-unique inputs (idempotent RPCs bill nobody the second time).
 
 - Visual snapshots are Linux-only. Regenerate them with the **Update visual baselines** workflow,

@@ -51,7 +51,8 @@
     "has_payments": "Void this invoice’s payments first.",
     "recipient_inactive": "This account is deactivated and can no longer receive messages.",
     "file_too_large": "This file is over 10 MB.",
-    "file_type": "This file type isn’t accepted."
+    "file_type": "This file type isn’t accepted.",
+    "plan_limit_reached": "Your plan has reached its seat limit. Contact us to upgrade."
   },
   "login": {
     "title": "Welcome back",
@@ -88,6 +89,7 @@
     "invalidAmount": "Invalid amount (0.01 to 1,000,000 MAD).",
     "fileRequired": "Choose a file.",
     "fileTooLarge": "This file is over 10 MB.",
-    "fileType": "This file type isn’t accepted."
+    "fileType": "This file type isn’t accepted.",
+    "tooShort": "That’s too short."
   }
 }

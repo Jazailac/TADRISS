@@ -43,6 +43,7 @@ const admin: NavGroup[] = [
       item('teachers', '/dashboard/teachers', GraduationCap, true),
       item('classes', '/dashboard/classes', BookOpen, true),
       item('schedule', '/dashboard/schedule', Clock, true),
+      item('settings', '/dashboard/settings', Settings, true),
     ],
   },
   {
@@ -120,8 +121,6 @@ export const navSets: Record<Role, NavGroup[]> = {
   super_admin: superAdmin,
 };
 export type NavSet = Role;
-
-export const settingsItem: NavItem = item('settings', '/dashboard/settings', Settings);
 
 /**
  * The nav item a pathname belongs to: the MOST SPECIFIC prefix, so `/dashboard/classes/abc` is

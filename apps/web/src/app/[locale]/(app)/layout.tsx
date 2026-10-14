@@ -5,6 +5,7 @@ import { AppShell } from '@/components/app-shell/app-shell';
 import { ToastProvider } from '@/components/ui/toast';
 import { redirect } from '@/i18n/navigation';
 import { getServerClient } from '@/lib/supabase/server';
+import { getDisabledModules } from '@/lib/modules';
 import { getViewer } from '@/lib/viewer';
 
 /**
@@ -31,6 +32,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       <AppShell
         nav={session.role}
         unread={unread}
+        hidden={await getDisabledModules()}
         user={{
           name: `${firstName} ${lastName}`,
           initials: `${firstName.slice(0, 1)}${lastName.slice(0, 1)}`.toUpperCase(),

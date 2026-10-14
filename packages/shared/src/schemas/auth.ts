@@ -22,6 +22,7 @@ export const validationKeys = [
   'fileRequired',
   'fileTooLarge',
   'fileType',
+  'tooShort',
 ] as const;
 export type ValidationKey = (typeof validationKeys)[number];
 

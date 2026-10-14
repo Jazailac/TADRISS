@@ -18,15 +18,26 @@ export default defineConfig({
   snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}{ext}',
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.01, animations: 'disabled' } },
   use: { baseURL: `http://localhost:${PORT}`, trace: 'retain-on-failure' },
-  projects: widths.map((width) => ({
-    name: `w${width}`,
-    use: {
-      ...devices['Desktop Chrome'],
-      viewport: { width, height: width === 375 ? 812 : 900 },
-      isMobile: width === 375,
-      hasTouch: width === 375,
+  projects: [
+    ...widths.map((width) => ({
+      name: `w${width}`,
+      // Module switches change what every role sees, so those specs run alone, after everything else.
+      testIgnore: /settings-modules\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width, height: width === 375 ? 812 : 900 },
+        isMobile: width === 375,
+        hasTouch: width === 375,
+      },
+    })),
+    {
+      name: 'modules',
+      testMatch: /settings-modules\.spec\.ts/,
+      dependencies: widths.map((w) => `w${w}`),
+      fullyParallel: false,
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 900 } },
     },
-  })),
+  ],
   webServer: {
     // Always test the production build, never the dev server.
     command: `pnpm build && pnpm start --port ${PORT}`,

@@ -12,6 +12,7 @@ import {
   invoiceInput,
   messageInput,
   paymentInput,
+  settingsInput,
   slotInput,
   subjectInput,
   updateAnnouncementInput,
@@ -69,6 +70,7 @@ const schemas = {
   updateAnnouncement: updateAnnouncementInput,
   updateDocument: updateDocumentInput,
   sendMessage: messageInput,
+  updateSettings: settingsInput,
 } as const;
 
 /**

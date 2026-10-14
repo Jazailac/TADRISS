@@ -285,7 +285,8 @@
     "invalidAmount": "Montant invalide (de 0,01 à 1 000 000 MAD).",
     "fileRequired": "Choisissez un fichier.",
     "fileTooLarge": "Ce fichier dépasse 10 Mo.",
-    "fileType": "Ce type de fichier n’est pas accepté."
+    "fileType": "Ce type de fichier n’est pas accepté.",
+    "tooShort": "C’est trop court."
   },
   "shell": {
     "navigation": "Navigation de l’application",
@@ -477,7 +478,8 @@
     "has_payments": "Annulez d’abord les paiements de cette facture.",
     "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
     "file_too_large": "Ce fichier dépasse 10 Mo.",
-    "file_type": "Ce type de fichier n’est pas accepté."
+    "file_type": "Ce type de fichier n’est pas accepté.",
+    "plan_limit_reached": "Votre formule a atteint sa limite de places. Contactez-nous pour la faire évoluer."
   },
   "app": {
     "greeting": "Bonjour, <n>{name}</n>",
@@ -1933,6 +1935,66 @@
     },
     "error": {
       "title": "Impossible de charger les documents",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "subtitle": "Le profil de votre établissement, votre formule et les modules ouverts à chaque profil.",
+    "profile": {
+      "title": "Profil de l’établissement",
+      "edit": "Modifier",
+      "editTitle": "Profil de l’établissement",
+      "editDescription": "Ces informations apparaissent dans les documents et les reçus.",
+      "empty": "Non renseigné",
+      "fields": {
+        "name": "Nom",
+        "defaultLocale": "Langue par défaut",
+        "timezone": "Fuseau horaire",
+        "phone": "Téléphone",
+        "city": "Ville",
+        "address": "Adresse"
+      }
+    },
+    "feedback": {
+      "saved": "Paramètres enregistrés."
+    },
+    "plan": {
+      "title": "Formule",
+      "body": "Les places comptent les membres actifs et les invitations en attente.",
+      "students": "Élèves",
+      "teachers": "Enseignants",
+      "usage": "{used, number} sur {limit, number}",
+      "unlimited": "{used, number} · illimité",
+      "names": {
+        "essential": "Essentielle",
+        "standard": "Standard",
+        "premium": "Premium"
+      }
+    },
+    "modules": {
+      "title": "Modules par profil",
+      "body": "Désactivez un module pour qu’il disparaisse de la navigation et des pages d’un profil. Les données ne sont pas supprimées.",
+      "roles": {
+        "teacher": "Enseignants",
+        "student": "Élèves"
+      },
+      "list": {
+        "teacher": "Modules des enseignants",
+        "student": "Modules des élèves"
+      },
+      "on": "Activé",
+      "off": "Désactivé",
+      "switchLabel": "{name} pour {role}",
+      "feedback": {
+        "enabled": "{name} est activé.",
+        "disabled": "{name} est désactivé."
+      },
+      "disabledTitle": "Ce module n’est pas disponible",
+      "disabledBody": "La direction de votre établissement l’a désactivé pour votre profil."
+    },
+    "error": {
+      "title": "Impossible de charger les paramètres",
       "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
     }
   }

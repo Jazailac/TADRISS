@@ -22,7 +22,7 @@ import { cx } from '../ui/cx';
 import { Logo, Mark } from '../ui/logo';
 import { Spinner } from '../ui/spinner';
 import { EmptyState } from '../ui/empty-state';
-import { matchNav, navSets, settingsItem, type NavGroup, type NavItem, type NavSet } from './nav';
+import { matchNav, navSets, type NavGroup, type NavItem, type NavSet } from './nav';
 
 export type UnreadCounts = { announcements: number; messages: number };
 export type ShellUser = { name: string; initials: string; role: string; school: string };
@@ -212,26 +212,29 @@ export function AppShell({
   nav: navSet,
   user,
   unread = { announcements: 0, messages: 0 },
+  hidden = [],
   children,
 }: {
   nav: NavSet;
   user: ShellUser;
   /** Badges for the communication items; the design previews have none. */
   unread?: UnreadCounts;
+  /** Navigation keys the administration switched off for this role. */
+  hidden?: readonly string[];
   children: ReactNode;
 }) {
   const t = useTranslations('shell');
   const s = useTranslations('studio');
-  const nav = navSets[navSet];
+  const nav = navSets[navSet]
+    .map((g) => ({ ...g, items: g.items.filter((i) => !hidden.includes(i.key)) }))
+    .filter((g) => g.items.length > 0);
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [query, setQuery] = useState('');
   const drawer = useRef<HTMLDialogElement>(null);
   const command = useRef<HTMLDialogElement>(null);
   const notifications = useRef<HTMLDialogElement>(null);
-  const available = [...nav.flatMap((g) => g.items), settingsItem].filter(
-    (item: NavItem) => item.available,
-  );
+  const available = nav.flatMap((g) => g.items).filter((item: NavItem) => item.available);
   const current = matchNav(available, pathname);
   const unreadLinks = available.flatMap((item) => {
     const count = item.key === 'announcements' || item.key === 'messages' ? unread[item.key] : 0;

@@ -51,7 +51,8 @@
     "has_payments": "Annulez d’abord les paiements de cette facture.",
     "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
     "file_too_large": "Ce fichier dépasse 10 Mo.",
-    "file_type": "Ce type de fichier n’est pas accepté."
+    "file_type": "Ce type de fichier n’est pas accepté.",
+    "plan_limit_reached": "Votre formule a atteint sa limite de places. Contactez-nous pour la faire évoluer."
   },
   "login": {
     "title": "Bon retour",
@@ -88,6 +89,7 @@
     "invalidAmount": "Montant invalide (de 0,01 à 1 000 000 MAD).",
     "fileRequired": "Choisissez un fichier.",
     "fileTooLarge": "Ce fichier dépasse 10 Mo.",
-    "fileType": "Ce type de fichier n’est pas accepté."
+    "fileType": "Ce type de fichier n’est pas accepté.",
+    "tooShort": "C’est trop court."
   }
 }
