@@ -660,6 +660,48 @@ export type Database = {
           },
         ];
       };
+      guardianships: {
+        Row: {
+          created_at: string;
+          id: string;
+          institution_id: string;
+          parent_id: string;
+          relationship: string;
+          student_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          institution_id: string;
+          parent_id: string;
+          relationship?: string;
+          student_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          institution_id?: string;
+          parent_id?: string;
+          relationship?: string;
+          student_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'guardianships_institution_id_parent_id_fkey';
+            columns: ['institution_id', 'parent_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+          {
+            foreignKeyName: 'guardianships_institution_id_student_id_fkey';
+            columns: ['institution_id', 'student_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
       homework: {
         Row: {
           class_id: string;
