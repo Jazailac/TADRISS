@@ -724,31 +724,43 @@ export type Database = {
       };
       institutions: {
         Row: {
+          address: string | null;
+          city: string | null;
           created_at: string;
           default_locale: string;
           deleted_at: string | null;
           id: string;
           name: string;
+          phone: string | null;
+          plan: string;
           slug: string;
           timezone: string;
           updated_at: string;
         };
         Insert: {
+          address?: string | null;
+          city?: string | null;
           created_at?: string;
           default_locale?: string;
           deleted_at?: string | null;
           id?: string;
           name: string;
+          phone?: string | null;
+          plan?: string;
           slug: string;
           timezone?: string;
           updated_at?: string;
         };
         Update: {
+          address?: string | null;
+          city?: string | null;
           created_at?: string;
           default_locale?: string;
           deleted_at?: string | null;
           id?: string;
           name?: string;
+          phone?: string | null;
+          plan?: string;
           slug?: string;
           timezone?: string;
           updated_at?: string;
@@ -926,6 +938,38 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'profiles';
             referencedColumns: ['institution_id', 'id'];
+          },
+        ];
+      };
+      module_access: {
+        Row: {
+          enabled: boolean;
+          institution_id: string;
+          module: string;
+          role: string;
+          updated_at: string;
+        };
+        Insert: {
+          enabled: boolean;
+          institution_id: string;
+          module: string;
+          role: string;
+          updated_at?: string;
+        };
+        Update: {
+          enabled?: boolean;
+          institution_id?: string;
+          module?: string;
+          role?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'module_access_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'institutions';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -1288,6 +1332,16 @@ export type Database = {
         Returns: number;
       };
       mark_announcements_read: { Args: { p_ids: string[] }; Returns: number };
+      plan_usage: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          plan: string;
+          students_limit: number;
+          students_used: number;
+          teachers_limit: number;
+          teachers_used: number;
+        }[];
+      };
       record_payment: {
         Args: {
           p_amount_centimes: number;
