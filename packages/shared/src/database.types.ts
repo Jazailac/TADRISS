@@ -218,6 +218,47 @@ export type Database = {
           },
         ];
       };
+      audit_log: {
+        Row: {
+          action: string;
+          actor_id: string | null;
+          created_at: string;
+          details: NonNullable<Json>;
+          entity: string;
+          entity_id: string | null;
+          id: string;
+          institution_id: string | null;
+        };
+        Insert: {
+          action: string;
+          actor_id?: string | null;
+          created_at?: string;
+          details?: NonNullable<Json>;
+          entity: string;
+          entity_id?: string | null;
+          id?: string;
+          institution_id?: string | null;
+        };
+        Update: {
+          action?: string;
+          actor_id?: string | null;
+          created_at?: string;
+          details?: NonNullable<Json>;
+          entity?: string;
+          entity_id?: string | null;
+          id?: string;
+          institution_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'audit_log_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'institutions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       class_teachers: {
         Row: {
           class_id: string;
@@ -1340,6 +1381,21 @@ export type Database = {
           students_used: number;
           teachers_limit: number;
           teachers_used: number;
+        }[];
+      };
+      platform_institutions: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          admins: number;
+          created_at: string;
+          default_locale: string;
+          id: string;
+          name: string;
+          plan: string;
+          slug: string;
+          students: number;
+          suspended: boolean;
+          teachers: number;
         }[];
       };
       record_payment: {
