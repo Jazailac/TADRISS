@@ -2231,5 +2231,24 @@
       "label": "Choisir un enfant"
     },
     "viewingChild": "Vous consultez le dossier de {name}."
+  },
+  "report": {
+    "title": "Bulletin scolaire",
+    "year": "Année",
+    "student": "Élève",
+    "class": "Classe",
+    "subject": "Matière",
+    "coefficient": "Coefficient",
+    "average": "Moyenne /20",
+    "overall": "Moyenne générale",
+    "attendance": "Assiduité",
+    "absences": "{absent, plural, =0 {Aucune absence} one {# absence} other {# absences}} · {late, plural, =0 {aucun retard} one {# retard} other {# retards}}",
+    "table": "Moyennes par matière",
+    "empty": "Aucune note publiée pour cette période.",
+    "footer": "Document généré par Tadriss",
+    "signature": "Cachet et signature",
+    "back": "Retour",
+    "print": "Bulletin",
+    "notFound": "Bulletin introuvable"
   }
 }

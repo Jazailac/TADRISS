@@ -160,6 +160,10 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   teacher↔parent and admin↔parent only. Web: `/parent/*` reuses the student pages with `studentId` + `base`
   (child switcher `?child=`, `lib/children.ts`); admins link children at `/dashboard/parents`. Parents are not
   counted in plan seats and module switches do not apply to them. Mobile: Home (news), Messages, More.
+- **Report card (Phase 13):** `(print)/report/[studentId]?term=1|2` prints a bulletin from the same functions as the
+  grades page (`listMyGrades({studentId})`, published exams only, `getReportStudent`, attendance totals). Access is
+  whatever RLS lets the viewer read: admin, the student, their parents, their teachers. Linked from the student/parent
+  grades page.
 - **Mobile (Expo):** `app/(app)/_layout.tsx` wraps everything in `MeProvider` (profile, the school's "today", locale;
   signed-out people go to `/login`) and a token-styled tab bar limited by role (student/teacher: Home, Schedule,
   Homework, Messages, More; admin: Home, Messages, More). Screens call the **same shared functions** as the web through

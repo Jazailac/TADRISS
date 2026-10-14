@@ -13,6 +13,7 @@ import { AlertCircle } from 'lucide-react';
 import { getFormatter, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getServerClient } from '@/lib/supabase/server';
+import { getViewer } from '@/lib/viewer';
 import { subjectTone } from '../schedule/colors';
 import { Badge } from '../ui/badge';
 import { ButtonLink } from '../ui/button';
@@ -48,8 +49,11 @@ export async function StudentGradesPage({
 }) {
   const term = params.term === '1' ? 1 : params.term === '2' ? 2 : undefined;
   const supabase = await getServerClient();
-  const [t, shell, errors, f, grades, classes] = await Promise.all([
+  const viewer = await getViewer();
+  const reportFor = studentId ?? viewer?.session.userId;
+  const [t, tr, shell, errors, f, grades, classes] = await Promise.all([
     getTranslations('grades'),
+    getTranslations('report'),
     getTranslations('shell.groups'),
     getTranslations('errors'),
     getFormatter(),
@@ -111,26 +115,39 @@ export async function StudentGradesPage({
         </Card>
       ) : (
         <>
-          <nav
-            aria-label={t('student.termLabel')}
-            className="flex w-fit gap-1 rounded-lg bg-surface-muted p-1"
-          >
-            {tabs.map((x) => (
-              <Link
-                key={x.key}
-                href={{ pathname: `${base}/grades`, query: x.q }}
-                aria-current={(term ? String(term) : 'all') === x.key ? 'page' : undefined}
-                className={cx(
-                  'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
-                  (term ? String(term) : 'all') === x.key
-                    ? 'bg-surface text-text shadow-xs'
-                    : 'text-text-muted hover:text-text',
-                )}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <nav
+              aria-label={t('student.termLabel')}
+              className="flex w-fit gap-1 rounded-lg bg-surface-muted p-1"
+            >
+              {tabs.map((x) => (
+                <Link
+                  key={x.key}
+                  href={{ pathname: `${base}/grades`, query: x.q }}
+                  aria-current={(term ? String(term) : 'all') === x.key ? 'page' : undefined}
+                  className={cx(
+                    'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+                    (term ? String(term) : 'all') === x.key
+                      ? 'bg-surface text-text shadow-xs'
+                      : 'text-text-muted hover:text-text',
+                  )}
+                >
+                  {x.label}
+                </Link>
+              ))}
+            </nav>
+            {reportFor ? (
+              <ButtonLink
+                variant="secondary"
+                href={{
+                  pathname: `/report/${reportFor}`,
+                  query: term ? { term: String(term) } : {},
+                }}
               >
-                {x.label}
-              </Link>
-            ))}
-          </nav>
+                {tr('print')}
+              </ButtonLink>
+            ) : null}
+          </div>
 
           <Card className="flex flex-wrap items-center gap-x-8 gap-y-3 p-6">
             <div>

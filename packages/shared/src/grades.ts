@@ -295,6 +295,7 @@ export async function listMyGrades(
       'id, title, exam_date, max_score, coefficient, term, subject_id, subject:subjects!exams_subject_id_institution_id_fkey(name, color), grades:grades!grades_exam_id_institution_id_fkey(score, absent, remark)',
     )
     .is('deleted_at', null)
+    .not('published_at', 'is', null)
     .order('exam_date', { ascending: false })
     .limit(300);
   // A parent sees every child's marks: narrow the embedded marks to one child.
@@ -326,4 +327,35 @@ export async function listMyGrades(
         : [];
     }),
   );
+}
+
+export type ReportStudent = { id: string; firstName: string; lastName: string; className: string | null };
+
+/** The student a report card is for (RLS: the administration, the student, their parents, their teachers). */
+export async function getReportStudent(
+  client: TadrissClient,
+  studentId: string,
+): Promise<Result<ReportStudent>> {
+  const [p, e] = await Promise.all([
+    client
+      .from('profiles')
+      .select('id, first_name, last_name, role')
+      .eq('id', studentId)
+      .maybeSingle(),
+    client
+      .from('enrolments')
+      .select('class:classes!enrolments_class_id_institution_id_fkey(name)')
+      .eq('student_id', studentId)
+      .eq('status', 'active')
+      .limit(1),
+  ]);
+  if (p.error) return err(toErrorCode(p.error));
+  if (e.error) return err(toErrorCode(e.error));
+  if (!p.data || p.data.role !== 'student') return err('not_found');
+  return ok({
+    id: p.data.id,
+    firstName: p.data.first_name,
+    lastName: p.data.last_name,
+    className: e.data[0]?.class.name ?? null,
+  });
 }
