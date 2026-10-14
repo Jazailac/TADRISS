@@ -105,19 +105,14 @@ export async function listDisabledModules(
 
 export async function setModuleEnabled(
   client: TadrissClient,
-  institutionId: string,
   input: { role: ConfigurableRole; module: string; enabled: boolean },
 ): Promise<Result<null>> {
   const known: readonly string[] = roleModules[input.role];
   if (!known.includes(input.module)) return err('validation');
-  const { error } = await client.from('module_access').upsert(
-    {
-      institution_id: institutionId,
-      role: input.role,
-      module: input.module,
-      enabled: input.enabled,
-    },
-    { onConflict: 'institution_id,role,module' },
-  );
+  const { error } = await client.rpc('set_module_access', {
+    p_role: input.role,
+    p_module: input.module,
+    p_enabled: input.enabled,
+  });
   return error ? err(toErrorCode(error)) : ok(null);
 }

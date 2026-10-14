@@ -1,6 +1,7 @@
 import {
   getInstitutionSettings,
   getPlanUsage,
+  listAuditLog,
   listDisabledModules,
   type PlanUsage,
 } from '@tadriss/shared';
@@ -8,6 +9,7 @@ import { AlertCircle, Building2 } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { getServerClient } from '@/lib/supabase/server';
 import { getViewer } from '@/lib/viewer';
+import { AuditList } from '../platform/audit-list';
 import { Badge } from '../ui/badge';
 import { ButtonLink } from '../ui/button';
 import { Card } from '../ui/card';
@@ -19,7 +21,7 @@ export async function SettingsPage() {
   const viewer = await getViewer();
   const institutionId = viewer?.profile.institution?.id ?? '';
   const supabase = await getServerClient();
-  const [t, shell, errors, l, settings, usage, teacherOff, studentOff] = await Promise.all([
+  const [t, shell, errors, l, settings, usage, teacherOff, studentOff, audit] = await Promise.all([
     getTranslations('settings'),
     getTranslations('shell.groups'),
     getTranslations('errors'),
@@ -28,6 +30,7 @@ export async function SettingsPage() {
     getPlanUsage(supabase),
     listDisabledModules(supabase, 'teacher'),
     listDisabledModules(supabase, 'student'),
+    listAuditLog(supabase, { limit: 15 }),
   ]);
 
   const head = (
@@ -112,6 +115,20 @@ export async function SettingsPage() {
             </section>
           ))}
         </div>
+      </Card>
+
+      <Card className="p-6">
+        <h2 className="font-semibold">{t('activity.title')}</h2>
+        <p className="mt-1 text-sm text-text-muted">{t('activity.body')}</p>
+        {audit.ok && audit.data.length > 0 ? (
+          <AuditList
+            entries={audit.data}
+            showSchool={false}
+            timeZone={viewer?.profile.institution?.timezone}
+          />
+        ) : (
+          <p className="mt-4 text-sm text-text-muted">{t('activity.empty')}</p>
+        )}
       </Card>
     </div>
   );

@@ -47,7 +47,11 @@ test.describe('sign-in by role', () => {
     if (wide(page)) await expect(page.getByText('Groupe scolaire Al Manar').first()).toBeVisible();
     // Built modules are links (a module not built yet would stay disabled, never a dead link).
     if (wide(page)) {
-      await expect(page.getByRole('link', { name: 'Élèves' })).toBeVisible();
+      await expect(
+        page
+          .getByRole('navigation', { name: 'Navigation de l’application' })
+          .getByRole('link', { name: 'Élèves' }),
+      ).toBeVisible();
     }
   });
 
@@ -119,6 +123,9 @@ test.describe('self-serve onboarding', () => {
     await expect(page).toHaveURL(/\/dashboard$/);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Bonjour, Nadia');
     if (wide(page)) await expect(page.getByText('École Playwright').first()).toBeVisible();
+    // A school with nobody yet gets a starting point, not a wall of zeros.
+    await expect(page.getByRole('heading', { name: 'Pour démarrer' })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Créez vos classes/ })).toBeVisible();
 
     // The same email cannot create a second school.
     await signOut(page);

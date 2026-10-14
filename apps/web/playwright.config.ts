@@ -21,8 +21,9 @@ export default defineConfig({
   projects: [
     ...widths.map((width) => ({
       name: `w${width}`,
-      // Module switches change what every role sees, so those specs run alone, after everything else.
-      testIgnore: /settings-modules\.spec\.ts/,
+      // Module switches, plans and suspensions change what whole roles or schools see, so those specs
+      // run alone, after everything else.
+      testIgnore: /(settings-modules|platform)\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width, height: width === 375 ? 812 : 900 },
@@ -32,7 +33,7 @@ export default defineConfig({
     })),
     {
       name: 'modules',
-      testMatch: /settings-modules\.spec\.ts/,
+      testMatch: /(settings-modules|platform)\.spec\.ts/,
       dependencies: widths.map((w) => `w${w}`),
       fullyParallel: false,
       use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 900 } },
@@ -46,6 +47,6 @@ export default defineConfig({
     url: `http://localhost:${PORT}`,
     // Never reuse: a stale server from an earlier build silently tests old code.
     reuseExistingServer: false,
-    timeout: 240_000,
+    timeout: 600_000,
   },
 });

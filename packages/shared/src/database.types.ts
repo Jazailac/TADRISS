@@ -1416,6 +1416,10 @@ export type Database = {
         Args: { p_class_id: string; p_teacher_ids: string[] };
         Returns: undefined;
       };
+      set_module_access: {
+        Args: { p_enabled: boolean; p_module: string; p_role: string };
+        Returns: undefined;
+      };
       submit_attendance: {
         Args: { p_date: string; p_records: Json; p_slot_id: string };
         Returns: string;

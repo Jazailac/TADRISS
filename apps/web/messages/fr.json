@@ -319,7 +319,8 @@
       "settings": "Paramètres",
       "homework": "Devoirs",
       "payments": "Paiements",
-      "institutions": "Établissements"
+      "institutions": "Établissements",
+      "audit": "Journal d’activité"
     },
     "roles": {
       "super_admin": "Plateforme",
@@ -1996,6 +1997,187 @@
     "error": {
       "title": "Impossible de charger les paramètres",
       "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "activity": {
+      "title": "Journal d’activité",
+      "body": "Les dernières actions sensibles dans votre établissement.",
+      "empty": "Aucune activité pour le moment."
+    }
+  },
+  "platform": {
+    "eyebrow": "Plateforme",
+    "overview": {
+      "greeting": "Bonjour, {name}",
+      "subtitle": "Les établissements de la plateforme et leur activité récente.",
+      "manage": "Gérer les établissements",
+      "schools": "Établissements actifs",
+      "students": "Élèves",
+      "teachers": "Enseignants",
+      "plans": "Formules",
+      "recent": "Activité récente",
+      "allActivity": "Tout le journal"
+    },
+    "institutions": {
+      "title": "Établissements",
+      "subtitle": "Changez la formule d’un établissement ou suspendez son accès.",
+      "statusLabel": "Statut",
+      "status": {
+        "all": "Tous",
+        "active": "Actifs",
+        "suspended": "Suspendus"
+      },
+      "search": "Rechercher un établissement",
+      "list": "Liste des établissements",
+      "empty": {
+        "title": "Aucun établissement",
+        "body": "Aucun établissement ne correspond à cette recherche."
+      },
+      "suspended": "Suspendu",
+      "counts": "{students, number} élèves · {teachers, number} enseignants"
+    },
+    "detail": {
+      "back": "Tous les établissements",
+      "plan": "Formule",
+      "planHelp": "La formule fixe le nombre de places. Un établissement ne peut pas la modifier lui-même.",
+      "members": "Membres actifs",
+      "students": "Élèves",
+      "teachers": "Enseignants",
+      "admins": "Direction",
+      "created": "Créé le {date}",
+      "suspend": "Suspendre",
+      "restore": "Rétablir l’accès",
+      "suspendedNotice": "Cet établissement est suspendu : ses membres ne peuvent plus se connecter. Ses données sont conservées."
+    },
+    "suspend": {
+      "title": "Suspendre cet établissement ?",
+      "body": "Ses membres ne pourront plus se connecter ni utiliser l’application. Les données sont conservées et l’accès peut être rétabli à tout moment.",
+      "confirm": "Suspendre"
+    },
+    "feedback": {
+      "planChanged": "Formule changée : {plan}.",
+      "suspended": "Établissement suspendu.",
+      "restored": "Accès rétabli."
+    },
+    "error": {
+      "title": "Impossible de charger les établissements",
+      "body": "Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Établissement introuvable",
+      "body": "Cet établissement n’existe pas."
+    }
+  },
+  "audit": {
+    "title": "Journal d’activité",
+    "subtitle": "Les actions sensibles, de la plus récente à la plus ancienne. Le journal ne peut pas être modifié.",
+    "older": "Voir les événements plus anciens",
+    "system": "Système",
+    "by": "Par <n>{name}</n>",
+    "actions": {
+      "institution": {
+        "plan_changed": "Formule modifiée",
+        "suspended": "Établissement suspendu",
+        "restored": "Accès rétabli",
+        "updated": "Profil de l’établissement modifié"
+      },
+      "member": {
+        "deactivated": "Compte désactivé",
+        "reactivated": "Compte réactivé"
+      },
+      "payment": {
+        "voided": "Paiement annulé"
+      },
+      "invoice": {
+        "voided": "Facture annulée"
+      },
+      "module": {
+        "toggled": "Module modifié"
+      }
+    },
+    "detail": {
+      "plan": "{from} → {to}",
+      "module": "{module} · {role} · {state}",
+      "on": "activé",
+      "off": "désactivé",
+      "voided": "{ref} : {reason}"
+    },
+    "empty": {
+      "title": "Aucune activité",
+      "body": "Les actions sensibles apparaîtront ici."
+    }
+  },
+  "dashboard": {
+    "seeAll": "Tout voir",
+    "unavailable": "Indisponible pour le moment.",
+    "lessons": {
+      "none": "Aucun cours aujourd’hui.",
+      "list": "Cours du jour",
+      "where": "Classe <n>{cls}</n>",
+      "rollCallDone": "Appel fait",
+      "rollCallTodo": "Appel à faire"
+    },
+    "announcements": {
+      "none": "Aucune annonce pour le moment.",
+      "list": "Dernières annonces",
+      "unread": "Non lue"
+    },
+    "admin": {
+      "subtitle": "L’établissement aujourd’hui : présences, finances et nouvelles.",
+      "actions": {
+        "announce": "Annonces",
+        "invite": "Inviter des élèves"
+      },
+      "students": "Élèves",
+      "teachers": "Enseignants",
+      "classes": "Classes",
+      "rollCalls": "Appels du jour",
+      "invited": "{count, plural, one {# invitation en attente} other {# invitations en attente}}",
+      "noLessons": "Pas de cours aujourd’hui",
+      "todayTitle": "Les cours d’aujourd’hui",
+      "moneyTitle": "Finances",
+      "collected": "Encaissé",
+      "outstanding": "Reste à payer",
+      "overdue": "En retard",
+      "overdueInvoices": "{count, plural, one {# facture} other {# factures}}",
+      "newsTitle": "Dernières annonces",
+      "planTitle": "Places",
+      "planLink": "Formule",
+      "unreadMessages": "{count, plural, one {# message non lu} other {# messages non lus}}",
+      "startTitle": "Pour démarrer",
+      "startBody": "Trois étapes pour mettre votre établissement en route.",
+      "start": {
+        "teachers": "Invitez vos enseignants",
+        "students": "Invitez vos élèves",
+        "classes": "Créez vos classes"
+      }
+    },
+    "teacher": {
+      "subtitle": "Vos cours du jour, les devoirs à suivre et les nouvelles.",
+      "lessonsToday": "Cours aujourd’hui",
+      "toTake": "{count, plural, one {# appel à faire} other {# appels à faire}}",
+      "allTaken": "Tous les appels sont faits",
+      "noLessons": "Pas de cours aujourd’hui",
+      "homeworkOpen": "Devoirs à venir",
+      "unreadMessages": "Messages non lus",
+      "todayTitle": "Mes cours d’aujourd’hui",
+      "homeworkTitle": "Devoirs à suivre",
+      "noHomework": "Aucun devoir à venir.",
+      "done": "{count, plural, one {# a terminé} other {# ont terminé}}",
+      "newsTitle": "Dernières annonces"
+    },
+    "student": {
+      "subtitle": "Votre journée, votre travail et vos résultats.",
+      "attendance": "Assiduité",
+      "average": "Moyenne",
+      "homeworkTodo": "Devoirs à faire",
+      "owed": "Reste à payer",
+      "todayTitle": "Mon emploi du temps d’aujourd’hui",
+      "homeworkTitle": "À faire",
+      "noHomework": "Rien à faire pour le moment.",
+      "gradesTitle": "Dernières notes",
+      "noGrades": "Aucune note publiée.",
+      "absent": "Absent",
+      "newsTitle": "Dernières annonces"
     }
   }
 }

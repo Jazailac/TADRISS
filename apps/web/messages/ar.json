@@ -319,7 +319,8 @@
       "settings": "الإعدادات",
       "homework": "الواجبات",
       "payments": "الأداءات",
-      "institutions": "المؤسسات"
+      "institutions": "المؤسسات",
+      "audit": "سجل النشاط"
     },
     "roles": {
       "super_admin": "المنصة",
@@ -1996,6 +1997,187 @@
     "error": {
       "title": "تعذّر تحميل الإعدادات",
       "body": "لم تتغيّر بياناتك. أعد المحاولة بعد قليل."
+    },
+    "activity": {
+      "title": "سجل النشاط",
+      "body": "آخر الإجراءات الحساسة في مؤسستك.",
+      "empty": "لا يوجد نشاط حاليًا."
+    }
+  },
+  "platform": {
+    "eyebrow": "المنصة",
+    "overview": {
+      "greeting": "مرحبًا، {name}",
+      "subtitle": "مؤسسات المنصة ونشاطها الأخير.",
+      "manage": "إدارة المؤسسات",
+      "schools": "المؤسسات النشطة",
+      "students": "التلاميذ",
+      "teachers": "الأساتذة",
+      "plans": "الصيغ",
+      "recent": "النشاط الأخير",
+      "allActivity": "السجل كاملًا"
+    },
+    "institutions": {
+      "title": "المؤسسات",
+      "subtitle": "غيّر صيغة مؤسسة أو علّق ولوجها.",
+      "statusLabel": "الحالة",
+      "status": {
+        "all": "الكل",
+        "active": "النشطة",
+        "suspended": "المعلّقة"
+      },
+      "search": "ابحث عن مؤسسة",
+      "list": "قائمة المؤسسات",
+      "empty": {
+        "title": "لا توجد مؤسسات",
+        "body": "لا توجد مؤسسة تطابق هذا البحث."
+      },
+      "suspended": "معلّقة",
+      "counts": "{students, number} تلميذًا · {teachers, number} أستاذًا"
+    },
+    "detail": {
+      "back": "كل المؤسسات",
+      "plan": "الصيغة",
+      "planHelp": "تحدّد الصيغة عدد المقاعد. لا يمكن للمؤسسة تعديلها بنفسها.",
+      "members": "الأعضاء النشطون",
+      "students": "التلاميذ",
+      "teachers": "الأساتذة",
+      "admins": "الإدارة",
+      "created": "أُنشئت في {date}",
+      "suspend": "تعليق",
+      "restore": "إعادة الولوج",
+      "suspendedNotice": "هذه المؤسسة معلّقة: لم يعد بإمكان أعضائها تسجيل الدخول. بياناتها محفوظة."
+    },
+    "suspend": {
+      "title": "تعليق هذه المؤسسة؟",
+      "body": "لن يتمكن أعضاؤها من تسجيل الدخول أو استعمال التطبيق. البيانات محفوظة ويمكن إعادة الولوج في أي وقت.",
+      "confirm": "تعليق"
+    },
+    "feedback": {
+      "planChanged": "تم تغيير الصيغة: {plan}.",
+      "suspended": "تم تعليق المؤسسة.",
+      "restored": "أُعيد الولوج."
+    },
+    "error": {
+      "title": "تعذّر تحميل المؤسسات",
+      "body": "أعد المحاولة بعد قليل."
+    },
+    "notFound": {
+      "title": "المؤسسة غير موجودة",
+      "body": "هذه المؤسسة غير موجودة."
+    }
+  },
+  "audit": {
+    "title": "سجل النشاط",
+    "subtitle": "الإجراءات الحساسة من الأحدث إلى الأقدم. لا يمكن تعديل السجل.",
+    "older": "عرض الأحداث الأقدم",
+    "system": "النظام",
+    "by": "من <n>{name}</n>",
+    "actions": {
+      "institution": {
+        "plan_changed": "تغيير الصيغة",
+        "suspended": "تعليق المؤسسة",
+        "restored": "إعادة الولوج",
+        "updated": "تعديل ملف المؤسسة"
+      },
+      "member": {
+        "deactivated": "تعطيل حساب",
+        "reactivated": "إعادة تفعيل حساب"
+      },
+      "payment": {
+        "voided": "إلغاء دفعة"
+      },
+      "invoice": {
+        "voided": "إلغاء فاتورة"
+      },
+      "module": {
+        "toggled": "تعديل وحدة"
+      }
+    },
+    "detail": {
+      "plan": "{from} ← {to}",
+      "module": "{module} · {role} · {state}",
+      "on": "مفعّلة",
+      "off": "معطّلة",
+      "voided": "{ref}: {reason}"
+    },
+    "empty": {
+      "title": "لا يوجد نشاط",
+      "body": "ستظهر هنا الإجراءات الحساسة."
+    }
+  },
+  "dashboard": {
+    "seeAll": "عرض الكل",
+    "unavailable": "غير متاح حاليًا.",
+    "lessons": {
+      "none": "لا توجد دروس اليوم.",
+      "list": "دروس اليوم",
+      "where": "القسم <n>{cls}</n>",
+      "rollCallDone": "تم أخذ الغياب",
+      "rollCallTodo": "الغياب لم يؤخذ"
+    },
+    "announcements": {
+      "none": "لا توجد إعلانات حاليًا.",
+      "list": "آخر الإعلانات",
+      "unread": "غير مقروء"
+    },
+    "admin": {
+      "subtitle": "المؤسسة اليوم: الحضور والمالية والمستجدات.",
+      "actions": {
+        "announce": "الإعلانات",
+        "invite": "دعوة تلاميذ"
+      },
+      "students": "التلاميذ",
+      "teachers": "الأساتذة",
+      "classes": "الأقسام",
+      "rollCalls": "غياب اليوم",
+      "invited": "{count, plural, one {دعوة معلّقة} two {دعوتان معلّقتان} few {# دعوات معلّقة} many {# دعوة معلّقة} other {# دعوة معلّقة}}",
+      "noLessons": "لا دروس اليوم",
+      "todayTitle": "دروس اليوم",
+      "moneyTitle": "المالية",
+      "collected": "المحصَّل",
+      "outstanding": "المتبقي",
+      "overdue": "المتأخر",
+      "overdueInvoices": "{count, plural, one {فاتورة} two {فاتورتان} few {# فواتير} many {# فاتورة} other {# فاتورة}}",
+      "newsTitle": "آخر الإعلانات",
+      "planTitle": "المقاعد",
+      "planLink": "الصيغة",
+      "unreadMessages": "{count, plural, one {رسالة غير مقروءة} two {رسالتان غير مقروءتين} few {# رسائل غير مقروءة} many {# رسالة غير مقروءة} other {# رسالة غير مقروءة}}",
+      "startTitle": "للبدء",
+      "startBody": "ثلاث خطوات لتشغيل مؤسستك.",
+      "start": {
+        "teachers": "ادعُ أساتذتك",
+        "students": "ادعُ تلاميذك",
+        "classes": "أنشئ أقسامك"
+      }
+    },
+    "teacher": {
+      "subtitle": "دروسك اليوم والواجبات التي تتابعها والمستجدات.",
+      "lessonsToday": "دروس اليوم",
+      "toTake": "{count, plural, one {غياب واحد لم يؤخذ} two {غيابان لم يؤخذا} few {# غيابات لم تؤخذ} many {# غيابًا لم يؤخذ} other {# غياب لم يؤخذ}}",
+      "allTaken": "أُخذ غياب جميع الدروس",
+      "noLessons": "لا دروس اليوم",
+      "homeworkOpen": "الواجبات القادمة",
+      "unreadMessages": "رسائل غير مقروءة",
+      "todayTitle": "دروسي اليوم",
+      "homeworkTitle": "واجبات للمتابعة",
+      "noHomework": "لا توجد واجبات قادمة.",
+      "done": "{count, plural, one {أنجزه تلميذ} two {أنجزه تلميذان} few {أنجزه # تلاميذ} many {أنجزه # تلميذًا} other {أنجزه # تلميذ}}",
+      "newsTitle": "آخر الإعلانات"
+    },
+    "student": {
+      "subtitle": "يومك وعملك ونتائجك.",
+      "attendance": "الحضور",
+      "average": "المعدل",
+      "homeworkTodo": "واجبات للإنجاز",
+      "owed": "المتبقي للأداء",
+      "todayTitle": "جدول حصصي اليوم",
+      "homeworkTitle": "للإنجاز",
+      "noHomework": "لا شيء للإنجاز حاليًا.",
+      "gradesTitle": "آخر النقط",
+      "noGrades": "لا توجد نقط منشورة.",
+      "absent": "غائب",
+      "newsTitle": "آخر الإعلانات"
     }
   }
 }

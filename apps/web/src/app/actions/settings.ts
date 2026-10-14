@@ -57,7 +57,7 @@ export async function setModuleEnabledAction(
   if (!parsed.success) return err('validation');
   const actor = await requireRole(['institution_admin']);
   if (!actor.ok) return actor;
-  const res = await setModuleEnabled(actor.data.supabase, actor.data.institutionId, parsed.data);
+  const res = await setModuleEnabled(actor.data.supabase, parsed.data);
   if (res.ok) refresh();
   return res;
 }

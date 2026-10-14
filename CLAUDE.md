@@ -139,6 +139,20 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   `getDisabledModules` (per request, `lib/modules.ts`) hides nav items and `components/settings/module-gate.tsx`,
   mounted as `layout.tsx` in each `teacher|student/<module>` segment, replaces the page with an explanation; RLS and
   the data rules do not change. A new module must get its `ModuleGate` layout and an entry in `roleModules`.
+- **Platform (Phase 12):** `/admin` (overview), `/admin/institutions[/id]` and `/admin/audit` are the operator's console
+  (`super_admin` has no school: mutations use `requirePlatform()`, not `requireRole`, which insists on an institution
+  claim). Plan and suspension (`institutions.deleted_at`) are changed only by a super admin: a trigger enforces it
+  for API callers because column grants can't tell app roles apart. A suspended school's members get **no tenant
+  claims** (the access-token hook checks the institution), so policies deny them from their next token refresh and
+  sign-in answers "account disabled". `audit_log` is append-only and read-only through the API (a school admin sees
+  their school's rows, the operator all); rows come from `SECURITY DEFINER` triggers in `private` (the second definer
+  code after `my_class_ids`: an invoker trigger would need INSERT rights for the caller, so clients could forge
+  entries). Audited: plan/suspension/profile edits, member (de)activation, payment and invoice voids, module
+  switches. `platform_institutions()` is the only cross-school read (empty for anyone else).
+- **Dashboards:** each role's home is composed server-side from the existing shared functions (no new queries):
+  `components/home/{admin,teacher,student}-home.tsx` with `StatTile`/`Panel` from `dash-parts.tsx`. They respect module
+  switches (`getDisabledModules`: a disabled module's tile/panel is dropped) and use the school's "today". A school
+  with no people and no classes sees a "getting started" panel instead of zeros.
 - **`private` schema:** helpers and triggers. Not exposed by the Data API.
 - **Function privileges:** default EXECUTE is revoked from `public`, `anon` and `authenticated`.
   Every RPC migration must `grant execute … to authenticated` explicitly.
@@ -232,9 +246,13 @@ warm editorial typography with contemporary Maghreb architecture and a cinematic
   (e.g. voiding removes the very button) is fired from a wrapper around the action, not from `onDone`.
 - Supabase blocks raw `delete from storage.objects` unless `storage.allow_delete_query` is set (pgTAP does so); the
   Storage API sets it itself. A storage DELETE policy also needs a matching SELECT policy to see the row.
-- Specs that change what a whole role sees (module switches) live in `settings-modules.spec.ts`, which only the
-  `modules` Playwright project runs, after all width projects. A full e2e run mutates the seed (some specs are not
+- Specs that change what a whole role or school sees (`settings-modules`, `platform`) only run in the `modules`
+  Playwright project, after all width projects. A full e2e run mutates the seed (some specs are not
   idempotent): `supabase db reset` + `scripts/seed-documents.sh` before re-running it.
+- An API upsert (`on conflict do update`) needs UPDATE rights on every column it sets, so tables with narrow column
+  grants get an RPC instead (`set_module_access`). Optimistic switches/toggles move before the server saved: e2e
+  must wait for the toast before navigating.
+- Never run `next dev` (preview) while the e2e production build runs: they share `.next` and everything times out.
 - Generation-style e2e tests must use run-unique inputs (idempotent RPCs bill nobody the second time).
 
 - Visual snapshots are Linux-only. Regenerate them with the **Update visual baselines** workflow,

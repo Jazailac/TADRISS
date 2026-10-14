@@ -12,6 +12,7 @@ import {
   LayoutDashboard,
   Megaphone,
   MessageSquare,
+  ScrollText,
   Settings,
   Users,
   type LucideIcon,
@@ -110,7 +111,13 @@ const student: NavGroup[] = [
 
 const superAdmin: NavGroup[] = [
   { key: 'overview', items: [item('dashboard', '/admin', LayoutDashboard, true)] },
-  { key: 'platform', items: [item('institutions', '/admin/institutions', Building2)] },
+  {
+    key: 'platform',
+    items: [
+      item('institutions', '/admin/institutions', Building2, true),
+      item('audit', '/admin/audit', ScrollText, true),
+    ],
+  },
 ];
 
 /** Nav sets by role. Passed across the server→client boundary by name only (icons are functions). */

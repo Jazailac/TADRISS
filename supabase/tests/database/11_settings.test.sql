@@ -1,7 +1,7 @@
 -- Exams and marks: RLS for every role, draft vs published, score invariants, save_grades.
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(30);
+select plan(35);
 
 -- ── fixtures (as postgres) ───────────────────────────────────────────────────
 insert into public.institutions (id, name, slug) values
@@ -110,6 +110,13 @@ select is((select teachers_limit from public.plan_usage()), null, 'the premium p
 select lives_ok($$update public.profiles set is_active = true where id = 'a0000000-0000-4000-8000-0000000000a8'$$, 'so reactivation works again');
 
 -- ── module access ───────────────────────────────────────────────────────────
+select lives_ok($$select public.set_module_access('student', 'payments', false)$$, 'the RPC switches a module off for the caller''s school');
+select lives_ok($$select public.set_module_access('student', 'payments', true)$$, 'and on again (upsert touches only the switch)');
+select is((select enabled from public.module_access where role = 'student' and module = 'payments'), true, 'one row per role and module');
+select throws_ok($$select public.set_module_access('student', 'classes', false)$$, '23514', null, 'the RPC keeps the module/role constraint');
+select pg_temp.as_user('a0000000-0000-4000-8000-0000000000a7');
+select throws_ok($$select public.set_module_access('student', 'payments', false)$$, '42501', null, 'a teacher cannot call it');
+select pg_temp.as_user('a0000000-0000-4000-8000-0000000000aa');
 select lives_ok($$insert into public.module_access (institution_id, role, module, enabled) values ('a0000000-0000-4000-8000-000000000001', 'teacher', 'homework', false)$$,
   'an administrator switches a module off for a role');
 select throws_ok($$insert into public.module_access (institution_id, role, module, enabled) values ('a0000000-0000-4000-8000-000000000001', 'teacher', 'homework', true)$$,
@@ -123,7 +130,7 @@ select is((select count(*) from u), 1::bigint, 'and switches it back on');
 select throws_ok($$insert into public.module_access (institution_id, role, module, enabled) values ('b0000000-0000-4000-8000-000000000001', 'teacher', 'grades', false)$$,
   '42501', null, 'an administrator cannot configure another school');
 select pg_temp.as_user('a0000000-0000-4000-8000-0000000000a7');
-select is((select count(*) from public.module_access), 1::bigint, 'a teacher can read the switches (the navigation needs them)');
+select is((select count(*) from public.module_access), 2::bigint, 'a teacher can read the switches (the navigation needs them)');
 select throws_ok($$insert into public.module_access (institution_id, role, module, enabled) values ('a0000000-0000-4000-8000-000000000001', 'teacher', 'grades', false)$$,
   '42501', null, 'but cannot change them');
 with u as (update public.module_access set enabled = false returning 1)

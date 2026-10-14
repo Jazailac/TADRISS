@@ -39,6 +39,7 @@ const pages: Record<string, string[]> = {
     '/teacher/messages',
     '/teacher/documents',
   ],
+  'ops@tadriss.test': ['/admin', '/admin/institutions', '/admin/audit'],
   'eleve01@almanar.test': [
     '/student',
     '/student/schedule',

@@ -319,7 +319,8 @@
       "settings": "Settings",
       "homework": "Homework",
       "payments": "Payments",
-      "institutions": "Schools"
+      "institutions": "Schools",
+      "audit": "Activity log"
     },
     "roles": {
       "super_admin": "Platform",
@@ -1996,6 +1997,187 @@
     "error": {
       "title": "Couldn’t load settings",
       "body": "Your data was not changed. Try again in a moment."
+    },
+    "activity": {
+      "title": "Activity log",
+      "body": "The latest sensitive actions in your school.",
+      "empty": "No activity yet."
+    }
+  },
+  "platform": {
+    "eyebrow": "Platform",
+    "overview": {
+      "greeting": "Hello, {name}",
+      "subtitle": "The platform’s schools and their recent activity.",
+      "manage": "Manage schools",
+      "schools": "Active schools",
+      "students": "Students",
+      "teachers": "Teachers",
+      "plans": "Plans",
+      "recent": "Recent activity",
+      "allActivity": "Full log"
+    },
+    "institutions": {
+      "title": "Schools",
+      "subtitle": "Change a school’s plan or suspend its access.",
+      "statusLabel": "Status",
+      "status": {
+        "all": "All",
+        "active": "Active",
+        "suspended": "Suspended"
+      },
+      "search": "Search for a school",
+      "list": "Schools",
+      "empty": {
+        "title": "No schools",
+        "body": "No school matches this search."
+      },
+      "suspended": "Suspended",
+      "counts": "{students, number} students · {teachers, number} teachers"
+    },
+    "detail": {
+      "back": "All schools",
+      "plan": "Plan",
+      "planHelp": "The plan sets the number of seats. A school can’t change it itself.",
+      "members": "Active members",
+      "students": "Students",
+      "teachers": "Teachers",
+      "admins": "Administration",
+      "created": "Created {date}",
+      "suspend": "Suspend",
+      "restore": "Restore access",
+      "suspendedNotice": "This school is suspended: its members can no longer sign in. Its data is kept."
+    },
+    "suspend": {
+      "title": "Suspend this school?",
+      "body": "Its members won’t be able to sign in or use the app. The data is kept and access can be restored at any time.",
+      "confirm": "Suspend"
+    },
+    "feedback": {
+      "planChanged": "Plan changed: {plan}.",
+      "suspended": "School suspended.",
+      "restored": "Access restored."
+    },
+    "error": {
+      "title": "Couldn’t load schools",
+      "body": "Try again in a moment."
+    },
+    "notFound": {
+      "title": "School not found",
+      "body": "This school doesn’t exist."
+    }
+  },
+  "audit": {
+    "title": "Activity log",
+    "subtitle": "Sensitive actions, newest first. The log can’t be edited.",
+    "older": "Show older events",
+    "system": "System",
+    "by": "By <n>{name}</n>",
+    "actions": {
+      "institution": {
+        "plan_changed": "Plan changed",
+        "suspended": "School suspended",
+        "restored": "Access restored",
+        "updated": "School profile edited"
+      },
+      "member": {
+        "deactivated": "Account deactivated",
+        "reactivated": "Account reactivated"
+      },
+      "payment": {
+        "voided": "Payment voided"
+      },
+      "invoice": {
+        "voided": "Invoice voided"
+      },
+      "module": {
+        "toggled": "Module changed"
+      }
+    },
+    "detail": {
+      "plan": "{from} → {to}",
+      "module": "{module} · {role} · {state}",
+      "on": "on",
+      "off": "off",
+      "voided": "{ref}: {reason}"
+    },
+    "empty": {
+      "title": "No activity",
+      "body": "Sensitive actions will appear here."
+    }
+  },
+  "dashboard": {
+    "seeAll": "See all",
+    "unavailable": "Unavailable right now.",
+    "lessons": {
+      "none": "No lessons today.",
+      "list": "Today’s lessons",
+      "where": "Class <n>{cls}</n>",
+      "rollCallDone": "Roll call done",
+      "rollCallTodo": "Roll call to do"
+    },
+    "announcements": {
+      "none": "No announcements yet.",
+      "list": "Latest announcements",
+      "unread": "Unread"
+    },
+    "admin": {
+      "subtitle": "Your school today: attendance, finances and news.",
+      "actions": {
+        "announce": "Announcements",
+        "invite": "Invite students"
+      },
+      "students": "Students",
+      "teachers": "Teachers",
+      "classes": "Classes",
+      "rollCalls": "Today’s roll calls",
+      "invited": "{count, plural, one {# invitation pending} other {# invitations pending}}",
+      "noLessons": "No lessons today",
+      "todayTitle": "Today’s lessons",
+      "moneyTitle": "Finances",
+      "collected": "Collected",
+      "outstanding": "Outstanding",
+      "overdue": "Overdue",
+      "overdueInvoices": "{count, plural, one {# invoice} other {# invoices}}",
+      "newsTitle": "Latest announcements",
+      "planTitle": "Seats",
+      "planLink": "Plan",
+      "unreadMessages": "{count, plural, one {# unread message} other {# unread messages}}",
+      "startTitle": "Getting started",
+      "startBody": "Three steps to get your school up and running.",
+      "start": {
+        "teachers": "Invite your teachers",
+        "students": "Invite your students",
+        "classes": "Create your classes"
+      }
+    },
+    "teacher": {
+      "subtitle": "Today’s lessons, homework to follow and what’s new.",
+      "lessonsToday": "Lessons today",
+      "toTake": "{count, plural, one {# roll call to do} other {# roll calls to do}}",
+      "allTaken": "All roll calls done",
+      "noLessons": "No lessons today",
+      "homeworkOpen": "Upcoming homework",
+      "unreadMessages": "Unread messages",
+      "todayTitle": "My lessons today",
+      "homeworkTitle": "Homework to follow",
+      "noHomework": "No upcoming homework.",
+      "done": "{count, plural, one {# has finished} other {# have finished}}",
+      "newsTitle": "Latest announcements"
+    },
+    "student": {
+      "subtitle": "Your day, your work and your results.",
+      "attendance": "Attendance",
+      "average": "Average",
+      "homeworkTodo": "Homework to do",
+      "owed": "Balance due",
+      "todayTitle": "My timetable today",
+      "homeworkTitle": "To do",
+      "noHomework": "Nothing to do right now.",
+      "gradesTitle": "Latest marks",
+      "noGrades": "No marks published yet.",
+      "absent": "Absent",
+      "newsTitle": "Latest announcements"
     }
   }
 }

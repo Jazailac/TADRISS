@@ -27,7 +27,7 @@ test('switching a module off hides it for that role, and back on restores it', a
   await student.setViewportSize({ width: 1280, height: 900 });
   await login(student, 'eleve31@almanar.test');
   await student.goto('/student/payments');
-  await expect(student.getByRole('heading', { level: 1, name: 'Paiements' })).toBeVisible();
+  await expect(student.getByRole('heading', { level: 1, name: 'Finances' })).toBeVisible();
 
   try {
     await studentSwitch.click();
@@ -41,6 +41,12 @@ test('switching a module off hides it for that role, and back on restores it', a
     await expect(
       student.getByRole('heading', { level: 1, name: 'Ce module n’est pas disponible' }),
     ).toBeVisible();
+    // The home page drops the tile too.
+    await student.goto('/student');
+    await expect(student.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(student.getByRole('main').getByText('Reste à payer', { exact: true })).toHaveCount(
+      0,
+    );
     // Other modules are unaffected.
     await student.goto('/student/homework');
     await expect(student.getByRole('heading', { level: 1, name: 'Devoirs' })).toBeVisible();
@@ -49,12 +55,16 @@ test('switching a module off hides it for that role, and back on restores it', a
     const again = page
       .getByRole('list', { name: 'Modules des élèves' })
       .getByRole('switch', { name: /Paiements pour Élèves/ });
-    if ((await again.getAttribute('aria-checked')) === 'false') await again.click();
+    if ((await again.getAttribute('aria-checked')) === 'false') {
+      await again.click();
+      // Wait for the server: the switch itself moves before the change is saved.
+      await expect(page.getByText(/est activé\./)).toBeVisible();
+    }
     await expect(again).toBeChecked();
   }
 
   await student.goto('/student/payments');
-  await expect(student.getByRole('heading', { level: 1, name: 'Paiements' })).toBeVisible();
+  await expect(student.getByRole('heading', { level: 1, name: 'Finances' })).toBeVisible();
   await expect(student.getByRole('link', { name: 'Paiements' }).first()).toBeVisible();
 });
 
@@ -73,6 +83,8 @@ test('a teacher module can be switched off too, without touching students', asyn
 
   try {
     await classes.click();
+    // The switch moves at once (optimistic); wait for the server before looking at another page.
+    await expect(page.getByText('Classes est désactivé.')).toBeVisible();
     await expect(classes).not.toBeChecked();
     await teacher.goto('/teacher/classes');
     await expect(
@@ -87,7 +99,11 @@ test('a teacher module can be switched off too, without touching students', asyn
     const again = page
       .getByRole('list', { name: 'Modules des enseignants' })
       .getByRole('switch', { name: /Classes pour Enseignants/ });
-    if ((await again.getAttribute('aria-checked')) === 'false') await again.click();
+    if ((await again.getAttribute('aria-checked')) === 'false') {
+      await again.click();
+      // Wait for the server: the switch itself moves before the change is saved.
+      await expect(page.getByText(/est activé\./)).toBeVisible();
+    }
     await expect(again).toBeChecked();
   }
 });

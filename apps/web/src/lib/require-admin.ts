@@ -43,3 +43,18 @@ export async function requireAdmin(): Promise<
     ? ok({ supabase: actor.data.supabase, institutionId: actor.data.institutionId })
     : actor;
 }
+
+/**
+ * Platform-operator mutations. A super admin has no school, so this does not go through
+ * `requireRole` (which insists on an institution claim).
+ */
+export async function requirePlatform(): Promise<
+  Result<{ supabase: TadrissClient; userId: string }>
+> {
+  const supabase = await getServerClient();
+  const { error } = await supabase.auth.getUser();
+  if (error) return err('unauthenticated');
+  const session = await currentSession(supabase);
+  if (session?.role !== 'super_admin') return err('forbidden');
+  return ok({ supabase, userId: session.userId });
+}
