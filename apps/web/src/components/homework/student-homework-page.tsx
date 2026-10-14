@@ -21,7 +21,19 @@ import { dueInfo } from './due';
 import { DoneToggle } from './done-toggle';
 
 /** The student's homework in three buckets: overdue, to do, done. */
-export async function StudentHomeworkPage() {
+export async function StudentHomeworkPage({
+  studentId,
+  classId,
+  hasClass,
+  base = '/student',
+}: {
+  /** A parent looks at one child's class: ticks are then read-only. */
+  studentId?: string;
+  classId?: string | null;
+  hasClass?: boolean;
+  base?: string;
+} = {}) {
+  const readOnly = studentId !== undefined;
   const viewer = await getViewer();
   const today = todayIn(viewer?.profile.institution?.timezone ?? 'Africa/Casablanca');
   const supabase = await getServerClient();
@@ -30,7 +42,9 @@ export async function StudentHomeworkPage() {
     getTranslations('shell.groups'),
     getTranslations('errors'),
     getFormatter(),
-    listHomework(supabase),
+    classId === null
+      ? Promise.resolve({ ok: true as const, data: [] })
+      : listHomework(supabase, { studentId, classId: classId ?? undefined }),
     listClasses(supabase, { schoolYear: currentSchoolYear() }),
   ]);
 
@@ -52,7 +66,7 @@ export async function StudentHomeworkPage() {
           </span>
           <h2 className="display text-2xl">{t('error.title')}</h2>
           <p className="max-w-md text-sm text-text-muted">{t('error.body')}</p>
-          <ButtonLink href="/student/homework" variant="secondary" className="mt-2">
+          <ButtonLink href={`${base}/homework`} variant="secondary" className="mt-2">
             {errors('retry')}
           </ButtonLink>
         </Card>
@@ -65,7 +79,7 @@ export async function StudentHomeworkPage() {
   buckets.overdue.sort((a, b) => b.dueDate.localeCompare(a.dueDate)); // most recently missed first
   buckets.done.sort((a, b) => b.dueDate.localeCompare(a.dueDate));
 
-  const noClass = classes.ok && classes.data.length === 0;
+  const noClass = hasClass === undefined ? classes.ok && classes.data.length === 0 : !hasClass;
   const sections: HomeworkBucket[] = ['overdue', 'upcoming', 'done'];
 
   return (
@@ -106,7 +120,21 @@ export async function StudentHomeworkPage() {
                       <Card
                         className={cx('flex gap-4 p-4 sm:p-5', bucket === 'done' && 'opacity-75')}
                       >
-                        <DoneToggle id={h.id} title={h.title} done={bucket === 'done'} />
+                        {readOnly ? (
+                          <span
+                            aria-hidden
+                            className={cx(
+                              'mt-0.5 grid size-6 shrink-0 place-items-center rounded-md border text-xs',
+                              bucket === 'done'
+                                ? 'border-success bg-success-soft text-success'
+                                : 'border-border-strong',
+                            )}
+                          >
+                            {bucket === 'done' ? '✓' : ''}
+                          </span>
+                        ) : (
+                          <DoneToggle id={h.id} title={h.title} done={bucket === 'done'} />
+                        )}
                         <div className="min-w-0 flex-1">
                           <div className="flex flex-wrap items-center gap-2">
                             <span

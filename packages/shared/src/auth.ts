@@ -4,7 +4,7 @@ import { err, ok, toErrorCode, type ErrorCode, type Result } from './result';
 import type { Locale } from './locale';
 import type { LoginInput, SignupInput } from './schemas/auth';
 
-export const roles = ['super_admin', 'institution_admin', 'teacher', 'student'] as const;
+export const roles = ['super_admin', 'institution_admin', 'teacher', 'student', 'parent'] as const;
 export type Role = (typeof roles)[number];
 
 /** Where each role lands after signing in. Route protection uses the same map. */
@@ -13,6 +13,7 @@ export const homePath: Record<Role, string> = {
   institution_admin: '/dashboard',
   teacher: '/teacher',
   student: '/student',
+  parent: '/parent',
 };
 
 /** Path prefixes and the single role allowed under each. */
@@ -20,6 +21,7 @@ export const protectedAreas: readonly { prefix: string; role: Role }[] = [
   { prefix: '/dashboard', role: 'institution_admin' },
   { prefix: '/teacher', role: 'teacher' },
   { prefix: '/student', role: 'student' },
+  { prefix: '/parent', role: 'parent' },
   { prefix: '/admin', role: 'super_admin' },
 ];
 

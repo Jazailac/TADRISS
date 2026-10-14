@@ -7,12 +7,12 @@ import { Card, Screen } from '@/ui/kit';
 
 type Entry = 'announcements' | 'grades' | 'attendance' | 'payments' | 'documents' | 'settings';
 const entries: { key: Entry; roles: readonly Role[] }[] = [
-  { key: 'announcements', roles: ['student', 'teacher', 'institution_admin'] },
+  { key: 'announcements', roles: ['student', 'parent', 'teacher', 'institution_admin'] },
   { key: 'grades', roles: ['student'] },
   { key: 'attendance', roles: ['student'] },
   { key: 'payments', roles: ['student'] },
-  { key: 'documents', roles: ['student', 'teacher', 'institution_admin'] },
-  { key: 'settings', roles: ['student', 'teacher', 'institution_admin', 'super_admin'] },
+  { key: 'documents', roles: ['student', 'parent', 'teacher', 'institution_admin'] },
+  { key: 'settings', roles: ['student', 'parent', 'teacher', 'institution_admin', 'super_admin'] },
 ];
 
 export default function More() {

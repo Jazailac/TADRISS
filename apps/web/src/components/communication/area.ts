@@ -1,7 +1,7 @@
 import type { Role } from '@tadriss/shared';
 
 /** The URL area a communication page is mounted in; it follows the viewer's role. */
-export type Area = 'dashboard' | 'teacher' | 'student';
+export type Area = 'dashboard' | 'teacher' | 'student' | 'parent';
 
 export const areaOf = (role: Role): Area | null =>
   role === 'institution_admin'
@@ -10,6 +10,8 @@ export const areaOf = (role: Role): Area | null =>
       ? 'teacher'
       : role === 'student'
         ? 'student'
-        : null;
+        : role === 'parent'
+          ? 'parent'
+          : null;
 
 export const areaBase = (area: Area) => `/${area}`;

@@ -29,3 +29,4 @@ export * from './documents';
 export * from './schemas/settings';
 export * from './settings';
 export * from './platform';
+export * from './guardians';

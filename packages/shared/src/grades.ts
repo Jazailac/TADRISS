@@ -285,8 +285,11 @@ export type MyGrade = {
 };
 
 /** A student's own published marks (RLS hides drafts and everyone else's marks), newest first. */
-export async function listMyGrades(client: TadrissClient): Promise<Result<MyGrade[]>> {
-  const { data, error } = await client
+export async function listMyGrades(
+  client: TadrissClient,
+  opts: { studentId?: string } = {},
+): Promise<Result<MyGrade[]>> {
+  let query = client
     .from('exams')
     .select(
       'id, title, exam_date, max_score, coefficient, term, subject_id, subject:subjects!exams_subject_id_institution_id_fkey(name, color), grades:grades!grades_exam_id_institution_id_fkey(score, absent, remark)',
@@ -294,6 +297,9 @@ export async function listMyGrades(client: TadrissClient): Promise<Result<MyGrad
     .is('deleted_at', null)
     .order('exam_date', { ascending: false })
     .limit(300);
+  // A parent sees every child's marks: narrow the embedded marks to one child.
+  if (opts.studentId) query = query.eq('grades.student_id', opts.studentId);
+  const { data, error } = await query;
   if (error) return err(toErrorCode(error));
 
   return ok(

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /** Roles an institution admin can invite. Admins and super_admins are never invited. */
-export const memberRoles = ['teacher', 'student'] as const;
+export const memberRoles = ['teacher', 'student', 'parent'] as const;
 export type MemberRole = (typeof memberRoles)[number];
 export const isMemberRole = (v: unknown): v is MemberRole =>
   (memberRoles as readonly unknown[]).includes(v);

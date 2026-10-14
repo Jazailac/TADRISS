@@ -3,7 +3,7 @@ import { z } from 'zod';
 const title = z.string().trim().min(1, { error: 'required' }).max(150, { error: 'tooLong' });
 const body = z.string().trim().min(1, { error: 'required' }).max(8000, { error: 'tooLong' });
 
-export type Audience = 'all' | 'teachers' | 'students' | 'class';
+export type Audience = 'all' | 'teachers' | 'students' | 'parents' | 'class';
 
 /**
  * One form value stands for the audience and, for a class, which class: `all`, `teachers`,
@@ -12,7 +12,7 @@ export type Audience = 'all' | 'teachers' | 'students' | 'class';
 export function parseAudience(
   value: string,
 ): { audience: Audience; classId: string | null } | null {
-  if (value === 'all' || value === 'teachers' || value === 'students')
+  if (value === 'all' || value === 'teachers' || value === 'students' || value === 'parents')
     return { audience: value, classId: null };
   const m = /^class:(.+)$/.exec(value);
   const id = m?.[1];

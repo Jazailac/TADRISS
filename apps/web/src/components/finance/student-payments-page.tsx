@@ -13,7 +13,13 @@ import { Meter } from '../ui/meter';
 import { StatusBadge } from './status-badge';
 
 /** A student's own invoices, what is still owed, and their receipts. */
-export async function StudentPaymentsPage() {
+export async function StudentPaymentsPage({
+  studentId,
+  base = '/student',
+}: {
+  studentId?: string;
+  base?: string;
+} = {}) {
   const viewer = await getViewer();
   const today = todayIn(viewer?.profile.institution?.timezone ?? 'Africa/Casablanca');
   const supabase = await getServerClient();
@@ -24,7 +30,7 @@ export async function StudentPaymentsPage() {
     getTranslations('errors'),
     getFormatter(),
     getLocale(),
-    listMyInvoices(supabase),
+    listMyInvoices(supabase, { studentId }),
   ]);
   const money = (c: number) => formatMoney(c, locale);
   const date = (iso: string) =>
@@ -48,7 +54,7 @@ export async function StudentPaymentsPage() {
           </span>
           <h2 className="display text-2xl">{t('error.title')}</h2>
           <p className="max-w-md text-sm text-text-muted">{t('error.body')}</p>
-          <ButtonLink href="/student/payments" variant="secondary" className="mt-2">
+          <ButtonLink href={`${base}/payments`} variant="secondary" className="mt-2">
             {errors('retry')}
           </ButtonLink>
         </Card>

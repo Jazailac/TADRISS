@@ -11,6 +11,7 @@ Every seeded account uses the password **`Tadriss-dev-2026`**.
 | --------------------------------------------------------- | ----------------------------------------------- | ------------------- |
 | super_admin                                               | `ops@tadriss.test`                              | `/admin` (Phase 12) |
 | institution_admin, Al Manar                               | `direction@almanar.test`, `admin2@almanar.test` | `/dashboard`        |
+| parent, Al Manar                                          | `parent01@almanar.test` … `parent05@almanar.test` | `/parent`           |
 | teacher, Al Manar                                         | `prof1@almanar.test` … `prof3@almanar.test`     | `/teacher`          |
 | student, Al Manar                                         | `eleve01@almanar.test` … `eleve31@almanar.test` | `/student`          |
 | institution_admin, Ibn Rochd (2nd tenant, Arabic default) | `direction@ibnrochd.test`                       | `/dashboard`        |

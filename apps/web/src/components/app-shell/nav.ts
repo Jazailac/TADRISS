@@ -14,6 +14,7 @@ import {
   MessageSquare,
   ScrollText,
   Settings,
+  UserRound,
   Users,
   type LucideIcon,
 } from 'lucide-react';
@@ -42,6 +43,7 @@ const admin: NavGroup[] = [
     items: [
       item('students', '/dashboard/students', Users, true),
       item('teachers', '/dashboard/teachers', GraduationCap, true),
+      item('parents', '/dashboard/parents', UserRound, true),
       item('classes', '/dashboard/classes', BookOpen, true),
       item('schedule', '/dashboard/schedule', Clock, true),
       item('settings', '/dashboard/settings', Settings, true),
@@ -109,6 +111,28 @@ const student: NavGroup[] = [
   },
 ];
 
+const parent: NavGroup[] = [
+  { key: 'overview', items: [item('dashboard', '/parent', LayoutDashboard, true)] },
+  {
+    key: 'daily',
+    items: [
+      item('schedule', '/parent/schedule', Clock, true),
+      item('homework', '/parent/homework', ClipboardList, true),
+      item('attendance', '/parent/attendance', CalendarCheck, true),
+      item('grades', '/parent/grades', BarChart3, true),
+      item('payments', '/parent/payments', CreditCard, true),
+    ],
+  },
+  {
+    key: 'communication',
+    items: [
+      item('announcements', '/parent/announcements', Megaphone, true),
+      item('messages', '/parent/messages', MessageSquare, true),
+      item('documents', '/parent/documents', FolderOpen, true),
+    ],
+  },
+];
+
 const superAdmin: NavGroup[] = [
   { key: 'overview', items: [item('dashboard', '/admin', LayoutDashboard, true)] },
   {
@@ -125,6 +149,7 @@ export const navSets: Record<Role, NavGroup[]> = {
   institution_admin: admin,
   teacher,
   student,
+  parent,
   super_admin: superAdmin,
 };
 export type NavSet = Role;

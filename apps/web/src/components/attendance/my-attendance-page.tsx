@@ -17,14 +17,21 @@ import { subjectTone } from '../schedule/colors';
 import { statusMeta } from './status';
 
 /** A student's own attendance: headline numbers and a dated history. */
-export async function MyAttendancePage() {
+export async function MyAttendancePage({
+  studentId,
+  base = '/student',
+}: {
+  /** A parent looks at one child; a student's own page needs none. */
+  studentId?: string;
+  base?: string;
+} = {}) {
   const supabase = await getServerClient();
   const [t, shell, errors, f, res] = await Promise.all([
     getTranslations('attendance'),
     getTranslations('shell.groups'),
     getTranslations('errors'),
     getFormatter(),
-    listMyAttendance(supabase),
+    listMyAttendance(supabase, { studentId }),
   ]);
 
   const header = (
@@ -45,7 +52,7 @@ export async function MyAttendancePage() {
           </span>
           <h2 className="display text-2xl">{t('error.title')}</h2>
           <p className="max-w-md text-sm text-text-muted">{t('error.body')}</p>
-          <ButtonLink href="/student/attendance" variant="secondary" className="mt-2">
+          <ButtonLink href={`${base}/attendance`} variant="secondary" className="mt-2">
             {errors('retry')}
           </ButtonLink>
         </Card>

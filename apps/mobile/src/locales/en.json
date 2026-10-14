@@ -53,7 +53,8 @@
     "recipient_inactive": "This account is deactivated and can no longer receive messages.",
     "file_too_large": "This file is over 10 MB.",
     "file_type": "This file type isn’t accepted.",
-    "plan_limit_reached": "Your plan has reached its seat limit. Contact us to upgrade."
+    "plan_limit_reached": "Your plan has reached its seat limit. Contact us to upgrade.",
+    "invalid_guardianship": "That link isn’t possible: it needs a parent and a student of the same school."
   },
   "login": {
     "title": "Welcome back",
@@ -87,7 +88,8 @@
     "super_admin": "Platform",
     "institution_admin": "Administration",
     "teacher": "Teacher",
-    "student": "Student"
+    "student": "Student",
+    "parent": "Parent"
   },
   "validation": {
     "required": "This field is required.",

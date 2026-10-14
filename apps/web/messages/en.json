@@ -320,13 +320,15 @@
       "homework": "Homework",
       "payments": "Payments",
       "institutions": "Schools",
-      "audit": "Activity log"
+      "audit": "Activity log",
+      "parents": "Parents"
     },
     "roles": {
       "super_admin": "Platform",
       "institution_admin": "Administration",
       "teacher": "Teacher",
-      "student": "Student"
+      "student": "Student",
+      "parent": "Parent"
     },
     "platform": "Tadriss",
     "soon": "Soon",
@@ -480,7 +482,8 @@
     "recipient_inactive": "This account is deactivated and can no longer receive messages.",
     "file_too_large": "This file is over 10 MB.",
     "file_type": "This file type isn’t accepted.",
-    "plan_limit_reached": "Your plan has reached its seat limit. Contact us to upgrade."
+    "plan_limit_reached": "Your plan has reached its seat limit. Contact us to upgrade.",
+    "invalid_guardianship": "That link isn’t possible: it needs a parent and a student of the same school."
   },
   "app": {
     "greeting": "Hello, <n>{name}</n>",
@@ -751,11 +754,13 @@
   "people": {
     "title": {
       "teacher": "Teachers",
-      "student": "Students"
+      "student": "Students",
+      "parent": "Parents"
     },
     "subtitle": {
       "teacher": "Invite your teaching staff and manage their access.",
-      "student": "Invite your students and manage their access."
+      "student": "Invite your students and manage their access.",
+      "parent": "Invite parents and link them to their children."
     },
     "stats": {
       "active": "Active",
@@ -781,7 +786,8 @@
     "actions": {
       "invite": {
         "teacher": "Invite a teacher",
-        "student": "Invite a student"
+        "student": "Invite a student",
+        "parent": "Invite a parent"
       },
       "edit": "Edit",
       "deactivate": "Deactivate",
@@ -797,7 +803,8 @@
     "list": {
       "label": {
         "teacher": "Teachers list",
-        "student": "Students list"
+        "student": "Students list",
+        "parent": "Parents"
       },
       "noEmail": "No email"
     },
@@ -809,6 +816,10 @@
       "student": {
         "title": "No students yet",
         "body": "Invite your first student: they’ll get an email to choose their password."
+      },
+      "parent": {
+        "title": "No parents yet",
+        "body": "Invite a parent, then link them to their child or children."
       }
     },
     "noResults": {
@@ -836,7 +847,8 @@
     "invite": {
       "title": {
         "teacher": "Invite a teacher",
-        "student": "Invite a student"
+        "student": "Invite a student",
+        "parent": "Invite a parent"
       },
       "description": "An invitation email valid for 7 days will be sent. They will choose their own password.",
       "fields": {
@@ -865,6 +877,26 @@
       "activated": "Account reactivated.",
       "deactivated": "Account deactivated.",
       "saved": "Changes saved."
+    },
+    "guardians": {
+      "childrenOf": "Children of {name}",
+      "linked": "Student linked.",
+      "unlinked": "Link removed.",
+      "unlinkLabel": "Remove the link with {name}",
+      "addLabel": "Link a student to {name}",
+      "add": "Link a student",
+      "dialogTitle": "Link a student to {name}",
+      "dialogBody": "Choose the relationship, then the student.",
+      "relationship": "Relationship",
+      "relationships": {
+        "parent": "Parent",
+        "mother": "Mother",
+        "father": "Father",
+        "guardian": "Guardian"
+      },
+      "search": "Search for a student",
+      "searchPlaceholder": "Name or email…",
+      "noMatch": "No student matches."
     }
   },
   "classes": {
@@ -1710,7 +1742,8 @@
     "subtitle": {
       "admin": "Inform the whole school, a group or a class, and see who has read.",
       "teacher": "Announcements from the administration, and the ones you send to your classes.",
-      "student": "News from your school and your teachers."
+      "student": "News from your school and your teachers.",
+      "parent": "News from the school and your children’s class."
     },
     "views": {
       "label": "View",
@@ -1732,7 +1765,8 @@
       "teachers": "All teachers",
       "students": "All students",
       "class": "Class <n>{name}</n>",
-      "classOption": "Class: {name}"
+      "classOption": "Class: {name}",
+      "parents": "All parents"
     },
     "form": {
       "newTitle": "New announcement",
@@ -1801,7 +1835,8 @@
     "subtitle": {
       "admin": "Write privately to a teacher or a student.",
       "teacher": "Talk privately with your students and the administration.",
-      "student": "Talk privately with your teachers and the administration."
+      "student": "Talk privately with your teachers and the administration.",
+      "parent": "Talk privately with your children’s teachers and the administration."
     },
     "actions": {
       "new": "New message",
@@ -1811,7 +1846,8 @@
       "institution_admin": "Administration",
       "teacher": "Teacher",
       "student": "Student",
-      "super_admin": "Platform"
+      "super_admin": "Platform",
+      "parent": "Parent"
     },
     "list": {
       "label": "Conversations",
@@ -1864,7 +1900,8 @@
     "subtitle": {
       "admin": "Share rules, circulars and course material with the whole school or a class.",
       "teacher": "Documents from the administration, and the ones you share with your classes.",
-      "student": "Documents from your school and your teachers."
+      "student": "Documents from your school and your teachers.",
+      "parent": "Documents from the school and your children’s class."
     },
     "views": {
       "label": "View",
@@ -1888,7 +1925,8 @@
       "teachers": "All teachers",
       "students": "All students",
       "class": "Class <n>{name}</n>",
-      "classOption": "Class: {name}"
+      "classOption": "Class: {name}",
+      "parents": "All parents"
     },
     "by": "By <n>{name}</n>",
     "size": {
@@ -2178,6 +2216,20 @@
       "noGrades": "No marks published yet.",
       "absent": "Absent",
       "newsTitle": "Latest announcements"
+    },
+    "parent": {
+      "subtitle": "Following <n>{name}</n>, class <n>{cls}</n>.",
+      "noClass": "Your child isn’t in a class yet."
     }
+  },
+  "parent": {
+    "noChildren": {
+      "title": "No child linked",
+      "body": "Your school’s administration first needs to link your account to your child or children."
+    },
+    "switcher": {
+      "label": "Choose a child"
+    },
+    "viewingChild": "You are viewing {name}’s file."
   }
 }

@@ -43,7 +43,11 @@ type Row = {
   completions: { student_id: string }[];
 };
 
-async function toViews(client: TadrissClient, rows: Row[]): Promise<Result<HomeworkView[]>> {
+async function toViews(
+  client: TadrissClient,
+  rows: Row[],
+  studentId?: string,
+): Promise<Result<HomeworkView[]>> {
   const teacherIds = [...new Set(rows.map((r) => r.teacher_id))];
   const people =
     teacherIds.length > 0
@@ -72,7 +76,10 @@ async function toViews(client: TadrissClient, rows: Row[]): Promise<Result<Homew
               description: r.description,
               dueDate: r.due_date,
               archived: r.deleted_at !== null,
-              doneCount: r.completions.length,
+              // For one named student (a parent looking at one child) count only their tick.
+              doneCount: studentId
+                ? r.completions.filter((c) => c.student_id === studentId).length
+                : r.completions.length,
             },
           ]
         : [];
@@ -86,7 +93,7 @@ async function toViews(client: TadrissClient, rows: Row[]): Promise<Result<Homew
  */
 export async function listHomework(
   client: TadrissClient,
-  opts: { teacherId?: string; classId?: string; archived?: boolean } = {},
+  opts: { teacherId?: string; classId?: string; archived?: boolean; studentId?: string } = {},
 ): Promise<Result<HomeworkView[]>> {
   let query = client
     .from('homework')
@@ -99,7 +106,7 @@ export async function listHomework(
   if (opts.classId) query = query.eq('class_id', opts.classId);
   const { data, error } = await query;
   if (error) return err(toErrorCode(error));
-  return toViews(client, data);
+  return toViews(client, data, opts.studentId);
 }
 
 export async function getHomework(

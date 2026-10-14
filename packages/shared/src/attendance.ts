@@ -210,9 +210,9 @@ export type MyAttendanceEntry = {
 /** A student's own attendance, newest first (RLS shows each student only their own marks). */
 export async function listMyAttendance(
   client: TadrissClient,
-  opts: { limit?: number } = {},
+  opts: { limit?: number; studentId?: string } = {},
 ): Promise<Result<MyAttendanceEntry[]>> {
-  const { data, error } = await client
+  let query = client
     .from('attendance_sessions')
     .select(
       'id, session_date, starts_min, ends_min, subject:subjects!attendance_sessions_subject_id_institution_id_fkey(name, color), records:attendance_records!attendance_records_session_id_institution_id_fkey(status, note)',
@@ -220,6 +220,9 @@ export async function listMyAttendance(
     .order('session_date', { ascending: false })
     .order('starts_min', { ascending: false })
     .limit(opts.limit ?? 200);
+  // A parent sees every child's marks: narrow the embedded records to one child.
+  if (opts.studentId) query = query.eq('records.student_id', opts.studentId);
+  const { data, error } = await query;
   if (error) return err(toErrorCode(error));
 
   return ok(

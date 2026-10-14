@@ -35,7 +35,7 @@ export function NewAnnouncementButton({
 
   const options = [
     ...(schoolWide
-      ? (['all', 'teachers', 'students'] as const).map((a) => ({
+      ? (['all', 'teachers', 'students', 'parents'] as const).map((a) => ({
           value: a,
           label: t(`audience.${a}`),
         }))

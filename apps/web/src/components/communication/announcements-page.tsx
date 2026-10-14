@@ -33,7 +33,7 @@ export async function AnnouncementsPage({
   const tz = viewer?.profile.institution?.timezone ?? 'Africa/Casablanca';
   const userId = viewer?.session.userId ?? '';
   const isAdmin = area === 'dashboard';
-  const canPublish = area !== 'student';
+  const canPublish = area === 'dashboard' || area === 'teacher';
   const view: View = params.view === 'deleted' && canPublish ? 'deleted' : 'active';
   const supabase = await getServerClient();
 

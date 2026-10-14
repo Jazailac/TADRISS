@@ -337,12 +337,15 @@ export async function getInvoice(
 /** A student's own invoices (RLS hides void ones and everyone else's), newest due date first, with payments. */
 export async function listMyInvoices(
   client: TadrissClient,
+  opts: { studentId?: string } = {},
 ): Promise<Result<(InvoiceView & { payments: PaymentView[] })[]>> {
-  const { data, error } = await client
+  let query = client
     .from('invoice_balances')
     .select(BALANCE_COLUMNS)
     .order('due_date', { ascending: false })
     .limit(200);
+  if (opts.studentId) query = query.eq('student_id', opts.studentId);
+  const { data, error } = await query;
   if (error) return err(toErrorCode(error));
   const views = await withStudentNames(client, data.filter(isComplete));
   if (!views.ok) return views;

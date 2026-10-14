@@ -32,7 +32,20 @@ const forAverage = (g: MyGrade): MarkForAverage => ({
 });
 
 /** A student's published marks: the general average, then each subject with its exams. */
-export async function StudentGradesPage({ params }: { params: StudentGradesParams }) {
+export async function StudentGradesPage({
+  params,
+  studentId,
+  base = '/student',
+  query = {},
+  hasClass,
+}: {
+  params: StudentGradesParams;
+  studentId?: string;
+  base?: string;
+  /** Extra query parameters kept on the term tabs (e.g. which child). */
+  query?: Record<string, string>;
+  hasClass?: boolean;
+}) {
   const term = params.term === '1' ? 1 : params.term === '2' ? 2 : undefined;
   const supabase = await getServerClient();
   const [t, shell, errors, f, grades, classes] = await Promise.all([
@@ -40,7 +53,7 @@ export async function StudentGradesPage({ params }: { params: StudentGradesParam
     getTranslations('shell.groups'),
     getTranslations('errors'),
     getFormatter(),
-    listMyGrades(supabase),
+    listMyGrades(supabase, { studentId }),
     listClasses(supabase, { schoolYear: currentSchoolYear() }),
   ]);
 
@@ -62,7 +75,7 @@ export async function StudentGradesPage({ params }: { params: StudentGradesParam
           </span>
           <h2 className="display text-2xl">{t('error.title')}</h2>
           <p className="max-w-md text-sm text-text-muted">{t('error.body')}</p>
-          <ButtonLink href="/student/grades" variant="secondary" className="mt-2">
+          <ButtonLink href={`${base}/grades`} variant="secondary" className="mt-2">
             {errors('retry')}
           </ButtonLink>
         </Card>
@@ -77,12 +90,12 @@ export async function StudentGradesPage({ params }: { params: StudentGradesParam
   const subjects = [...new Map(shown.map((g) => [g.subjectId, g])).values()].sort((a, b) =>
     a.subjectName.localeCompare(b.subjectName),
   );
-  const noClass = classes.ok && classes.data.length === 0;
+  const noClass = hasClass === undefined ? classes.ok && classes.data.length === 0 : !hasClass;
   const num = (n: number) => f.number(n, { maximumFractionDigits: 2 });
   const tabs = [
-    { key: 'all', label: t('filters.all'), q: {} },
-    { key: '1', label: t('terms.1'), q: { term: '1' } },
-    { key: '2', label: t('terms.2'), q: { term: '2' } },
+    { key: 'all', label: t('filters.all'), q: { ...query } },
+    { key: '1', label: t('terms.1'), q: { ...query, term: '1' } },
+    { key: '2', label: t('terms.2'), q: { ...query, term: '2' } },
   ];
 
   return (
@@ -105,7 +118,7 @@ export async function StudentGradesPage({ params }: { params: StudentGradesParam
             {tabs.map((x) => (
               <Link
                 key={x.key}
-                href={{ pathname: '/student/grades', query: x.q }}
+                href={{ pathname: `${base}/grades`, query: x.q }}
                 aria-current={(term ? String(term) : 'all') === x.key ? 'page' : undefined}
                 className={cx(
                   'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',

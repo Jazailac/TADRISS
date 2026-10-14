@@ -354,3 +354,30 @@ from (values
   ('10000000-0000-4000-8000-000000000b04', '10000000-0000-4000-8000-000000000101', 'class', '10000000-0000-4000-8000-000000000401',
    'Fiche de révision : les fractions', 'Pour le contrôle de lundi.', 'fiche-fractions.txt', '2026-10-05 15:30+00')
 ) as v(id, uploader, audience, class_id, title, description, file_name, created_at);
+
+-- ── Phase 13: parents (Al Manar) ────────────────────────────────────────────
+-- parent01 guards eleve01; parent02 guards eleve02 AND eleve12 (two children, to show the switcher);
+-- parent03..05 guard eleve03..05.
+select pg_temp.seed_user(('10000000-0000-4000-8000-0000000003' || lpad(n::text, 2, '0'))::uuid,
+                         'parent' || lpad(n::text, 2, '0') || '@almanar.test')
+from generate_series(1, 5) as n;
+
+insert into public.profiles (id, institution_id, role, first_name, last_name, locale, email)
+select ('10000000-0000-4000-8000-0000000003' || lpad(t.n::text, 2, '0'))::uuid,
+       '10000000-0000-4000-8000-000000000001', 'parent', t.first_name, t.last_name, 'fr',
+       'parent' || lpad(t.n::text, 2, '0') || '@almanar.test'
+from (values (1, 'Karim', 'El Idrissi'), (2, 'Nadia', 'Bennani'), (3, 'Said', 'Tazi'),
+             (4, 'Latifa', 'Ouazzani'), (5, 'Hassan', 'Alaoui')) as t(n, first_name, last_name);
+
+insert into public.guardianships (institution_id, parent_id, student_id, relationship)
+select '10000000-0000-4000-8000-000000000001',
+       ('10000000-0000-4000-8000-0000000003' || lpad(l.p::text, 2, '0'))::uuid,
+       ('10000000-0000-4000-8000-0000000002' || lpad(l.s::text, 2, '0'))::uuid,
+       l.rel
+from (values (1, 1, 'father'), (2, 2, 'mother'), (2, 12, 'mother'),
+             (3, 3, 'father'), (4, 4, 'mother'), (5, 5, 'father')) as l(p, s, rel);
+
+insert into public.announcements (id, institution_id, author_id, audience, class_id, title, body, created_at) values
+  ('10000000-0000-4000-8000-000000000906', '10000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-0000000000a1', 'parents', null,
+   'Réunion parents-professeurs',
+   E'Une réunion parents-professeurs aura lieu le samedi 18 octobre à 10 h.\nVous pourrez y rencontrer les enseignants de vos enfants.', '2026-10-07 09:00+00');

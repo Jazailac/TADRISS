@@ -20,7 +20,7 @@ describe('parseAudience', () => {
     expect(parseAudience(`class:${c}`)).toEqual({ audience: 'class', classId: c });
   });
   it('refuses anything else, including a class without a real id', () => {
-    for (const v of ['', 'class', 'class:', 'class:abc', 'parents', 'ALL'])
+    for (const v of ['', 'class', 'class:', 'class:abc', 'parent', 'ALL'])
       expect(parseAudience(v)).toBeNull();
   });
   it('round-trips with audienceValue', () => {

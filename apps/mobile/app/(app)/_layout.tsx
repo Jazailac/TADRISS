@@ -8,6 +8,7 @@ import { MeProvider, useMe } from '@/lib/me';
 const tabsByRole: Record<Role, readonly string[]> = {
   student: ['home', 'schedule', 'homework', 'messages', 'more'],
   teacher: ['home', 'schedule', 'homework', 'messages', 'more'],
+  parent: ['home', 'messages', 'more'],
   institution_admin: ['home', 'messages', 'more'],
   super_admin: ['home'],
 };

@@ -6,7 +6,7 @@ rule or architectural fact changes, update this file in the same PR.
 ## Project
 
 Tadriss (تدريس) is a multi-tenant school-management SaaS for private schools in Morocco.
-Roles: `super_admin` (platform), `institution_admin`, `teacher`, `student`. Every user except
+Roles: `super_admin` (platform), `institution_admin`, `teacher`, `student`, `parent`. Every user except
 `super_admin` belongs to exactly one institution. Locales: **fr (default)**, ar (RTL), en.
 Currency: MAD, stored as integer centimes ([ADR 0004](docs/decisions/0004-money-as-integer-centimes.md)).
 
@@ -153,6 +153,13 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   `components/home/{admin,teacher,student}-home.tsx` with `StatTile`/`Panel` from `dash-parts.tsx`. They respect module
   switches (`getDisabledModules`: a disabled module's tile/panel is dropped) and use the school's "today". A school
   with no people and no classes sees a "getting started" panel instead of zeros.
+- **Parents (Phase 13):** role `parent`, linked to students through `guardianships` (admin-managed; the
+  trigger checks the roles of both ends). `private.my_children_ids()` / `my_children_class_ids()` are SECURITY
+  DEFINER helpers; parents get read-only policies on a child's attendance, homework, published grades, invoices,
+  payments (not voided), timetable, and `parents`-audience or child-class announcements/documents. Messaging is
+  teacher↔parent and admin↔parent only. Web: `/parent/*` reuses the student pages with `studentId` + `base`
+  (child switcher `?child=`, `lib/children.ts`); admins link children at `/dashboard/parents`. Parents are not
+  counted in plan seats and module switches do not apply to them. Mobile: Home (news), Messages, More.
 - **Mobile (Expo):** `app/(app)/_layout.tsx` wraps everything in `MeProvider` (profile, the school's "today", locale;
   signed-out people go to `/login`) and a token-styled tab bar limited by role (student/teacher: Home, Schedule,
   Homework, Messages, More; admin: Home, Messages, More). Screens call the **same shared functions** as the web through

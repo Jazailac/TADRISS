@@ -53,7 +53,8 @@
     "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
     "file_too_large": "Ce fichier dépasse 10 Mo.",
     "file_type": "Ce type de fichier n’est pas accepté.",
-    "plan_limit_reached": "Votre formule a atteint sa limite de places. Contactez-nous pour la faire évoluer."
+    "plan_limit_reached": "Votre formule a atteint sa limite de places. Contactez-nous pour la faire évoluer.",
+    "invalid_guardianship": "Ce lien est impossible : il faut un parent et un élève du même établissement."
   },
   "login": {
     "title": "Bon retour",
@@ -87,7 +88,8 @@
     "super_admin": "Plateforme",
     "institution_admin": "Direction",
     "teacher": "Enseignant·e",
-    "student": "Élève"
+    "student": "Élève",
+    "parent": "Parent"
   },
   "validation": {
     "required": "Ce champ est requis.",

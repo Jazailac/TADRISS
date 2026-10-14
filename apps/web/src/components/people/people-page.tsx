@@ -1,5 +1,6 @@
 import {
   countPeople,
+  listGuardianLinks,
   listOpenInvitations,
   listPeople,
   type MemberRole,
@@ -17,6 +18,7 @@ import { Card } from '../ui/card';
 import { cx } from '../ui/cx';
 import { EmptyState } from '../ui/empty-state';
 import { Input } from '../ui/field';
+import { GuardianLinks } from './guardian-links';
 import { InvitationActions } from './invitation-actions';
 import { InviteDialog } from './invite-dialog';
 import { MemberActions } from './member-actions';
@@ -44,13 +46,14 @@ export async function PeoplePage({
   const q = (params.q ?? '').slice(0, 80);
 
   const supabase = await getServerClient();
-  const [t, shell, f, people, counts, invitations] = await Promise.all([
+  const [t, shell, f, people, counts, invitations, guardians] = await Promise.all([
     getTranslations('people'),
     getTranslations('shell.groups'),
     getFormatter(),
     listPeople(supabase, { role, status, q, page }),
     countPeople(supabase, role),
     listOpenInvitations(supabase, role),
+    role === 'parent' ? listGuardianLinks(supabase) : Promise.resolve(null),
   ]);
 
   const href = (next: { q?: string; status?: PeopleStatus; page?: number }) => {
@@ -235,6 +238,17 @@ export async function PeoplePage({
                   `status.${p.invited ? 'invited' : p.isActive ? 'active' : 'inactive'}`,
                 )}
                 noEmail={t('list.noEmail')}
+                extra={
+                  role === 'parent' ? (
+                    <GuardianLinks
+                      parentId={p.id}
+                      parentName={`${p.firstName} ${p.lastName}`}
+                      links={(guardians?.ok ? guardians.data : []).filter(
+                        (l) => l.parentId === p.id,
+                      )}
+                    />
+                  ) : null
+                }
               />
             ))}
           </ul>
@@ -273,10 +287,12 @@ function PersonRow({
   person,
   statusLabel,
   noEmail,
+  extra,
 }: {
   person: Person;
   statusLabel: string;
   noEmail: string;
+  extra?: React.ReactNode;
 }) {
   const tone = person.invited ? 'info' : person.isActive ? 'success' : 'neutral';
   return (
@@ -296,6 +312,7 @@ function PersonRow({
         {statusLabel}
       </Badge>
       {person.invited ? null : <MemberActions person={person} />}
+      {extra}
     </li>
   );
 }

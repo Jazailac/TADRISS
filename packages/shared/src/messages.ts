@@ -85,7 +85,7 @@ export async function listContacts(
     .select('id, first_name, last_name, role')
     .neq('id', myId)
     .eq('is_active', true)
-    .in('role', ['institution_admin', 'teacher', 'student'])
+    .in('role', ['institution_admin', 'teacher', 'student', 'parent'])
     .order('last_name')
     .order('first_name')
     .limit(1000);

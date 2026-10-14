@@ -17,6 +17,7 @@ const pages: Record<string, string[]> = {
   'admin2@almanar.test': [
     '/dashboard',
     '/dashboard/students',
+    '/dashboard/parents',
     '/dashboard/teachers',
     '/dashboard/classes',
     `/dashboard/schedule?year=${SEED_YEAR}`,
@@ -40,6 +41,17 @@ const pages: Record<string, string[]> = {
     '/teacher/documents',
   ],
   'ops@tadriss.test': ['/admin', '/admin/institutions', '/admin/audit'],
+  'parent02@almanar.test': [
+    '/parent',
+    '/parent/schedule',
+    '/parent/attendance',
+    '/parent/homework',
+    '/parent/grades',
+    '/parent/payments',
+    '/parent/announcements',
+    '/parent/messages',
+    '/parent/documents',
+  ],
   'eleve01@almanar.test': [
     '/student',
     '/student/schedule',
