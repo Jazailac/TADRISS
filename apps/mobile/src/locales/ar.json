@@ -20,7 +20,9 @@
   },
   "common": {
     "loading": "جارٍ التحميل…",
-    "back": "رجوع"
+    "back": "رجوع",
+    "readMore": "قراءة المزيد",
+    "showLess": "عرض أقل"
   },
   "errors": {
     "genericTitle": "حدث خطأ",
@@ -82,7 +84,14 @@
     "students": "التلاميذ",
     "teachers": "الأساتذة",
     "outstanding": "المتبقي للتحصيل",
-    "platform": "لوحة المنصة متاحة على الويب."
+    "platform": "لوحة المنصة متاحة على الويب.",
+    "inProgress": "الآن",
+    "upNext": "الحصة التالية",
+    "dayComplete": "انتهت حصص اليوم.",
+    "schoolPulse": "مدرستك، في حركة",
+    "unreadAnnouncements": "إعلانات غير مقروءة",
+    "homeworkPending": "واجبات لإكمالها: {{count}}",
+    "allHomeworkDone": "لا توجد واجبات متبقية لإكمالها."
   },
   "roles": {
     "super_admin": "المنصة",
@@ -127,7 +136,10 @@
   },
   "schedule": {
     "title": "جدول الحصص",
-    "none": "لا توجد دروس في هذا اليوم."
+    "none": "لا توجد دروس في هذا اليوم.",
+    "week": "من {{start}} إلى {{end}}",
+    "daySummary": "{{count}} حصص · {{hours}} س",
+    "duration": "{{minutes}} د"
   },
   "homework": {
     "title": "الواجبات",
@@ -140,7 +152,10 @@
     "mark": "تعيين «{{title}}» كمنجز أو غير منجز",
     "check": "✓",
     "due": "لتاريخ {{date}}",
-    "finished": "المنجزون: {{count}}"
+    "finished": "المنجزون: {{count}}",
+    "workPlan": "خطة العمل",
+    "progress": "{{done}} مكتملة من {{total}}",
+    "details": "عرض الواجب «{{title}}»"
   },
   "messages": {
     "title": "الرسائل",
@@ -152,7 +167,8 @@
     "noContacts": "لا يوجد من تراسله حاليًا.",
     "startThread": "اكتب أول رسالة.",
     "placeholder": "اكتب رسالتك…",
-    "send": "إرسال"
+    "send": "إرسال",
+    "read": "تمت القراءة"
   },
   "more": {
     "announcements": "الإعلانات",
@@ -167,7 +183,14 @@
     "empty": "لا توجد نقط منشورة.",
     "average": "المعدل العام",
     "absent": "غائب",
-    "term": "الدورة {{term}}"
+    "term": "الدورة {{term}}",
+    "allTerms": "الكل",
+    "outOf20": "/20",
+    "outOf": "/{{max}}",
+    "resultsCount": "التقييمات المنشورة: {{count}}",
+    "bySubject": "موادك",
+    "results": "نتائجك",
+    "coefficient": "المعامل {{value}}"
   },
   "attendance": {
     "title": "الحضور",
@@ -178,7 +201,10 @@
       "late": "متأخر",
       "absent": "غائب",
       "excused": "معذور"
-    }
+    },
+    "percent": "٪",
+    "window": "خلال آخر {{count}} حصة مسجلة.",
+    "register": "سجل الحضور"
   },
   "payments": {
     "title": "الأداءات",
@@ -191,11 +217,51 @@
       "unpaid": "غير مؤدّاة",
       "overdue": "متأخرة",
       "void": "ملغاة"
-    }
+    },
+    "paid": "مجموع المدفوعات",
+    "ledger": "سجل الفواتير",
+    "due": "الاستحقاق في {{date}}"
   },
   "documents": {
     "title": "الوثائق",
     "empty": "لا توجد وثائق.",
-    "open": "فتح"
+    "open": "فتح",
+    "library": "المكتبة",
+    "count": "{{count}} وثيقة",
+    "openNamed": "فتح «{{title}}»",
+    "type": {
+      "pdf": "PDF",
+      "image": "صورة",
+      "sheet": "جدول",
+      "slides": "عرض",
+      "text": "نص"
+    }
+  },
+  "design": {
+    "emptyHint": "ستظهر مستجدات مدرستك هنا.",
+    "today": "يومك في لمحة",
+    "space": "مدرستك، تجمعنا",
+    "welcomeEyebrow": "وضوح أكثر. كل يوم.",
+    "loginNote": "حياتك المدرسية في مكان واحد.",
+    "schoolSpace": "الفضاء المدرسي",
+    "personalSpace": "مساحتك الشخصية",
+    "preferences": "مساحة تشبهك",
+    "languageHint": "اختر اللغة التي تناسبك.",
+    "themeHint": "عرض مريح، ليلاً ونهاراً.",
+    "securityNote": "حسابك مرتبط بمدرستك.",
+    "scheduleHint": "نظرة واضحة على أسبوعك الدراسي.",
+    "messagesHint": "التواصل الجيد يقرب الجميع.",
+    "gradesHint": "كل خطوة إلى الأمام، في مكان واحد.",
+    "attendanceHint": "المواظبة تصنع الفرق.",
+    "paymentsHint": "نظرة واضحة على مدفوعاتك المدرسية.",
+    "documentsHint": "الأساسيات دائماً في متناول يدك.",
+    "announcementsHint": "ابق على اطلاع بأخبار مدرستك.",
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "lessonCount": "{{count}} حصص",
+    "schoolDay": "يومك في المدرسة",
+    "quickAccess": "في متناول يدك",
+    "viewAll": "عرض الكل",
+    "welcomeFooter": "من أجل مدرستك. ليومك الدراسي."
   }
 }

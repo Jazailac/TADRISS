@@ -20,7 +20,9 @@
   },
   "common": {
     "loading": "Loading…",
-    "back": "Back"
+    "back": "Back",
+    "readMore": "Read more",
+    "showLess": "Show less"
   },
   "errors": {
     "genericTitle": "Something went wrong",
@@ -82,7 +84,14 @@
     "students": "Students",
     "teachers": "Teachers",
     "outstanding": "Outstanding",
-    "platform": "The platform console is available on the web."
+    "platform": "The platform console is available on the web.",
+    "inProgress": "In progress",
+    "upNext": "Up next",
+    "dayComplete": "Today’s lessons are complete.",
+    "schoolPulse": "Your school, in motion",
+    "unreadAnnouncements": "Unread announcements",
+    "homeworkPending": "Homework to finish: {{count}}",
+    "allHomeworkDone": "No homework left to finish."
   },
   "roles": {
     "super_admin": "Platform",
@@ -127,7 +136,10 @@
   },
   "schedule": {
     "title": "Timetable",
-    "none": "No lessons that day."
+    "none": "No lessons that day.",
+    "week": "{{start}} – {{end}}",
+    "daySummary": "{{count}} lessons · {{hours}} h",
+    "duration": "{{minutes}} min"
   },
   "homework": {
     "title": "Homework",
@@ -140,7 +152,10 @@
     "mark": "Mark “{{title}}” as done or not done",
     "check": "✓",
     "due": "Due {{date}}",
-    "finished": "Finished: {{count}}"
+    "finished": "Finished: {{count}}",
+    "workPlan": "Your work plan",
+    "progress": "{{done}} finished out of {{total}}",
+    "details": "View homework “{{title}}”"
   },
   "messages": {
     "title": "Messages",
@@ -152,7 +167,8 @@
     "noContacts": "Nobody to write to yet.",
     "startThread": "Write the first message.",
     "placeholder": "Write your message…",
-    "send": "Send"
+    "send": "Send",
+    "read": "Read"
   },
   "more": {
     "announcements": "Announcements",
@@ -167,7 +183,14 @@
     "empty": "No marks published yet.",
     "average": "Overall average",
     "absent": "Absent",
-    "term": "Term {{term}}"
+    "term": "Term {{term}}",
+    "allTerms": "All",
+    "outOf20": "/20",
+    "outOf": "/{{max}}",
+    "resultsCount": "Published assessments: {{count}}",
+    "bySubject": "Your subjects",
+    "results": "Your results",
+    "coefficient": "Weight {{value}}"
   },
   "attendance": {
     "title": "Attendance",
@@ -178,7 +201,10 @@
       "late": "Late",
       "absent": "Absent",
       "excused": "Excused"
-    }
+    },
+    "percent": "%",
+    "window": "Across the latest {{count}} recorded lessons.",
+    "register": "The attendance register"
   },
   "payments": {
     "title": "Payments",
@@ -191,11 +217,51 @@
       "unpaid": "Unpaid",
       "overdue": "Overdue",
       "void": "Void"
-    }
+    },
+    "paid": "Total paid",
+    "ledger": "The invoice ledger",
+    "due": "Due {{date}}"
   },
   "documents": {
     "title": "Documents",
     "empty": "No documents.",
-    "open": "Open"
+    "open": "Open",
+    "library": "The library",
+    "count": "{{count}} documents",
+    "openNamed": "Open “{{title}}”",
+    "type": {
+      "pdf": "PDF",
+      "image": "Image",
+      "sheet": "Sheet",
+      "slides": "Slides",
+      "text": "Text"
+    }
+  },
+  "design": {
+    "emptyHint": "Your school’s updates will appear here.",
+    "today": "Your day, at a glance",
+    "space": "Your school, together",
+    "welcomeEyebrow": "A little clarity. Every day.",
+    "loginNote": "One place for your school day.",
+    "schoolSpace": "School workspace",
+    "personalSpace": "Your personal space",
+    "preferences": "Make yourself at home",
+    "languageHint": "Choose the language that feels like you.",
+    "themeHint": "A comfortable view, day or night.",
+    "securityNote": "Your account belongs to your school.",
+    "scheduleHint": "A clear view of your learning week.",
+    "messagesHint": "Good conversations keep everyone connected.",
+    "gradesHint": "Every step forward, in one place.",
+    "attendanceHint": "A little consistency makes a big difference.",
+    "paymentsHint": "A clear picture of your school payments.",
+    "documentsHint": "The essentials, always close at hand.",
+    "announcementsHint": "Stay close to what’s happening at school.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "lessonCount": "{{count}} lessons",
+    "schoolDay": "Your school day",
+    "quickAccess": "At your fingertips",
+    "viewAll": "View all",
+    "welcomeFooter": "Made for your school. Designed for your day."
   }
 }

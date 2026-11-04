@@ -1,8 +1,9 @@
-import { getMyProfile, todayIn, type Locale, type MyProfile } from '@tadriss/shared';
+import { getMyProfile, type Locale, type MyProfile } from '@tadriss/shared';
 import { Redirect } from 'expo-router';
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, View } from 'react-native';
+import { LoadingState } from '@/ui/kit';
+import { useSchoolToday } from './clock';
 import { useSession } from './session';
 import { supabase } from './supabase';
 
@@ -30,6 +31,7 @@ export function MeProvider({ children }: { children: ReactNode }) {
   const { i18n } = useTranslation();
   const [profile, setProfile] = useState<MyProfile | null>(null);
   const [failed, setFailed] = useState(false);
+  const today = useSchoolToday(profile?.institution?.timezone ?? 'Africa/Casablanca');
 
   useEffect(() => {
     if (!session?.role) return;
@@ -41,14 +43,9 @@ export function MeProvider({ children }: { children: ReactNode }) {
 
   if (session === null || session?.role === null || failed) return <Redirect href="/login" />;
   if (!session || !profile || !session.institutionId) {
-    return (
-      <View className="flex-1 items-center justify-center bg-background">
-        <ActivityIndicator />
-      </View>
-    );
+    return <LoadingState full />;
   }
 
-  const tz = profile.institution?.timezone ?? 'Africa/Casablanca';
   const locale = (['fr', 'ar', 'en'] as const).find((l) => l === i18n.language) ?? 'fr';
   return (
     <MeContext.Provider
@@ -56,7 +53,7 @@ export function MeProvider({ children }: { children: ReactNode }) {
         userId: session.userId,
         institutionId: session.institutionId,
         profile,
-        today: todayIn(tz),
+        today,
         locale,
       }}
     >

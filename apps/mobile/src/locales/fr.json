@@ -20,7 +20,9 @@
   },
   "common": {
     "loading": "Chargement…",
-    "back": "Retour"
+    "back": "Retour",
+    "readMore": "Lire la suite",
+    "showLess": "Réduire"
   },
   "errors": {
     "genericTitle": "Une erreur est survenue",
@@ -82,7 +84,14 @@
     "students": "Élèves",
     "teachers": "Enseignants",
     "outstanding": "Reste à encaisser",
-    "platform": "La console de la plateforme est disponible sur le web."
+    "platform": "La console de la plateforme est disponible sur le web.",
+    "inProgress": "En cours",
+    "upNext": "À suivre",
+    "dayComplete": "Les cours du jour sont terminés.",
+    "schoolPulse": "Votre école, en mouvement",
+    "unreadAnnouncements": "Annonces non lues",
+    "homeworkPending": "Devoirs à terminer : {{count}}",
+    "allHomeworkDone": "Aucun devoir à terminer."
   },
   "roles": {
     "super_admin": "Plateforme",
@@ -127,7 +136,10 @@
   },
   "schedule": {
     "title": "Emploi du temps",
-    "none": "Aucun cours ce jour-là."
+    "none": "Aucun cours ce jour-là.",
+    "week": "Du {{start}} au {{end}}",
+    "daySummary": "{{count}} cours · {{hours}} h",
+    "duration": "{{minutes}} min"
   },
   "homework": {
     "title": "Devoirs",
@@ -140,7 +152,10 @@
     "mark": "Marquer « {{title}} » comme fait ou non fait",
     "check": "✓",
     "due": "Pour le {{date}}",
-    "finished": "Terminés : {{count}}"
+    "finished": "Terminés : {{count}}",
+    "workPlan": "Plan de travail",
+    "progress": "{{done}} terminés sur {{total}}",
+    "details": "Consulter le devoir « {{title}} »"
   },
   "messages": {
     "title": "Messages",
@@ -152,7 +167,8 @@
     "noContacts": "Personne à qui écrire pour le moment.",
     "startThread": "Écrivez le premier message.",
     "placeholder": "Écrivez votre message…",
-    "send": "Envoyer"
+    "send": "Envoyer",
+    "read": "Lu"
   },
   "more": {
     "announcements": "Annonces",
@@ -167,7 +183,14 @@
     "empty": "Aucune note publiée.",
     "average": "Moyenne générale",
     "absent": "Absent",
-    "term": "Trimestre {{term}}"
+    "term": "Trimestre {{term}}",
+    "allTerms": "Tout",
+    "outOf20": "/20",
+    "outOf": "/{{max}}",
+    "resultsCount": "Évaluations publiées : {{count}}",
+    "bySubject": "Vos matières",
+    "results": "Les résultats",
+    "coefficient": "Coef. {{value}}"
   },
   "attendance": {
     "title": "Présences",
@@ -178,7 +201,10 @@
       "late": "En retard",
       "absent": "Absent",
       "excused": "Excusé"
-    }
+    },
+    "percent": "%",
+    "window": "Sur les {{count}} derniers cours enregistrés.",
+    "register": "Le registre des présences"
   },
   "payments": {
     "title": "Paiements",
@@ -191,11 +217,51 @@
       "unpaid": "Impayée",
       "overdue": "En retard",
       "void": "Annulée"
-    }
+    },
+    "paid": "Total réglé",
+    "ledger": "Le registre des factures",
+    "due": "Échéance le {{date}}"
   },
   "documents": {
     "title": "Documents",
     "empty": "Aucun document.",
-    "open": "Ouvrir"
+    "open": "Ouvrir",
+    "library": "La bibliothèque",
+    "count": "{{count}} documents",
+    "openNamed": "Ouvrir « {{title}} »",
+    "type": {
+      "pdf": "PDF",
+      "image": "Image",
+      "sheet": "Tableur",
+      "slides": "Diaporama",
+      "text": "Texte"
+    }
+  },
+  "design": {
+    "emptyHint": "Les nouvelles de votre école apparaîtront ici.",
+    "today": "Votre journée, en un regard",
+    "space": "Votre école, ensemble",
+    "welcomeEyebrow": "Un peu de clarté. Chaque jour.",
+    "loginNote": "Votre vie scolaire, au même endroit.",
+    "schoolSpace": "Espace scolaire",
+    "personalSpace": "Votre espace personnel",
+    "preferences": "Un espace qui vous ressemble",
+    "languageHint": "Choisissez la langue qui vous ressemble.",
+    "themeHint": "Un affichage agréable, de jour comme de nuit.",
+    "securityNote": "Votre compte est rattaché à votre école.",
+    "scheduleHint": "Une vue claire sur votre semaine.",
+    "messagesHint": "De bonnes conversations rapprochent votre école.",
+    "gradesHint": "Chaque progrès, au même endroit.",
+    "attendanceHint": "La régularité fait toute la différence.",
+    "paymentsHint": "Une vue claire de vos paiements scolaires.",
+    "documentsHint": "Les essentiels, toujours à portée de main.",
+    "announcementsHint": "Gardez le lien avec la vie de votre école.",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "lessonCount": "{{count}} cours",
+    "schoolDay": "Votre journée à l’école",
+    "quickAccess": "À portée de main",
+    "viewAll": "Tout voir",
+    "welcomeFooter": "Pensé pour votre école. Conçu pour votre quotidien."
   }
 }

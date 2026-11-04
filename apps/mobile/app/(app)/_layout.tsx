@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MeProvider, useMe } from '@/lib/me';
+import { Icon, type IconName } from '@/ui/kit';
 
 const tabsByRole: Record<Role, readonly string[]> = {
   student: ['home', 'schedule', 'homework', 'messages', 'more'],
@@ -32,7 +33,7 @@ function TabBar({ state, navigation }: TabBarProps) {
   return (
     <View
       style={{ paddingBottom: Math.max(insets.bottom, 8) }}
-      className="flex-row border-t border-border bg-surface pt-2"
+      className="flex-row border-t border-border bg-surface px-1 pt-2"
     >
       {state.routes
         .filter((r) => allowed.includes(r.name))
@@ -40,6 +41,7 @@ function TabBar({ state, navigation }: TabBarProps) {
           const focused = state.routes[state.index]?.name === route.name;
           return (
             <Pressable
+              testID={`tab-${route.name}`}
               key={route.key}
               accessibilityRole="tab"
               accessibilityState={{ selected: focused }}
@@ -51,12 +53,21 @@ function TabBar({ state, navigation }: TabBarProps) {
                 });
                 if (!focused && !event.defaultPrevented) navigation.navigate(route.name);
               }}
-              className="flex-1 items-center gap-1 py-2"
+              className="min-h-16 flex-1 items-center gap-1.5 px-0.5 py-1"
+              style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
             >
               <View
-                className={`h-1 w-8 rounded-full ${focused ? 'bg-primary' : 'bg-transparent'}`}
-              />
-              <Text className={`text-xs ${focused ? 'font-bold text-primary' : 'text-text-muted'}`}>
+                className={`h-8 w-12 items-center justify-center rounded-xl ${focused ? 'bg-primary' : 'bg-transparent'}`}
+              >
+                <Icon
+                  name={route.name as IconName}
+                  tone={focused ? 'inverse' : 'neutral'}
+                  active={focused}
+                />
+              </View>
+              <Text
+                className={`text-[12px] leading-4 text-center ${focused ? 'font-bold text-primary' : 'text-text-muted'}`}
+              >
                 {t(`tabs.${route.name as 'home' | 'schedule' | 'homework' | 'messages' | 'more'}`)}
               </Text>
             </Pressable>

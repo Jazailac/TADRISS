@@ -20,6 +20,10 @@ appId: ma.tadriss.app
 - assertVisible:
     id: greeting
 - tapOn:
+    id: tab-more
+- tapOn:
+    id: more-settings
+- tapOn:
     id: sign-out
 - assertVisible:
     id: brand

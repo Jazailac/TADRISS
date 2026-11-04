@@ -1,16 +1,23 @@
 import { listConversations } from '@tadriss/shared';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useLoad } from '@/lib/load';
 import { supabase } from '@/lib/supabase';
-import { Async, Button, Card, Empty, Muted, Screen } from '@/ui/kit';
+import { useMe } from '@/lib/me';
+import { Async, Avatar, Button, Empty, Row, Screen } from '@/ui/kit';
 
 export default function Conversations() {
   const { t } = useTranslation();
+  const me = useMe();
   const { state, reload } = useLoad(() => listConversations(supabase), 'conversations');
   return (
-    <Screen title={t('messages.title')} onRefresh={reload}>
+    <Screen
+      title={t('messages.title')}
+      subtitle={t('design.messagesHint')}
+      icon="messages"
+      onRefresh={reload}
+    >
       <Button
         label={t('messages.new')}
         onPress={() => {
@@ -20,40 +27,41 @@ export default function Conversations() {
       <Async state={state} retry={reload}>
         {(items) =>
           items.length === 0 ? (
-            <Empty>{t('messages.empty')}</Empty>
+            <Empty icon="messages" hint={t('messages.newHint')}>
+              {t('messages.empty')}
+            </Empty>
           ) : (
-            <View className="gap-3">
-              {items.map((c) => {
+            <View className="border-t border-border">
+              {items.map((c, index) => {
                 const name = `${c.firstName} ${c.lastName}`.trim() || t('messages.unknown');
+                const date = new Intl.DateTimeFormat(me.locale, {
+                  day: 'numeric',
+                  month: 'short',
+                  timeZone: me.profile.institution?.timezone ?? 'Africa/Casablanca',
+                }).format(new Date(c.lastAt));
                 return (
-                  <Pressable
+                  <Row
                     key={c.otherId}
-                    accessibilityRole="button"
-                    onPress={() => {
-                      router.push(`/messages/${c.otherId}`);
-                    }}
-                  >
-                    <Card className={c.unread > 0 ? 'border-primary' : ''}>
-                      <View className="flex-row items-center justify-between gap-3">
-                        <Text
-                          className="flex-1 text-base font-semibold text-text"
-                          numberOfLines={1}
-                        >
-                          {name}
-                        </Text>
+                    title={name}
+                    subtitle={c.lastFromMe ? t('messages.you', { text: c.lastBody }) : c.lastBody}
+                    leading={<Avatar name={name} />}
+                    last={index === items.length - 1}
+                    trailing={
+                      <View className="items-end gap-2">
+                        <Text className="font-mono text-[13px] text-text-muted">{date}</Text>
                         {c.unread > 0 ? (
-                          <View className="min-w-6 items-center rounded-full bg-primary px-2 py-0.5">
-                            <Text className="text-xs font-bold text-primary-foreground">
+                          <View className="min-w-6 items-center rounded-full bg-primary px-2 py-1">
+                            <Text className="text-[13px] font-semibold text-primary-foreground">
                               {String(c.unread)}
                             </Text>
                           </View>
                         ) : null}
                       </View>
-                      <Muted>
-                        {c.lastFromMe ? t('messages.you', { text: c.lastBody }) : c.lastBody}
-                      </Muted>
-                    </Card>
-                  </Pressable>
+                    }
+                    onPress={() => {
+                      router.push(`/messages/${c.otherId}`);
+                    }}
+                  />
                 );
               })}
             </View>
