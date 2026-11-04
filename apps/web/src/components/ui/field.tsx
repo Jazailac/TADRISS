@@ -7,7 +7,7 @@ export function Label({ className, ...rest }: ComponentProps<'label'>) {
 }
 
 export const inputStyles =
-  'h-11 w-full rounded-md border border-border-strong/70 bg-surface px-3.5 text-[0.9375rem] text-text shadow-xs transition-[border-color,box-shadow] placeholder:text-text-muted/70 hover:border-border-strong focus:border-primary focus:ring-4 focus:ring-primary/12 focus:outline-none aria-invalid:border-danger aria-invalid:focus:ring-danger/12 disabled:opacity-60';
+  'h-11 w-full min-w-0 rounded-md border border-border-strong/70 bg-surface px-3.5 text-base sm:text-sm text-text shadow-xs transition-[border-color,box-shadow,background-color] duration-150 placeholder:text-text-muted/70 hover:border-border-strong focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none aria-invalid:border-danger aria-invalid:focus:ring-danger/12 disabled:cursor-not-allowed disabled:bg-surface-muted disabled:opacity-60';
 
 type InputProps = ComponentProps<'input'> & { icon?: ReactNode; trailing?: ReactNode };
 

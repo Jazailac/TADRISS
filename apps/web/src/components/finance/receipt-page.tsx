@@ -23,7 +23,12 @@ export async function ReceiptPage({ paymentId }: { paymentId: string }) {
 
   const r = res.data;
   const money = (c: number) => formatMoney(c, locale);
-  const back = viewer?.session.role === 'student' ? '/student/payments' : '/dashboard/finance';
+  const back =
+    viewer?.session.role === 'parent'
+      ? '/parent/payments'
+      : viewer?.session.role === 'student'
+        ? '/student/payments'
+        : '/dashboard/finance';
   const rows: [string, string][] = [
     [
       t('date'),
@@ -51,7 +56,7 @@ export async function ReceiptPage({ paymentId }: { paymentId: string }) {
 
       <article
         aria-label={t('title')}
-        className="relative overflow-hidden rounded-2xl border border-border bg-surface p-8 shadow-md print:rounded-none print:border-0 print:p-0 print:shadow-none"
+        className="relative overflow-hidden rounded-xl border border-border border-t-[3px] border-t-primary bg-surface p-5 shadow-md sm:p-10 print:rounded-none print:border-0 print:p-0 print:shadow-none"
       >
         {r.voided ? (
           <span
@@ -62,10 +67,10 @@ export async function ReceiptPage({ paymentId }: { paymentId: string }) {
           </span>
         ) : null}
 
-        <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-6">
+        <header className="flex flex-wrap items-start justify-between gap-4 border-b-2 border-primary/30 pb-6">
           <div>
             <Logo />
-            <p className="mt-3 font-semibold">
+            <p className="mt-3 break-words font-semibold">
               <bdi>{r.institutionName}</bdi>
             </p>
           </div>
@@ -77,20 +82,23 @@ export async function ReceiptPage({ paymentId }: { paymentId: string }) {
           </div>
         </header>
 
-        <dl className="mt-6 grid gap-3 text-sm">
+        <dl className="mt-6 grid divide-y divide-border text-sm">
           {rows.map(([label, value]) => (
-            <div key={label} className="grid grid-cols-[10rem_1fr] gap-4">
+            <div
+              key={label}
+              className="grid grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] gap-4 py-3.5 sm:grid-cols-[10rem_minmax(0,1fr)]"
+            >
               <dt className="text-text-muted">{label}</dt>
-              <dd className="font-medium">
+              <dd className="break-words font-medium">
                 <bdi>{value}</bdi>
               </dd>
             </div>
           ))}
         </dl>
 
-        <div className="mt-8 rounded-xl bg-surface-muted p-6 print:border print:border-border print:bg-transparent">
+        <div className="mt-8 break-inside-avoid rounded-xl border border-primary/15 bg-primary-soft/35 p-5 sm:p-6 print:border print:border-border print:bg-transparent">
           <p className="text-sm text-text-muted">{t('amount')}</p>
-          <p className="mt-1 font-mono text-4xl font-medium tabular-nums">
+          <p className="mt-1 break-words font-mono text-3xl font-medium tabular-nums sm:text-4xl">
             {money(r.amountCentimes)}
           </p>
           <p className="mt-3 text-sm text-text-muted">
@@ -104,7 +112,7 @@ export async function ReceiptPage({ paymentId }: { paymentId: string }) {
           </p>
         ) : null}
 
-        <footer className="mt-12 flex items-end justify-between gap-6 text-xs text-text-muted">
+        <footer className="mt-12 flex break-inside-avoid flex-wrap items-end justify-between gap-6 text-xs leading-relaxed text-text-muted">
           <p>{t('footer')}</p>
           <p className="w-48 border-t border-border-strong pt-2 text-center">{t('signature')}</p>
         </footer>

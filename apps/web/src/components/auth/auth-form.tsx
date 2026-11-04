@@ -7,7 +7,7 @@ import {
   signupInput,
   type ValidationKey,
 } from '@tadriss/shared';
-import { AlertCircle, MailCheck, Mail } from 'lucide-react';
+import { AlertCircle, ArrowRight, MailCheck, Mail } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useActionState, useState, type SubmitEvent } from 'react';
 import type { AuthState } from '@/app/actions/auth';
@@ -73,18 +73,17 @@ export function AuthForm({
 
   if (state?.notice === 'check_email') {
     return (
-      <div role="status" className="rounded-xl border border-border bg-surface p-6 shadow-sm">
-        <span className="inline-flex size-11 items-center justify-center rounded-full bg-primary-soft text-primary">
+      <div role="status" className="rounded-xl border border-success/20 bg-success-soft/40 p-6">
+        <span className="inline-flex size-12 items-center justify-center rounded-xl bg-success-soft text-success">
           <MailCheck className="size-5" aria-hidden />
         </span>
-        <h2 className="mt-4 text-lg font-semibold">{n('checkEmailTitle')}</h2>
-        <p className="mt-1 text-text-muted">{n('checkEmailBody')}</p>
+        <h2 className="display mt-5 text-2xl font-medium">{n('checkEmailTitle')}</h2>
+        <p className="mt-3 text-sm leading-7 text-text-muted">{n('checkEmailBody')}</p>
       </div>
     );
   }
 
-  const serverError =
-    !clientErrors && state?.error && state.error !== 'validation' ? state.error : null;
+  const serverError = state?.error && state.error !== 'validation' ? state.error : null;
 
   return (
     <form
@@ -104,7 +103,7 @@ export function AuthForm({
           [target.name]: issues[target.name],
         }));
       }}
-      className="grid grid-cols-2 gap-x-3 gap-y-1.5"
+      className="grid grid-cols-2 gap-x-4 gap-y-2"
     >
       <input type="hidden" name="locale" value={locale} />
       {next ? <input type="hidden" name="next" value={next} /> : null}
@@ -157,8 +156,9 @@ export function AuthForm({
         );
       })}
 
-      <Button type="submit" size="lg" className="col-span-2 mt-1" pending={pending}>
+      <Button type="submit" size="lg" className="col-span-2 mt-2 justify-between" pending={pending}>
         {submitLabel}
+        {!pending ? <ArrowRight className="rtl-flip size-4" aria-hidden /> : null}
       </Button>
     </form>
   );

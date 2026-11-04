@@ -1,5 +1,5 @@
 import type { Child } from '@tadriss/shared';
-import { Users } from 'lucide-react';
+import { Check, Users } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
 import { Link } from '@/i18n/navigation';
@@ -31,7 +31,7 @@ export async function WithChild({
 
   if (!child) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-3xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-3xl gap-7">
         <Card>
           <EmptyState
             heading="h1"
@@ -44,37 +44,49 @@ export async function WithChild({
   }
 
   return (
-    <div className="grid grid-cols-1 gap-7">
-      {kids.length > 1 ? (
-        <nav
-          aria-label={t('switcher.label')}
-          className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-2"
-        >
-          <Users className="size-4 text-text-muted" aria-hidden />
-          {kids.map((k) => (
-            <Link
-              key={k.id}
-              href={{ pathname: path, query: { ...extraQuery, child: k.id } }}
-              aria-current={k.id === child.id ? 'page' : undefined}
-              className={cx(
-                'inline-flex items-center gap-2 rounded-full py-1 ps-1 pe-3 text-sm font-medium transition-colors',
-                k.id === child.id
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-surface-muted text-text hover:bg-border',
-              )}
-            >
-              <Avatar
-                first={k.firstName}
-                last={k.lastName}
-                seed={k.id}
-                className="size-7 text-[0.65rem]"
-              />
-              <bdi>{k.firstName}</bdi>
-            </Link>
-          ))}
-        </nav>
-      ) : null}
-      <p className="sr-only">{t('viewingChild', { name: `${child.firstName} ${child.lastName}` })}</p>
+    <div className="parent-page grid grid-cols-1 gap-7">
+      <div className="parent-child-context mx-auto w-full max-w-6xl">
+        <div className="parent-current-child">
+          <Avatar
+            first={child.firstName}
+            last={child.lastName}
+            seed={child.id}
+            className="size-10"
+          />
+          <div>
+            <p>
+              <bdi>{t('viewingChild', { name: `${child.firstName} ${child.lastName}` })}</bdi>
+            </p>
+            {child.className ? (
+              <p className="parent-child-class" dir="auto">
+                {child.className}
+              </p>
+            ) : null}
+          </div>
+        </div>
+        {kids.length > 1 ? (
+          <nav aria-label={t('switcher.label')} className="parent-child-switcher">
+            <span className="parent-switcher-label">
+              <Users className="size-4" aria-hidden />
+              {t('switcher.label')}
+            </span>
+            {kids.map((k) => {
+              const name = `${k.firstName} ${k.lastName}`;
+              return (
+                <Link
+                  key={k.id}
+                  href={{ pathname: path, query: { ...extraQuery, child: k.id } }}
+                  aria-current={k.id === child.id ? 'page' : undefined}
+                  className={cx('parent-child-link', k.id === child.id && 'parent-child-selected')}
+                >
+                  <bdi>{name}</bdi>
+                  {k.id === child.id ? <Check className="size-4 shrink-0" aria-hidden /> : null}
+                </Link>
+              );
+            })}
+          </nav>
+        ) : null}
+      </div>
       {render(child)}
     </div>
   );

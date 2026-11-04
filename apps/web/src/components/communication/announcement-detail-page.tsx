@@ -35,7 +35,7 @@ export async function AnnouncementDetailPage({ area, id }: { area: Area; id: str
   const reach = reachRes?.ok ? reachRes.data.get(a.id) : undefined;
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-3xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-3xl gap-7">
       {a.read || a.archived ? null : <MarkRead id={a.id} />}
       <Link
         href={`/${area}/announcements`}
@@ -45,7 +45,7 @@ export async function AnnouncementDetailPage({ area, id }: { area: Area; id: str
         {t('detail.back')}
       </Link>
 
-      <header className="grid gap-4">
+      <header className="workspace-header grid gap-4">
         <div className="flex flex-wrap items-center gap-2">
           {a.pinned ? <Badge tone="accent">{t('card.pinned')}</Badge> : null}
           <Badge>
@@ -54,7 +54,7 @@ export async function AnnouncementDetailPage({ area, id }: { area: Area; id: str
               : t(`audience.${a.audience}`)}
           </Badge>
         </div>
-        <h1 className="display text-3xl md:text-4xl" dir="auto">
+        <h1 className="display break-words text-3xl md:text-4xl" dir="auto">
           <bdi>{a.title}</bdi>
         </h1>
         <p className="text-sm text-text-muted">
@@ -82,8 +82,11 @@ export async function AnnouncementDetailPage({ area, id }: { area: Area; id: str
         </p>
       ) : null}
 
-      <Card className="p-6">
-        <p className="whitespace-pre-wrap leading-relaxed" dir="auto">
+      <Card className="p-6 sm:p-9">
+        <p
+          className="max-w-prose whitespace-pre-wrap text-[0.9375rem] leading-[1.85] [overflow-wrap:anywhere]"
+          dir="auto"
+        >
           {a.body}
         </p>
       </Card>

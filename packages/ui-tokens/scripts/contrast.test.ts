@@ -28,6 +28,9 @@ const pairs: [ColorName, ColorName, number][] = [
   ['danger', 'surface', 4.5],
   ['info', 'surface', 4.5],
   ['border-strong', 'surface', 1.4],
+  ['ink-foreground', 'navigation', 7],
+  ['ink-muted', 'navigation', 4.5],
+  ['navigation-active', 'navigation-hover', 7],
 ];
 
 for (const [name, palette] of [

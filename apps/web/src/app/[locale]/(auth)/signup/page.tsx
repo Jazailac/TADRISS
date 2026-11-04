@@ -1,3 +1,4 @@
+import { School } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { Badge } from '@/components/ui/badge';
 import { signup } from '@/app/actions/auth';
@@ -20,8 +21,11 @@ export default async function SignupPage({
   const selectedModules = modules.filter((module) => query.modules?.split(',').includes(module));
   return (
     <>
-      <h1 className="display text-4xl font-medium">{t('title')}</h1>
-      <p className="mt-3 text-text-muted">{t('subtitle')}</p>
+      <span className="auth-page-mark">
+        <School className="size-5" strokeWidth={1.5} aria-hidden />
+      </span>
+      <h1 className="display auth-form-title font-medium">{t('title')}</h1>
+      <p className="mt-3 text-sm leading-7 text-text-muted">{t('subtitle')}</p>
       {selectedType ? (
         <div className="mt-5 rounded-xl border border-primary/20 bg-primary-soft/40 p-4">
           <p className="text-xs font-semibold text-primary">{s('selected')}</p>
@@ -81,7 +85,7 @@ export default async function SignupPage({
           ]}
         />
       </div>
-      <p className="mt-8 text-sm text-text-muted">
+      <p className="mt-7 text-sm leading-6 text-text-muted">
         {t('hasAccount')}{' '}
         <Link href="/login" className="font-medium text-primary underline-offset-4 hover:underline">
           {t('loginLink')}

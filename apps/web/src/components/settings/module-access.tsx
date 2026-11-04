@@ -47,8 +47,8 @@ export function ModuleAccessList({
       {roleModules[role].map((module) => {
         const on = !off.includes(module);
         return (
-          <li key={module} className="flex items-center gap-4 py-3">
-            <span className="min-w-0 flex-1 font-medium">{n(module)}</span>
+          <li key={module} className="flex items-center gap-4 py-1.5">
+            <span className="min-w-0 flex-1 text-sm font-medium">{n(module)}</span>
             <span className="text-xs text-text-muted">{on ? t('on') : t('off')}</span>
             <button
               type="button"
@@ -58,18 +58,22 @@ export function ModuleAccessList({
               onClick={() => {
                 toggle(module, !on);
               }}
-              className={cx(
-                'relative h-6 w-11 shrink-0 rounded-full transition-colors',
-                on ? 'bg-primary' : 'bg-border-strong',
-              )}
+              className="relative h-11 w-12 shrink-0 rounded-lg"
             >
               <span
                 aria-hidden
                 className={cx(
-                  'absolute top-0.5 size-5 rounded-full bg-surface shadow-sm transition-[inset-inline-start]',
-                  on ? 'start-[1.375rem]' : 'start-0.5',
+                  'absolute inset-y-0 start-0 my-auto h-6 w-11 rounded-full transition-colors',
+                  on ? 'bg-primary' : 'bg-border-strong',
                 )}
-              />
+              >
+                <span
+                  className={cx(
+                    'absolute top-0.5 size-5 rounded-full bg-surface shadow-xs transition-[inset-inline-start] duration-200',
+                    on ? 'start-[1.375rem]' : 'start-0.5',
+                  )}
+                />
+              </span>
             </button>
           </li>
         );

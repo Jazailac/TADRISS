@@ -1,5 +1,5 @@
 import { listPlatformInstitutions, type PlatformInstitution } from '@tadriss/shared';
-import { AlertCircle, Search } from 'lucide-react';
+import { AlertCircle, ArrowUpRight, Building2, Search } from 'lucide-react';
 import { getFormatter, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getServerClient } from '@/lib/supabase/server';
@@ -8,6 +8,7 @@ import { ButtonLink } from '../ui/button';
 import { Card } from '../ui/card';
 import { cx } from '../ui/cx';
 import { EmptyState } from '../ui/empty-state';
+import { Input } from '../ui/field';
 
 export type InstitutionsParams = { q?: string; status?: string };
 type Status = 'all' | 'active' | 'suspended';
@@ -26,7 +27,7 @@ export async function InstitutionsPage({ params }: { params: InstitutionsParams 
   const q = (params.q ?? '').trim().toLocaleLowerCase();
 
   const head = (
-    <header>
+    <header className="workspace-header">
       <p className="eyebrow">{t('eyebrow')}</p>
       <h1 className="display mt-4 text-4xl md:text-5xl">{t('institutions.title')}</h1>
       <p className="mt-3 max-w-xl text-text-muted">{t('institutions.subtitle')}</p>
@@ -35,7 +36,7 @@ export async function InstitutionsPage({ params }: { params: InstitutionsParams 
 
   if (!list.ok) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-5xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-5xl gap-7">
         {head}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -59,12 +60,12 @@ export async function InstitutionsPage({ params }: { params: InstitutionsParams 
   const tabs: Status[] = ['all', 'active', 'suspended'];
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-5xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-5xl gap-7">
       {head}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <nav
           aria-label={t('institutions.statusLabel')}
-          className="flex w-fit gap-1 rounded-lg bg-surface-muted p-1"
+          className="workspace-tabs flex max-w-full w-fit flex-wrap gap-1 rounded-lg border border-border bg-surface-muted/60 p-1"
         >
           {tabs.map((v) => (
             <Link
@@ -75,7 +76,7 @@ export async function InstitutionsPage({ params }: { params: InstitutionsParams 
               }}
               aria-current={status === v ? 'page' : undefined}
               className={cx(
-                'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+                'rounded-md px-4 py-2 text-sm font-medium transition-colors',
                 status === v ? 'bg-surface text-text shadow-xs' : 'text-text-muted hover:text-text',
               )}
             >
@@ -83,20 +84,16 @@ export async function InstitutionsPage({ params }: { params: InstitutionsParams 
             </Link>
           ))}
         </nav>
-        <form role="search" className="relative w-full sm:w-72">
+        <form role="search" className="w-full sm:w-72">
           {status === 'all' ? null : <input type="hidden" name="status" value={status} />}
-          <Search
-            className="pointer-events-none absolute inset-y-0 start-3 my-auto size-4 text-text-muted"
-            aria-hidden
-          />
-          <input
+          <Input
             name="q"
             type="search"
             defaultValue={params.q ?? ''}
             aria-label={t('institutions.search')}
             placeholder={t('institutions.search')}
             dir="auto"
-            className="h-11 w-full rounded-md border border-border bg-surface ps-9 pe-3 text-sm outline-none focus:border-primary"
+            icon={<Search className="size-4" aria-hidden />}
           />
         </form>
       </div>
@@ -109,7 +106,10 @@ export async function InstitutionsPage({ params }: { params: InstitutionsParams 
           />
         </Card>
       ) : (
-        <ul aria-label={t('institutions.list')} className="grid grid-cols-1 gap-3">
+        <ul
+          aria-label={t('institutions.list')}
+          className="workspace-list grid grid-cols-1 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface"
+        >
           {shown.map((i) => (
             <Row
               key={i.id}
@@ -140,10 +140,13 @@ function Row({
     <li className="min-w-0">
       <Link
         href={`/admin/institutions/${i.id}`}
-        className="flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl border border-border bg-surface p-4 shadow-sm transition-[box-shadow,border-color] hover:border-border-strong hover:shadow-md sm:px-5"
+        className="workspace-row group flex flex-wrap items-center gap-x-5 gap-y-3 p-5 transition-colors hover:bg-surface-muted/60 sm:px-6 sm:py-6"
       >
+        <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-border bg-background text-primary">
+          <Building2 className="size-5" strokeWidth={1.5} aria-hidden />
+        </span>
         <div className="min-w-0 flex-1 basis-56">
-          <p className="truncate font-medium" dir="auto">
+          <p className="truncate font-semibold" dir="auto">
             <bdi>{i.name}</bdi>
           </p>
           <p className="truncate font-mono text-xs text-text-muted">{i.slug}</p>
@@ -154,6 +157,10 @@ function Row({
           {t('institutions.counts', { students: i.students, teachers: i.teachers })}
         </span>
         <span className="font-mono text-xs tabular-nums text-text-muted">{date}</span>
+        <ArrowUpRight
+          className="rtl-flip hidden size-4 shrink-0 text-text-muted transition-colors group-hover:text-primary sm:block"
+          aria-hidden
+        />
       </Link>
     </li>
   );

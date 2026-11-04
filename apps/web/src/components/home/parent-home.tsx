@@ -15,18 +15,24 @@ import {
   type Child,
 } from '@tadriss/shared';
 import { BarChart3, CalendarCheck, ClipboardList, Wallet } from 'lucide-react';
-import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { getServerClient } from '@/lib/supabase/server';
 import { getViewer } from '@/lib/viewer';
 import { WithChild } from '../parent/with-child';
 import { AnnouncementsLatest } from './announcements-latest';
 import { bdi, EmptyLine, Panel, StatTile } from './dash-parts';
 import { LessonsToday } from './lessons-today';
+import { DayCover } from './day-cover';
+import { StudentWork, StudentMarks } from './student-briefing';
 
 /** A parent's home: the selected child's day, work, results and balance, then the school's news. */
 export function ParentHome({ childParam }: { childParam?: string }) {
   return (
-    <WithChild path="/parent" childParam={childParam} render={(child) => <ChildHome child={child} />} />
+    <WithChild
+      path="/parent"
+      childParam={childParam}
+      render={(child) => <ChildHome child={child} />}
+    />
   );
 }
 
@@ -36,12 +42,12 @@ async function ChildHome({ child }: { child: Child }) {
   const userId = viewer?.session.userId ?? '';
   const today = todayIn(tz);
   const supabase = await getServerClient();
-  const [t, d, app, f, locale, slots, homework, attendance, grades, invoices, announcements] =
+  const [t, d, app, w, locale, slots, homework, attendance, grades, invoices, announcements] =
     await Promise.all([
       getTranslations('dashboard'),
       getTranslations('dashboard.parent'),
       getTranslations('app'),
-      getFormatter(),
+      getTranslations('workspace'),
       getLocale(),
       child.classId ? listSlots(supabase, { classId: child.classId }) : Promise.resolve(null),
       child.classId
@@ -75,24 +81,23 @@ async function ChildHome({ child }: { child: Child }) {
   const num = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 });
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
-      <header>
-        <p className="eyebrow">
-          {f.dateTime(new Date(), { weekday: 'long', day: 'numeric', month: 'long', timeZone: tz })}
-        </p>
-        <h1 className="display mt-4 text-4xl md:text-5xl">
-          {app.rich('greeting', { name: viewer?.profile.firstName ?? '', n: bdi })}
-        </h1>
-        <p className="mt-3 max-w-xl text-text-muted">
-          {d.rich('subtitle', {
-            name: `${child.firstName} ${child.lastName}`,
-            cls: child.className ?? '',
-            n: bdi,
-          })}
-        </p>
-      </header>
+    <div className="dashboard-page mx-auto grid w-full grid-cols-1 max-w-6xl gap-7">
+      <DayCover
+        title={app.rich('greeting', { name: viewer?.profile.firstName ?? '', n: bdi })}
+        subtitle={d.rich('subtitle', {
+          name: `${child.firstName} ${child.lastName}`,
+          cls: child.className ?? '',
+          n: bdi,
+        })}
+        date={today}
+        focusLabel={w('attendanceFocus')}
+        focusValue={rate === null ? '–' : `${num.format(rate)} %`}
+        focusHint={w('parentHint')}
+        focusHref={`/parent/attendance?child=${child.id}`}
+        progress={rate === null ? undefined : rate / 100}
+      />
 
-      <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="metric-strip dashboard-metrics dashboard-metrics-pairs grid grid-cols-2 lg:grid-cols-4">
         <StatTile
           icon={CalendarCheck}
           label={t('student.attendance')}
@@ -123,26 +128,55 @@ async function ChildHome({ child }: { child: Child }) {
         />
       </dl>
 
-      <div className="grid gap-5 lg:grid-cols-3">
-        <Panel
-          title={t('student.todayTitle')}
-          href={`/parent/schedule?child=${child.id}`}
-          linkLabel={t('seeAll')}
-          className="lg:col-span-2"
-        >
-          {child.classId ? (
-            <LessonsToday lessons={lessons.map((slot) => ({ slot }))} showTeacher />
-          ) : (
-            <EmptyLine>{d('noClass')}</EmptyLine>
-          )}
-        </Panel>
-        <Panel title={t('student.newsTitle')} href="/parent/announcements" linkLabel={t('seeAll')}>
-          <AnnouncementsLatest
-            items={announcements.ok ? announcements.data : []}
-            base="/parent/announcements"
-            timeZone={tz}
-          />
-        </Panel>
+      <div className="day-layout">
+        <div className="daybook-column">
+          <Panel
+            title={t('student.todayTitle')}
+            href={`/parent/schedule?child=${child.id}`}
+            linkLabel={t('seeAll')}
+            kind="schedule"
+          >
+            {child.classId ? (
+              <LessonsToday lessons={lessons.map((slot) => ({ slot }))} showTeacher />
+            ) : (
+              <EmptyLine>{d('noClass')}</EmptyLine>
+            )}
+          </Panel>
+          <Panel
+            kind="news"
+            title={t('student.newsTitle')}
+            href="/parent/announcements"
+            linkLabel={t('seeAll')}
+          >
+            <AnnouncementsLatest
+              items={announcements.ok ? announcements.data : []}
+              base="/parent/announcements"
+              timeZone={tz}
+            />
+          </Panel>
+        </div>
+        <div className="daybook-column">
+          <Panel
+            kind="tasks"
+            title={t('student.homeworkTitle')}
+            href={`/parent/homework?child=${child.id}`}
+            linkLabel={t('seeAll')}
+          >
+            <StudentWork
+              items={[...todo].sort((a, b) => a.dueDate.localeCompare(b.dueDate)).slice(0, 4)}
+              today={today}
+              href={`/parent/homework?child=${child.id}`}
+            />
+          </Panel>
+          <Panel
+            kind="results"
+            title={t('student.gradesTitle')}
+            href={`/parent/grades?child=${child.id}`}
+            linkLabel={t('seeAll')}
+          >
+            <StudentMarks items={marks.slice(0, 4)} href={`/parent/grades?child=${child.id}`} />
+          </Panel>
+        </div>
       </div>
     </div>
   );

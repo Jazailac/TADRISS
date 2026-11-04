@@ -63,3 +63,62 @@ test.describe('parent', () => {
     await expect(main(page).getByText('parent02@almanar.test').first()).toBeVisible();
   });
 });
+
+test('the selected child stays selected when navigating between parent sections', async ({
+  page,
+}) => {
+  await login(page, 'parent02@almanar.test');
+  await page.goto('/parent/homework');
+  const children = main(page).getByRole('navigation', { name: /enfant/i });
+  await children.getByRole('link', { name: /Ilyas/ }).click();
+  await expect(page).toHaveURL(/\/parent\/homework\?child=/);
+  await expect(children.getByRole('link', { name: /Ilyas/ })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  const childId = new URL(page.url()).searchParams.get('child');
+  expect(childId).toBeTruthy();
+
+  if ((page.viewportSize()?.width ?? 0) < 1024) {
+    await page.getByRole('button', { name: 'Ouvrir la navigation', exact: true }).click();
+  }
+  const navigation = page
+    .getByRole('navigation', { name: 'Navigation de l’application', exact: true })
+    .filter({ visible: true });
+  await navigation.getByRole('link', { name: 'Notes', exact: true }).click();
+  await expect(page).toHaveURL(new RegExp(`/parent/grades\\?child=${childId}$`));
+  await expect(
+    main(page)
+      .getByRole('navigation', { name: /enfant/i })
+      .getByRole('link', { name: /Ilyas/ }),
+  ).toHaveAttribute('aria-current', 'page');
+
+  await page.keyboard.press('ControlOrMeta+k');
+  const switcher = page.getByRole('dialog', { name: 'Aller à…', exact: true });
+  await switcher.getByRole('textbox').fill('Devoirs');
+  await switcher.getByRole('link', { name: 'Devoirs', exact: true }).click();
+  await expect(page).toHaveURL(new RegExp(`/parent/homework\\?child=${childId}$`));
+  await expect(
+    main(page)
+      .getByRole('navigation', { name: /enfant/i })
+      .getByRole('link', { name: /Ilyas/ }),
+  ).toHaveAttribute('aria-current', 'page');
+  await expect(main(page).getByRole('checkbox')).toHaveCount(0);
+
+  if ((page.viewportSize()?.width ?? 0) < 640) {
+    await page.getByRole('button', { name: 'Ouvrir la navigation', exact: true }).click();
+  }
+  await page
+    .getByRole('group', { name: 'Langue', exact: true })
+    .filter({ visible: true })
+    .getByRole('button', { name: 'English', exact: true })
+    .click();
+  await expect(page).toHaveURL(new RegExp(`/en/parent/homework\\?child=${childId}$`));
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await page.keyboard.press('Escape');
+  await expect(
+    main(page)
+      .getByRole('navigation', { name: 'Choose a child', exact: true })
+      .getByRole('link', { name: /Ilyas/ }),
+  ).toHaveAttribute('aria-current', 'page');
+});

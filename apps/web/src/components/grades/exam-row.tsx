@@ -32,7 +32,7 @@ export function ExamRow({
     <li>
       <Link
         href={href}
-        className="flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl border border-border bg-surface p-4 shadow-sm transition-[box-shadow,border-color] hover:border-border-strong hover:shadow-md sm:px-5"
+        className="workspace-row flex flex-wrap items-center gap-x-5 gap-y-3 p-5 transition-colors hover:bg-surface-muted/60 sm:px-6 sm:py-6"
       >
         <span
           className={cx(

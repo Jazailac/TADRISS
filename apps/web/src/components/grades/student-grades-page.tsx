@@ -20,7 +20,7 @@ import { ButtonLink } from '../ui/button';
 import { Card } from '../ui/card';
 import { cx } from '../ui/cx';
 import { EmptyState } from '../ui/empty-state';
-import { Meter } from '../ui/meter';
+import { ScoreRuler } from './score-ruler';
 
 export type StudentGradesParams = { term?: string };
 
@@ -51,8 +51,9 @@ export async function StudentGradesPage({
   const supabase = await getServerClient();
   const viewer = await getViewer();
   const reportFor = studentId ?? viewer?.session.userId;
-  const [t, tr, shell, errors, f, grades, classes] = await Promise.all([
+  const [t, d, tr, shell, errors, f, grades, classes] = await Promise.all([
     getTranslations('grades'),
+    getTranslations('domain'),
     getTranslations('report'),
     getTranslations('shell.groups'),
     getTranslations('errors'),
@@ -62,7 +63,7 @@ export async function StudentGradesPage({
   ]);
 
   const head = (
-    <header>
+    <header className="workspace-header">
       <p className="eyebrow">{shell('daily')}</p>
       <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
       <p className="mt-3 max-w-xl text-text-muted">{t('subtitle.student')}</p>
@@ -71,7 +72,7 @@ export async function StudentGradesPage({
 
   if (!grades.ok) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-4xl gap-7">
         {head}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -103,7 +104,7 @@ export async function StudentGradesPage({
   ];
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-4xl gap-7">
       {head}
 
       {grades.data.length === 0 ? (
@@ -118,7 +119,7 @@ export async function StudentGradesPage({
           <div className="flex flex-wrap items-center justify-between gap-3">
             <nav
               aria-label={t('student.termLabel')}
-              className="flex w-fit gap-1 rounded-lg bg-surface-muted p-1"
+              className="workspace-tabs flex max-w-full w-fit flex-wrap gap-1 rounded-lg border border-border bg-surface-muted/60 p-1"
             >
               {tabs.map((x) => (
                 <Link
@@ -126,7 +127,7 @@ export async function StudentGradesPage({
                   href={{ pathname: `${base}/grades`, query: x.q }}
                   aria-current={(term ? String(term) : 'all') === x.key ? 'page' : undefined}
                   className={cx(
-                    'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+                    'rounded-md px-4 py-2 text-sm font-medium transition-colors',
                     (term ? String(term) : 'all') === x.key
                       ? 'bg-surface text-text shadow-xs'
                       : 'text-text-muted hover:text-text',
@@ -149,64 +150,71 @@ export async function StudentGradesPage({
             ) : null}
           </div>
 
-          <Card className="flex flex-wrap items-center gap-x-8 gap-y-3 p-6">
-            <div>
-              <p className="text-sm text-text-muted">{t('student.overall')}</p>
-              <p className="mt-1 font-mono text-5xl font-medium tabular-nums">
-                {overall === null ? t('student.noScore') : num(overall)}
-                <span className="ms-2 text-lg text-text-muted">{t('row.out', { max: 20 })}</span>
-              </p>
+          <section className="grades-overview" aria-label={t('student.overall')}>
+            <div className="grades-overview-primary">
+              <p className="domain-kicker">{t('student.overall')}</p>
+              <div>
+                <span className="domain-count">
+                  {overall === null ? t('student.noScore') : num(overall)}
+                </span>
+                <small>{t('row.out', { max: 20 })}</small>
+              </div>
+              {overall !== null ? (
+                <div>
+                  <Badge tone={overall >= 10 ? 'success' : 'warning'} dot>
+                    {t(`student.mention.${mention(overall)}`)}
+                  </Badge>
+                </div>
+              ) : null}
             </div>
-            {overall !== null ? (
-              <Badge tone={overall >= 10 ? 'success' : 'warning'} dot>
-                {t(`student.mention.${mention(overall)}`)}
-              </Badge>
-            ) : null}
-            <p className="ms-auto max-w-xs text-xs text-text-muted">{t('student.help')}</p>
-          </Card>
+            <div className="grades-overview-scale">
+              {overall !== null ? (
+                <ScoreRuler value={overall} label={d('scoreScale')} format={num} />
+              ) : null}
+              <p className="mt-5 text-xs leading-relaxed text-text-muted">{t('student.help')}</p>
+            </div>
+          </section>
 
           <section aria-label={t('student.bySubject')} className="grid gap-4">
             {subjects.map((s) => {
               const avg = perSubject.get(s.subjectId);
               const list = shown.filter((g) => g.subjectId === s.subjectId);
               return (
-                <Card key={s.subjectId} className="overflow-hidden">
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border p-4 sm:px-5">
-                    <span
-                      className={cx(
-                        'rounded-lg border px-3 py-1 text-sm font-semibold',
-                        subjectTone[s.subjectColor],
-                      )}
-                    >
-                      <bdi>{s.subjectName}</bdi>
-                    </span>
-                    <p className="text-sm text-text-muted">
-                      {t('student.subject', { subject: s.subjectName })}
-                    </p>
-                    <div className="ms-auto flex w-48 items-center gap-3">
+                <Card key={s.subjectId} className="grade-subject overflow-hidden">
+                  <div className="grade-subject-header">
+                    <div className="grade-subject-name">
+                      <span aria-hidden className={subjectTone[s.subjectColor]} />
+                      <div>
+                        <h2>
+                          <bdi>{s.subjectName}</bdi>
+                        </h2>
+                        <p className="mt-1 font-mono text-[0.625rem] text-text-muted">
+                          {f.number(list.length)} · {t('student.exams')}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="grade-subject-average">
+                      <p className="grade-subject-caption">
+                        {t('student.subject', { subject: s.subjectName })}
+                      </p>
                       {avg !== undefined ? (
                         <>
-                          <Meter
+                          <ScoreRuler
                             value={avg}
-                            max={20}
-                            tone="neutral"
                             label={t('student.subject', { subject: s.subjectName })}
+                            format={num}
+                            compact
                           />
-                          <span className="w-10 shrink-0 text-end font-mono text-sm font-medium tabular-nums">
-                            {num(avg)}
-                          </span>
+                          <span>{num(avg)}</span>
                         </>
                       ) : (
-                        <span className="text-sm text-text-muted">{t('student.noScore')}</span>
+                        <span>{t('student.noScore')}</span>
                       )}
                     </div>
                   </div>
                   <ul aria-label={t('student.list')} className="divide-y divide-border">
                     {list.map((g) => (
-                      <li
-                        key={g.examId}
-                        className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3 sm:px-5"
-                      >
+                      <li key={g.examId} className="grade-exam-row">
                         <div className="min-w-0 flex-1 basis-48">
                           <p className="truncate font-medium">
                             <bdi>{g.title}</bdi>
@@ -219,16 +227,29 @@ export async function StudentGradesPage({
                             · {t('row.coef', { value: g.coefficient })}
                           </p>
                           {g.remark ? (
-                            <p className="mt-1 text-sm text-text-muted">{g.remark}</p>
+                            <p className="mt-2 text-xs leading-relaxed text-text-muted" dir="auto">
+                              {g.remark}
+                            </p>
                           ) : null}
                         </div>
                         {g.absent ? (
                           <Badge tone="warning">{t('student.absent')}</Badge>
                         ) : (
-                          <p className="font-mono text-lg tabular-nums">
-                            {g.score === null ? t('student.noScore') : num(g.score)}
-                            <span className="text-sm text-text-muted">/{num(g.maxScore)}</span>
-                          </p>
+                          <div className="grade-exam-result">
+                            <p>
+                              {g.score === null ? t('student.noScore') : num(g.score)}
+                              <span> / {num(g.maxScore)}</span>
+                            </p>
+                            {g.score !== null ? (
+                              <ScoreRuler
+                                value={g.score}
+                                max={g.maxScore}
+                                label={`${g.title} · ${t('sheet.score')}`}
+                                format={num}
+                                compact
+                              />
+                            ) : null}
+                          </div>
                         )}
                       </li>
                     ))}

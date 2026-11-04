@@ -127,7 +127,7 @@ test.describe('grades: teacher', () => {
     await imaneStudent.reload();
     // Scope to this exam's own row: three parallel runs each give Imane a 7,5 on their own exam.
     const imaneRow = imaneStudent.getByRole('listitem').filter({ hasText: title });
-    await expect(imaneRow).toContainText('7,5/10');
+    await expect(imaneRow).toContainText(/7,5\s*\/\s*10/);
     await expect(imaneRow).toContainText('Très bien');
     await expect(imaneStudent.getByText('Moyenne générale')).toBeVisible();
 
@@ -136,8 +136,9 @@ test.describe('grades: teacher', () => {
     await login(omarStudent, 'eleve02@almanar.test');
     await omarStudent.goto('/student/grades');
     const omarRow = omarStudent.getByRole('listitem').filter({ hasText: title });
-    await expect(omarRow).toContainText('9/10');
-    await expect(omarRow).not.toContainText('7,5');
+    await expect(omarRow).toContainText(/9\s*\/\s*10/);
+    // The score ruler prints 7,5 as a scale mark, so look for another pupil's actual mark.
+    await expect(omarRow).not.toContainText(/7,5\s*\/\s*10/);
     const mehdiStudent = await (await browser.newContext(testInfo.project.use)).newPage();
     await login(mehdiStudent, 'eleve06@almanar.test');
     await mehdiStudent.goto('/student/grades');

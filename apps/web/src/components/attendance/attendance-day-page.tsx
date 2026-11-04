@@ -4,6 +4,7 @@ import {
   getClassSummary,
   getDayLessons,
   isIsoDate,
+  minutesToTime,
   timeRange,
   todayIn,
   utcDate,
@@ -71,7 +72,7 @@ export async function AttendanceDayPage({
   });
 
   const header = (
-    <header className="flex flex-wrap items-end justify-between gap-5">
+    <header className="workspace-header flex flex-wrap items-end justify-between gap-5">
       <div>
         <p className="eyebrow">{shell('daily')}</p>
         <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
@@ -82,7 +83,7 @@ export async function AttendanceDayPage({
 
   if (!lessons.ok || (summary && !summary.ok)) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
         {header}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -106,10 +107,10 @@ export async function AttendanceDayPage({
   const tooOld = area === 'teacher' && date < addDays(today, -ATTENDANCE_EDIT_WINDOW_DAYS);
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {header}
 
-      <Card className="flex flex-wrap items-center gap-3 p-4 sm:p-5">
+      <Card className="workspace-toolbar flex flex-wrap items-center gap-3 p-4 sm:p-5">
         <div className="flex items-center gap-1">
           <Link
             href={{ pathname: base, query: { date: addDays(date, -1) } }}
@@ -166,19 +167,37 @@ export async function AttendanceDayPage({
           />
         </Card>
       ) : (
-        <ul aria-label={t('lessons.list')} className="grid gap-3">
-          {lessons.data.map((l) => (
-            <LessonRow
-              key={l.slot.id}
-              lesson={l}
-              href={`${base}/${l.slot.id}?date=${date}`}
-              area={area}
-              state={future ? 'upcoming' : l.taken ? 'done' : 'todo'}
-              canEdit={!future && !tooOld}
-              t={t}
-            />
-          ))}
-        </ul>
+        <section className="attendance-day-register">
+          <header className="attendance-register-heading">
+            <h2>{t('lessons.title')}</h2>
+            <dl>
+              <div>
+                <dt>{t('lessons.done')}</dt>
+                <dd>{f.number(lessons.data.filter((lesson) => lesson.taken).length)}</dd>
+              </div>
+              <div>
+                <dt>{future ? t('lessons.upcoming') : t('lessons.todo')}</dt>
+                <dd>{f.number(lessons.data.filter((lesson) => !lesson.taken).length)}</dd>
+              </div>
+            </dl>
+          </header>
+          <ul
+            aria-label={t('lessons.list')}
+            className="attendance-day-list grid grid-cols-1 divide-y divide-border"
+          >
+            {lessons.data.map((l) => (
+              <LessonRow
+                key={l.slot.id}
+                lesson={l}
+                href={`${base}/${l.slot.id}?date=${date}`}
+                area={area}
+                state={future ? 'upcoming' : l.taken ? 'done' : 'todo'}
+                canEdit={!future && !tooOld}
+                t={t}
+              />
+            ))}
+          </ul>
+        </section>
       )}
 
       {area === 'admin' && summary?.ok ? (
@@ -251,13 +270,14 @@ function LessonRow({
   const { slot, counts } = lesson;
   return (
     <li>
-      <Card className="flex flex-wrap items-center gap-x-5 gap-y-3 p-4 sm:px-5">
-        <p className="w-28 shrink-0 font-mono text-sm tabular-nums text-text-muted">
-          {timeRange(slot)}
-        </p>
+      <div className="attendance-lesson-row">
+        <div className="attendance-lesson-time" aria-label={timeRange(slot)}>
+          <span>{minutesToTime(slot.startMin)}</span>
+          <span>{minutesToTime(slot.endMin)}</span>
+        </div>
         <div
           className={cx(
-            'min-w-0 flex-1 basis-48 rounded-lg border px-3 py-2',
+            'attendance-lesson-subject min-w-0 border-s-[3px] px-3 py-2',
             subjectTone[slot.subjectColor],
           )}
         >
@@ -270,7 +290,7 @@ function LessonRow({
             </p>
           ) : null}
         </div>
-        <div className="flex min-w-0 flex-wrap items-center gap-1.5">
+        <div className="attendance-lesson-state flex min-w-0 flex-wrap items-center gap-1.5">
           {state === 'done' ? (
             <>
               <Badge tone="success" dot>
@@ -295,7 +315,7 @@ function LessonRow({
             {state === 'todo' ? t('lessons.take') : canEdit ? t('lessons.edit') : t('lessons.view')}
           </ButtonLink>
         ) : null}
-      </Card>
+      </div>
     </li>
   );
 }

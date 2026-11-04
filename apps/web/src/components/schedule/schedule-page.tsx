@@ -36,7 +36,7 @@ export function ScheduleHeader({
   actions?: ReactNode;
 }) {
   return (
-    <header className="flex flex-wrap items-end justify-between gap-5">
+    <header className="workspace-header flex flex-wrap items-end justify-between gap-5">
       <div>
         <p className="eyebrow">{eyebrow}</p>
         <h1 className="display mt-4 text-4xl md:text-5xl">{title}</h1>
@@ -95,7 +95,7 @@ export async function AdminSchedulePage({ params }: { params: SchedulePageParams
     />
   );
   const failed = (href: string) => (
-    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {head()}
       <ScheduleError
         title={t('error.title')}
@@ -111,7 +111,7 @@ export async function AdminSchedulePage({ params }: { params: SchedulePageParams
   const selected = classes.data.find((c) => c.id === params.class) ?? classes.data[0];
   if (!selected) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
         {head()}
         <Card>
           <EmptyState
@@ -141,7 +141,7 @@ export async function AdminSchedulePage({ params }: { params: SchedulePageParams
   const common = { classId: selected.id, subjects: subjects.data, teachers, weekdayNames };
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {head(
         <>
           <SubjectsDialog subjects={subjects.data} />
@@ -149,7 +149,7 @@ export async function AdminSchedulePage({ params }: { params: SchedulePageParams
         </>,
       )}
 
-      <Card className="flex flex-wrap items-end gap-4 p-4 sm:p-5">
+      <Card className="workspace-toolbar flex flex-wrap items-end gap-4 p-4 sm:p-5">
         <form method="get" className="flex items-end gap-2">
           <div className="grid gap-1.5">
             <label htmlFor="schedule-year" className="text-sm font-medium">
@@ -235,11 +235,15 @@ export async function MySchedulePage({
   const head = (
     <ScheduleHeader eyebrow={shell('daily')} title={t('title')} subtitle={t(`subtitle.${role}`)} />
   );
-  const home = base ? `${base}/schedule` : role === 'teacher' ? '/teacher/schedule' : '/student/schedule';
+  const home = base
+    ? `${base}/schedule`
+    : role === 'teacher'
+      ? '/teacher/schedule'
+      : '/student/schedule';
 
   if (!slots.ok || (classes && !classes.ok)) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
         {head}
         <ScheduleError
           title={t('error.title')}
@@ -252,7 +256,7 @@ export async function MySchedulePage({
   }
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {head}
       {slots.data.length === 0 ? (
         <Card>

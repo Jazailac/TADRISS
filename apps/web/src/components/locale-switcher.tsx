@@ -38,7 +38,9 @@ export function LocaleSwitcher({ className }: { className?: string }) {
             onClick={() => {
               if (!active)
                 startTransition(() => {
-                  router.replace(pathname, { locale: l });
+                  router.replace(`${pathname}${window.location.search}${window.location.hash}`, {
+                    locale: l,
+                  });
                 });
             }}
             className={cx(

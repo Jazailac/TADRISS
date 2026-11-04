@@ -26,7 +26,7 @@ export async function AdminGradesPage({ params }: { params: AdminGradesParams })
   const exams = await listExams(supabase, { classId, term });
 
   const head = (
-    <header>
+    <header className="workspace-header">
       <p className="eyebrow">{shell('daily')}</p>
       <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
       <p className="mt-3 max-w-xl text-text-muted">{t('subtitle.admin')}</p>
@@ -35,7 +35,7 @@ export async function AdminGradesPage({ params }: { params: AdminGradesParams })
 
   if (!exams.ok || !classes.ok) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
         {head}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -70,18 +70,18 @@ export async function AdminGradesPage({ params }: { params: AdminGradesParams })
   ] as const;
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {head}
-      <dl className="grid gap-4 sm:grid-cols-3">
+      <dl className="metric-strip metric-strip-compact grid grid-cols-3">
         {summary.map((s) => (
-          <Card key={s.key} className="p-5">
+          <Card key={s.key} className="metric-cell p-5">
             <dt className="text-sm text-text-muted">{t(`admin.summary.${s.key}`)}</dt>
             <dd className="mt-2 font-mono text-3xl font-medium tabular-nums">{s.value}</dd>
           </Card>
         ))}
       </dl>
 
-      <Card className="p-4 sm:p-5">
+      <Card className="workspace-toolbar p-4 sm:p-5">
         <form method="get" className="grid gap-3 sm:flex sm:flex-wrap sm:items-end">
           <div className="grid gap-1.5 sm:w-52">
             <label htmlFor="grades-class" className="text-sm font-medium">
@@ -130,7 +130,10 @@ export async function AdminGradesPage({ params }: { params: AdminGradesParams })
           <EmptyState title={t('empty.admin.title')} description={t('empty.admin.body')} />
         </Card>
       ) : (
-        <ul aria-label={t('admin.table')} className="grid gap-3">
+        <ul
+          aria-label={t('admin.table')}
+          className="workspace-list grid grid-cols-1 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface"
+        >
           {exams.data.map((x) => (
             <ExamRow
               key={x.id}

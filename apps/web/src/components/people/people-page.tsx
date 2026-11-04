@@ -46,8 +46,9 @@ export async function PeoplePage({
   const q = (params.q ?? '').slice(0, 80);
 
   const supabase = await getServerClient();
-  const [t, shell, f, people, counts, invitations, guardians] = await Promise.all([
+  const [t, d, shell, f, people, counts, invitations, guardians] = await Promise.all([
     getTranslations('people'),
+    getTranslations('domain'),
     getTranslations('shell.groups'),
     getFormatter(),
     listPeople(supabase, { role, status, q, page }),
@@ -67,7 +68,7 @@ export async function PeoplePage({
   };
 
   const header = (
-    <header className="flex flex-wrap items-end justify-between gap-5">
+    <header className="workspace-header flex flex-wrap items-end justify-between gap-5">
       <div>
         <p className="eyebrow">{shell('school')}</p>
         <h1 className="display mt-4 text-4xl md:text-5xl">{t(`title.${role}`)}</h1>
@@ -79,7 +80,7 @@ export async function PeoplePage({
 
   if (!people.ok || !counts.ok || !invitations.ok) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
         {header}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -108,177 +109,208 @@ export async function PeoplePage({
   ] as const;
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {header}
 
-      <dl className="grid gap-4 sm:grid-cols-3">
-        {stats.map((s) => (
-          <Card key={s.key} className="p-5">
-            <dt className="text-sm text-text-muted">{t(`stats.${s.key}`)}</dt>
-            <dd className="mt-2 font-mono text-3xl font-medium tabular-nums">
-              {f.number(s.value)}
-            </dd>
-          </Card>
-        ))}
-      </dl>
-
-      {invitations.data.length > 0 ? (
-        <Card className="overflow-hidden">
-          <div className="border-b border-border p-5 sm:px-6">
-            <h2 className="font-semibold">{t('invitations.title')}</h2>
-            <p className="mt-1 text-sm text-text-muted">{t('invitations.subtitle')}</p>
-          </div>
-          <ul className="divide-y divide-border">
-            {invitations.data.map((inv) => (
-              <li
-                key={inv.id}
-                className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-3.5 sm:px-6"
-              >
-                <Avatar first={inv.firstName} last={inv.lastName} seed={inv.id} />
-                <div className="min-w-0 flex-1 basis-48">
-                  <p className="truncate font-medium">
-                    <bdi>
-                      {inv.firstName} {inv.lastName}
-                    </bdi>
-                  </p>
-                  <p className="truncate text-sm text-text-muted">
-                    {t.rich('invitations.sentTo', {
-                      email: inv.email,
-                      e: (chunks) => <bdi>{chunks}</bdi>,
-                    })}
-                  </p>
-                </div>
-                {inv.state === 'expired' ? (
-                  <Badge tone="warning" dot>
-                    {t('invitations.expired')}
-                  </Badge>
-                ) : (
-                  <Badge tone="info">
-                    {t('invitations.expires', {
-                      date: f.dateTime(new Date(inv.expiresAt), { dateStyle: 'medium' }),
-                    })}
-                  </Badge>
-                )}
-                <InvitationActions id={inv.id} email={inv.email} />
-              </li>
-            ))}
-          </ul>
-        </Card>
-      ) : null}
-
-      <Card className="overflow-hidden">
-        <div className="flex flex-wrap items-center gap-3 border-b border-border p-4 sm:px-5">
-          <form role="search" method="get" className="flex min-w-0 flex-1 basis-64 gap-2">
-            {status !== 'all' ? <input type="hidden" name="status" value={status} /> : null}
-            <div className="min-w-0 flex-1">
-              <label htmlFor="people-q" className="sr-only">
-                {t('search.label')}
-              </label>
-              <Input
-                id="people-q"
-                name="q"
-                type="search"
-                defaultValue={q}
-                placeholder={t('search.placeholder')}
-                autoComplete="off"
-                icon={<Search className="size-4" aria-hidden />}
-                className="h-10"
-              />
-            </div>
-            <button
-              type="submit"
-              className="h-10 shrink-0 rounded-md px-3 text-sm font-medium text-primary hover:bg-primary-soft"
-            >
-              {t('search.submit')}
-            </button>
-          </form>
-          <nav
-            aria-label={t('filters.label')}
-            className="flex gap-1 rounded-lg bg-surface-muted p-1"
-          >
-            {(['all', 'active', 'inactive'] as const).map((s) => (
-              <Link
-                key={s}
-                href={href({ status: s, page: 1 })}
-                aria-current={status === s ? 'page' : undefined}
-                className={cx(
-                  'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
-                  status === s
-                    ? 'bg-surface text-text shadow-xs'
-                    : 'text-text-muted hover:text-text',
-                )}
-              >
-                {t(`filters.${s}`)}
-              </Link>
-            ))}
-          </nav>
+      <section className="directory-overview" aria-label={d('directory')}>
+        <div className="directory-total">
+          <p className="domain-kicker">{d('directory')}</p>
+          <span className="domain-count">
+            {f.number(counts.data.active + counts.data.inactive)}
+          </span>
+          <p>{d('members', { count: counts.data.active + counts.data.inactive })}</p>
         </div>
+        <div>
+          <div className="directory-state-bar" aria-hidden>
+            {stats
+              .filter((item) => item.key !== 'invited')
+              .map((item) => (
+                <span
+                  key={item.key}
+                  className={`directory-state-${item.key}`}
+                  style={{
+                    inlineSize: `${(item.value / Math.max(1, counts.data.active + counts.data.inactive)) * 100}%`,
+                  }}
+                />
+              ))}
+          </div>
+          <dl className="directory-statuses">
+            {stats.map((item) => (
+              <div key={item.key} data-state={item.key}>
+                <dt>{t(`stats.${item.key}`)}</dt>
+                <dd>{f.number(item.value)}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
 
-        {rows.length === 0 ? (
-          filtering ? (
-            <EmptyState
-              title={t('noResults.title')}
-              description={t('noResults.body')}
-              action={
-                <ButtonLink href={{ pathname: basePath }} variant="secondary">
-                  {t('noResults.clear')}
-                </ButtonLink>
-              }
-            />
-          ) : (
-            <EmptyState title={t(`empty.${role}.title`)} description={t(`empty.${role}.body`)} />
-          )
-        ) : (
-          <ul aria-label={t(`list.label.${role}`)} className="divide-y divide-border">
-            {rows.map((p) => (
-              <PersonRow
-                key={p.id}
-                person={p}
-                statusLabel={t(
-                  `status.${p.invited ? 'invited' : p.isActive ? 'active' : 'inactive'}`,
-                )}
-                noEmail={t('list.noEmail')}
-                extra={
-                  role === 'parent' ? (
-                    <GuardianLinks
-                      parentId={p.id}
-                      parentName={`${p.firstName} ${p.lastName}`}
-                      links={(guardians?.ok ? guardians.data : []).filter(
-                        (l) => l.parentId === p.id,
-                      )}
-                    />
-                  ) : null
+      <div className="directory-composition">
+        <Card className="directory-register overflow-hidden">
+          <div className="workspace-toolbar-embedded flex flex-wrap items-center gap-3 border-b border-border p-4 sm:px-5">
+            <form role="search" method="get" className="flex min-w-0 flex-1 basis-64 gap-2">
+              {status !== 'all' ? <input type="hidden" name="status" value={status} /> : null}
+              <div className="min-w-0 flex-1">
+                <label htmlFor="people-q" className="sr-only">
+                  {t('search.label')}
+                </label>
+                <Input
+                  id="people-q"
+                  name="q"
+                  type="search"
+                  defaultValue={q}
+                  placeholder={t('search.placeholder')}
+                  autoComplete="off"
+                  icon={<Search className="size-4" aria-hidden />}
+                  className="h-10"
+                />
+              </div>
+              <button
+                type="submit"
+                className="h-10 shrink-0 rounded-md px-3 text-sm font-medium text-primary hover:bg-primary-soft"
+              >
+                {t('search.submit')}
+              </button>
+            </form>
+            <nav
+              aria-label={t('filters.label')}
+              className="workspace-tabs flex max-w-full flex-wrap gap-1 rounded-lg border border-border bg-surface-muted/60 p-1"
+            >
+              {(['all', 'active', 'inactive'] as const).map((s) => (
+                <Link
+                  key={s}
+                  href={href({ status: s, page: 1 })}
+                  aria-current={status === s ? 'page' : undefined}
+                  className={cx(
+                    'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
+                    status === s
+                      ? 'bg-surface text-text shadow-xs'
+                      : 'text-text-muted hover:text-text',
+                  )}
+                >
+                  {t(`filters.${s}`)}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div className="directory-columns" aria-hidden>
+            <span />
+            <span>{t(`title.${role}`)}</span>
+            <span>{t('invite.fields.email')}</span>
+            <span>{t('filters.label')}</span>
+            <span />
+          </div>
+          {rows.length === 0 ? (
+            filtering ? (
+              <EmptyState
+                title={t('noResults.title')}
+                description={t('noResults.body')}
+                action={
+                  <ButtonLink href={{ pathname: basePath }} variant="secondary">
+                    {t('noResults.clear')}
+                  </ButtonLink>
                 }
               />
-            ))}
-          </ul>
-        )}
+            ) : (
+              <EmptyState title={t(`empty.${role}.title`)} description={t(`empty.${role}.body`)} />
+            )
+          ) : (
+            <ul aria-label={t(`list.label.${role}`)} className="divide-y divide-border">
+              {rows.map((p, index) => (
+                <PersonRow
+                  key={p.id}
+                  person={p}
+                  number={f.number(from + index, { minimumIntegerDigits: 2 })}
+                  statusLabel={t(
+                    `status.${p.invited ? 'invited' : p.isActive ? 'active' : 'inactive'}`,
+                  )}
+                  noEmail={t('list.noEmail')}
+                  extra={
+                    role === 'parent' ? (
+                      <GuardianLinks
+                        parentId={p.id}
+                        parentName={`${p.firstName} ${p.lastName}`}
+                        links={(guardians?.ok ? guardians.data : []).filter(
+                          (l) => l.parentId === p.id,
+                        )}
+                      />
+                    ) : null
+                  }
+                />
+              ))}
+            </ul>
+          )}
 
-        {total > pageSize ? (
-          <nav
-            aria-label={t('pagination.label')}
-            className="flex items-center justify-between gap-3 border-t border-border p-4 sm:px-5"
-          >
-            <p className="font-mono text-xs text-text-muted">
-              {t('pagination.range', { from, to, total })}
-            </p>
-            <div className="flex gap-2">
-              <PageLink
-                disabled={page <= 1}
-                href={href({ page: page - 1 })}
-                label={t('pagination.previous')}
-                dir="prev"
-              />
-              <PageLink
-                disabled={page >= lastPage}
-                href={href({ page: page + 1 })}
-                label={t('pagination.next')}
-                dir="next"
-              />
+          {total > pageSize ? (
+            <nav
+              aria-label={t('pagination.label')}
+              className="flex items-center justify-between gap-3 border-t border-border p-4 sm:px-5"
+            >
+              <p className="font-mono text-xs text-text-muted">
+                {t('pagination.range', { from, to, total })}
+              </p>
+              <div className="flex gap-2">
+                <PageLink
+                  disabled={page <= 1}
+                  href={href({ page: page - 1 })}
+                  label={t('pagination.previous')}
+                  dir="prev"
+                />
+                <PageLink
+                  disabled={page >= lastPage}
+                  href={href({ page: page + 1 })}
+                  label={t('pagination.next')}
+                  dir="next"
+                />
+              </div>
+            </nav>
+          ) : null}
+        </Card>
+        {invitations.data.length > 0 ? (
+          <Card className="directory-invitations overflow-hidden">
+            <div className="border-b border-border p-5 sm:px-6">
+              <h2 className="font-semibold">{t('invitations.title')}</h2>
+              <p className="mt-1 text-sm text-text-muted">{t('invitations.subtitle')}</p>
             </div>
-          </nav>
+            <ul className="divide-y divide-border">
+              {invitations.data.map((inv) => (
+                <li
+                  key={inv.id}
+                  className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-3.5 sm:px-6"
+                >
+                  <Avatar first={inv.firstName} last={inv.lastName} seed={inv.id} />
+                  <div className="min-w-0 flex-1 basis-48">
+                    <p className="truncate font-medium">
+                      <bdi>
+                        {inv.firstName} {inv.lastName}
+                      </bdi>
+                    </p>
+                    <p className="truncate text-sm text-text-muted">
+                      {t.rich('invitations.sentTo', {
+                        email: inv.email,
+                        e: (chunks) => <bdi>{chunks}</bdi>,
+                      })}
+                    </p>
+                  </div>
+                  {inv.state === 'expired' ? (
+                    <Badge tone="warning" dot>
+                      {t('invitations.expired')}
+                    </Badge>
+                  ) : (
+                    <Badge tone="info">
+                      {t('invitations.expires', {
+                        date: f.dateTime(new Date(inv.expiresAt), { dateStyle: 'medium' }),
+                      })}
+                    </Badge>
+                  )}
+                  <InvitationActions id={inv.id} email={inv.email} />
+                </li>
+              ))}
+            </ul>
+          </Card>
         ) : null}
-      </Card>
+      </div>
     </div>
   );
 }
@@ -288,31 +320,38 @@ function PersonRow({
   statusLabel,
   noEmail,
   extra,
+  number,
 }: {
   person: Person;
   statusLabel: string;
   noEmail: string;
   extra?: React.ReactNode;
+  number: string;
 }) {
   const tone = person.invited ? 'info' : person.isActive ? 'success' : 'neutral';
   return (
-    <li className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3.5 sm:px-5">
-      <Avatar first={person.firstName} last={person.lastName} seed={person.id} />
-      <div className="min-w-0 flex-1 basis-48">
-        <p className="truncate font-medium">
+    <li className="directory-member">
+      <span className="directory-row-number" aria-hidden>
+        {number}
+      </span>
+      <div className="directory-identity">
+        <Avatar first={person.firstName} last={person.lastName} seed={person.id} />
+        <p>
           <bdi>
             {person.firstName} {person.lastName}
           </bdi>
         </p>
-        <p className="truncate text-sm text-text-muted">
-          {person.email ? <bdi>{person.email}</bdi> : noEmail}
-        </p>
       </div>
-      <Badge tone={tone} dot>
-        {statusLabel}
-      </Badge>
-      {person.invited ? null : <MemberActions person={person} />}
-      {extra}
+      <p className="directory-email">{person.email ? <bdi>{person.email}</bdi> : noEmail}</p>
+      <div className="directory-member-status">
+        <Badge tone={tone} dot>
+          {statusLabel}
+        </Badge>
+      </div>
+      <div className="directory-member-actions">
+        {person.invited ? null : <MemberActions person={person} />}
+      </div>
+      {extra ? <div className="directory-family">{extra}</div> : null}
     </li>
   );
 }

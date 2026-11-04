@@ -34,6 +34,10 @@ export const colorNames = [
   'info-soft',
   'ring',
   'shadow',
+  'navigation',
+  'navigation-hover',
+  'navigation-active',
+  'navigation-border',
 ] as const;
 
 export type ColorName = (typeof colorNames)[number];
@@ -45,14 +49,14 @@ export type Palette = Record<ColorName, Rgb>;
  * carry the editorial and contemporary Maghreb direction. `ink` is the always-dark brand surface.
  */
 export const light: Palette = {
-  background: '248 246 240',
+  background: '248 247 243',
   surface: '255 255 255',
-  'surface-muted': '239 236 227',
-  border: '230 225 215',
+  'surface-muted': '242 240 234',
+  border: '229 226 218',
   'border-strong': '208 201 188',
   text: '27 33 51',
   'text-muted': '91 98 116',
-  primary: '42 67 162',
+  primary: '46 61 191',
   'primary-foreground': '250 248 243',
   'primary-soft': '231 235 250',
   accent: '151 66 43',
@@ -69,8 +73,12 @@ export const light: Palette = {
   'danger-soft': '251 229 223',
   info: '40 70 190',
   'info-soft': '227 233 252',
-  ring: '42 67 162',
+  ring: '46 61 191',
   shadow: '40 32 18',
+  navigation: '24 32 49',
+  'navigation-hover': '40 49 68',
+  'navigation-active': '207 217 255',
+  'navigation-border': '56 66 85',
 };
 
 export const dark: Palette = {
@@ -100,14 +108,18 @@ export const dark: Palette = {
   'info-soft': '26 34 70',
   ring: '164 187 255',
   shadow: '0 0 0',
+  navigation: '9 15 28',
+  'navigation-hover': '32 43 64',
+  'navigation-active': '207 217 255',
+  'navigation-border': '45 57 79',
 };
 
-export const radius = { sm: '0.5rem', md: '0.75rem', lg: '1rem', xl: '1.5rem' } as const;
+export const radius = { sm: '0.625rem', md: '0.75rem', lg: '1rem', xl: '1.25rem' } as const;
 
 export const motion = {
-  fast: '140ms',
-  normal: '240ms',
-  scene: '600ms',
+  fast: '130ms',
+  normal: '220ms',
+  scene: '500ms',
   ease: 'cubic-bezier(0.2, 0.8, 0.2, 1)',
 } as const;
 export const typeScale = {

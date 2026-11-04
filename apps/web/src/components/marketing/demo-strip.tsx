@@ -1,3 +1,4 @@
+import { ArrowUpRight, School } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { ButtonLink } from '../ui/button';
 
@@ -5,13 +6,21 @@ import { ButtonLink } from '../ui/button';
 export function DemoStrip() {
   const t = useTranslations('demoSchool');
   return (
-    <section className="mx-auto max-w-6xl px-5 pt-16 md:px-8">
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border bg-surface-muted p-6">
-        <div className="min-w-0">
-          <h2 className="display text-2xl">{t('title')}</h2>
-          <p className="mt-1 max-w-xl text-sm text-text-muted">{t('stripBody')}</p>
+    <section className="mx-auto max-w-7xl px-5 pb-10 md:px-10">
+      <div className="flex flex-wrap items-center justify-between gap-6 rounded-xl border border-border bg-surface p-6 sm:p-8">
+        <div className="flex min-w-0 items-start gap-4">
+          <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
+            <School className="size-5" strokeWidth={1.5} aria-hidden />
+          </span>
+          <div className="min-w-0">
+            <h2 className="text-lg font-semibold tracking-tight">{t('title')}</h2>
+            <p className="mt-2 max-w-xl text-sm leading-6 text-text-muted">{t('stripBody')}</p>
+          </div>
         </div>
-        <ButtonLink href="/demo">{t('cta')}</ButtonLink>
+        <ButtonLink href="/demo" variant="secondary">
+          {t('cta')}
+          <ArrowUpRight className="rtl-flip size-4" aria-hidden />
+        </ButtonLink>
       </div>
     </section>
   );

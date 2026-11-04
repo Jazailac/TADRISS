@@ -227,7 +227,11 @@ test.describe('invitations', () => {
     await login(page, ADMIN);
     await inviteVia(page, 'teachers', 'Soukaina', email);
 
-    const row = page.getByRole('listitem').filter({ hasText: email }).first();
+    // The invited person also has a directory row above; the actions are on the invitation's row.
+    const row = page
+      .getByRole('listitem')
+      .filter({ hasText: email })
+      .filter({ has: page.getByRole('button', { name: `Renvoyer l’invitation à ${email}` }) });
     await row.getByRole('button', { name: `Renvoyer l’invitation à ${email}` }).click();
     await expect(page.getByText('Invitation renvoyée.')).toBeVisible();
 

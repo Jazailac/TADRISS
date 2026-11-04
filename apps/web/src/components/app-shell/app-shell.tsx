@@ -2,17 +2,16 @@
 import {
   Bell,
   ChevronRight,
-  Home,
   LogOut,
   Menu,
   PanelLeftClose,
   PanelLeftOpen,
   Search,
-  ShieldCheck,
   X,
 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { useFormStatus } from 'react-dom';
 import { logout } from '@/app/actions/auth';
 import { Link, usePathname } from '@/i18n/navigation';
@@ -26,6 +25,25 @@ import { matchNav, navSets, type NavGroup, type NavItem, type NavSet } from './n
 
 export type UnreadCounts = { announcements: number; messages: number };
 export type ShellUser = { name: string; initials: string; role: string; school: string };
+
+/** True only for a pointer outside the dialog's box; its own padding also targets the dialog. */
+function isOnBackdrop(event: MouseEvent<HTMLDialogElement>): boolean {
+  if (event.target !== event.currentTarget) return false;
+  const box = event.currentTarget.getBoundingClientRect();
+  return (
+    event.clientX < box.left ||
+    event.clientX > box.right ||
+    event.clientY < box.top ||
+    event.clientY > box.bottom
+  );
+}
+
+/** Keep the selected child's file open while navigating between parent sections. */
+function navigationHref(href: string, childId?: string | null): string {
+  if (!childId || !(href === '/parent' || href.startsWith('/parent/'))) return href;
+  return `${href}${href.includes('?') ? '&' : '?'}${new URLSearchParams({ child: childId })}`;
+}
+
 function SignOutButton() {
   const t = useTranslations('shell');
   const { pending } = useFormStatus();
@@ -46,15 +64,17 @@ function Sidebar({
   unread,
   collapsed = false,
   close,
+  childId,
 }: {
   nav: NavGroup[];
   user: ShellUser;
   unread: UnreadCounts;
   collapsed?: boolean;
   close?: () => void;
+  childId?: string | null;
 }) {
   const t = useTranslations('shell');
-  const s = useTranslations('studio');
+  const brand = useTranslations('nav');
   const locale = useLocale();
   const pathname = usePathname();
   const activeItem = matchNav(
@@ -62,9 +82,15 @@ function Sidebar({
     pathname,
   );
   return (
-    <div className="flex h-full flex-col gap-6 p-4">
-      <div className="flex h-9 items-center gap-3 ps-2">
-        {collapsed ? <Mark className="size-6 text-primary" /> : <Logo />}
+    <div className="sidebar-content flex h-full flex-col gap-5 p-4">
+      <div className="flex h-11 shrink-0 items-center gap-3 ps-2">
+        <Link
+          href={navigationHref(nav[0]?.items[0]?.href ?? '/', childId)}
+          onClick={close}
+          aria-label={brand('home')}
+        >
+          {collapsed ? <Mark className="size-6 text-primary" /> : <Logo />}
+        </Link>
         {close ? (
           <button
             type="button"
@@ -77,7 +103,10 @@ function Sidebar({
         ) : null}
       </div>
       <div
-        className={cx('rounded-xl border border-border bg-background', collapsed ? 'p-2' : 'p-3')}
+        className={cx(
+          'shrink-0 rounded-xl border border-border bg-surface-muted/40',
+          collapsed ? 'p-2' : 'p-3',
+        )}
       >
         <div className="flex items-center gap-3">
           <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
@@ -88,38 +117,38 @@ function Sidebar({
               <p dir="auto" className="truncate text-sm font-semibold">
                 {user.school}
               </p>
-              <p className="mt-0.5 text-xs text-text-muted">{user.role}</p>
+              <p className="mt-1 text-xs text-text-muted">{user.role}</p>
             </div>
           ) : null}
         </div>
       </div>
       <nav aria-label={t('navigation')} className="min-h-0 flex-1 overflow-y-auto">
         {nav.map((group) => (
-          <div key={group.key} className="mb-5">
+          <div key={group.key} className="mb-5 last:mb-0">
             {!collapsed ? (
-              <p className="mb-2 px-3 text-[0.65rem] font-semibold tracking-widest text-text-muted uppercase">
+              <p className="sidebar-group-label mb-2 px-3 text-[0.6875rem] font-semibold tracking-[0.08em] text-text-muted uppercase">
                 {t(`groups.${group.key}`)}
               </p>
             ) : null}
-            <div className="grid gap-1">
+            <div className="grid gap-0.5">
               {group.items.map((item) => {
                 const Icon = item.icon;
                 const count =
                   item.key === 'announcements' || item.key === 'messages' ? unread[item.key] : 0;
                 const active = item.available && item.href === activeItem?.href;
                 const classes = cx(
-                  'flex min-h-10 items-center rounded-lg text-sm',
+                  'sidebar-link relative flex min-h-11 items-center rounded-lg text-[0.9375rem]',
                   collapsed ? 'justify-center px-2' : 'gap-3 px-3',
                   active
                     ? 'bg-primary-soft font-semibold text-primary'
                     : item.available
-                      ? 'text-text-muted hover:bg-surface-muted'
+                      ? 'text-text-muted hover:bg-surface-muted hover:text-text'
                       : 'text-text-muted',
                 );
                 return item.available ? (
                   <Link
                     key={item.key}
-                    href={item.href}
+                    href={navigationHref(item.href, childId)}
                     aria-label={collapsed ? t(`nav.${item.key}`) : undefined}
                     title={collapsed ? t(`nav.${item.key}`) : undefined}
                     aria-current={active ? 'page' : undefined}
@@ -174,55 +203,72 @@ function Sidebar({
         ))}
       </nav>
       {!collapsed ? (
-        <div className="grid gap-3">
-          <div className="lg:hidden">
-            <LocaleSwitcher />
-          </div>
-          <div className="rounded-xl bg-primary-soft/60 p-3">
-            <div className="flex items-center gap-2 text-xs font-medium text-primary">
-              <ShieldCheck className="size-4" aria-hidden />
-              {s('protected')}
-            </div>
-          </div>
+        <div className="lg:hidden">
+          <LocaleSwitcher />
         </div>
       ) : null}
-      <div className="flex items-center gap-2 border-t border-border pt-4">
-        <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent-soft text-xs font-semibold text-accent">
+      <div
+        className={cx(
+          'flex shrink-0 items-center gap-2 border-t border-border pt-4',
+          collapsed && 'flex-col',
+        )}
+      >
+        <span
+          aria-hidden
+          className="grid size-9 shrink-0 place-items-center rounded-xl border border-border bg-surface-muted text-xs font-semibold text-text"
+        >
           {user.initials}
         </span>
         {!collapsed ? (
           <>
             <div className="min-w-0 flex-1">
-              <p dir="auto" className="truncate text-xs font-medium">
+              <p dir="auto" className="truncate text-sm font-medium">
                 {user.name}
               </p>
-              <p className="mt-0.5 text-[0.65rem] text-text-muted">{user.role}</p>
+              <p className="mt-0.5 text-xs text-text-muted">{user.role}</p>
             </div>
-            <form action={logout}>
-              <input type="hidden" name="locale" value={locale} />
-              <SignOutButton />
-            </form>
           </>
         ) : null}
+        <form action={logout}>
+          <input type="hidden" name="locale" value={locale} />
+          <SignOutButton />
+        </form>
       </div>
     </div>
   );
 }
-export function AppShell({
+type AppShellProps = {
+  nav: NavSet;
+  user: ShellUser;
+  unread?: UnreadCounts;
+  hidden?: readonly string[];
+  children: ReactNode;
+};
+
+export function AppShell(props: AppShellProps) {
+  const shell = <AppShellContent {...props} />;
+  return props.nav === 'parent' ? (
+    <Suspense fallback={shell}>
+      <ParentAppShell {...props} />
+    </Suspense>
+  ) : (
+    shell
+  );
+}
+
+function ParentAppShell(props: AppShellProps) {
+  const search = useSearchParams();
+  return <AppShellContent {...props} childId={search.get('child')} />;
+}
+
+function AppShellContent({
   nav: navSet,
   user,
   unread = { announcements: 0, messages: 0 },
   hidden = [],
   children,
-}: {
-  nav: NavSet;
-  user: ShellUser;
-  /** Badges for the communication items; the design previews have none. */
-  unread?: UnreadCounts;
-  /** Navigation keys the administration switched off for this role. */
-  hidden?: readonly string[];
-  children: ReactNode;
-}) {
+  childId,
+}: AppShellProps & { childId?: string | null }) {
   const t = useTranslations('shell');
   const s = useTranslations('studio');
   const nav = navSets[navSet]
@@ -234,18 +280,41 @@ export function AppShell({
   const drawer = useRef<HTMLDialogElement>(null);
   const command = useRef<HTMLDialogElement>(null);
   const notifications = useRef<HTMLDialogElement>(null);
+  // A drag that starts inside a dialog and ends on the backdrop must not close it.
+  const pressedBackdrop = useRef(false);
+  const closeOnBackdrop = {
+    onMouseDown: (event: MouseEvent<HTMLDialogElement>) => {
+      pressedBackdrop.current = isOnBackdrop(event);
+    },
+    onClick: (event: MouseEvent<HTMLDialogElement>) => {
+      if (pressedBackdrop.current && isOnBackdrop(event)) event.currentTarget.close();
+      pressedBackdrop.current = false;
+    },
+  };
   const available = nav.flatMap((g) => g.items).filter((item: NavItem) => item.available);
   const current = matchNav(available, pathname);
   const unreadLinks = available.flatMap((item) => {
     const count = item.key === 'announcements' || item.key === 'messages' ? unread[item.key] : 0;
     return count > 0 ? [{ ...item, count }] : [];
   });
-  const home = available[0]?.href ?? '/';
+  const dockItems = [
+    available[0],
+    ...available.filter(
+      (item) => item.key === 'schedule' || item.key === 'homework' || item.key === 'messages',
+    ),
+  ].filter((item): item is NavItem => !!item);
+  const openCommand = () => {
+    setQuery('');
+    command.current?.showModal();
+    command.current?.querySelector('input')?.focus();
+  };
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
+        setQuery('');
         command.current?.showModal();
+        command.current?.querySelector('input')?.focus();
       }
     };
     document.addEventListener('keydown', onKey);
@@ -258,20 +327,29 @@ export function AppShell({
   };
   return (
     <div
-      className="min-h-dvh bg-background lg:grid"
-      style={{ gridTemplateColumns: collapsed ? '5.25rem minmax(0,1fr)' : '16rem minmax(0,1fr)' }}
+      className="app-workspace min-h-dvh bg-background lg:grid"
+      style={{ gridTemplateColumns: collapsed ? '5.25rem minmax(0,1fr)' : '17rem minmax(0,1fr)' }}
     >
-      <aside className="app-sidebar sticky top-0 hidden h-dvh border-e border-border lg:block">
-        <Sidebar nav={nav} user={user} unread={unread} collapsed={collapsed} />
+      <a href="#workspace-main" className="skip-link">
+        {t('skipToContent')}
+      </a>
+      <aside className="app-sidebar sticky top-0 hidden h-dvh lg:block">
+        <Sidebar nav={nav} user={user} unread={unread} collapsed={collapsed} childId={childId} />
       </aside>
       <dialog
         ref={drawer}
-        className="shell-dialog fixed inset-y-0 m-0 h-dvh max-h-dvh w-72 max-w-[90vw] rounded-none"
+        className="shell-dialog shell-drawer"
         aria-label={t('navigation')}
+        {...closeOnBackdrop}
       >
-        <Sidebar nav={nav} user={user} unread={unread} close={closeDrawer} />
+        <Sidebar nav={nav} user={user} unread={unread} close={closeDrawer} childId={childId} />
       </dialog>
-      <dialog ref={command} className="shell-dialog" aria-label={s('command')}>
+      <dialog
+        ref={command}
+        className="shell-dialog shell-command"
+        aria-label={s('command')}
+        {...closeOnBackdrop}
+      >
         <div className="flex items-center gap-3 border-b border-border p-5">
           <Search className="size-5 text-primary" aria-hidden />
           <input
@@ -280,6 +358,17 @@ export function AppShell({
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
+            }}
+            onKeyDown={(event) => {
+              const first = command.current?.querySelector<HTMLAnchorElement>('a');
+              if (event.key === 'ArrowDown' && first) {
+                event.preventDefault();
+                first.focus();
+              }
+              if (event.key === 'Enter' && first) {
+                event.preventDefault();
+                first.click();
+              }
             }}
             placeholder={s('command')}
             className="h-10 min-w-0 flex-1 bg-transparent text-text outline-none"
@@ -295,7 +384,19 @@ export function AppShell({
             <X className="size-4" aria-hidden />
           </button>
         </div>
-        <div className="grid gap-2 p-4">
+        <div
+          className="grid gap-1 p-3"
+          onKeyDown={(event) => {
+            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+            const links = Array.from(event.currentTarget.querySelectorAll('a'));
+            const at = links.findIndex((link) => link === document.activeElement);
+            if (at === -1) return;
+            event.preventDefault();
+            const next = links[event.key === 'ArrowDown' ? at + 1 : at - 1];
+            if (next) next.focus();
+            else if (event.key === 'ArrowUp') command.current?.querySelector('input')?.focus();
+          }}
+        >
           {available
             .filter((item) =>
               t(`nav.${item.key}`).toLocaleLowerCase().includes(query.toLocaleLowerCase()),
@@ -303,11 +404,11 @@ export function AppShell({
             .map((item) => (
               <Link
                 key={item.key}
-                href={item.href}
+                href={navigationHref(item.href, childId)}
                 onClick={() => {
                   command.current?.close();
                 }}
-                className="flex items-center gap-3 rounded-xl p-4 text-sm hover:bg-primary-soft hover:text-primary"
+                className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm hover:bg-primary-soft hover:text-primary"
               >
                 <item.icon className="size-4" aria-hidden />
                 {t(`nav.${item.key}`)}
@@ -321,7 +422,12 @@ export function AppShell({
           ) : null}
         </div>
       </dialog>
-      <dialog ref={notifications} className="shell-dialog" aria-label={s('notifications')}>
+      <dialog
+        ref={notifications}
+        className="shell-dialog"
+        aria-label={s('notifications')}
+        {...closeOnBackdrop}
+      >
         <div className="flex items-center justify-between border-b border-border p-5">
           <h2 className="font-semibold">{s('notifications')}</h2>
           <button
@@ -342,7 +448,7 @@ export function AppShell({
             {unreadLinks.map((item) => (
               <li key={item.key}>
                 <Link
-                  href={item.href}
+                  href={navigationHref(item.href, childId)}
                   onClick={() => {
                     notifications.current?.close();
                   }}
@@ -360,7 +466,7 @@ export function AppShell({
         )}
       </dialog>
       <div className="min-w-0">
-        <header className="sticky top-0 z-30 flex h-18 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur-xl md:px-8">
+        <header className="workspace-topbar sticky top-0 z-30 flex items-center gap-3 border-b border-border px-4 md:px-8">
           <button
             type="button"
             aria-label={collapsed ? s('expand') : s('collapse')}
@@ -385,21 +491,43 @@ export function AppShell({
           >
             <Menu className="size-5" aria-hidden />
           </button>
-          <span className="hidden items-center gap-2 text-xs text-text-muted md:flex">
-            {user.role}
-            <ChevronRight className="rtl-flip size-3" aria-hidden />
-            <span className="text-text">{current ? t(`nav.${current.key}`) : s('overview')}</span>
+          <nav
+            aria-label={t('breadcrumbs')}
+            className="workspace-breadcrumb hidden min-w-0 items-center gap-2 text-sm md:flex"
+          >
+            <Link
+              href={navigationHref(available[0]?.href ?? '/', childId)}
+              className="shrink-0 text-text-muted hover:text-primary"
+            >
+              {t('nav.dashboard')}
+            </Link>
+            {current && current.href !== available[0]?.href ? (
+              <>
+                <ChevronRight className="rtl-flip size-3.5 text-text-muted" aria-hidden />
+                <span aria-current="page" className="truncate font-semibold">
+                  {t(`nav.${current.key}`)}
+                </span>
+              </>
+            ) : null}
+          </nav>
+          <span className="min-w-0 truncate text-sm font-semibold md:hidden">
+            {current ? t(`nav.${current.key}`) : s('overview')}
           </span>
           <div className="ms-auto flex items-center gap-1">
             <button
               type="button"
-              aria-label={t('search')}
-              onClick={() => {
-                command.current?.showModal();
-              }}
-              className="grid size-9 place-items-center rounded-lg text-text-muted hover:bg-surface-muted"
+              aria-label={t('goToPage')}
+              onClick={openCommand}
+              className="flex h-9 items-center gap-3 rounded-lg px-2.5 text-text-muted transition-colors hover:bg-surface-muted md:border md:border-border md:bg-surface"
             >
               <Search className="size-4" aria-hidden />
+              <span className="hidden text-sm md:block">{t('goToPage')}</span>
+              <kbd
+                aria-hidden
+                className="hidden rounded border border-border px-1 py-0.5 font-mono text-[0.6rem] md:block"
+              >
+                {t('searchShortcut')}
+              </kbd>
             </button>
             <button
               type="button"
@@ -407,7 +535,7 @@ export function AppShell({
               onClick={() => {
                 notifications.current?.showModal();
               }}
-              className="grid size-9 place-items-center rounded-lg text-text-muted hover:bg-surface-muted"
+              className="grid size-10 place-items-center rounded-lg text-text-muted transition-colors hover:bg-surface-muted"
             >
               <span className="relative grid place-items-center">
                 <Bell className="size-4" aria-hidden />
@@ -425,37 +553,38 @@ export function AppShell({
             <ThemeToggle />
           </div>
         </header>
-        <main className="px-5 py-8 pb-28 md:px-8 lg:px-10 lg:pb-10">{children}</main>
+        <main id="workspace-main" tabIndex={-1} className="workspace-main outline-none">
+          {children}
+        </main>
         <nav
           aria-label={s('overview')}
-          className="fixed inset-x-0 bottom-0 z-30 flex justify-around border-t border-border bg-surface pb-[max(0.6rem,env(safe-area-inset-bottom))] pt-2 lg:hidden"
+          className="mobile-dock fixed inset-x-0 bottom-0 z-30 flex justify-around gap-1 border-t border-border bg-surface px-2 pb-[max(0.6rem,env(safe-area-inset-bottom))] pt-2 lg:hidden"
         >
-          <Link
-            href={home}
-            className="flex min-w-20 flex-col items-center gap-1 rounded-lg py-2 text-[0.65rem] text-primary"
-          >
-            <Home className="size-5" aria-hidden />
-            {s('overview')}
-          </Link>
+          {dockItems.map((item) => (
+            <Link
+              key={item.key}
+              href={navigationHref(item.href, childId)}
+              aria-current={current?.href === item.href ? 'page' : undefined}
+              className="flex min-h-13 min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-lg px-1 text-xs text-text-muted transition-colors hover:bg-surface-muted"
+            >
+              <item.icon className="size-5" strokeWidth={1.75} aria-hidden />
+              {item.key === 'dashboard'
+                ? t('home')
+                : item.key === 'schedule'
+                  ? t('scheduleShort')
+                  : t(`nav.${item.key}`)}
+            </Link>
+          ))}
           <button
             type="button"
-            onClick={() => {
-              command.current?.showModal();
-            }}
-            className="flex min-w-20 flex-col items-center gap-1 rounded-lg py-2 text-[0.65rem] text-text-muted"
-          >
-            <Search className="size-5" aria-hidden />
-            {t('search')}
-          </button>
-          <button
-            type="button"
+            aria-label={t('navigation')}
             onClick={() => {
               drawer.current?.showModal();
             }}
-            className="flex min-w-20 flex-col items-center gap-1 rounded-lg py-2 text-[0.65rem] text-text-muted"
+            className="flex min-h-13 min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-lg px-1 text-xs text-text-muted transition-colors hover:bg-surface-muted"
           >
             <Menu className="size-5" aria-hidden />
-            {t('navigation')}
+            {t('more')}
           </button>
         </nav>
       </div>

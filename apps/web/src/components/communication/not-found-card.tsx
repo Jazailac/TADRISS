@@ -15,7 +15,7 @@ export function CommunicationNotFound({
 }) {
   const t = useTranslations(kind);
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-3xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-3xl gap-7">
       <Card>
         <EmptyState
           heading="h1"

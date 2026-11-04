@@ -52,7 +52,7 @@ export async function ThreadPage({ area, otherId }: { area: Area; otherId: strin
         : f.dateTime(new Date(sample), { dateStyle: 'full', timeZone: tz });
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-3xl gap-5">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-3xl gap-5">
       <MarkThreadRead otherId={otherId} unread={hasUnread} />
       <ThreadAutoRefresh />
       <Link
@@ -63,7 +63,7 @@ export async function ThreadPage({ area, otherId }: { area: Area; otherId: strin
         {t('thread.back')}
       </Link>
 
-      <header className="flex items-center gap-4">
+      <header className="flex items-center gap-4 rounded-xl border border-border bg-surface p-5 shadow-xs sm:p-6">
         <Avatar
           first={contact.ok ? contact.data.firstName : ''}
           last={contact.ok ? contact.data.lastName : ''}
@@ -78,7 +78,10 @@ export async function ThreadPage({ area, otherId }: { area: Area; otherId: strin
         </div>
       </header>
 
-      <section aria-label={t('thread.messages')} className="grid gap-5">
+      <section
+        aria-label={t('thread.messages')}
+        className="grid min-h-72 gap-7 rounded-xl border border-border bg-surface-muted/35 p-4 sm:p-7"
+      >
         {groups.length === 0 ? (
           <p className="rounded-xl border border-dashed border-border-strong p-8 text-center text-sm text-text-muted">
             {t('thread.empty')}
@@ -86,7 +89,7 @@ export async function ThreadPage({ area, otherId }: { area: Area; otherId: strin
         ) : (
           groups.map((g) => (
             <div key={g.key} className="grid gap-2">
-              <p className="mx-auto rounded-full bg-surface-muted px-3 py-1 text-xs text-text-muted">
+              <p className="mx-auto rounded-full border border-border bg-surface px-3 py-1 font-mono text-[0.6875rem] text-text-muted">
                 {dayLabel(g.key, g.items[0]?.createdAt ?? '')}
               </p>
               <ul className="grid gap-2">
@@ -94,19 +97,22 @@ export async function ThreadPage({ area, otherId }: { area: Area; otherId: strin
                   <li key={m.id} className={cx('flex', m.fromMe ? 'justify-end' : 'justify-start')}>
                     <div
                       className={cx(
-                        'max-w-[85%] rounded-2xl px-4 py-2.5 shadow-xs',
+                        'max-w-[90%] rounded-2xl px-4 py-3 shadow-xs sm:max-w-[80%]',
                         m.fromMe
-                          ? 'rounded-ee-md bg-primary text-primary-foreground'
+                          ? 'rounded-ee-md bg-ink text-ink-foreground'
                           : 'rounded-es-md border border-border bg-surface',
                       )}
                     >
-                      <p className="whitespace-pre-wrap break-words" dir="auto">
+                      <p
+                        className="whitespace-pre-wrap break-words text-sm leading-relaxed [overflow-wrap:anywhere]"
+                        dir="auto"
+                      >
                         {m.body}
                       </p>
                       <p
                         className={cx(
                           'mt-1 flex items-center justify-end gap-1.5 font-mono text-[11px] tabular-nums',
-                          m.fromMe ? 'text-primary-foreground/75' : 'text-text-muted',
+                          m.fromMe ? 'text-ink-muted' : 'text-text-muted',
                         )}
                       >
                         {f.dateTime(new Date(m.createdAt), {
@@ -138,7 +144,7 @@ export async function ThreadPage({ area, otherId }: { area: Area; otherId: strin
       </section>
 
       {contact.ok ? (
-        <div className="sticky bottom-0 -mx-1 px-1 pb-2">
+        <div className="sticky bottom-20 z-10 -mx-1 px-1 pb-2 lg:bottom-4">
           <Composer recipientId={otherId} />
         </div>
       ) : null}

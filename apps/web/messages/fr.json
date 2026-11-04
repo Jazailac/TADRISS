@@ -124,7 +124,7 @@
     },
     "roles": {
       "eyebrow": "Pour chaque rôle",
-      "title": "Trois espaces, une seule école.",
+      "title": "Quatre espaces, une seule école.",
       "body": "Chacun voit exactement ce dont il a besoin — et rien de plus.",
       "admin": {
         "title": "Direction",
@@ -154,6 +154,16 @@
           "b": "Notes et moyennes",
           "c": "Présences",
           "d": "Solde et reçus"
+        }
+      },
+      "parent": {
+        "title": "Parents",
+        "lead": "Le parcours de votre enfant, en confiance.",
+        "points": {
+          "a": "Une vue claire pour chaque enfant",
+          "b": "Présences, devoirs et résultats",
+          "c": "Frais et reçus, toujours accessibles",
+          "d": "Un lien direct avec l’équipe pédagogique"
         }
       }
     },
@@ -334,7 +344,13 @@
     },
     "platform": "Tadriss",
     "soon": "Bientôt",
-    "unread": "{count, plural, one {# non lu} other {# non lus}}"
+    "unread": "{count, plural, one {# non lu} other {# non lus}}",
+    "skipToContent": "Aller au contenu",
+    "goToPage": "Aller à une page",
+    "more": "Plus",
+    "breadcrumbs": "Fil d’Ariane",
+    "home": "Accueil",
+    "scheduleShort": "Agenda"
   },
   "demo": {
     "user": {
@@ -581,10 +597,10 @@
     "finance": "Frais & reçus",
     "create": "Créer mon école",
     "selected": "Votre configuration",
-    "configNote": "Vos choix sont conservés dans cet aperçu. Les modules seront activés au fil du développement.",
+    "configNote": "Vos choix guident cet aperçu. Configurez votre établissement après la création de votre espace.",
     "scroll": "LA JOURNÉE PREND FORME",
     "storyTitle": "De la première sonnerie au dernier reçu.",
-    "storyBody": "Un fil continu entre la classe et la direction. Explorez les outils qui composeront votre quotidien.",
+    "storyBody": "Un fil continu entre la classe et la direction. Explorez les outils qui accompagnent votre quotidien.",
     "next": "À suivre",
     "ready": "Votre espace est prêt",
     "waiting": "En préparation",
@@ -592,7 +608,7 @@
     "setup": "Bien démarrer",
     "setupBody": "Les fondations sont en place. Votre établissement prend forme, étape par étape.",
     "empty": "Votre journée commence ici",
-    "emptyBody": "Les informations apparaîtront ici lorsque les modules seront disponibles. En attendant, retrouvez les prochaines étapes de votre espace.",
+    "emptyBody": "Les informations apparaîtront ici à mesure que votre établissement enrichit son espace. Retrouvez les prochaines étapes pour bien démarrer.",
     "profile": "Votre espace personnel",
     "protected": "Accès protégé par rôle",
     "workspace": "Un espace pour chaque école",
@@ -606,15 +622,15 @@
     "command": "Aller à…",
     "commandEmpty": "Aucune page disponible pour cette recherche.",
     "help": "Repères",
-    "helpBody": "Les modules marqués « Bientôt » sont en cours de préparation.",
+    "helpBody": "La navigation s’adapte à votre rôle et aux modules de votre établissement.",
     "authEyebrow": "TOUT COMMENCE PAR UN ESPACE",
     "authTitle": "Une belle journée d’école commence ici.",
     "authBody": "Une équipe alignée. Une information à sa place. Plus de temps pour transmettre.",
     "secure": "Un compte personnel. Un accès adapté à votre rôle.",
-    "strength": "Robustesse du mot de passe",
-    "weak": "À renforcer",
-    "good": "Correct",
-    "strong": "Robuste",
+    "strength": "Longueur du mot de passe",
+    "weak": "8 caractères minimum",
+    "good": "Minimum atteint",
+    "strong": "16 caractères ou plus",
     "passwordHint": "Au moins 8 caractères. Préférez une phrase longue et unique.",
     "catalogue": "L’atelier Tadriss",
     "catalogueBody": "Composants et parcours de travail. Les exemples sont fictifs et ne modifient aucune donnée d’établissement.",
@@ -628,7 +644,7 @@
     "late": "En retard",
     "student": "Élève",
     "grade": "Note / 20",
-    "modulePreview": "Parcours à venir · aperçu interactif",
+    "modulePreview": "Aperçu du produit",
     "pricing": "Une offre à la mesure de votre école",
     "pricingBody": "Les formules et les tarifs sont en préparation. Aucun prix ni abonnement n’est proposé pour le moment.",
     "pricingLabel": "Tarifs à venir",
@@ -1246,7 +1262,8 @@
     "title": "Devoirs",
     "subtitle": {
       "teacher": "Donnez du travail à vos classes et suivez qui l’a fait.",
-      "student": "Ce que vous avez à faire, et ce qui est en retard."
+      "student": "Ce que vous avez à faire, et ce qui est en retard.",
+      "parent": "Suivez les devoirs de votre enfant, leurs échéances et leur avancement."
     },
     "views": {
       "label": "Affichage",
@@ -1537,6 +1554,7 @@
       "outstanding": "Reste à payer",
       "overdue": "En retard",
       "overdueCount": "{count, plural, one {# facture} other {# factures}}",
+      "invoiceCount": "{count, plural, one {# facture} other {# factures}}",
       "help": "Les factures et paiements annulés ne sont pas comptés."
     },
     "status": {
@@ -2343,5 +2361,37 @@
     "note": "Les données sont fictives et partagées : d’autres visiteurs peuvent les modifier.",
     "stripBody": "Parcourez une école complète, sans inscription, en tant que direction, enseignant, élève ou parent.",
     "cta": "Voir la démo"
+  },
+  "workspace": {
+    "edition": "Le journal de votre école",
+    "day": "La journée en clair",
+    "focus": "À votre rythme",
+    "open": "Ouvrir cet espace",
+    "inStep": "Chaque jour compte.",
+    "rollCallHint": "Un geste par élève. Une vue claire pour l’école.",
+    "teacherHint": "Vos cours, vos élèves. L’essentiel à portée de main.",
+    "studentHint": "De petits efforts. De grands progrès.",
+    "parentHint": "Son parcours, en confiance.",
+    "receipt": "Suivre les encaissements",
+    "collectedShare": "Part des montants encaissés",
+    "lessonFocus": "Votre programme du jour",
+    "workFocus": "Devoirs à terminer",
+    "gradeFocus": "Moyenne générale",
+    "attendanceFocus": "Présence en classe"
+  },
+  "domain": {
+    "directory": "Annuaire",
+    "members": "{count, plural, one {# membre} other {# membres}}",
+    "classes": "{count, plural, one {# classe} other {# classes}}",
+    "lessons": "{count, plural, one {# cours} other {# cours}}",
+    "weekHours": "{hours, number} h de cours",
+    "ledger": "Registre des factures",
+    "collection": "Répartition des encaissements",
+    "inbox": "Boîte de réception",
+    "unread": "{count, plural, one {# non lu} other {# non lus}}",
+    "library": "Bibliothèque",
+    "files": "{count, plural, one {# document} other {# documents}}",
+    "controlCenter": "Votre établissement, en détail",
+    "scoreScale": "Échelle des notes sur 20"
   }
 }

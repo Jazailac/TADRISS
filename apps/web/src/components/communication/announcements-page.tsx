@@ -47,7 +47,7 @@ export async function AnnouncementsPage({
   ]);
 
   const head = (actions?: React.ReactNode) => (
-    <header className="flex flex-wrap items-end justify-between gap-5">
+    <header className="workspace-header flex flex-wrap items-end justify-between gap-5">
       <div>
         <p className="eyebrow">{shell('communication')}</p>
         <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
@@ -59,7 +59,7 @@ export async function AnnouncementsPage({
 
   if (!list.ok || (classes && !classes.ok)) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
         {head()}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -80,9 +80,11 @@ export async function AnnouncementsPage({
   const reach = await getAnnouncementReach(supabase, reachable);
   const unreadIds = list.data.filter((a) => !a.read).map((a) => a.id);
   const tabs: View[] = ['active', 'deleted'];
+  const featuredId =
+    view === 'active' ? list.data.find((announcement) => announcement.pinned)?.id : undefined;
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {head(
         canPublish ? (
           <NewAnnouncementButton
@@ -99,7 +101,7 @@ export async function AnnouncementsPage({
         <div className="flex flex-wrap items-center justify-between gap-3">
           <nav
             aria-label={t('views.label')}
-            className="flex w-fit gap-1 rounded-lg bg-surface-muted p-1"
+            className="workspace-tabs flex max-w-full w-fit flex-wrap gap-1 rounded-lg border border-border bg-surface-muted/60 p-1"
           >
             {tabs.map((v) => (
               <Link
@@ -110,7 +112,7 @@ export async function AnnouncementsPage({
                 }}
                 aria-current={view === v ? 'page' : undefined}
                 className={cx(
-                  'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+                  'rounded-md px-4 py-2 text-sm font-medium transition-colors',
                   view === v ? 'bg-surface text-text shadow-xs' : 'text-text-muted hover:text-text',
                 )}
               >
@@ -134,12 +136,14 @@ export async function AnnouncementsPage({
           />
         </Card>
       ) : (
-        <ul aria-label={t('card.list')} className="grid grid-cols-1 gap-3">
-          {list.data.map((a) => (
+        <ul aria-label={t('card.list')} className="notice-board">
+          {list.data.map((a, index) => (
             <AnnouncementRow
               key={a.id}
               a={a}
               area={area}
+              number={f.number(index + 1, { minimumIntegerDigits: 2 })}
+              featured={a.id === featuredId}
               reach={reach.ok ? reach.data.get(a.id) : undefined}
               t={t}
               date={f.dateTime(new Date(a.createdAt), {
@@ -165,55 +169,70 @@ function AnnouncementRow({
   reach,
   t,
   date,
+  number,
+  featured,
 }: {
   a: AnnouncementView;
   area: Area;
   reach: { readCount: number; audienceCount: number } | undefined;
   t: Awaited<ReturnType<typeof getTranslations<'announcements'>>>;
   date: string;
+  number: string;
+  featured: boolean;
 }) {
   return (
-    <li>
+    <li className={cx('notice-item', featured && 'notice-item-featured')}>
       <Link
         href={`/${area}/announcements/${a.id}`}
         aria-label={`${t('card.open')} : ${a.title}`}
-        className={cx(
-          'relative grid gap-2 rounded-xl border bg-surface p-4 shadow-sm transition-[box-shadow,border-color] hover:border-border-strong hover:shadow-md sm:px-5',
-          a.read ? 'border-border' : 'border-primary/40',
-        )}
+        className="notice-link"
       >
-        <div className="flex flex-wrap items-center gap-2">
-          {a.read ? null : (
-            <Badge tone="primary" dot>
-              {t('card.unread')}
+        <span className="notice-number" aria-hidden>
+          {number}
+        </span>
+        <div className="notice-content">
+          <div className="notice-meta">
+            {a.read ? null : (
+              <Badge tone="primary" dot>
+                {t('card.unread')}
+              </Badge>
+            )}
+            {a.pinned ? (
+              <Badge tone="accent">
+                <Pin className="size-3" aria-hidden />
+                {t('card.pinned')}
+              </Badge>
+            ) : null}
+            <Badge>
+              {a.audience === 'class'
+                ? t.rich('audience.class', { name: a.className ?? '', n })
+                : t(`audience.${a.audience}`)}
             </Badge>
-          )}
-          {a.pinned ? (
-            <Badge tone="accent">
-              <Pin className="size-3" aria-hidden />
-              {t('card.pinned')}
-            </Badge>
-          ) : null}
-          <Badge>
-            {a.audience === 'class'
-              ? t.rich('audience.class', { name: a.className ?? '', n })
-              : t(`audience.${a.audience}`)}
-          </Badge>
-          <span className="ms-auto font-mono text-xs tabular-nums text-text-muted">{date}</span>
-        </div>
-        <p className={cx('text-lg', a.read ? 'font-medium' : 'font-semibold')} dir="auto">
-          <bdi>{a.title}</bdi>
-        </p>
-        <p className="line-clamp-2 whitespace-pre-line text-sm text-text-muted" dir="auto">
-          {a.body}
-        </p>
-        <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-text-muted">
-          <span>{t.rich('card.by', { name: a.authorName, n })}</span>
-          {reach ? (
-            <span className="font-mono tabular-nums">
-              {t('card.reach', { read: reach.readCount, total: reach.audienceCount })}
-            </span>
-          ) : null}
+            <time dateTime={a.createdAt}>{date}</time>
+          </div>
+          <p
+            className={cx(
+              'display text-2xl leading-snug',
+              a.read ? 'font-medium' : 'font-semibold',
+            )}
+            dir="auto"
+          >
+            <bdi>{a.title}</bdi>
+          </p>
+          <p
+            className="notice-body max-w-2xl line-clamp-3 whitespace-pre-line text-sm text-text-muted"
+            dir="auto"
+          >
+            {a.body}
+          </p>
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-text-muted">
+            <span>{t.rich('card.by', { name: a.authorName, n })}</span>
+            {reach ? (
+              <span className="font-mono tabular-nums">
+                {t('card.reach', { read: reach.readCount, total: reach.audienceCount })}
+              </span>
+            ) : null}
+          </div>
         </div>
       </Link>
     </li>

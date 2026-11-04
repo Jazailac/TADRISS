@@ -1,51 +1,66 @@
-import { ArrowDown, ArrowRight } from 'lucide-react';
+import { ArrowDown, ArrowRight, Globe2, Smartphone, Wallet } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
 import { SchoolStudio } from './school-studio';
+import { ButtonLink } from '../ui/button';
+import { CourtyardLines } from './courtyard-lines';
+
+const details = [
+  { key: 'languages', icon: Globe2 },
+  { key: 'currency', icon: Wallet },
+  { key: 'platforms', icon: Smartphone },
+] as const;
 
 export function Hero() {
   const t = useTranslations('studio');
   const home = useTranslations('home.hero');
   return (
     <section className="hero-world">
-      <div className="hero-orbit" aria-hidden />
-      <div className="mx-auto grid grid-cols-1 max-w-7xl gap-12 px-5 py-12 md:px-10 md:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
-        <div className="relative z-10">
-          <p className="flex items-center gap-3 font-mono text-[0.65rem] tracking-[0.18em] text-ink-muted uppercase">
-            <span className="h-px w-8 bg-ink-muted" aria-hidden />
-            {t('eyebrow')}
-          </p>
-          <h1 className="hero-heading mt-6">{t.rich('hero', { br: () => <br /> })}</h1>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-ink-muted md:text-lg">
-            {t('intro')}
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-5">
-            <Link
-              href="/signup"
-              className="inline-flex h-12 items-center gap-3 rounded-full bg-ink-foreground px-6 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
-            >
-              {home('ctaPrimary')}
-              <ArrowRight className="rtl-flip size-4" aria-hidden />
-            </Link>
-            <a
-              href="#school-studio"
-              className="inline-flex items-center gap-2 py-3 text-sm text-ink-foreground underline-offset-4 hover:underline"
-            >
-              {t('build')}
-              <ArrowDown className="size-4" aria-hidden />
-            </a>
-          </div>
-          <div className="mt-10 flex flex-wrap gap-x-5 gap-y-3 border-t border-ink-muted/25 pt-6 text-xs text-ink-muted">
-            {(['languages', 'currency', 'platforms'] as const).map((key) => (
-              <span key={key}>{home(`points.${key}`)}</span>
-            ))}
+      <CourtyardLines className="hero-linework" />
+      <div className="relative mx-auto max-w-7xl px-5 pb-10 pt-12 md:px-10 md:pb-14 md:pt-16">
+        <p className="eyebrow hero-eyebrow flex items-center gap-3">
+          <span className="h-px w-8 bg-ink-muted" aria-hidden />
+          {t('eyebrow')}
+        </p>
+        <div className="mt-7 grid grid-cols-1 gap-7 lg:grid-cols-[1.45fr_0.8fr] lg:items-end lg:gap-16">
+          <h1 className="hero-heading min-w-0">{t.rich('hero', { br: () => <br /> })}</h1>
+          <div className="min-w-0 lg:pb-2">
+            <p className="max-w-md text-base leading-7 text-ink-muted md:text-lg md:leading-8">
+              {t('intro')}
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <ButtonLink
+                href="/signup"
+                variant="secondary"
+                size="lg"
+                className="group hero-primary"
+              >
+                {home('ctaPrimary')}
+                <ArrowRight
+                  className="rtl-flip size-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+                  aria-hidden
+                />
+              </ButtonLink>
+              <a
+                href="#school-studio"
+                className="inline-flex items-center gap-2 py-3 text-sm font-medium text-ink-foreground underline-offset-4 hover:underline"
+              >
+                {t('build')}
+                <ArrowDown className="size-4" aria-hidden />
+              </a>
+            </div>
           </div>
         </div>
-        <SchoolStudio />
-      </div>
-      <div className="mx-auto flex max-w-7xl items-center gap-3 px-5 pb-8 text-[0.65rem] tracking-widest text-ink-muted md:px-10">
-        <ArrowDown className="size-3" aria-hidden />
-        {t('scroll')}
+        <div className="mt-10 md:mt-14">
+          <SchoolStudio />
+        </div>
+        <div className="mt-6 flex flex-wrap justify-between gap-x-8 gap-y-3 text-[0.6875rem] text-ink-muted">
+          {details.map(({ key, icon: Icon }) => (
+            <span key={key} className="flex items-center gap-2.5">
+              <Icon className="size-3.5" strokeWidth={1.75} aria-hidden />
+              {home(`points.${key}`)}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

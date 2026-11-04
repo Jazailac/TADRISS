@@ -37,7 +37,7 @@ export async function StudentPaymentsPage({
     f.dateTime(new Date(`${iso}T12:00:00Z`), { dateStyle: 'medium', timeZone: 'UTC' });
 
   const head = (
-    <header>
+    <header className="workspace-header">
       <p className="eyebrow">{shell('daily')}</p>
       <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
       <p className="mt-3 max-w-xl text-text-muted">{t('subtitle.student')}</p>
@@ -46,7 +46,7 @@ export async function StudentPaymentsPage({
 
   if (!res.ok) {
     return (
-      <div className="mx-auto grid max-w-3xl grid-cols-1 gap-7">
+      <div className="workspace-page w-full mx-auto grid max-w-3xl grid-cols-1 gap-7">
         {head}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -66,7 +66,7 @@ export async function StudentPaymentsPage({
   const paid = res.data.reduce((sum, i) => sum + i.paidCentimes, 0);
 
   return (
-    <div className="mx-auto grid max-w-3xl grid-cols-1 gap-7">
+    <div className="workspace-page w-full mx-auto grid max-w-3xl grid-cols-1 gap-7">
       {head}
       {res.data.length === 0 ? (
         <Card>
@@ -74,8 +74,8 @@ export async function StudentPaymentsPage({
         </Card>
       ) : (
         <>
-          <dl className="grid gap-4 sm:grid-cols-2">
-            <Card className="p-5">
+          <dl className="metric-strip grid gap-4 sm:grid-cols-2">
+            <Card className="metric-cell p-5">
               <dt className="text-sm text-text-muted">{t('student.owed')}</dt>
               <dd
                 className={cx(
@@ -89,7 +89,7 @@ export async function StudentPaymentsPage({
                 <p className="mt-1 text-xs text-success">{t('student.allPaid')}</p>
               ) : null}
             </Card>
-            <Card className="p-5">
+            <Card className="metric-cell p-5">
               <dt className="text-sm text-text-muted">{t('student.paid')}</dt>
               <dd className="mt-2 font-mono text-3xl font-medium tabular-nums">{money(paid)}</dd>
             </Card>

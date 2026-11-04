@@ -11,21 +11,23 @@ const items = [
 export function Security() {
   const t = useTranslations('home.security');
   return (
-    <section id="security" className="scroll-mt-20 border-b border-border/70">
-      <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
-        <SectionHeading eyebrow={t('eyebrow')} title={t('title')} body={t('body')} align="center" />
-        <div className="mt-16 grid gap-10 md:grid-cols-3">
+    <section id="security" className="scroll-mt-24 border-b border-border">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:px-10 lg:grid-cols-2 lg:gap-24 lg:py-28">
+        <SectionHeading eyebrow={t('eyebrow')} title={t('title')} body={t('body')} />
+        <div className="divide-y divide-border">
           {items.map(({ key, icon: Icon }) => (
-            <div key={key} className="text-center">
-              <span className="mx-auto inline-flex size-12 items-center justify-center rounded-full bg-accent-soft text-accent ring-1 ring-accent/15 ring-inset">
-                <Icon className="size-5" strokeWidth={1.75} aria-hidden />
+            <div key={key} className="flex gap-5 py-7 first:pt-0 last:pb-0">
+              <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-border bg-surface text-primary">
+                <Icon className="size-5" strokeWidth={1.5} aria-hidden />
               </span>
-              <h3 className="mt-5 text-lg font-semibold tracking-tight">
-                {t(`items.${key}.title`)}
-              </h3>
-              <p className="mx-auto mt-2 max-w-xs leading-relaxed text-text-muted">
-                {t(`items.${key}.body`)}
-              </p>
+              <div>
+                <h3 className="text-base font-semibold tracking-tight">
+                  {t(`items.${key}.title`)}
+                </h3>
+                <p className="mt-2 max-w-md text-sm leading-7 text-text-muted">
+                  {t(`items.${key}.body`)}
+                </p>
+              </div>
             </div>
           ))}
         </div>

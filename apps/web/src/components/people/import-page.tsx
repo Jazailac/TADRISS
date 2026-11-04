@@ -7,8 +7,8 @@ export async function ImportPage() {
     getTranslations('shell.groups'),
   ]);
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
-      <header>
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-4xl gap-7">
+      <header className="workspace-header">
         <p className="eyebrow">{shell('school')}</p>
         <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
         <p className="mt-3 max-w-xl text-text-muted">{t('subtitle')}</p>

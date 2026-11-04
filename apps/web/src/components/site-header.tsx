@@ -2,7 +2,7 @@
 
 import { Menu, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Link, usePathname } from '@/i18n/navigation';
 import { LocaleSwitcher } from './locale-switcher';
 import { ThemeToggle } from './theme-toggle';
@@ -14,6 +14,7 @@ const sections = ['features', 'roles', 'security'] as const;
 export function SiteHeader() {
   const t = useTranslations('nav');
   const menuId = useId();
+  const menuButton = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   // The menu is "open for" a path, so navigating closes it without an effect.
   const [openFor, setOpenFor] = useState<string | null>(null);
@@ -22,7 +23,10 @@ export function SiteHeader() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpenFor(null);
+      if (e.key === 'Escape') {
+        setOpenFor(null);
+        menuButton.current?.focus();
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => {
@@ -31,8 +35,8 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-xl backdrop-saturate-150">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 md:px-8">
+    <header className="site-header sticky top-0 z-40 border-b border-border bg-background">
+      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-4 px-5 md:px-10">
         <Link href="/" className="rounded-md text-text" aria-label={t('home')}>
           <Logo />
         </Link>
@@ -42,7 +46,7 @@ export function SiteHeader() {
             <Link
               key={s}
               href={`/#${s}`}
-              className="rounded-md px-3 py-2 text-sm text-text-muted transition-colors hover:text-text"
+              className="site-nav-link rounded-md px-3.5 py-2 text-sm text-text-muted transition-colors hover:text-primary"
             >
               {t(s)}
             </Link>
@@ -56,14 +60,15 @@ export function SiteHeader() {
           <ButtonLink href="/login" variant="ghost" size="sm">
             {t('login')}
           </ButtonLink>
-          <ButtonLink href="/signup" size="sm">
+          <ButtonLink href="/signup" variant="ink" size="sm">
             {t('signup')}
           </ButtonLink>
         </div>
 
         <button
+          ref={menuButton}
           type="button"
-          className="inline-flex size-10 items-center justify-center rounded-md text-text hover:bg-surface-muted lg:hidden"
+          className="inline-flex size-10 items-center justify-center rounded-lg border border-border bg-surface text-text transition-colors hover:bg-surface-muted lg:hidden"
           aria-expanded={open}
           aria-controls={menuId}
           aria-label={open ? t('closeMenu') : t('openMenu')}
@@ -79,7 +84,7 @@ export function SiteHeader() {
         id={menuId}
         aria-label={t('main')}
         hidden={!open}
-        className="border-t border-border/70 bg-background px-5 pt-3 pb-6 lg:hidden"
+        className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-border bg-background px-5 pt-3 pb-6 shadow-sm lg:hidden"
       >
         <ul className="grid">
           {sections.map((s) => (
@@ -101,7 +106,7 @@ export function SiteHeader() {
           <ThemeToggle />
         </div>
         <div className="mt-5 grid gap-2">
-          <ButtonLink href="/signup" size="lg">
+          <ButtonLink href="/signup" variant="ink" size="lg">
             {t('signup')}
           </ButtonLink>
           <ButtonLink href="/login" variant="secondary" size="lg">

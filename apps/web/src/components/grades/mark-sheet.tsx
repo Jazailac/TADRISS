@@ -10,7 +10,7 @@ import { Avatar } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
 import { cx } from '../ui/cx';
-import { Input } from '../ui/field';
+import { FieldError, Input } from '../ui/field';
 import { useToast } from '../ui/toast';
 
 type Cell = { text: string; absent: boolean; remark: string };
@@ -109,7 +109,7 @@ export function MarkSheet({
 
   return (
     <div className="grid gap-4">
-      <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <dl className="metric-strip metric-strip-pairs grid grid-cols-2 gap-3 sm:grid-cols-4">
         {(
           [
             ['average', stats.avg === null ? '—' : fmt.format(stats.avg)],
@@ -118,7 +118,7 @@ export function MarkSheet({
             ['graded', `${fmt.format(stats.graded)}/${fmt.format(rows.length)}`],
           ] as const
         ).map(([key, value]) => (
-          <Card key={key} className="p-4">
+          <Card key={key} className="metric-cell p-4">
             <dt className="text-xs text-text-muted">{t(`detail.stats.${key}`)}</dt>
             <dd className="mt-1 font-mono text-2xl font-medium tabular-nums">{value}</dd>
           </Card>
@@ -142,7 +142,10 @@ export function MarkSheet({
             const name = `${r.firstName} ${r.lastName}`;
             const errId = `score-error-${r.studentId}`;
             return (
-              <li key={r.studentId} className="grid gap-2 px-4 py-3 sm:px-5">
+              <li
+                key={r.studentId}
+                className="grid gap-2 px-4 py-4 transition-colors focus-within:bg-primary-soft/20 sm:px-5"
+              >
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                   <Avatar
                     first={r.firstName}
@@ -165,7 +168,7 @@ export function MarkSheet({
                       disabled={!canEdit || c.absent}
                       aria-label={t('sheet.scoreFor', { name })}
                       aria-invalid={invalid ? true : undefined}
-                      aria-describedby={invalid ? errId : undefined}
+                      aria-describedby={errId}
                       onChange={(ev) => {
                         set(r.studentId, { text: ev.target.value });
                       }}
@@ -195,14 +198,13 @@ export function MarkSheet({
                     {t('sheet.absent')}
                   </label>
                 </div>
-                {invalid ? (
-                  <p id={errId} role="alert" className="text-sm text-danger">
-                    {t('sheet.invalid', { max: maxScore })}
-                  </p>
-                ) : null}
+                <FieldError id={errId}>
+                  {invalid ? t('sheet.invalid', { max: maxScore }) : null}
+                </FieldError>
                 {canEdit || c.remark ? (
                   <Input
                     value={c.remark}
+                    dir="auto"
                     maxLength={300}
                     disabled={!canEdit}
                     placeholder={t('sheet.remarkPlaceholder')}
@@ -220,7 +222,7 @@ export function MarkSheet({
       </Card>
 
       {canEdit ? (
-        <div className="sticky bottom-20 z-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-surface/95 p-3 shadow-lg backdrop-blur md:bottom-4">
+        <div className="workspace-savebar sticky bottom-20 z-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border-strong/60 bg-surface p-4 shadow-md lg:bottom-4">
           <p className="font-mono text-sm tabular-nums text-text-muted">
             {t('sheet.totals', { graded: stats.graded, absent: stats.absent })}
             {dirty ? <span className="ms-3 text-warning">{t('sheet.unsaved')}</span> : null}

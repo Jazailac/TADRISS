@@ -11,7 +11,7 @@ import {
   todayIn,
 } from '@tadriss/shared';
 import { BookOpen, CalendarCheck, GraduationCap, Megaphone, Users } from 'lucide-react';
-import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getServerClient } from '@/lib/supabase/server';
 import { getViewer } from '@/lib/viewer';
@@ -21,6 +21,8 @@ import { Meter } from '../ui/meter';
 import { AnnouncementsLatest } from './announcements-latest';
 import { bdi, Panel, StatTile } from './dash-parts';
 import { LessonsToday } from './lessons-today';
+import { DayCover } from './day-cover';
+import { CollectionInstrument } from './collection-instrument';
 
 /** The administration's home: school head-counts, today's roll calls, money, and what's new. */
 export async function AdminHome() {
@@ -31,7 +33,7 @@ export async function AdminHome() {
   const [
     t,
     app,
-    f,
+    w,
     locale,
     students,
     teachers,
@@ -44,7 +46,7 @@ export async function AdminHome() {
   ] = await Promise.all([
     getTranslations('dashboard'),
     getTranslations('app'),
-    getFormatter(),
+    getTranslations('workspace'),
     getLocale(),
     countPeople(supabase, 'student'),
     countPeople(supabase, 'teacher'),
@@ -67,33 +69,35 @@ export async function AdminHome() {
   const isNew = headcount === 0 && classes.ok && classes.data.length === 0;
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
-      <header className="flex flex-wrap items-end justify-between gap-5">
-        <div>
-          <p className="eyebrow">
-            {f.dateTime(new Date(), {
-              weekday: 'long',
-              day: 'numeric',
-              month: 'long',
-              timeZone: tz,
-            })}
-          </p>
-          <h1 className="display mt-4 text-4xl md:text-5xl">
-            {app.rich('greeting', { name: viewer?.profile.firstName ?? '', n: bdi })}
-          </h1>
-          <p className="mt-3 max-w-xl text-text-muted">{t('admin.subtitle')}</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <ButtonLink
-            href="/dashboard/announcements"
-            variant="secondary"
-            icon={<Megaphone className="size-4" aria-hidden />}
-          >
-            {t('admin.actions.announce')}
-          </ButtonLink>
-          <ButtonLink href="/dashboard/students">{t('admin.actions.invite')}</ButtonLink>
-        </div>
-      </header>
+    <div className="dashboard-page mx-auto grid w-full grid-cols-1 max-w-6xl gap-7">
+      <DayCover
+        title={app.rich('greeting', { name: viewer?.profile.firstName ?? '', n: bdi })}
+        subtitle={t('admin.subtitle')}
+        date={today}
+        focusLabel={t('admin.rollCalls')}
+        focusValue={lessons.ok && dayLessons.length > 0 ? `${rollCalls}/${dayLessons.length}` : '–'}
+        focusHint={
+          lessons.ok
+            ? dayLessons.length > 0
+              ? w('rollCallHint')
+              : t('admin.noLessons')
+            : t('unavailable')
+        }
+        focusHref="/dashboard/attendance"
+        progress={lessons.ok && dayLessons.length > 0 ? rollCalls / dayLessons.length : undefined}
+        actions={
+          <>
+            <ButtonLink
+              href="/dashboard/announcements"
+              variant="secondary"
+              icon={<Megaphone className="size-4" aria-hidden />}
+            >
+              {t('admin.actions.announce')}
+            </ButtonLink>
+            <ButtonLink href="/dashboard/students">{t('admin.actions.invite')}</ButtonLink>
+          </>
+        }
+      />
 
       {isNew ? (
         <Panel title={t('admin.startTitle')}>
@@ -122,7 +126,7 @@ export async function AdminHome() {
         </Panel>
       ) : null}
 
-      <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="metric-strip dashboard-metrics dashboard-metrics-pairs grid grid-cols-2 lg:grid-cols-4">
         <StatTile
           icon={Users}
           label={t('admin.students')}
@@ -163,103 +167,120 @@ export async function AdminHome() {
         />
       </dl>
 
-      <div className="grid gap-5 lg:grid-cols-3">
-        <Panel
-          title={t('admin.todayTitle')}
-          href="/dashboard/attendance"
-          linkLabel={t('seeAll')}
-          className="lg:col-span-2"
-        >
-          <LessonsToday
-            lessons={dayLessons.map((l) => ({ slot: l.slot, taken: l.taken }))}
-            showRollCall
-            showTeacher
-          />
-        </Panel>
+      <div className="day-layout">
+        <div className="daybook-column">
+          <Panel
+            title={t('admin.todayTitle')}
+            href="/dashboard/attendance"
+            linkLabel={t('seeAll')}
+            kind="schedule"
+          >
+            <LessonsToday
+              lessons={dayLessons.map((l) => ({ slot: l.slot, taken: l.taken }))}
+              base="/dashboard/attendance"
+              date={today}
+              showRollCall
+              showTeacher
+            />
+          </Panel>
 
-        <Panel title={t('admin.moneyTitle')} href="/dashboard/finance" linkLabel={t('seeAll')}>
-          {fin ? (
-            <dl className="grid gap-4">
-              <div>
-                <dt className="text-xs text-text-muted">{t('admin.collected')}</dt>
-                <dd className="font-mono text-lg tabular-nums">
-                  {formatMoney(fin.collectedCentimes, locale)}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs text-text-muted">{t('admin.outstanding')}</dt>
-                <dd className="font-mono text-lg tabular-nums">
-                  {formatMoney(fin.outstandingCentimes, locale)}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs text-text-muted">{t('admin.overdue')}</dt>
-                <dd className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-lg tabular-nums">
-                  {formatMoney(fin.overdueCentimes, locale)}
-                  {fin.overdueInvoices > 0 ? (
-                    <Badge tone="danger">
-                      {t('admin.overdueInvoices', { count: fin.overdueInvoices })}
-                    </Badge>
-                  ) : null}
-                </dd>
-              </div>
-            </dl>
-          ) : (
-            <p className="text-sm text-text-muted">{t('unavailable')}</p>
-          )}
-        </Panel>
-
-        <Panel
-          title={t('admin.newsTitle')}
-          href="/dashboard/announcements"
-          linkLabel={t('seeAll')}
-          className="lg:col-span-2"
-        >
-          <AnnouncementsLatest
-            items={announcements.ok ? announcements.data : []}
-            base="/dashboard/announcements"
-            timeZone={tz}
-          />
-        </Panel>
-
-        <Panel
-          title={t('admin.planTitle')}
-          href="/dashboard/settings"
-          linkLabel={t('admin.planLink')}
-        >
-          {plan.ok ? (
-            <div className="grid gap-4">
-              {(['students', 'teachers'] as const).map((k) => {
-                const seat = plan.data[k];
-                return (
-                  <div key={k}>
-                    <div className="flex items-baseline justify-between gap-3 text-sm">
-                      <span>{t(`admin.${k}`)}</span>
-                      <span className="font-mono tabular-nums text-text-muted">
-                        {seat.limit === null ? seat.used : `${seat.used}/${seat.limit}`}
-                      </span>
-                    </div>
-                    {seat.limit === null ? null : (
-                      <Meter
-                        value={seat.used}
-                        max={seat.limit}
-                        label={t(`admin.${k}`)}
-                        className="mt-2"
-                      />
-                    )}
+          <Panel
+            title={t('admin.newsTitle')}
+            href="/dashboard/announcements"
+            linkLabel={t('seeAll')}
+            kind="news"
+          >
+            <AnnouncementsLatest
+              items={announcements.ok ? announcements.data : []}
+              base="/dashboard/announcements"
+              timeZone={tz}
+            />
+          </Panel>
+        </div>
+        <div className="daybook-column">
+          <Panel
+            title={t('admin.moneyTitle')}
+            href="/dashboard/finance"
+            linkLabel={t('seeAll')}
+            kind="finance"
+          >
+            {fin ? (
+              <>
+                <CollectionInstrument
+                  collected={fin.collectedCentimes}
+                  outstanding={fin.outstandingCentimes}
+                />
+                <dl className="grid gap-4">
+                  <div>
+                    <dt className="text-xs text-text-muted">{t('admin.collected')}</dt>
+                    <dd className="font-mono text-lg tabular-nums">
+                      {formatMoney(fin.collectedCentimes, locale)}
+                    </dd>
                   </div>
-                );
-              })}
-              {unread.messages > 0 ? (
-                <ButtonLink href="/dashboard/messages" variant="secondary" size="sm">
-                  {t('admin.unreadMessages', { count: unread.messages })}
-                </ButtonLink>
-              ) : null}
-            </div>
-          ) : (
-            <p className="text-sm text-text-muted">{t('unavailable')}</p>
-          )}
-        </Panel>
+                  <div>
+                    <dt className="text-xs text-text-muted">{t('admin.outstanding')}</dt>
+                    <dd className="font-mono text-lg tabular-nums">
+                      {formatMoney(fin.outstandingCentimes, locale)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-text-muted">{t('admin.overdue')}</dt>
+                    <dd className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-lg tabular-nums">
+                      {formatMoney(fin.overdueCentimes, locale)}
+                      {fin.overdueInvoices > 0 ? (
+                        <Badge tone="danger">
+                          {t('admin.overdueInvoices', { count: fin.overdueInvoices })}
+                        </Badge>
+                      ) : null}
+                    </dd>
+                  </div>
+                </dl>
+              </>
+            ) : (
+              <p className="text-sm text-text-muted">{t('unavailable')}</p>
+            )}
+          </Panel>
+
+          <Panel
+            kind="usage"
+            title={t('admin.planTitle')}
+            href="/dashboard/settings"
+            linkLabel={t('admin.planLink')}
+          >
+            {plan.ok ? (
+              <div className="grid gap-4">
+                {(['students', 'teachers'] as const).map((k) => {
+                  const seat = plan.data[k];
+                  return (
+                    <div key={k}>
+                      <div className="flex items-baseline justify-between gap-3 text-sm">
+                        <span>{t(`admin.${k}`)}</span>
+                        <span className="font-mono tabular-nums text-text-muted">
+                          {seat.limit === null ? seat.used : `${seat.used}/${seat.limit}`}
+                        </span>
+                      </div>
+                      {seat.limit === null ? null : (
+                        <Meter
+                          value={seat.used}
+                          max={seat.limit}
+                          label={t(`admin.${k}`)}
+                          className="mt-2"
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+                {unread.messages > 0 ? (
+                  <ButtonLink href="/dashboard/messages" variant="secondary" size="sm">
+                    {t('admin.unreadMessages', { count: unread.messages })}
+                  </ButtonLink>
+                ) : null}
+              </div>
+            ) : (
+              <p className="text-sm text-text-muted">{t('unavailable')}</p>
+            )}
+          </Panel>
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import {
   listHomework,
   listSubjects,
   todayIn,
+  utcDate,
   type HomeworkView,
 } from '@tadriss/shared';
 import { AlertCircle } from 'lucide-react';
@@ -18,6 +19,7 @@ import { ButtonLink } from '../ui/button';
 import { Card } from '../ui/card';
 import { cx } from '../ui/cx';
 import { EmptyState } from '../ui/empty-state';
+import { Meter } from '../ui/meter';
 import { dueInfo } from './due';
 import { NewHomeworkButton } from './homework-dialog';
 
@@ -43,7 +45,7 @@ export async function TeacherHomeworkPage({ params }: { params: TeacherHomeworkP
 
   const enrolled = new Map(classes.ok ? classes.data.map((c) => [c.id, c.enrolled]) : []);
   const head = (actions?: React.ReactNode) => (
-    <header className="flex flex-wrap items-end justify-between gap-5">
+    <header className="workspace-header flex flex-wrap items-end justify-between gap-5">
       <div>
         <p className="eyebrow">{shell('daily')}</p>
         <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
@@ -55,7 +57,7 @@ export async function TeacherHomeworkPage({ params }: { params: TeacherHomeworkP
 
   if (!homework.ok || !classes.ok || !subjects.ok) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-5xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-5xl gap-7">
         {head()}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -82,7 +84,7 @@ export async function TeacherHomeworkPage({ params }: { params: TeacherHomeworkP
     view === 'upcoming' ? 'teacher' : view === 'past' ? 'teacherPast' : 'teacherDeleted';
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-5xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-5xl gap-7">
       {head(
         <NewHomeworkButton
           classes={classes.data.map((c) => ({ id: c.id, name: c.name }))}
@@ -93,7 +95,7 @@ export async function TeacherHomeworkPage({ params }: { params: TeacherHomeworkP
 
       <nav
         aria-label={t('views.label')}
-        className="flex w-fit gap-1 rounded-lg bg-surface-muted p-1"
+        className="workspace-tabs flex max-w-full w-fit flex-wrap gap-1 rounded-lg border border-border bg-surface-muted/60 p-1"
       >
         {tabs.map((v) => (
           <Link
@@ -101,7 +103,7 @@ export async function TeacherHomeworkPage({ params }: { params: TeacherHomeworkP
             href={{ pathname: '/teacher/homework', query: v === 'upcoming' ? {} : { view: v } }}
             aria-current={view === v ? 'page' : undefined}
             className={cx(
-              'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+              'rounded-md px-4 py-2 text-sm font-medium transition-colors',
               view === v ? 'bg-surface text-text shadow-xs' : 'text-text-muted hover:text-text',
             )}
           >
@@ -118,7 +120,7 @@ export async function TeacherHomeworkPage({ params }: { params: TeacherHomeworkP
           />
         </Card>
       ) : (
-        <ul className="grid gap-3">
+        <ul className="task-ledger workspace-list grid grid-cols-1 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
           {shown.map((h) => (
             <HomeworkRow
               key={h.id}
@@ -151,32 +153,38 @@ function HomeworkRow({
   const due = dueInfo(t, f, h.dueDate, today);
   return (
     <li>
-      <Link
-        href={`/teacher/homework/${h.id}`}
-        className="flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl border border-border bg-surface p-4 shadow-sm transition-[box-shadow,border-color] hover:border-border-strong hover:shadow-md sm:px-5"
-      >
-        <span
-          className={cx(
-            'w-36 shrink-0 truncate rounded-lg border px-3 py-1.5 text-sm font-semibold',
-            subjectTone[h.subjectColor],
-          )}
-        >
-          <bdi>{h.subjectName}</bdi>
-        </span>
-        <div className="min-w-0 flex-1 basis-56">
-          <p className="truncate font-medium">
+      <Link href={`/teacher/homework/${h.id}`} className="task-ledger-row workspace-row">
+        <time className="task-ledger-date" dateTime={h.dueDate}>
+          <span>{f.dateTime(utcDate(h.dueDate), { day: 'numeric', timeZone: 'UTC' })}</span>
+          <span>{f.dateTime(utcDate(h.dueDate), { month: 'short', timeZone: 'UTC' })}</span>
+        </time>
+        <div className="task-ledger-body">
+          <span
+            className={cx(
+              'inline-block max-w-full truncate rounded-md border px-2 py-0.5 text-xs font-semibold',
+              subjectTone[h.subjectColor],
+            )}
+          >
+            <bdi>{h.subjectName}</bdi>
+          </span>
+          <p className="mt-2 break-words font-medium">
             <bdi>{h.title}</bdi>
           </p>
-          <p className="truncate text-sm text-text-muted">
+          <p className="mt-1 text-xs text-text-muted">
             <bdi>{h.className}</bdi>
           </p>
         </div>
-        <Badge tone={due.tone}>{due.text}</Badge>
-        <span className="font-mono text-xs text-text-muted tabular-nums">
-          {total !== undefined
-            ? t('progress.done', { done: h.doneCount, total })
-            : t('progress.doneOnly', { done: h.doneCount })}
-        </span>
+        <div className="task-ledger-state">
+          <Badge tone={due.tone}>{due.text}</Badge>
+          <p className="font-mono text-xs text-text-muted tabular-nums">
+            {total !== undefined
+              ? t('progress.done', { done: h.doneCount, total })
+              : t('progress.doneOnly', { done: h.doneCount })}
+          </p>
+          {total !== undefined && total > 0 ? (
+            <Meter value={h.doneCount} max={total} tone="neutral" label={t('progress.title')} />
+          ) : null}
+        </div>
       </Link>
     </li>
   );

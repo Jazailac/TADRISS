@@ -158,7 +158,7 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   DEFINER helpers; parents get read-only policies on a child's attendance, homework, published grades, invoices,
   payments (not voided), timetable, and `parents`-audience or child-class announcements/documents. Messaging is
   teacher↔parent and admin↔parent only. Web: `/parent/*` reuses the student pages with `studentId` + `base`
-  (child switcher `?child=`, `lib/children.ts`); admins link children at `/dashboard/parents`. Parents are not
+  (child switcher `?child=`, `lib/children.ts`; parent shell navigation retains the selection); admins link children at `/dashboard/parents`. Parents are not
   counted in plan seats and module switches do not apply to them. Mobile: Home (news), Messages, More.
 - **Report card (Phase 13):** `(print)/report/[studentId]?term=1|2` prints a bulletin from the same functions as the
   grades page (`listMyGrades({studentId})`, published exams only, `getReportStudent`, attendance totals). Access is
@@ -252,11 +252,16 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
 "Courtyard Studio" ([ADR 0011](docs/decisions/0011-visual-direction-selection.md)). The production identity merges
 warm editorial typography with contemporary Maghreb architecture and a cinematic product stage. Reuse, don't restyle:
 
+The Version 2 refinement is documented in [the design system](docs/design-system.md): an ink navigation rail,
+warm paper work surfaces, divided metric strips and connected data rows. `app/workspace.css` owns the shared
+`workspace-*` / `metric-*` hooks; do not add a standalone list border inside an existing `Card`.
+
 - **Components:** `apps/web/src/components/ui/`: `Button`/`ButtonLink` (variants: primary, secondary,
   ghost, ink, accent; built-in `pending`), `Card`, `Badge` (tones), `Field`/`Label`/`Input`/`FieldError`,
   `Logo`/`Mark`, `ZelligePattern`, `Spinner`, `cx()`.
 - **Type utilities:** `.display` (Fraunces, for headings only), `.eyebrow` (mono caps). Numbers,
   amounts and times use `font-mono tabular-nums`.
+  Licensed WOFF2 fonts live in `apps/web/src/app/fonts/` and load via `next/font/local`; builds do not fetch fonts.
 - **Tokens:** `bg-background/surface/surface-muted`, `text-text/text-muted`, `primary`, `accent`, `ink`,
   status `success|warning|danger|info` + `-soft`, `shadow-xs…lg`. New colours go in
   `packages/ui-tokens/src/tokens.ts` and must pass the contrast test.

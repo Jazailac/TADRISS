@@ -65,7 +65,7 @@ export function Composer({ recipientId }: { recipientId: string }) {
       ref={form}
       action={formAction}
       noValidate
-      className="grid gap-2 border-t border-border bg-background pt-3"
+      className="thread-composer grid gap-1 rounded-xl border border-border-strong/60 bg-surface p-3 shadow-md transition-[border-color,box-shadow] focus-within:border-primary/40 focus-within:shadow-lg"
     >
       <input type="hidden" name="recipientId" value={recipientId} />
       <label htmlFor="thread-body" className="sr-only">
@@ -81,12 +81,13 @@ export function Composer({ recipientId }: { recipientId: string }) {
           placeholder={t('thread.placeholder')}
           defaultValue={state?.error ? state.values?.body : ''}
           aria-invalid={fieldErr ? true : undefined}
-          className="min-h-12 flex-1 resize-y"
+          aria-describedby="thread-body-error"
+          className="min-h-20 flex-1 resize-y rounded-lg border-transparent bg-background/70 shadow-none"
           onKeyDown={(event) => {
             // Enter sends; Shift+Enter makes a new line.
             if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
               event.preventDefault();
-              form.current?.requestSubmit();
+              if (!pending) form.current?.requestSubmit();
             }
           }}
         />

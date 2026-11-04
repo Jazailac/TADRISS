@@ -7,6 +7,7 @@ import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 import { env } from '@/env';
 import { routing } from '@/i18n/routing';
+import { fontVariables } from '../fonts';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -28,7 +29,7 @@ export default async function LocaleLayout({ children }: { children: ReactNode }
   const locale = await getLocale();
 
   return (
-    <html lang={locale} dir={dir(locale)} suppressHydrationWarning>
+    <html lang={locale} dir={dir(locale)} className={fontVariables} suppressHydrationWarning>
       <body className="min-h-dvh">
         <ThemeProvider
           attribute="class"

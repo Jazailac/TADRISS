@@ -44,7 +44,7 @@ export async function InvoiceDetailPage({ id }: { id: string }) {
   ] as const;
 
   return (
-    <div className="mx-auto grid max-w-4xl grid-cols-1 gap-7">
+    <div className="workspace-page w-full mx-auto grid max-w-4xl grid-cols-1 gap-7">
       <Link
         href="/dashboard/finance"
         className="inline-flex w-fit items-center gap-2 text-sm text-text-muted hover:text-primary"
@@ -53,7 +53,7 @@ export async function InvoiceDetailPage({ id }: { id: string }) {
         {t('detail.back')}
       </Link>
 
-      <header className="flex flex-wrap items-start justify-between gap-5">
+      <header className="workspace-header flex flex-wrap items-start justify-between gap-5">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <span className="font-mono text-sm tabular-nums text-text-muted">{i.number}</span>
@@ -88,9 +88,9 @@ export async function InvoiceDetailPage({ id }: { id: string }) {
         </p>
       ) : null}
 
-      <dl className="grid gap-4 sm:grid-cols-3">
+      <dl className="metric-strip grid gap-4 sm:grid-cols-3">
         {stats.map((s) => (
-          <Card key={s.key} className="p-5">
+          <Card key={s.key} className="metric-cell p-5">
             <dt className="text-sm text-text-muted">{t(`detail.${s.key}`)}</dt>
             <dd className={cx('mt-2 font-mono text-2xl font-medium tabular-nums', s.tone)}>
               {s.value}

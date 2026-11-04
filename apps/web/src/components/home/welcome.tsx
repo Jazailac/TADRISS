@@ -29,8 +29,8 @@ export function Welcome({
         ? (['schedule', 'attendance', 'grades'] as const)
         : (['attendance', 'schedule', 'finance'] as const);
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
-      <header className="flex flex-wrap items-end justify-between gap-5">
+    <div className="dashboard-page mx-auto grid w-full grid-cols-1 max-w-6xl gap-7">
+      <header className="dashboard-header">
         <div>
           <p className="eyebrow">
             {f.dateTime(now, { weekday: 'long', day: 'numeric', month: 'long' })}

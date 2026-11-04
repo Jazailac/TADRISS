@@ -31,7 +31,11 @@ export async function WeekTimetable({
   detail: 'teacher' | 'class' | 'both';
   editable?: Editable;
 }) {
-  const [t, f] = await Promise.all([getTranslations('schedule'), getFormatter()]);
+  const [t, d, f] = await Promise.all([
+    getTranslations('schedule'),
+    getTranslations('domain'),
+    getFormatter(),
+  ]);
 
   // 2024-01-01 is a Monday: index d-1 gives the weekday name in the viewer's locale.
   const dayName = (d: number, style: 'long' | 'short') =>
@@ -44,6 +48,13 @@ export async function WeekTimetable({
   const start = Math.floor(first / 60) * 60;
   const end = Math.ceil(last / 60) * 60;
   const hours = Array.from({ length: (end - start) / 60 + 1 }, (_, i) => start + i * 60);
+  const halfHours = Array.from(
+    { length: (end - start) / 30 },
+    (_, i) => start + i * 30 + 30,
+  ).filter((minute) => minute < end && minute % 60 !== 0);
+  const totalHours =
+    Math.round((slots.reduce((sum, slot) => sum + slot.endMin - slot.startMin, 0) / 60) * 100) /
+    100;
   const height = (end - start) * PX_PER_MIN;
 
   const secondLine = (s: SlotView) =>
@@ -61,11 +72,13 @@ export async function WeekTimetable({
     });
 
   const body = (s: SlotView, compact: boolean) => (
-    <span className="flex h-full flex-col gap-0.5 overflow-hidden px-2 py-1.5">
+    <span className="flex h-full flex-col gap-0.5 overflow-hidden px-3 py-2 md:px-2 md:py-1.5">
       <span className="truncate text-sm font-semibold">
         <bdi>{s.subjectName}</bdi>
       </span>
-      <span className="font-mono text-[0.6875rem] tabular-nums opacity-80">{timeRange(s)}</span>
+      <span className="lesson-range font-mono text-[0.6875rem] tabular-nums opacity-80">
+        {timeRange(s)}
+      </span>
       {!compact ? (
         <span className="truncate text-xs opacity-90">
           <bdi>{secondLine(s)}</bdi>
@@ -95,28 +108,41 @@ export async function WeekTimetable({
     );
 
   return (
-    <>
+    <div className="timetable-stage">
+      <div className="timetable-masthead">
+        <h2>{t('grid.label')}</h2>
+        <div>
+          <span>{d('lessons', { count: slots.length })}</span>
+          <span>{d('weekHours', { hours: totalHours })}</span>
+        </div>
+      </div>
       {/* Desktop grid */}
       <div
         role="group"
         aria-label={t('grid.label')}
-        className="hidden overflow-x-auto rounded-xl border border-border bg-surface shadow-sm md:block"
+        className="timetable-grid hidden overflow-x-auto rounded-2xl border border-border bg-surface shadow-xs md:block"
       >
         <div
           className="grid min-w-[44rem]"
           style={{ gridTemplateColumns: `3.5rem repeat(${shown.length}, minmax(0, 1fr))` }}
         >
-          <div className="border-b border-border" />
+          <div className="border-b border-border bg-surface-muted/60" />
           {shown.map((d) => (
             <div
               key={d}
-              className="border-b border-s border-border px-2 py-3 text-center text-sm font-medium"
+              className="timetable-day-heading border-b border-s border-border bg-surface-muted/60"
             >
-              {dayName(d, 'long')}
+              <span aria-hidden>{f.number(d, { minimumIntegerDigits: 2 })}</span>
+              <strong>{dayName(d, 'long')}</strong>
+              <span>
+                {slots.filter((slot) => slot.weekday === d).length > 0
+                  ? f.number(slots.filter((slot) => slot.weekday === d).length)
+                  : t('grid.noLessons')}
+              </span>
             </div>
           ))}
 
-          <div className="relative" style={{ height }}>
+          <div className="relative bg-surface-muted/30" style={{ height }}>
             {hours.map((h) => (
               <span
                 key={h}
@@ -128,12 +154,20 @@ export async function WeekTimetable({
             ))}
           </div>
           {shown.map((d) => (
-            <div key={d} className="relative border-s border-border" style={{ height }}>
+            <div key={d} className="relative border-s border-border/70" style={{ height }}>
+              {halfHours.map((minute) => (
+                <div
+                  key={minute}
+                  aria-hidden
+                  className="absolute inset-x-0 border-t border-border/25"
+                  style={{ top: (minute - start) * PX_PER_MIN }}
+                />
+              ))}
               {hours.map((h) => (
                 <div
                   key={h}
                   aria-hidden
-                  className="absolute inset-x-0 border-t border-border/60"
+                  className="absolute inset-x-0 border-t border-dashed border-border/70"
                   style={{ top: (h - start) * PX_PER_MIN }}
                 />
               ))}
@@ -151,7 +185,10 @@ export async function WeekTimetable({
                     {wrap(
                       s,
                       s.endMin - s.startMin < 50,
-                      cx('overflow-hidden rounded-lg border', subjectTone[s.subjectColor]),
+                      cx(
+                        'timetable-slot overflow-hidden rounded-lg border border-s-[3px] shadow-xs transition-opacity hover:opacity-80',
+                        subjectTone[s.subjectColor],
+                      ),
                     )}
                   </div>
                 ))}
@@ -161,20 +198,33 @@ export async function WeekTimetable({
       </div>
 
       {/* Phone agenda */}
-      <div className="grid gap-5 md:hidden" role="group" aria-label={t('grid.agenda')}>
-        {shown.map((d) => {
-          const day = slots.filter((s) => s.weekday === d);
+      <div className="grid gap-6 md:hidden" role="group" aria-label={t('grid.agenda')}>
+        {shown.map((weekday) => {
+          const day = slots.filter((s) => s.weekday === weekday);
           if (day.length === 0) return null;
           return (
-            <section key={d} aria-label={dayName(d, 'long')}>
-              <h3 className="eyebrow mb-2">{dayName(d, 'long')}</h3>
+            <section key={weekday} aria-label={dayName(weekday, 'long')}>
+              <div className="agenda-day-heading">
+                <span className="domain-count" aria-hidden>
+                  {f.number(weekday, { minimumIntegerDigits: 2 })}
+                </span>
+                <h3>{dayName(weekday, 'long')}</h3>
+                <p>{d('lessons', { count: day.length })}</p>
+              </div>
               <ul className="grid gap-2">
                 {day.map((s) => (
-                  <li key={s.id} className="min-h-16">
+                  <li key={s.id} className="agenda-lesson min-h-16">
+                    <div className="agenda-time">
+                      <span>{minutesToTime(s.startMin)}</span>
+                      <span>{minutesToTime(s.endMin)}</span>
+                    </div>
                     {wrap(
                       s,
                       false,
-                      cx('overflow-hidden rounded-xl border', subjectTone[s.subjectColor]),
+                      cx(
+                        'timetable-slot overflow-hidden rounded-xl border border-s-[3px] shadow-xs',
+                        subjectTone[s.subjectColor],
+                      ),
                     )}
                   </li>
                 ))}
@@ -183,6 +233,6 @@ export async function WeekTimetable({
           );
         })}
       </div>
-    </>
+    </div>
   );
 }

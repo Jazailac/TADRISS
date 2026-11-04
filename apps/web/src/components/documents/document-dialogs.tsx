@@ -115,7 +115,7 @@ export function UploadDocumentButton({
             {t('form.noClasses')}
           </p>
         ) : (
-          <form noValidate onSubmit={onSubmit} className="grid gap-x-3 gap-y-1">
+          <form noValidate onSubmit={onSubmit} className="grid gap-x-3 gap-y-2">
             {serverError ? (
               <p role="alert" className="rounded-lg bg-danger-soft p-3.5 text-sm text-danger">
                 {serverError}
@@ -123,25 +123,37 @@ export function UploadDocumentButton({
             ) : null}
             <Field>
               <Label htmlFor="doc-file">{t('form.fields.file')}</Label>
-              <Input
-                id="doc-file"
-                name="file"
-                type="file"
-                accept={documentAccept}
-                aria-invalid={errors.file ? true : undefined}
-                aria-describedby={errors.file ? 'doc-file-error' : undefined}
-                onChange={(event) => {
-                  const file = event.currentTarget.files?.[0];
-                  setErrors((cur) => ({
-                    ...cur,
-                    file: file ? (validateDocumentFile(file) ?? undefined) : undefined,
-                  }));
-                  // Offer the file name as the title, once, if the title is still empty.
-                  const title = event.currentTarget.form?.elements.namedItem('title');
-                  if (file && title instanceof HTMLInputElement && title.value === '')
-                    title.value = file.name.replace(/\.[^.]+$/, '');
-                }}
-              />
+              <div className="rounded-xl border border-dashed border-border-strong bg-background/70 p-4 transition-colors focus-within:border-primary">
+                <span
+                  aria-hidden
+                  className="mb-3 grid size-10 place-items-center rounded-lg border border-border bg-surface text-primary shadow-xs"
+                >
+                  <Upload className="size-4" />
+                </span>
+                <Input
+                  id="doc-file"
+                  name="file"
+                  type="file"
+                  accept={documentAccept}
+                  aria-invalid={errors.file ? true : undefined}
+                  aria-describedby="doc-file-error doc-file-limits"
+                  className="h-auto border-0 bg-transparent px-0 py-1 text-xs shadow-none file:me-3 file:rounded-md file:border-0 file:bg-primary-soft file:px-3 file:py-2 file:text-sm file:font-medium file:text-primary"
+                  onChange={(event) => {
+                    const file = event.currentTarget.files?.[0];
+                    setErrors((cur) => ({
+                      ...cur,
+                      file: file ? (validateDocumentFile(file) ?? undefined) : undefined,
+                    }));
+                    // Offer the file name as the title, once, if the title is still empty.
+                    const title = event.currentTarget.form?.elements.namedItem('title');
+                    if (file && title instanceof HTMLInputElement && title.value === '')
+                      title.value = file.name.replace(/\.[^.]+$/, '');
+                  }}
+                />
+                <p id="doc-file-limits" className="mt-3 text-xs leading-relaxed text-text-muted">
+                  {t('form.limits')}
+                </p>
+              </div>
               <FieldError id="doc-file-error">{errors.file ? v(errors.file) : null}</FieldError>
             </Field>
             <Field>
@@ -150,6 +162,7 @@ export function UploadDocumentButton({
                 id="doc-audience"
                 name="audience"
                 aria-invalid={errors.audience ? true : undefined}
+                aria-describedby="doc-audience-error"
               >
                 {options.map((o) => (
                   <option key={o.value} value={o.value}>
@@ -170,6 +183,7 @@ export function UploadDocumentButton({
                 autoComplete="off"
                 placeholder={t('form.placeholders.title')}
                 aria-invalid={errors.title ? true : undefined}
+                aria-describedby="doc-title-error"
               />
               <FieldError id="doc-title-error">{errors.title ? v(errors.title) : null}</FieldError>
             </Field>
@@ -181,13 +195,13 @@ export function UploadDocumentButton({
                 dir="auto"
                 placeholder={t('form.placeholders.description')}
                 aria-invalid={errors.description ? true : undefined}
+                aria-describedby="doc-description-error"
               />
               <FieldError id="doc-description-error">
                 {errors.description ? v(errors.description) : null}
               </FieldError>
             </Field>
-            <p className="text-xs text-text-muted">{t('form.limits')}</p>
-            <div className="mt-2 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+            <div className="mt-2 flex flex-col-reverse gap-2 border-t border-border pt-5 sm:flex-row sm:justify-end">
               <Button variant="ghost" onClick={close}>
                 {c('cancel')}
               </Button>

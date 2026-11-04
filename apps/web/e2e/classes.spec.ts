@@ -173,8 +173,11 @@ test.describe('classes: admin', () => {
         'aria-current',
         'page',
       );
+      // The breadcrumb also links to the dashboard, so look in the sidebar only.
       await expect(
-        page.getByRole('link', { name: 'Tableau de bord', exact: true }),
+        page
+          .getByRole('navigation', { name: 'Navigation de l’application', exact: true })
+          .getByRole('link', { name: 'Tableau de bord', exact: true }),
       ).not.toHaveAttribute('aria-current', 'page');
     }
   });

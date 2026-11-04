@@ -7,11 +7,11 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'ink' | 'accent';
 type Size = 'sm' | 'md' | 'lg';
 
 const base =
-  'relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-[background-color,box-shadow,transform,color] duration-150 active:translate-y-px disabled:pointer-events-none disabled:opacity-60 aria-busy:cursor-progress';
+  'relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-[background-color,box-shadow,transform,color] duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 aria-busy:cursor-progress';
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-primary text-primary-foreground shadow-sm hover:bg-primary/92 shadow-primary/20 ring-1 ring-inset ring-text/10',
+    'bg-primary text-primary-foreground shadow-sm hover:bg-primary/92 hover:shadow-md ring-1 ring-inset ring-text/10',
   secondary:
     'bg-surface text-text ring-1 ring-inset ring-border-strong/70 shadow-xs hover:bg-surface-muted',
   ghost: 'text-text-muted hover:bg-surface-muted hover:text-text',
@@ -20,9 +20,9 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Size, string> = {
-  sm: 'h-9 px-3 text-sm',
-  md: 'h-11 px-4 text-[0.9375rem]',
-  lg: 'h-12 px-6 text-base',
+  sm: 'h-9 px-3.5 text-[0.8125rem]',
+  md: 'h-11 px-4.5 text-sm',
+  lg: 'h-12 px-6 text-[0.9375rem]',
 };
 
 export const buttonStyles = ({
@@ -52,7 +52,7 @@ export function Button({
     <button
       type="button"
       {...rest}
-      disabled={disabled ?? pending}
+      disabled={disabled || pending}
       aria-busy={pending || undefined}
       className={cx(buttonStyles({ variant, size }), className)}
     >

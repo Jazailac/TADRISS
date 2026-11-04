@@ -35,7 +35,7 @@ export async function MyAttendancePage({
   ]);
 
   const header = (
-    <header>
+    <header className="workspace-header">
       <p className="eyebrow">{shell('daily')}</p>
       <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
       <p className="mt-3 max-w-xl text-text-muted">{t('subtitle.student')}</p>
@@ -44,7 +44,7 @@ export async function MyAttendancePage({
 
   if (!res.ok) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-4xl gap-7">
         {header}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -69,11 +69,11 @@ export async function MyAttendancePage({
   ] as const;
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-4xl gap-7">
       {header}
-      <dl className="grid gap-4 sm:grid-cols-3">
+      <dl className="attendance-personal-metrics metric-strip metric-strip-compact grid grid-cols-3">
         {stats.map((s) => (
-          <Card key={s.key} className="p-5">
+          <Card key={s.key} className="metric-cell p-5">
             <dt className="text-sm text-text-muted">{t(`mine.stats.${s.key}`)}</dt>
             <dd className="mt-2 font-mono text-3xl font-medium tabular-nums">{s.value}</dd>
           </Card>
@@ -81,7 +81,7 @@ export async function MyAttendancePage({
       </dl>
       <p className="-mt-3 text-xs text-text-muted">{t('summary.help')}</p>
 
-      <Card className="overflow-hidden">
+      <Card className="attendance-history overflow-hidden">
         <div className="border-b border-border p-5 sm:px-6">
           <h2 className="font-semibold">{t('mine.list')}</h2>
         </div>
@@ -92,7 +92,7 @@ export async function MyAttendancePage({
             {res.data.slice(0, 100).map((e) => (
               <li
                 key={e.sessionId}
-                className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-3.5 sm:px-6"
+                className="attendance-history-row flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-3.5 sm:px-6"
               >
                 <p className="w-40 shrink-0 text-sm capitalize">
                   {f.dateTime(utcDate(e.date), {
@@ -114,7 +114,11 @@ export async function MyAttendancePage({
                   <span className="ms-2 font-mono text-xs tabular-nums text-text-muted">
                     {timeRange(e)}
                   </span>
-                  {e.note ? <p className="mt-1 text-sm text-text-muted">{e.note}</p> : null}
+                  {e.note ? (
+                    <p className="mt-1 text-sm text-text-muted" dir="auto">
+                      {e.note}
+                    </p>
+                  ) : null}
                 </div>
                 <Badge tone={statusMeta[e.status].tone} dot>
                   {t(`status.${e.status}`)}

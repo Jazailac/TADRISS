@@ -1,4 +1,4 @@
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, LogIn } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { login } from '@/app/actions/auth';
 import { AuthForm } from '@/components/auth/auth-form';
@@ -16,8 +16,11 @@ export default async function LoginPage({
   ]);
   return (
     <>
-      <h1 className="display text-4xl font-medium">{t('title')}</h1>
-      <p className="mt-3 text-text-muted">{t('subtitle')}</p>
+      <span className="auth-page-mark">
+        <LogIn className="size-5" strokeWidth={1.5} aria-hidden />
+      </span>
+      <h1 className="display auth-form-title font-medium">{t('title')}</h1>
+      <p className="mt-3 text-sm leading-7 text-text-muted">{t('subtitle')}</p>
       {error === 'link' ? (
         <p
           role="alert"
@@ -50,7 +53,7 @@ export default async function LoginPage({
           ]}
         />
       </div>
-      <p className="mt-8 text-sm text-text-muted">
+      <p className="mt-7 text-sm leading-6 text-text-muted">
         {t('noAccount')}{' '}
         <Link
           href="/signup"

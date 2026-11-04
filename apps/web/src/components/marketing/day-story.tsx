@@ -1,74 +1,81 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+
+import { ArrowUpRight } from 'lucide-react';
+import { useState } from 'react';
 import { useFormatter, useTranslations } from 'next-intl';
 import { WorkflowPreview, type Module } from './workflow-preview';
+
 const modules: Module[] = ['attendance', 'grades', 'schedule', 'finance'];
+
 export function DayStory() {
   const t = useTranslations('studio');
   const features = useTranslations('home.features.items');
   const f = useFormatter();
-  const root = useRef<HTMLElement>(null);
   const [active, setActive] = useState<Module>('attendance');
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 767px)').matches) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries)
-          if (entry.isIntersecting) setActive(entry.target.getAttribute('data-module') as Module);
-      },
-      { rootMargin: '-30% 0px -40% 0px' },
-    );
-    root.current?.querySelectorAll('[data-module]').forEach((item) => {
-      observer.observe(item);
-    });
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+
   return (
-    <section ref={root} className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-      <div className="max-w-2xl">
-        <p className="eyebrow">{t('scroll')}</p>
-        <h2 className="display mt-5 text-[length:var(--type-title)]">{t('storyTitle')}</h2>
-        <p className="mt-5 max-w-xl leading-relaxed text-text-muted">{t('storyBody')}</p>
-      </div>
-      <div className="mt-14 grid gap-12 md:grid-cols-2 md:gap-20">
+    <section className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
+      <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-24">
         <div>
+          <p className="eyebrow text-accent">{t('scroll')}</p>
+          <h2 className="display mt-5 max-w-xl text-[length:var(--type-title)] leading-tight">
+            {t('storyTitle')}
+          </h2>
+        </div>
+        <p className="max-w-md text-base leading-7 text-text-muted">{t('storyBody')}</p>
+      </div>
+      <div className="mt-12 grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+        <div className="grid content-start gap-2" role="group" aria-label={t('modules')}>
           {modules.map((module, i) => (
-            <article
+            <button
+              type="button"
               key={module}
-              data-module={module}
-              className="story-chapter border-s border-border ps-6 pb-12 md:min-h-64 md:ps-8"
+              aria-pressed={active === module}
+              aria-controls="day-workflow-preview"
+              onClick={() => {
+                setActive(module);
+              }}
+              className="marketing-chapter group flex gap-4 border-b border-border py-5 text-start sm:gap-6 sm:py-6"
             >
-              <span className="font-mono text-xs text-accent">
+              <span className="chapter-number w-10 shrink-0 pt-1 font-mono text-xl text-text-muted transition-colors sm:w-12 sm:text-2xl">
                 {f.number(i + 1, { minimumIntegerDigits: 2 })}
               </span>
-              <h3 className="display mt-4 text-3xl">{features(`${module}.title`)}</h3>
-              <p className="mt-4 leading-relaxed text-text-muted">{features(`${module}.body`)}</p>
-              <div className="story-fallback mt-7 rounded-xl border border-border bg-surface p-4">
-                <WorkflowPreview module={module} />
-              </div>
-            </article>
+              <span className="min-w-0 flex-1">
+                <span className="block text-base font-semibold tracking-tight">
+                  {features(`${module}.title`)}
+                </span>
+                <span className="mt-2 block text-sm leading-6 text-text-muted">
+                  {features(`${module}.body`)}
+                </span>
+              </span>
+              <ArrowUpRight
+                className="rtl-flip mt-1 size-4 shrink-0 text-text-muted transition-colors group-hover:text-primary"
+                aria-hidden
+              />
+            </button>
           ))}
         </div>
-        <div className="story-sticky hidden md:block">
-          <div className="sticky top-32 rounded-[2rem] border border-border bg-surface-muted/50 p-6 shadow-lg">
-            <p className="mb-5 text-xs text-text-muted">{t('preview')}</p>
+        <div className="story-product relative min-w-0 self-center p-5 sm:p-8 lg:p-10">
+          <div className="mb-7 flex items-center justify-between gap-3 border-b border-ink-muted/25 pb-5">
+            <p className="text-[0.6875rem] text-ink-muted">{t('preview')}</p>
+            <span className="font-mono text-sm text-ink-foreground" aria-hidden>
+              {f.number(modules.indexOf(active) + 1, { minimumIntegerDigits: 2 })}
+            </span>
+          </div>
+          <div
+            id="day-workflow-preview"
+            className="min-h-72 rounded-lg border border-border bg-background p-4 text-text sm:p-7"
+            aria-live="polite"
+          >
             <WorkflowPreview module={active} />
-            <div className="mt-5 flex gap-2">
-              {modules.map((module) => (
-                <button
-                  type="button"
-                  key={module}
-                  aria-label={t(module)}
-                  aria-pressed={active === module}
-                  onClick={() => {
-                    setActive(module);
-                  }}
-                  className={`h-6 flex-1 rounded-full ${active === module ? 'bg-primary' : 'bg-border'}`}
-                />
-              ))}
-            </div>
+          </div>
+          <div className="mt-6 flex gap-1.5" aria-hidden>
+            {modules.map((module) => (
+              <span
+                key={module}
+                className={`h-px flex-1 transition-colors ${active === module ? 'bg-ink-foreground' : 'bg-ink-muted/25'}`}
+              />
+            ))}
           </div>
         </div>
       </div>

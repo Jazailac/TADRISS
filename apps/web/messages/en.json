@@ -124,7 +124,7 @@
     },
     "roles": {
       "eyebrow": "For every role",
-      "title": "Three workspaces, one school.",
+      "title": "Four spaces. One school.",
       "body": "Everyone sees exactly what they need — and nothing more.",
       "admin": {
         "title": "Administration",
@@ -154,6 +154,16 @@
           "b": "Grades and averages",
           "c": "Attendance",
           "d": "Balance and receipts"
+        }
+      },
+      "parent": {
+        "title": "Parents",
+        "lead": "Follow your child’s journey with confidence.",
+        "points": {
+          "a": "A clear view for each child",
+          "b": "Attendance, homework and results",
+          "c": "Fees and receipts, always accessible",
+          "d": "A direct connection to the teaching team"
         }
       }
     },
@@ -334,7 +344,13 @@
     },
     "platform": "Tadriss",
     "soon": "Soon",
-    "unread": "{count, plural, one {# unread} other {# unread}}"
+    "unread": "{count, plural, one {# unread} other {# unread}}",
+    "skipToContent": "Skip to content",
+    "goToPage": "Go to a page",
+    "more": "More",
+    "breadcrumbs": "Breadcrumbs",
+    "home": "Home",
+    "scheduleShort": "Timetable"
   },
   "demo": {
     "user": {
@@ -581,10 +597,10 @@
     "finance": "Fees & receipts",
     "create": "Create my school",
     "selected": "Your configuration",
-    "configNote": "Your choices are kept in this preview. Modules will become available as development progresses.",
+    "configNote": "Your choices shape this preview. Configure your school after creating your workspace.",
     "scroll": "THE DAY TAKES SHAPE",
     "storyTitle": "From the first bell to the last receipt.",
-    "storyBody": "A continuous thread between the classroom and the school office. Explore the tools that will shape your day.",
+    "storyBody": "A continuous thread between classroom and school office. Explore the tools that support your everyday work.",
     "next": "Up next",
     "ready": "Your workspace is ready",
     "waiting": "In preparation",
@@ -592,7 +608,7 @@
     "setup": "Getting started",
     "setupBody": "The foundations are in place. Your school takes shape, one step at a time.",
     "empty": "Your day begins here",
-    "emptyBody": "Information will appear here when modules become available. Meanwhile, find the next steps for your workspace.",
+    "emptyBody": "Information will appear here as your school adds to its workspace. Follow the next steps to get started.",
     "profile": "Your personal workspace",
     "protected": "Role-based access",
     "workspace": "A space for every school",
@@ -606,15 +622,15 @@
     "command": "Go to…",
     "commandEmpty": "No available page matches your search.",
     "help": "Good to know",
-    "helpBody": "Modules marked “Coming soon” are in preparation.",
+    "helpBody": "Navigation follows your role and the modules enabled by your school.",
     "authEyebrow": "IT STARTS WITH A SPACE",
     "authTitle": "A good school day starts here.",
     "authBody": "An aligned team. Information in its place. More time to teach.",
     "secure": "A personal account. Access suited to your role.",
-    "strength": "Password strength",
-    "weak": "Needs work",
-    "good": "Good",
-    "strong": "Strong",
+    "strength": "Password length",
+    "weak": "8 characters minimum",
+    "good": "Minimum met",
+    "strong": "16 characters or more",
     "passwordHint": "At least 8 characters. Choose a long, unique passphrase.",
     "catalogue": "The Tadriss workshop",
     "catalogueBody": "Components and workflows. Examples are fictional and do not change school data.",
@@ -628,7 +644,7 @@
     "late": "Late",
     "student": "Student",
     "grade": "Grade / 20",
-    "modulePreview": "Upcoming workflow · interactive preview",
+    "modulePreview": "Product preview",
     "pricing": "An offer that fits your school",
     "pricingBody": "Plans and pricing are being prepared. No price or subscription is offered at this stage.",
     "pricingLabel": "Pricing coming soon",
@@ -1246,7 +1262,8 @@
     "title": "Homework",
     "subtitle": {
       "teacher": "Set work for your classes and see who has done it.",
-      "student": "What you have to do, and what is overdue."
+      "student": "What you have to do, and what is overdue.",
+      "parent": "Follow your child’s assignments, due dates and completion."
     },
     "views": {
       "label": "View",
@@ -1537,6 +1554,7 @@
       "outstanding": "Outstanding",
       "overdue": "Overdue",
       "overdueCount": "{count, plural, one {# invoice} other {# invoices}}",
+      "invoiceCount": "{count, plural, one {# invoice} other {# invoices}}",
       "help": "Void invoices and payments are not counted."
     },
     "status": {
@@ -2343,5 +2361,37 @@
     "note": "The data is fictional and shared: other visitors may change it.",
     "stripBody": "Explore a complete school with no sign-up, as administration, teacher, student or parent.",
     "cta": "See the demo"
+  },
+  "workspace": {
+    "edition": "Your school journal",
+    "day": "Your day, at a glance",
+    "focus": "At your pace",
+    "open": "Open this space",
+    "inStep": "Every day counts.",
+    "rollCallHint": "One gesture per student. A clear view for your school.",
+    "teacherHint": "Your lessons, your students. The essentials within reach.",
+    "studentHint": "Small efforts. Real progress.",
+    "parentHint": "Their journey, with confidence.",
+    "receipt": "Follow collections",
+    "collectedShare": "Share of collected amounts",
+    "lessonFocus": "Your programme for today",
+    "workFocus": "Homework to finish",
+    "gradeFocus": "Overall average",
+    "attendanceFocus": "Classroom attendance"
+  },
+  "domain": {
+    "directory": "Directory",
+    "members": "{count, plural, one {# member} other {# members}}",
+    "classes": "{count, plural, one {# class} other {# classes}}",
+    "lessons": "{count, plural, one {# lesson} other {# lessons}}",
+    "weekHours": "{hours, number} teaching hours",
+    "ledger": "Invoice ledger",
+    "collection": "Payment breakdown",
+    "inbox": "Inbox",
+    "unread": "{count, plural, one {# unread} other {# unread}}",
+    "library": "Library",
+    "files": "{count, plural, one {# document} other {# documents}}",
+    "controlCenter": "Your school, in detail",
+    "scoreScale": "Score scale out of 20"
   }
 }

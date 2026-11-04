@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { cx } from './cx';
 
 /**
- * The khatam, the eight-pointed star of Moroccan zellige: two squares, one rotated 45°.
+ * An open courtyard arch, a familiar silhouette in Moroccan school architecture.
  * Drawn with currentColor so it follows the surrounding text colour.
  */
 export function Mark({ className }: { className?: string }) {
@@ -24,7 +24,7 @@ export function Logo({
   const t = useTranslations('nav');
   return (
     <span className={cx('inline-flex items-center gap-2.5', className)}>
-      <Mark className={tone === 'primary' ? 'text-primary' : 'text-accent'} />
+      <Mark className={tone === 'primary' ? 'text-primary' : 'text-ink-foreground'} />
       <span className="display text-[1.4rem] leading-none font-semibold tracking-tight">
         {t('brand')}
       </span>

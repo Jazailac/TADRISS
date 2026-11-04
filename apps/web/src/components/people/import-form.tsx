@@ -8,6 +8,7 @@ import { importMembersAction, type ImportOutcome } from '@/app/actions/people';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
+import { Textarea } from '../ui/field';
 
 const example =
   'prénom;nom;email;rôle\nSara;Alami;sara.alami@exemple.ma;élève\nOmar;Idrissi;omar@exemple.ma;parent\n';
@@ -41,42 +42,56 @@ export function ImportForm() {
 
   return (
     <div className="grid grid-cols-1 gap-5">
-      <Card className="grid gap-4 p-5 sm:p-6">
-        <p className="text-sm text-text-muted">{t('format', { max: maxImportRows })}</p>
-        <pre className="overflow-x-auto rounded-lg bg-surface-muted p-3 text-xs" dir="ltr">
-          {example}
-        </pre>
-        <div className="flex flex-wrap items-center gap-3">
-          <label className="inline-flex cursor-pointer items-center gap-2 rounded-md bg-primary-soft px-4 py-2 text-sm font-medium text-primary hover:bg-primary-soft/70">
-            <Upload className="size-4" aria-hidden />
-            {t('choose')}
-            <input
-              type="file"
-              accept=".csv,text/csv,text/plain"
-              className="sr-only"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (!file) return;
-                setOutcomes(null);
-                void file.text().then(setText);
-              }}
-            />
-          </label>
+      <Card className="grid gap-7 p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div className="grid content-start gap-4">
+          <p className="text-sm leading-relaxed text-text-muted">
+            {t('format', { max: maxImportRows })}
+          </p>
+          <pre
+            className="overflow-x-auto rounded-xl border border-border bg-surface-muted/50 p-4 text-[0.6875rem] leading-relaxed"
+            dir="ltr"
+          >
+            {example}
+          </pre>
+          <div className="grid">
+            <label className="group flex cursor-pointer flex-col items-center gap-3 rounded-xl border border-dashed border-primary/30 bg-primary-soft/20 p-6 text-sm font-medium text-primary transition-colors hover:border-primary hover:bg-primary-soft/50 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+              <span className="grid size-11 place-items-center rounded-xl border border-primary/15 bg-surface shadow-xs">
+                <Upload
+                  className="size-5 transition-transform group-hover:-translate-y-0.5"
+                  aria-hidden
+                />
+              </span>
+              {t('choose')}
+              <input
+                type="file"
+                accept=".csv,text/csv,text/plain"
+                className="sr-only"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  setOutcomes(null);
+                  void file.text().then(setText);
+                }}
+              />
+            </label>
+          </div>
         </div>
-        <label htmlFor="import-text" className="text-sm font-medium">
-          {t('paste')}
-        </label>
-        <textarea
-          id="import-text"
-          value={text}
-          dir="ltr"
-          rows={6}
-          onChange={(e) => {
-            setOutcomes(null);
-            setText(e.target.value);
-          }}
-          className="w-full rounded-md border border-border-strong bg-surface p-3 font-mono text-xs"
-        />
+        <div className="grid content-start gap-3">
+          <label htmlFor="import-text" className="text-sm font-medium">
+            {t('paste')}
+          </label>
+          <Textarea
+            id="import-text"
+            value={text}
+            dir="ltr"
+            rows={10}
+            onChange={(e) => {
+              setOutcomes(null);
+              setText(e.target.value);
+            }}
+            className="min-h-64 w-full bg-background/60 p-4 font-mono text-xs leading-relaxed"
+          />
+        </div>
       </Card>
 
       {parsed && !parsed.ok ? (

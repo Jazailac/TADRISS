@@ -1,3 +1,4 @@
+import { KeyRound } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { choosePassword } from '@/app/actions/auth';
 import { AuthForm } from '@/components/auth/auth-form';
@@ -14,8 +15,11 @@ export default async function SetPasswordPage() {
   if (!viewer) return redirect({ href: '/login?error=link', locale });
   return (
     <>
-      <h1 className="display text-4xl font-medium">{t('title')}</h1>
-      <p className="mt-3 text-text-muted">{t('subtitle')}</p>
+      <span className="auth-page-mark">
+        <KeyRound className="size-5" strokeWidth={1.5} aria-hidden />
+      </span>
+      <h1 className="display auth-form-title font-medium">{t('title')}</h1>
+      <p className="mt-3 text-sm leading-7 text-text-muted">{t('subtitle')}</p>
       <div className="mt-9">
         <AuthForm
           schema="setPassword"

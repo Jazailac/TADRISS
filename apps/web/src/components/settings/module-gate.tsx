@@ -14,7 +14,7 @@ export async function ModuleGate({ module, children }: { module: ModuleKey; chil
   if (!disabled.includes(module)) return children;
   const t = await getTranslations('settings.modules');
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-3xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-3xl gap-7">
       <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
         <span className="grid size-12 place-items-center rounded-full bg-warning-soft text-warning">
           <Lock className="size-5" aria-hidden />

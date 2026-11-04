@@ -85,12 +85,12 @@ export async function ReportCardPage({
 
       <article
         aria-label={t('title')}
-        className="rounded-2xl border border-border bg-surface p-8 shadow-md print:rounded-none print:border-0 print:p-0 print:shadow-none"
+        className="rounded-xl border border-border border-t-[3px] border-t-primary bg-surface p-5 shadow-md sm:p-10 print:rounded-none print:border-0 print:p-0 print:shadow-none"
       >
-        <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-6">
+        <header className="flex flex-wrap items-start justify-between gap-4 border-b-2 border-primary/30 pb-6">
           <div>
             <Logo />
-            <p className="mt-3 font-semibold">
+            <p className="mt-3 break-words font-semibold">
               <bdi>{school}</bdi>
             </p>
           </div>
@@ -103,15 +103,15 @@ export async function ReportCardPage({
         </header>
 
         <dl className="mt-6 grid gap-2 text-sm">
-          <div className="grid grid-cols-[8rem_1fr] gap-4">
+          <div className="grid grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] gap-4 sm:grid-cols-[8rem_minmax(0,1fr)]">
             <dt className="text-text-muted">{t('student')}</dt>
-            <dd className="font-medium">
+            <dd className="break-words font-medium">
               <bdi>{name}</bdi>
             </dd>
           </div>
-          <div className="grid grid-cols-[8rem_1fr] gap-4">
+          <div className="grid grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] gap-4 sm:grid-cols-[8rem_minmax(0,1fr)]">
             <dt className="text-text-muted">{t('class')}</dt>
-            <dd className="font-medium">
+            <dd className="break-words font-medium">
               <bdi>{student.data.className ?? '—'}</bdi>
             </dd>
           </div>
@@ -122,17 +122,17 @@ export async function ReportCardPage({
             {t('empty')}
           </p>
         ) : (
-          <table className="mt-8 w-full text-sm">
+          <table className="mt-8 w-full table-fixed text-sm">
             <caption className="sr-only">{t('table')}</caption>
             <thead>
               <tr className="border-b border-border-strong text-start text-text-muted">
-                <th scope="col" className="py-2 text-start font-medium">
+                <th scope="col" className="w-[45%] py-3 pe-2 text-start font-medium">
                   {t('subject')}
                 </th>
-                <th scope="col" className="py-2 text-end font-medium">
+                <th scope="col" className="w-[28%] break-words py-3 text-end font-medium">
                   {t('coefficient')}
                 </th>
-                <th scope="col" className="py-2 text-end font-medium">
+                <th scope="col" className="w-[27%] break-words py-3 text-end font-medium">
                   {t('average')}
                 </th>
               </tr>
@@ -143,12 +143,12 @@ export async function ReportCardPage({
                 const coef = own.reduce((a, x) => a + x.coefficient, 0);
                 const avg = perSubject.get(s.subjectId) ?? weightedAverage20(own.map(toMark));
                 return (
-                  <tr key={s.subjectId} className="border-b border-border">
-                    <th scope="row" className="py-2 text-start font-medium">
+                  <tr key={s.subjectId} className="break-inside-avoid border-b border-border">
+                    <th scope="row" className="break-words py-3 pe-2 text-start font-medium">
                       <bdi>{s.subjectName}</bdi>
                     </th>
-                    <td className="py-2 text-end font-mono tabular-nums">{num(coef)}</td>
-                    <td className="py-2 text-end font-mono tabular-nums">
+                    <td className="py-3 text-end font-mono tabular-nums">{num(coef)}</td>
+                    <td className="py-3 text-end font-mono tabular-nums">
                       {avg === null ? '—' : num(avg)}
                     </td>
                   </tr>
@@ -158,7 +158,7 @@ export async function ReportCardPage({
           </table>
         )}
 
-        <section className="mt-8 grid gap-4 rounded-xl bg-surface-muted p-6 print:border print:border-border print:bg-transparent sm:grid-cols-2">
+        <section className="mt-8 grid break-inside-avoid gap-6 rounded-xl border border-primary/15 bg-primary-soft/35 p-5 sm:grid-cols-2 sm:p-6 print:border print:border-border print:bg-transparent">
           <div>
             <p className="text-sm text-text-muted">{t('overall')}</p>
             <p className="mt-1 font-mono text-3xl font-medium tabular-nums">
@@ -181,7 +181,7 @@ export async function ReportCardPage({
           </div>
         </section>
 
-        <footer className="mt-12 flex items-end justify-between gap-6 text-xs text-text-muted">
+        <footer className="mt-12 flex break-inside-avoid flex-wrap items-end justify-between gap-6 text-xs leading-relaxed text-text-muted">
           <p>{t('footer')}</p>
           <p className="w-48 border-t border-border-strong pt-2 text-center">{t('signature')}</p>
         </footer>

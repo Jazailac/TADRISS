@@ -48,13 +48,13 @@ export function Dialog({
         if (event.target === ref.current) onClose();
       }}
       className={cx(
-        'm-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto overscroll-contain rounded-2xl border border-border bg-surface p-0 text-text shadow-lg backdrop:bg-ink/55 backdrop:backdrop-blur-[2px] open:animate-rise',
+        'ui-modal m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto overscroll-contain rounded-2xl border border-border bg-surface p-0 text-text shadow-lg backdrop:bg-ink/55 backdrop:backdrop-blur-[3px]',
         className,
       )}
     >
       {open ? (
         <div className="p-6 sm:p-7">
-          <div className="flex items-start justify-between gap-4">
+          <div className="flex items-start justify-between gap-4 border-b border-border pb-5">
             <div>
               <h2 id={titleId} className="display text-2xl">
                 {title}

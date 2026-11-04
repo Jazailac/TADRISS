@@ -63,7 +63,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <div
         role="status"
         aria-live="polite"
-        className="pointer-events-none fixed inset-x-4 bottom-4 z-[60] grid justify-items-center gap-2 sm:inset-x-auto sm:end-5 sm:justify-items-end"
+        className="pointer-events-none fixed inset-x-4 bottom-24 z-[60] grid justify-items-center gap-2 sm:inset-x-auto sm:end-5 sm:justify-items-end lg:bottom-5"
       >
         {toasts.map((x) => (
           <div
@@ -85,7 +85,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 dismiss(x.id);
               }}
               aria-label={t('close')}
-              className="-me-1 -mt-1 grid size-7 place-items-center rounded-md text-text-muted hover:bg-surface-muted"
+              className="-me-2 -mt-2 grid size-10 shrink-0 place-items-center rounded-md text-text-muted hover:bg-surface-muted"
             >
               <X className="size-3.5" aria-hidden />
             </button>

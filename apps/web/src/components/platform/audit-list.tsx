@@ -1,6 +1,8 @@
 import type { AuditEntry } from '@tadriss/shared';
+import { Activity, Building2, CreditCard, PanelsTopLeft, UserRound } from 'lucide-react';
 import { getFormatter, getTranslations } from 'next-intl/server';
 import { Badge } from '../ui/badge';
+import { cx } from '../ui/cx';
 
 const n = (chunks: React.ReactNode) => <bdi>{chunks}</bdi>;
 
@@ -53,13 +55,37 @@ export async function AuditList({
     <ul className="grid grid-cols-1 divide-y divide-border">
       {entries.map((e) => {
         const extra = detail(e);
+        const Icon = e.action.startsWith('institution.')
+          ? Building2
+          : e.action.startsWith('member.')
+            ? UserRound
+            : e.action.startsWith('payment.') || e.action.startsWith('invoice.')
+              ? CreditCard
+              : e.action.startsWith('module.')
+                ? PanelsTopLeft
+                : Activity;
+        const attention =
+          e.action.endsWith('.voided') ||
+          e.action === 'institution.suspended' ||
+          e.action === 'member.deactivated';
         return (
-          <li key={e.id} className="flex flex-wrap items-start gap-x-4 gap-y-1.5 py-3.5">
+          <li key={e.id} className="flex flex-wrap items-start gap-x-3 gap-y-2 py-4">
+            <span
+              aria-hidden
+              className={cx(
+                'grid size-8 shrink-0 place-items-center rounded-lg border',
+                attention
+                  ? 'border-warning/15 bg-warning-soft/50 text-warning'
+                  : 'border-border bg-surface-muted/70 text-text-muted',
+              )}
+            >
+              <Icon className="size-3.5" />
+            </span>
             <div className="min-w-0 flex-1 basis-60">
-              <p className="font-medium">
+              <p className="text-sm font-medium">
                 {isLabelled(e.action) ? t(`actions.${e.action}`) : e.action}
               </p>
-              <p className="mt-0.5 text-sm text-text-muted">
+              <p className="mt-1 text-xs leading-relaxed text-text-muted [overflow-wrap:anywhere]">
                 {e.actorName ? t.rich('by', { name: e.actorName, n }) : t('system')}
                 {extra ? (
                   <>

@@ -22,7 +22,7 @@ export async function AuditPage({ params }: { params: AuditParams }) {
   ]);
 
   const head = (
-    <header>
+    <header className="workspace-header">
       <p className="eyebrow">{p('eyebrow')}</p>
       <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
       <p className="mt-3 max-w-xl text-text-muted">{t('subtitle')}</p>
@@ -31,7 +31,7 @@ export async function AuditPage({ params }: { params: AuditParams }) {
 
   if (!res.ok) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-4xl gap-7">
         {head}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -52,7 +52,7 @@ export async function AuditPage({ params }: { params: AuditParams }) {
   const last = entries[entries.length - 1];
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-4xl gap-7">
       {head}
       <Card className="p-6">
         {entries.length === 0 ? (

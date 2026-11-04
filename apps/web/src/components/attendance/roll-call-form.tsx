@@ -7,7 +7,7 @@ import {
   type StatusCounts,
 } from '@tadriss/shared';
 import { CheckCheck, Save } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useState, useTransition } from 'react';
 import { submitAttendanceAction } from '@/app/actions/attendance';
 import { useRouter } from '@/i18n/navigation';
@@ -42,6 +42,7 @@ export function RollCallForm({
 }) {
   const t = useTranslations('attendance');
   const e = useTranslations('errors');
+  const locale = useLocale();
   const toast = useToast();
   const router = useRouter();
   const [pending, start] = useTransition();
@@ -131,7 +132,10 @@ export function RollCallForm({
             const m = marks[s.studentId] ?? { status: 'present' as const, note: '' };
             const name = `${s.firstName} ${s.lastName}`;
             return (
-              <li key={s.studentId} className="grid gap-3 px-4 py-3 sm:px-5">
+              <li
+                key={s.studentId}
+                className="grid gap-3 px-4 py-4 transition-colors focus-within:bg-primary-soft/20 sm:px-5"
+              >
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
                   <Avatar first={s.firstName} last={s.lastName} seed={s.studentId} />
                   <p className="min-w-0 flex-1 basis-40 truncate font-medium">
@@ -152,11 +156,47 @@ export function RollCallForm({
                           type="button"
                           role="radio"
                           aria-checked={on}
+                          tabIndex={on ? 0 : -1}
                           aria-label={t(`status.${status}`)}
                           title={t(`status.${status}`)}
                           disabled={locked}
                           onClick={() => {
                             set(s.studentId, { status });
+                          }}
+                          onKeyDown={(event) => {
+                            if (
+                              ![
+                                'ArrowUp',
+                                'ArrowDown',
+                                'ArrowLeft',
+                                'ArrowRight',
+                                'Home',
+                                'End',
+                              ].includes(event.key)
+                            )
+                              return;
+                            event.preventDefault();
+                            const index = attendanceStatuses.indexOf(status);
+                            const backwards =
+                              event.key === 'ArrowUp' ||
+                              (locale === 'ar'
+                                ? event.key === 'ArrowRight'
+                                : event.key === 'ArrowLeft');
+                            const next =
+                              event.key === 'Home'
+                                ? 0
+                                : event.key === 'End'
+                                  ? attendanceStatuses.length - 1
+                                  : (index + (backwards ? -1 : 1) + attendanceStatuses.length) %
+                                    attendanceStatuses.length;
+                            const selected = attendanceStatuses[next];
+                            if (!selected) return;
+                            set(s.studentId, { status: selected });
+                            const buttons =
+                              event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>(
+                                '[role="radio"]',
+                              );
+                            buttons?.[next]?.focus();
                           }}
                           className={cx(
                             'inline-flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-lg px-2.5 text-sm font-semibold ring-1 ring-inset transition-colors disabled:cursor-not-allowed',
@@ -177,6 +217,7 @@ export function RollCallForm({
                   <Input
                     aria-label={t('rollcall.noteFor', { name })}
                     value={m.note}
+                    dir="auto"
                     maxLength={300}
                     disabled={locked}
                     placeholder={t('rollcall.notePlaceholder')}
@@ -192,7 +233,7 @@ export function RollCallForm({
         </ul>
       </Card>
 
-      <div className="sticky bottom-20 z-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-surface/95 p-3 shadow-lg backdrop-blur md:bottom-4">
+      <div className="workspace-savebar sticky bottom-20 z-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border-strong/60 bg-surface p-4 shadow-md lg:bottom-4">
         <p className="text-sm text-text-muted">
           <span className="font-mono tabular-nums">{t('rollcall.totals', totals)}</span>
           {dirty && !locked ? (

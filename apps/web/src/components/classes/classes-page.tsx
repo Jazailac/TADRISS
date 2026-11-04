@@ -6,7 +6,7 @@ import {
   type ClassSummary,
 } from '@tadriss/shared';
 import { AlertCircle, ArrowUpRight, Search } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { getFormatter, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getServerClient } from '@/lib/supabase/server';
 import { Badge } from '../ui/badge';
@@ -38,15 +38,17 @@ export async function ClassesPage({
   const years = [...new Set([...schoolYearOptions(), year])].sort();
 
   const supabase = await getServerClient();
-  const [t, shell, errors, res] = await Promise.all([
+  const [t, d, shell, errors, f, res] = await Promise.all([
     getTranslations('classes'),
+    getTranslations('domain'),
     getTranslations('shell.groups'),
     getTranslations('errors'),
+    getFormatter(),
     listClasses(supabase, { schoolYear: year, q, archived }),
   ]);
 
   const header = (
-    <header className="flex flex-wrap items-end justify-between gap-5">
+    <header className="workspace-header flex flex-wrap items-end justify-between gap-5">
       <div>
         <p className="eyebrow">{shell('school')}</p>
         <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
@@ -58,7 +60,7 @@ export async function ClassesPage({
 
   if (!res.ok) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
         {header}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -80,10 +82,10 @@ export async function ClassesPage({
 
   const filtering = q !== '';
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-6xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-6xl gap-7">
       {header}
 
-      <Card className="p-4 sm:p-5">
+      <Card className="workspace-toolbar p-4 sm:p-5">
         <form role="search" method="get" className="flex flex-wrap items-end gap-3">
           {archived ? <input type="hidden" name="archived" value="1" /> : null}
           <div className="grid gap-1.5">
@@ -153,13 +155,28 @@ export async function ClassesPage({
           )}
         </Card>
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {res.data.map((c) => (
-            <li key={c.id}>
-              <ClassCard cls={c} href={`${basePath(area)}/${c.id}`} area={area} t={t} />
-            </li>
-          ))}
-        </ul>
+        <section>
+          <div className="register-masthead">
+            <h2>{d('classes', { count: res.data.length })}</h2>
+            <p>
+              {t('card.students', { count: res.data.reduce((sum, cls) => sum + cls.enrolled, 0) })}{' '}
+              · <bdi>{year}</bdi>
+            </p>
+          </div>
+          <ul className="class-register">
+            {res.data.map((c, index) => (
+              <li key={c.id}>
+                <ClassCard
+                  cls={c}
+                  href={`${basePath(area)}/${c.id}`}
+                  area={area}
+                  t={t}
+                  number={f.number(index + 1, { minimumIntegerDigits: 2 })}
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
     </div>
   );
@@ -170,60 +187,65 @@ function ClassCard({
   href,
   area,
   t,
+  number,
 }: {
   cls: ClassSummary;
   href: string;
   area: ClassesArea;
   t: Awaited<ReturnType<typeof getTranslations<'classes'>>>;
+  number: string;
 }) {
   const full = cls.capacity !== null && cls.enrolled >= cls.capacity;
   return (
-    <Link
-      href={href}
-      className="group flex h-full flex-col rounded-xl border border-border bg-surface p-5 shadow-sm transition-[box-shadow,transform,border-color] hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md"
-    >
-      <div className="flex items-start justify-between gap-3">
+    <Link href={href} className="class-register-row group">
+      <span className="class-index" aria-hidden>
+        {number}
+      </span>
+      <div className="class-register-title">
+        <h2 className="display break-words transition-colors group-hover:text-primary">
+          <bdi>{cls.name}</bdi>
+        </h2>
+        <p className="mt-2 font-mono text-xs text-text-muted">
+          <bdi dir="ltr">{cls.schoolYear}</bdi>
+        </p>
+      </div>
+      <div className="class-register-detail">
         <div className="flex flex-wrap gap-1.5">
           <Badge tone="primary">{cls.level ?? t('card.noLevel')}</Badge>
           {cls.archived ? <Badge tone="warning">{t('card.archived')}</Badge> : null}
           {full ? <Badge tone="accent">{t('card.full')}</Badge> : null}
         </div>
-        <ArrowUpRight
-          className="rtl-flip size-4 shrink-0 text-text-muted transition-colors group-hover:text-primary"
-          aria-hidden
-        />
+        <p className="mt-3 break-words text-xs leading-relaxed text-text-muted">
+          {cls.teachers.length > 0 ? (
+            <bdi>
+              {cls.teachers
+                .map((teacher) => `${teacher.firstName} ${teacher.lastName}`)
+                .join(' · ')}
+            </bdi>
+          ) : (
+            t('card.noTeacher')
+          )}
+        </p>
       </div>
-      <h2 className="display mt-5 text-3xl">
-        <bdi>{cls.name}</bdi>
-      </h2>
-      <p className="mt-1 font-mono text-xs text-text-muted">
-        <bdi dir="ltr">{cls.schoolYear}</bdi>
-      </p>
-      <p className="mt-4 min-h-10 text-sm text-text-muted">
-        {cls.teachers.length > 0 ? (
-          <bdi>{cls.teachers.map((x) => `${x.firstName} ${x.lastName}`).join(' · ')}</bdi>
-        ) : (
-          t('card.noTeacher')
-        )}
-      </p>
-      <div className="mt-5 border-t border-border pt-4">
-        <div className="flex items-baseline justify-between gap-3 text-sm">
-          <span>{t('card.students', { count: cls.enrolled })}</span>
-          {area === 'admin' && cls.capacity !== null ? (
-            <span className="font-mono text-xs text-text-muted">
-              {t('card.seats', { enrolled: cls.enrolled, capacity: cls.capacity })}
-            </span>
-          ) : null}
-        </div>
+      <div className="class-register-capacity">
+        <p className="text-sm font-medium">{t('card.students', { count: cls.enrolled })}</p>
         {area === 'admin' && cls.capacity !== null ? (
-          <Meter
-            value={cls.enrolled}
-            max={cls.capacity}
-            label={t('card.seatsLabel')}
-            className="mt-3"
-          />
+          <>
+            <Meter
+              value={cls.enrolled}
+              max={cls.capacity}
+              label={t('card.seatsLabel')}
+              className="mt-3 rounded-sm"
+            />
+            <p className="mt-2 font-mono text-xs text-text-muted">
+              {t('card.seats', { enrolled: cls.enrolled, capacity: cls.capacity })}
+            </p>
+          </>
         ) : null}
       </div>
+      <span className="class-register-arrow text-text-muted transition-colors group-hover:text-primary">
+        <ArrowUpRight className="rtl-flip size-5" aria-hidden />
+      </span>
     </Link>
   );
 }

@@ -11,15 +11,19 @@ export function Languages() {
   const [lang, setLang] = useState<'fr' | 'ar'>('fr');
   return (
     <section className="auth-architecture">
-      <div className="mx-auto grid grid-cols-1 max-w-6xl items-center gap-14 px-5 py-24 md:px-8 lg:grid-cols-2">
+      <div className="mx-auto grid grid-cols-1 max-w-7xl items-center gap-12 px-5 py-20 md:px-10 lg:grid-cols-2 lg:gap-24 lg:py-28">
         <SectionHeading
           eyebrow={t('eyebrow')}
           title={t('title')}
           body={t('body')}
           className="[&_p:first-child]:text-ink-muted [&_p:last-child]:text-ink-muted"
         />
-        <div>
-          <div className="mb-5 flex gap-2" role="group" aria-label={language('label')}>
+        <div className="w-full max-w-lg lg:justify-self-end">
+          <div
+            className="mb-6 inline-flex gap-1 rounded-lg border border-ink-muted/25 p-1"
+            role="group"
+            aria-label={language('label')}
+          >
             {(['fr', 'ar'] as const).map((l) => (
               <button
                 type="button"
@@ -29,7 +33,7 @@ export function Languages() {
                 onClick={() => {
                   setLang(l);
                 }}
-                className={`rounded-full border px-5 py-2 text-sm ${lang === l ? 'border-ink-foreground bg-ink-foreground text-ink' : 'border-ink-muted/50 text-ink-muted'}`}
+                className={`rounded-md border px-5 py-2 text-sm transition-colors ${lang === l ? 'border-ink-foreground bg-ink-foreground text-ink' : 'border-transparent text-ink-muted hover:text-ink-foreground'}`}
               >
                 {language(l)}
               </button>
@@ -38,7 +42,7 @@ export function Languages() {
           <div
             lang={lang}
             dir={lang === 'ar' ? 'rtl' : 'ltr'}
-            className="rounded-2xl border border-border bg-surface p-7 text-text shadow-lg sm:p-9"
+            className="language-receipt border border-border bg-surface p-7 text-text shadow-lg sm:p-9"
           >
             <div className="flex items-center justify-between gap-3">
               <Mark className="size-7 text-primary" />
@@ -47,8 +51,8 @@ export function Languages() {
               </Badge>
             </div>
             <p className="mt-7 font-mono text-xs text-text-muted">{t(`sample.${lang}.number`)}</p>
-            <p className="display mt-3 text-3xl">{t(`sample.${lang}.title`)}</p>
-            <dl className="mt-7 grid gap-4 border-t border-dashed border-border pt-5">
+            <p className="display mt-3 text-3xl tracking-tight">{t(`sample.${lang}.title`)}</p>
+            <dl className="mt-8 grid gap-5 border-t border-border pt-6">
               <div className="flex justify-between gap-4 text-sm">
                 <dt className="text-text-muted">{t(`sample.${lang}.studentLabel`)}</dt>
                 <dd>{t(`sample.${lang}.student`)}</dd>

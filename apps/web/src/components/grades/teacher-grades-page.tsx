@@ -39,7 +39,7 @@ export async function TeacherGradesPage({ params }: { params: TeacherGradesParam
   ]);
 
   const head = (actions?: ReactNode) => (
-    <header className="flex flex-wrap items-end justify-between gap-5">
+    <header className="workspace-header flex flex-wrap items-end justify-between gap-5">
       <div>
         <p className="eyebrow">{shell('daily')}</p>
         <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
@@ -51,7 +51,7 @@ export async function TeacherGradesPage({ params }: { params: TeacherGradesParam
 
   if (!exams.ok || !classes.ok || !subjects.ok) {
     return (
-      <div className="mx-auto grid grid-cols-1 max-w-5xl gap-7">
+      <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-5xl gap-7">
         {head()}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -76,7 +76,7 @@ export async function TeacherGradesPage({ params }: { params: TeacherGradesParam
   ];
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-5xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-5xl gap-7">
       {head(
         <NewExamButton
           classes={classes.data.map((c) => ({ id: c.id, name: c.name }))}
@@ -86,14 +86,17 @@ export async function TeacherGradesPage({ params }: { params: TeacherGradesParam
       )}
 
       <div className="flex flex-wrap items-center gap-3">
-        <nav aria-label={t('filters.view')} className="flex gap-1 rounded-lg bg-surface-muted p-1">
+        <nav
+          aria-label={t('filters.view')}
+          className="workspace-tabs flex max-w-full flex-wrap gap-1 rounded-lg border border-border bg-surface-muted/60 p-1"
+        >
           {(['current', 'deleted'] as const).map((v) => (
             <Link
               key={v}
               href={link(v === 'deleted' ? { view: 'deleted' } : {})}
               aria-current={(v === 'deleted') === deleted ? 'page' : undefined}
               className={cx(
-                'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+                'rounded-md px-4 py-2 text-sm font-medium transition-colors',
                 (v === 'deleted') === deleted
                   ? 'bg-surface text-text shadow-xs'
                   : 'text-text-muted hover:text-text',
@@ -106,7 +109,7 @@ export async function TeacherGradesPage({ params }: { params: TeacherGradesParam
         {!deleted ? (
           <nav
             aria-label={t('filters.term')}
-            className="flex gap-1 rounded-lg bg-surface-muted p-1"
+            className="workspace-tabs flex max-w-full flex-wrap gap-1 rounded-lg border border-border bg-surface-muted/60 p-1"
           >
             {terms.map((x) => (
               <Link
@@ -114,7 +117,7 @@ export async function TeacherGradesPage({ params }: { params: TeacherGradesParam
                 href={link(x.q)}
                 aria-current={(term ? String(term) : 'all') === x.key ? 'page' : undefined}
                 className={cx(
-                  'rounded-md px-4 py-1.5 text-sm font-medium transition-colors',
+                  'rounded-md px-4 py-2 text-sm font-medium transition-colors',
                   (term ? String(term) : 'all') === x.key
                     ? 'bg-surface text-text shadow-xs'
                     : 'text-text-muted hover:text-text',
@@ -135,7 +138,7 @@ export async function TeacherGradesPage({ params }: { params: TeacherGradesParam
           />
         </Card>
       ) : (
-        <ul className="grid gap-3">
+        <ul className="workspace-list grid grid-cols-1 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
           {exams.data.map((x) => (
             <ExamRow
               key={x.id}

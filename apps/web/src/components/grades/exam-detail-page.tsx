@@ -33,7 +33,7 @@ export async function ExamDetailPage({ id, area }: { id: string; area: 'teacher'
   const missing = sheet.ok ? sheet.data.filter((r) => r.score === null && !r.absent).length : 0;
 
   return (
-    <div className="mx-auto grid grid-cols-1 max-w-4xl gap-7">
+    <div className="workspace-page w-full mx-auto grid grid-cols-1 max-w-4xl gap-7">
       <Link
         href={back}
         className="inline-flex w-fit items-center gap-2 text-sm text-text-muted hover:text-primary"
@@ -42,7 +42,7 @@ export async function ExamDetailPage({ id, area }: { id: string; area: 'teacher'
         {t('detail.back')}
       </Link>
 
-      <header className="flex flex-wrap items-start justify-between gap-5">
+      <header className="workspace-header flex flex-wrap items-start justify-between gap-5">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <span

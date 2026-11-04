@@ -41,8 +41,9 @@ export async function AdminFinancePage({ params }: { params: AdminFinanceParams 
   const page = Math.max(1, Number.parseInt(params.page ?? '1', 10) || 1);
   const supabase = await getServerClient();
 
-  const [t, shell, errors, f, locale, summary, invoices, plans, classes] = await Promise.all([
+  const [t, d, shell, errors, f, locale, summary, invoices, plans, classes] = await Promise.all([
     getTranslations('finance'),
+    getTranslations('domain'),
     getTranslations('shell.groups'),
     getTranslations('errors'),
     getFormatter(),
@@ -55,7 +56,7 @@ export async function AdminFinancePage({ params }: { params: AdminFinanceParams 
   const money = (c: number) => formatMoney(c, locale);
 
   const head = (actions?: React.ReactNode) => (
-    <header className="flex flex-wrap items-end justify-between gap-5">
+    <header className="workspace-header flex flex-wrap items-end justify-between gap-5">
       <div>
         <p className="eyebrow">{shell('daily')}</p>
         <h1 className="display mt-4 text-4xl md:text-5xl">{t('title')}</h1>
@@ -67,7 +68,7 @@ export async function AdminFinancePage({ params }: { params: AdminFinanceParams 
 
   if (!summary.ok || !invoices.ok || !plans.ok || !classes.ok) {
     return (
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-7">
+      <div className="workspace-page w-full mx-auto grid max-w-6xl grid-cols-1 gap-7">
         {head()}
         <Card role="alert" className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <span className="grid size-12 place-items-center rounded-full bg-danger-soft text-danger">
@@ -109,7 +110,7 @@ export async function AdminFinancePage({ params }: { params: AdminFinanceParams 
   ] as const;
 
   return (
-    <div className="mx-auto grid max-w-6xl grid-cols-1 gap-7">
+    <div className="workspace-page w-full mx-auto grid max-w-6xl grid-cols-1 gap-7">
       {head(
         <>
           <FeePlansButton plans={plans.data} />
@@ -122,21 +123,63 @@ export async function AdminFinancePage({ params }: { params: AdminFinanceParams 
         </>,
       )}
 
-      <dl className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {cards.map((c) => (
-          <Card key={c.key} className="p-5">
-            <dt className="text-sm text-text-muted">{t(`summary.${c.key}`)}</dt>
-            <dd className={cx('mt-2 font-mono text-2xl font-medium tabular-nums', c.tone)}>
-              {c.value}
-            </dd>
-            {'sub' in c ? <p className="mt-1 text-xs text-text-muted">{c.sub}</p> : null}
-          </Card>
-        ))}
-      </dl>
+      <section className="finance-overview" aria-label={d('collection')}>
+        <div className="finance-billed">
+          <p className="domain-kicker">{t('summary.billed')}</p>
+          <p className="domain-count">{money(s.billedCentimes)}</p>
+        </div>
+        <div className="finance-payment-breakdown">
+          <header>
+            <p>{d('collection')}</p>
+            <strong>
+              {f.number(s.billedCentimes > 0 ? s.collectedCentimes / s.billedCentimes : 0, {
+                style: 'percent',
+                maximumFractionDigits: 0,
+              })}
+            </strong>
+          </header>
+          <div className="finance-proportion" aria-hidden>
+            <span
+              className="finance-proportion-paid"
+              style={{
+                inlineSize: `${s.billedCentimes > 0 ? (s.collectedCentimes / s.billedCentimes) * 100 : 0}%`,
+              }}
+            />
+            <span
+              className="finance-proportion-unpaid"
+              style={{
+                inlineSize: `${s.billedCentimes > 0 ? (s.outstandingCentimes / s.billedCentimes) * 100 : 0}%`,
+              }}
+            >
+              <span
+                className="finance-proportion-overdue"
+                style={{
+                  inlineSize: `${s.outstandingCentimes > 0 ? (s.overdueCentimes / s.outstandingCentimes) * 100 : 0}%`,
+                }}
+              />
+            </span>
+          </div>
+          <dl className="finance-key-figures">
+            {cards
+              .filter((card) => card.key !== 'billed')
+              .map((card) => (
+                <div key={card.key} data-kind={card.key}>
+                  <dt>{t(`summary.${card.key}`)}</dt>
+                  <dd className={card.tone}>{card.value}</dd>
+                  {'sub' in card ? <p>{card.sub}</p> : null}
+                </div>
+              ))}
+          </dl>
+        </div>
+      </section>
       <p className="-mt-3 text-xs text-text-muted">{t('summary.help')}</p>
 
-      <Card className="overflow-hidden">
-        <div className="flex flex-wrap items-center gap-3 border-b border-border p-4 sm:px-5">
+      <Card className="finance-ledger overflow-hidden">
+        <div className="finance-ledger-heading">
+          <h2>{d('ledger')}</h2>
+          <p>{t('summary.invoiceCount', { count: total })}</p>
+        </div>
+        <div className="workspace-toolbar-embedded flex flex-wrap items-center gap-3 border-b border-border p-4 sm:px-5">
           <form role="search" method="get" className="flex min-w-0 flex-1 basis-64 gap-2">
             {status !== 'all' ? <input type="hidden" name="status" value={status} /> : null}
             <div className="min-w-0 flex-1">
@@ -163,7 +206,7 @@ export async function AdminFinancePage({ params }: { params: AdminFinanceParams 
           </form>
           <nav
             aria-label={t('filters.status')}
-            className="flex max-w-full gap-1 overflow-x-auto rounded-lg bg-surface-muted p-1"
+            className="workspace-tabs flex max-w-full gap-1 overflow-x-auto rounded-lg border border-border bg-surface-muted/60 p-1"
           >
             {(['all', ...invoiceStatuses] as const).map((x) => (
               <Link
@@ -264,7 +307,7 @@ function InvoiceRow({
     <li>
       <Link
         href={`/dashboard/finance/${i.id}`}
-        className="flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3.5 transition-colors hover:bg-surface-muted/60 sm:px-5"
+        className="finance-ledger-row flex flex-wrap items-center gap-x-5 gap-y-3 px-4 py-5 transition-colors hover:bg-surface-muted/60 sm:px-5"
       >
         <span className="w-28 shrink-0 font-mono text-xs tabular-nums text-text-muted">
           {i.number}
@@ -284,7 +327,8 @@ function InvoiceRow({
             })}
           </p>
         </div>
-        <div className="w-full min-w-0 sm:w-44">
+        <div className="finance-ledger-value w-full min-w-0 sm:w-44">
+          <p className="font-mono tabular-nums">{money(i.amountCentimes)}</p>
           <p className="font-mono text-sm tabular-nums">
             {t('row.paidOf', { paid: money(i.paidCentimes), total: money(i.amountCentimes) })}
           </p>

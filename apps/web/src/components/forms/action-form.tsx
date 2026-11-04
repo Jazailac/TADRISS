@@ -163,7 +163,7 @@ export function ActionForm({
           [target.name]: issues[target.name],
         }));
       }}
-      className="grid grid-cols-2 gap-x-3 gap-y-1"
+      className="grid grid-cols-2 gap-x-4 gap-y-2"
     >
       <input type="hidden" name="locale" value={locale} />
       {Object.entries(hidden ?? {}).map(([name, value]) => (
@@ -244,8 +244,8 @@ export function ActionForm({
         );
       })}
 
-      <div className="col-span-2 mt-2 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-        <Button variant="ghost" onClick={onCancel}>
+      <div className="col-span-2 mt-3 flex flex-col-reverse gap-2 border-t border-border pt-5 sm:flex-row sm:justify-end">
+        <Button variant="secondary" onClick={onCancel}>
           {cancelLabel}
         </Button>
         <Button type="submit" pending={pending}>
