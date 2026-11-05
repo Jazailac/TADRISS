@@ -653,7 +653,57 @@
     "commandSearching": "Searching…",
     "commandPeopleError": "The people search failed. Please try again.",
     "commandNothing": "No page or person matches this search.",
-    "commandPeopleHint": "Type a name to find a student, parent or teacher."
+    "commandPeopleHint": "Type a name to find a student, parent or teacher.",
+    "sampleName": "{kind, select, centre {Atlas Centre} other {Al Manar School}}",
+    "createFor": "{kind, select, centre {Create my centre} other {Create my school}}",
+    "feeItem": "{kind, select, centre {Monthly fee · October} other {Tuition · October}}",
+    "lead": {
+      "admin": "{kind, select, centre {The centre, group by group.} other {Running the school.}}",
+      "teacher": "{kind, select, centre {Your groups, and only your groups.} other {Your classes, and only your classes.}}",
+      "parent": "{kind, select, centre {Your child’s sessions, with confidence.} other {Your child’s progress, with confidence.}}",
+      "student": "{kind, select, centre {Your sessions, clearly.} other {Your schooling, clearly.}}"
+    },
+    "stats": {
+      "attendance": "Attendance",
+      "students": "Students",
+      "collectedToday": "Collected today",
+      "lessonsToday": "{kind, select, centre {Sessions today} other {Lessons today}}",
+      "rollCalls": "Roll calls to take",
+      "classes": "Classes",
+      "groups": "Groups",
+      "average": "Average",
+      "due": "Left to pay",
+      "nextLesson": "{kind, select, centre {Next session} other {Next lesson}}",
+      "homework": "Homework due"
+    },
+    "lessons": {
+      "primary": {
+        "a": "Arabic · Grade 4",
+        "b": "Maths · Grade 4",
+        "c": "Science · Grade 4"
+      },
+      "college": {
+        "a": "Maths · Grade 9",
+        "b": "Life sciences · Grade 8",
+        "c": "French · Grade 7"
+      },
+      "lycee": {
+        "a": "Mathematics · 2nd Bac SM",
+        "b": "Physics & Chemistry · 1st Bac",
+        "c": "French · Common core"
+      },
+      "support": {
+        "a": "Maths · 2nd Bac group",
+        "b": "Physics · 1st Bac group",
+        "c": "English · Beginners group"
+      }
+    },
+    "viewer": {
+      "admin": "Admin",
+      "teacher": "Teacher",
+      "parent": "Parent",
+      "student": "Student"
+    }
   },
   "directionPreview": {
     "eyebrow": "Direction prototypes · preview only",

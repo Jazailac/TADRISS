@@ -653,7 +653,57 @@
     "commandSearching": "Recherche en cours…",
     "commandPeopleError": "La recherche de personnes a échoué. Réessayez.",
     "commandNothing": "Aucune page ni personne pour cette recherche.",
-    "commandPeopleHint": "Tapez un nom pour trouver un élève, un parent ou un enseignant."
+    "commandPeopleHint": "Tapez un nom pour trouver un élève, un parent ou un enseignant.",
+    "sampleName": "{kind, select, centre {Centre Atlas} other {Groupe scolaire Al Manar}}",
+    "createFor": "{kind, select, centre {Créer mon centre} other {Créer mon école}}",
+    "feeItem": "{kind, select, centre {Mensualité · octobre} other {Scolarité · octobre}}",
+    "lead": {
+      "admin": "{kind, select, centre {Le centre, groupe par groupe.} other {Le pilotage de l’établissement.}}",
+      "teacher": "{kind, select, centre {Vos groupes, rien que vos groupes.} other {Vos classes, rien que vos classes.}}",
+      "parent": "{kind, select, centre {Les séances de votre enfant, en confiance.} other {Le parcours de votre enfant, en confiance.}}",
+      "student": "{kind, select, centre {Vos séances, en clair.} other {Votre scolarité, en clair.}}"
+    },
+    "stats": {
+      "attendance": "Présence",
+      "students": "Élèves",
+      "collectedToday": "Encaissé aujourd’hui",
+      "lessonsToday": "{kind, select, centre {Séances du jour} other {Cours du jour}}",
+      "rollCalls": "Appels à faire",
+      "classes": "Classes",
+      "groups": "Groupes",
+      "average": "Moyenne",
+      "due": "Reste à payer",
+      "nextLesson": "{kind, select, centre {Prochaine séance} other {Prochain cours}}",
+      "homework": "Devoirs à rendre"
+    },
+    "lessons": {
+      "primary": {
+        "a": "Arabe · 4e année",
+        "b": "Mathématiques · 4e année",
+        "c": "Éveil scientifique · 4e année"
+      },
+      "college": {
+        "a": "Mathématiques · 3e année",
+        "b": "SVT · 2e année",
+        "c": "Français · 1re année"
+      },
+      "lycee": {
+        "a": "Mathématiques · 2e Bac SM",
+        "b": "Physique-Chimie · 1re Bac",
+        "c": "Français · Tronc commun"
+      },
+      "support": {
+        "a": "Maths · Groupe 2e Bac",
+        "b": "Physique · Groupe 1re Bac",
+        "c": "Anglais · Groupe débutants"
+      }
+    },
+    "viewer": {
+      "admin": "Direction",
+      "teacher": "Enseignant",
+      "parent": "Parent",
+      "student": "Élève"
+    }
   },
   "directionPreview": {
     "eyebrow": "Prototypes de direction · aperçu uniquement",
