@@ -11,7 +11,7 @@ export default async function Page({
     <WithChild
       path="/parent/schedule"
       childParam={sp.child}
-      render={(child) => <MySchedulePage role="student" classId={child.classId} base="/parent" />}
+      render={(child) => <MySchedulePage role="student" classIds={child.classIds} base="/parent" />}
     />
   );
 }

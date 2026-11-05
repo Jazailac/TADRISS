@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { toErrorCode } from './result';
+import { laneLayout } from './schedule';
 import {
   minutesToTime,
   slotInput,
@@ -72,5 +73,38 @@ describe('toErrorCode (timetable)', () => {
       toErrorCode({ code: '23P01', message: 'violates "timetable_slots_teacher_no_overlap"' }),
     ).toBe('slot_teacher_busy');
     expect(toErrorCode({ code: '23P01', message: 'something else' })).toBe('conflict');
+  });
+});
+
+describe('laneLayout', () => {
+  const slot = (id: string, startMin: number, endMin: number, weekday = 1) => ({
+    id,
+    weekday,
+    startMin,
+    endMin,
+  });
+
+  it('gives lessons that do not overlap the whole width', () => {
+    const layout = laneLayout([slot('a', 480, 540), slot('b', 540, 600)]);
+    expect(layout.get('a')).toEqual({ lane: 0, lanes: 1 });
+    expect(layout.get('b')).toEqual({ lane: 0, lanes: 1 });
+  });
+
+  it('puts overlapping lessons side by side', () => {
+    const layout = laneLayout([slot('a', 1080, 1170), slot('b', 1140, 1230)]);
+    expect(layout.get('a')).toEqual({ lane: 0, lanes: 2 });
+    expect(layout.get('b')).toEqual({ lane: 1, lanes: 2 });
+  });
+
+  it('reuses a lane once it is free, within a chain of overlaps', () => {
+    const layout = laneLayout([slot('a', 480, 600), slot('b', 540, 660), slot('c', 600, 720)]);
+    expect(layout.get('a')).toEqual({ lane: 0, lanes: 2 });
+    expect(layout.get('b')).toEqual({ lane: 1, lanes: 2 });
+    expect(layout.get('c')).toEqual({ lane: 0, lanes: 2 });
+  });
+
+  it('never treats the same time on another day as an overlap', () => {
+    const layout = laneLayout([slot('a', 480, 540, 1), slot('b', 480, 540, 2)]);
+    expect(layout.get('b')).toEqual({ lane: 0, lanes: 1 });
   });
 });

@@ -1,5 +1,6 @@
 import type { TadrissClient } from './client';
 import { err, ok, toErrorCode, type Result } from './result';
+import { currentSchoolYear } from './schemas/classes';
 
 export const relationships = ['parent', 'mother', 'father', 'guardian'] as const;
 export type Relationship = (typeof relationships)[number];
@@ -9,14 +10,15 @@ export type Child = {
   firstName: string;
   lastName: string;
   relationship: Relationship;
-  /** The class they are in this year, when they have one. */
-  classId: string | null;
+  /** Their active classes: one in a school, possibly several in a centre. */
+  classIds: string[];
+  /** Those classes' names, for display. Null when they have none. */
   className: string | null;
 };
 
 /**
- * The signed-in parent's children (RLS: only their own links). Each has their active class, which
- * is what the timetable, homework and notices are scoped by.
+ * The signed-in parent's children (RLS: only their own links). Each has their current classes, which
+ * are what the timetable, homework and notices are scoped by.
  */
 export async function listChildren(client: TadrissClient): Promise<Result<Child[]>> {
   const { data, error } = await client
@@ -33,28 +35,36 @@ export async function listChildren(client: TadrissClient): Promise<Result<Child[
       .from('enrolments')
       .select('student_id, class_id, class:classes!enrolments_class_id_institution_id_fkey(name)')
       .eq('status', 'active')
+      .eq('school_year', currentSchoolYear())
       .in('student_id', ids),
   ]);
   if (people.error) return err(toErrorCode(people.error));
   if (enrolments.error) return err(toErrorCode(enrolments.error));
 
   const names = new Map(people.data.map((p) => [p.id, p]));
-  const classes = new Map(
-    enrolments.data.map((e) => [e.student_id, { id: e.class_id, name: e.class.name }]),
-  );
+  const classes = new Map<string, { id: string; name: string }[]>();
+  for (const e of enrolments.data) {
+    // RLS hides an archived class from a parent, but archiving leaves its enrolments active.
+    const cls = e.class as { name: string } | null;
+    if (!cls) continue;
+    classes.set(e.student_id, [
+      ...(classes.get(e.student_id) ?? []),
+      { id: e.class_id, name: cls.name },
+    ]);
+  }
   return ok(
     data.flatMap((g) => {
       const p = names.get(g.student_id);
       if (!p) return [];
-      const c = classes.get(g.student_id);
+      const c = classes.get(g.student_id) ?? [];
       return [
         {
           id: g.student_id,
           firstName: p.first_name,
           lastName: p.last_name,
           relationship: g.relationship as Relationship,
-          classId: c?.id ?? null,
-          className: c?.name ?? null,
+          classIds: c.map((cls) => cls.id),
+          className: c.length > 0 ? c.map((cls) => cls.name).join(' · ') : null,
         },
       ];
     }),

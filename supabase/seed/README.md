@@ -7,14 +7,18 @@ and then `seed.sql`. The seed is deterministic: fixed UUIDs and fixed names, no 
 
 Every seeded account uses the password **`Tadriss-dev-2026`**.
 
-| Role                                                      | Email                                           | Lands on            |
-| --------------------------------------------------------- | ----------------------------------------------- | ------------------- |
-| super_admin                                               | `ops@tadriss.test`                              | `/admin` (Phase 12) |
-| institution_admin, Al Manar                               | `direction@almanar.test`, `admin2@almanar.test` | `/dashboard`        |
+| Role                                                      | Email                                             | Lands on            |
+| --------------------------------------------------------- | ------------------------------------------------- | ------------------- |
+| super_admin                                               | `ops@tadriss.test`                                | `/admin` (Phase 12) |
+| institution_admin, Al Manar                               | `direction@almanar.test`, `admin2@almanar.test`   | `/dashboard`        |
 | parent, Al Manar                                          | `parent01@almanar.test` … `parent05@almanar.test` | `/parent`           |
-| teacher, Al Manar                                         | `prof1@almanar.test` … `prof3@almanar.test`     | `/teacher`          |
-| student, Al Manar                                         | `eleve01@almanar.test` … `eleve31@almanar.test` | `/student`          |
-| institution_admin, Ibn Rochd (2nd tenant, Arabic default) | `direction@ibnrochd.test`                       | `/dashboard`        |
+| teacher, Al Manar                                         | `prof1@almanar.test` … `prof3@almanar.test`       | `/teacher`          |
+| student, Al Manar                                         | `eleve01@almanar.test` … `eleve31@almanar.test`   | `/student`          |
+| institution_admin, Ibn Rochd (2nd tenant, Arabic default) | `direction@ibnrochd.test`                         | `/dashboard`        |
+| institution_admin, Centre Atlas (a soutien centre)        | `direction@atlas.test`                            | `/dashboard`        |
+| teacher, Centre Atlas                                     | `prof1@atlas.test`, `prof2@atlas.test`            | `/teacher`          |
+| student, Centre Atlas (eleve01 is in two groups)          | `eleve01@atlas.test` … `eleve06@atlas.test`       | `/student`          |
+| parent, Centre Atlas (of eleve01)                         | `parent01@atlas.test`                             | `/parent`           |
 
 ## Fixed ids
 

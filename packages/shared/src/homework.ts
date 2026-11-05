@@ -93,7 +93,13 @@ async function toViews(
  */
 export async function listHomework(
   client: TadrissClient,
-  opts: { teacherId?: string; classId?: string; archived?: boolean; studentId?: string } = {},
+  opts: {
+    teacherId?: string;
+    classId?: string;
+    classIds?: string[];
+    archived?: boolean;
+    studentId?: string;
+  } = {},
 ): Promise<Result<HomeworkView[]>> {
   let query = client
     .from('homework')
@@ -104,6 +110,7 @@ export async function listHomework(
   query = opts.archived ? query.not('deleted_at', 'is', null) : query.is('deleted_at', null);
   if (opts.teacherId) query = query.eq('teacher_id', opts.teacherId);
   if (opts.classId) query = query.eq('class_id', opts.classId);
+  if (opts.classIds) query = query.in('class_id', opts.classIds);
   const { data, error } = await query;
   if (error) return err(toErrorCode(error));
   return toViews(client, data, opts.studentId);

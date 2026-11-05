@@ -209,12 +209,12 @@ export async function AdminSchedulePage({ params }: { params: SchedulePageParams
 export async function MySchedulePage({
   role,
   teacherId,
-  classId,
+  classIds,
   base,
 }: {
   role: 'teacher' | 'student';
-  /** A parent looks at one child's class. */
-  classId?: string | null;
+  /** A parent looks at one child's classes. */
+  classIds?: string[];
   base?: string;
   /** Teachers see only their own lessons (RLS also shows them co-teachers' lessons in shared classes). */
   teacherId?: string;
@@ -224,10 +224,10 @@ export async function MySchedulePage({
     getTranslations('schedule'),
     getTranslations('shell.groups'),
     getTranslations('errors'),
-    classId === null
+    classIds?.length === 0
       ? Promise.resolve({ ok: true as const, data: [] })
-      : listSlots(supabase, teacherId ? { teacherId } : classId ? { classId } : {}),
-    role === 'student' && classId === undefined
+      : listSlots(supabase, teacherId ? { teacherId } : classIds ? { classIds } : {}),
+    role === 'student' && classIds === undefined
       ? listClasses(supabase, { schoolYear: currentSchoolYear() })
       : Promise.resolve(null),
   ]);
@@ -260,7 +260,7 @@ export async function MySchedulePage({
       {head}
       {slots.data.length === 0 ? (
         <Card>
-          {(classes?.ok && classes.data.length === 0) || classId === null ? (
+          {(classes?.ok && classes.data.length === 0) || classIds?.length === 0 ? (
             <EmptyState
               title={t('empty.noClassStudent.title')}
               description={t('empty.noClassStudent.body')}

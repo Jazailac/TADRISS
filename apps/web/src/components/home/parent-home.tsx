@@ -41,6 +41,7 @@ async function ChildHome({ child }: { child: Child }) {
   const tz = viewer?.profile.institution?.timezone ?? 'Africa/Casablanca';
   const userId = viewer?.session.userId ?? '';
   const today = todayIn(tz);
+  const hasClass = child.classIds.length > 0;
   const supabase = await getServerClient();
   const [t, d, app, w, locale, slots, homework, attendance, grades, invoices, announcements] =
     await Promise.all([
@@ -49,9 +50,9 @@ async function ChildHome({ child }: { child: Child }) {
       getTranslations('app'),
       getTranslations('workspace'),
       getLocale(),
-      child.classId ? listSlots(supabase, { classId: child.classId }) : Promise.resolve(null),
-      child.classId
-        ? listHomework(supabase, { studentId: child.id, classId: child.classId })
+      hasClass ? listSlots(supabase, { classIds: child.classIds }) : Promise.resolve(null),
+      hasClass
+        ? listHomework(supabase, { studentId: child.id, classIds: child.classIds })
         : Promise.resolve(null),
       listMyAttendance(supabase, { studentId: child.id }),
       listMyGrades(supabase, { studentId: child.id }),
@@ -136,7 +137,7 @@ async function ChildHome({ child }: { child: Child }) {
             linkLabel={t('seeAll')}
             kind="schedule"
           >
-            {child.classId ? (
+            {hasClass ? (
               <LessonsToday lessons={lessons.map((slot) => ({ slot }))} showTeacher />
             ) : (
               <EmptyLine>{d('noClass')}</EmptyLine>

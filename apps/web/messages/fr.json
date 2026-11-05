@@ -942,7 +942,8 @@
       "archived": "Archivée",
       "noTeacher": "Aucun enseignant",
       "noLevel": "Niveau libre",
-      "seatsLabel": "Places occupées"
+      "seatsLabel": "Places occupées",
+      "enrolments": "{count, plural, one {# inscription} other {# inscriptions}}"
     },
     "actions": {
       "new": "Nouvelle classe"
@@ -998,7 +999,9 @@
       "submit": "{count, plural, =0 {Choisissez des élèves} one {Inscrire # élève} other {Inscrire # élèves}}",
       "seatsLeft": "{count, plural, one {# place restante} other {# places restantes}}",
       "unlimited": "Capacité illimitée",
-      "loadError": "Impossible de charger les élèves."
+      "loadError": "Impossible de charger les élèves.",
+      "descriptionCentre": "Tous les élèves actifs qui ne sont pas déjà dans ce groupe sont proposés. Un élève peut suivre plusieurs groupes.",
+      "clash": "Chevauche <n>{cls}</n>"
     },
     "withdraw": {
       "label": "Retirer {name} de la classe",

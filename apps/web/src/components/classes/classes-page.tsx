@@ -9,6 +9,7 @@ import { AlertCircle, ArrowUpRight, Search } from 'lucide-react';
 import { getFormatter, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getServerClient } from '@/lib/supabase/server';
+import { getViewer } from '@/lib/viewer';
 import { Badge } from '../ui/badge';
 import { ButtonLink } from '../ui/button';
 import { Card } from '../ui/card';
@@ -37,6 +38,8 @@ export async function ClassesPage({
   const q = (params.q ?? '').slice(0, 80);
   const years = [...new Set([...schoolYearOptions(), year])].sort();
 
+  // A centre's student can be in several groups, so its total counts enrolments, not people.
+  const centre = (await getViewer())?.profile.institution?.kind === 'centre';
   const supabase = await getServerClient();
   const [t, d, shell, errors, f, res] = await Promise.all([
     getTranslations('classes'),
@@ -159,7 +162,9 @@ export async function ClassesPage({
           <div className="register-masthead">
             <h2>{d('classes', { count: res.data.length })}</h2>
             <p>
-              {t('card.students', { count: res.data.reduce((sum, cls) => sum + cls.enrolled, 0) })}{' '}
+              {t(centre ? 'card.enrolments' : 'card.students', {
+                count: res.data.reduce((sum, cls) => sum + cls.enrolled, 0),
+              })}{' '}
               · <bdi>{year}</bdi>
             </p>
           </div>

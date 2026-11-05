@@ -219,24 +219,32 @@ export type EnrolableStudent = {
   firstName: string;
   lastName: string;
   email: string | null;
+  /** Another of their classes that overlaps this one on the timetable: a warning, not a refusal. */
+  clashClass: string | null;
 };
 
 export async function listEnrolableStudents(
   client: TadrissClient,
-  opts: { schoolYear: string; q?: string; limit?: number },
+  opts: { classId: string; q?: string; limit?: number },
 ): Promise<Result<EnrolableStudent[]>> {
-  const { data, error } = await client.rpc('enrolable_students', {
-    p_school_year: opts.schoolYear,
+  const { data, error } = await client.rpc('enrolable_students_for_class', {
+    p_class_id: opts.classId,
     p_query: sanitizeSearch(opts.q ?? ''),
     p_limit: opts.limit ?? 50,
   });
   if (error) return err(toErrorCode(error));
   return ok(
-    data.map((s) => ({ id: s.id, firstName: s.first_name, lastName: s.last_name, email: s.email })),
+    data.map((s) => ({
+      id: s.id,
+      firstName: s.first_name,
+      lastName: s.last_name,
+      email: s.email,
+      clashClass: s.clash_class,
+    })),
   );
 }
 
-/** Enrols students in one transaction. `skipped` = already enrolled this year. */
+/** Enrols students in one transaction. `skipped` = their class or school rule already covers them. */
 export async function enrolStudents(
   client: TadrissClient,
   classId: string,

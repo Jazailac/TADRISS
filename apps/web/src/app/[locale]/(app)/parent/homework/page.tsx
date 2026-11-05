@@ -14,8 +14,8 @@ export default async function Page({
       render={(child) => (
         <StudentHomeworkPage
           studentId={child.id}
-          classId={child.classId}
-          hasClass={child.classId !== null}
+          classIds={child.classIds}
+          hasClass={child.classIds.length > 0}
           base="/parent"
         />
       )}

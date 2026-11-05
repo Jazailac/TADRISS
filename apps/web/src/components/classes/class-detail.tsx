@@ -4,6 +4,7 @@ import { getFormatter, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 import { getServerClient } from '@/lib/supabase/server';
+import { getViewer } from '@/lib/viewer';
 import { Avatar } from '../ui/avatar';
 import { Badge } from '../ui/badge';
 import { ButtonLink } from '../ui/button';
@@ -19,10 +20,11 @@ import { WithdrawButton } from './withdraw-button';
 export async function ClassDetail({ id, area }: { id: string; area: ClassesArea }) {
   const supabase = await getServerClient();
   const admin = area === 'admin';
-  const [t, f, errors, cls, roster, teacherPool] = await Promise.all([
+  const [t, f, errors, viewer, cls, roster, teacherPool] = await Promise.all([
     getTranslations('classes'),
     getFormatter(),
     getTranslations('errors'),
+    getViewer(),
     getClass(supabase, id),
     listRoster(supabase, id),
     admin
@@ -109,7 +111,11 @@ export async function ClassDetail({ id, area }: { id: string; area: ClassesArea 
               </p>
             </div>
             {admin && !c.archived ? (
-              <EnrolDialog classId={c.id} schoolYear={c.schoolYear} seatsLeft={seatsLeft} />
+              <EnrolDialog
+                classId={c.id}
+                centre={viewer?.profile.institution?.kind === 'centre'}
+                seatsLeft={seatsLeft}
+              />
             ) : null}
           </div>
           {roster.data.length === 0 ? (

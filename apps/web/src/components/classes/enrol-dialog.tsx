@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState, useTransition } from 'react';
 import { enrolStudentsAction, searchEnrolableAction } from '@/app/actions/classes';
 import { Avatar } from '../ui/avatar';
+import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { Dialog } from '../ui/dialog';
 import { Input } from '../ui/field';
@@ -16,16 +17,18 @@ type Loaded =
   { status: 'loading' } | { status: 'error' } | { status: 'ready'; rows: EnrolableStudent[] };
 
 /**
- * Searchable multi-select of students who have no class this year. Selection is capped at the
+ * Searchable multi-select of the students this class can take: in a school, those with no class this
+ * year; in a centre, anyone not already in this group, with a warning when groups overlap. Selection is capped at the
  * seats left (when the class has a capacity); the server re-checks atomically.
  */
 export function EnrolDialog({
   classId,
-  schoolYear,
+  centre,
   seatsLeft,
 }: {
   classId: string;
-  schoolYear: string;
+  /** A centre's students can join several groups, so the dialog explains who is offered differently. */
+  centre: boolean;
   seatsLeft: number | null;
 }) {
   const t = useTranslations('classes');
@@ -47,7 +50,7 @@ export function EnrolDialog({
     let cancelled = false;
     const timer = setTimeout(
       () => {
-        void searchEnrolableAction(schoolYear, q).then((res) => {
+        void searchEnrolableAction(classId, q).then((res) => {
           if (cancelled) return;
           setLoaded(res.ok ? { status: 'ready', rows: res.data } : { status: 'error' });
         });
@@ -58,7 +61,7 @@ export function EnrolDialog({
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [open, q, schoolYear]);
+  }, [open, q, classId]);
 
   const limit = seatsLeft ?? Number.POSITIVE_INFINITY;
 
@@ -106,7 +109,7 @@ export function EnrolDialog({
         open={open}
         onClose={close}
         title={t('enrol.title')}
-        description={t('enrol.description')}
+        description={centre ? t('enrol.descriptionCentre') : t('enrol.description')}
       >
         <div className="flex items-center justify-between gap-3 text-xs text-text-muted">
           <span className="font-mono">
@@ -175,6 +178,16 @@ export function EnrolDialog({
                           <span className="block truncate text-xs text-text-muted">
                             <bdi>{s.email}</bdi>
                           </span>
+                        ) : null}
+                        {s.clashClass ? (
+                          <Badge tone="warning" className="mt-1 max-w-full">
+                            <span className="truncate">
+                              {t.rich('enrol.clash', {
+                                cls: s.clashClass,
+                                n: (chunks) => <bdi>{chunks}</bdi>,
+                              })}
+                            </span>
+                          </Badge>
                         ) : null}
                       </span>
                     </label>

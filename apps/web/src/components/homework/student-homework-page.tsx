@@ -23,13 +23,13 @@ import { DoneToggle } from './done-toggle';
 /** The student's homework in three buckets: overdue, to do, done. */
 export async function StudentHomeworkPage({
   studentId,
-  classId,
+  classIds,
   hasClass,
   base = '/student',
 }: {
   /** A parent looks at one child's class: ticks are then read-only. */
   studentId?: string;
-  classId?: string | null;
+  classIds?: string[];
   hasClass?: boolean;
   base?: string;
 } = {}) {
@@ -42,9 +42,9 @@ export async function StudentHomeworkPage({
     getTranslations('shell.groups'),
     getTranslations('errors'),
     getFormatter(),
-    classId === null
+    classIds?.length === 0
       ? Promise.resolve({ ok: true as const, data: [] })
-      : listHomework(supabase, { studentId, classId: classId ?? undefined }),
+      : listHomework(supabase, classIds ? { studentId, classIds } : { studentId }),
     listClasses(supabase, { schoolYear: currentSchoolYear() }),
   ]);
 

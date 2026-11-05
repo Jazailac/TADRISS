@@ -75,10 +75,14 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
   `profiles.is_active` (admin-only; `getMyProfile` also rejects inactive users).
 - **Classes (Phase 3):** `classes` (per school year, archived via `deleted_at`), `class_teachers`,
   `enrolments` (history kept: withdraw, never delete). Composite FKs keep rows in one institution; a
-  partial unique index allows one ACTIVE enrolment per student per year; a row-locking trigger enforces
+  partial unique index allows one ACTIVE enrolment per student per year in a school (see Centre mode); a row-locking trigger enforces
   capacity. Bulk writes are `SECURITY INVOKER` RPCs (`enrol_students`, `set_class_teachers`,
-  `enrolable_students`). Teachers read only the classes they teach and those students' profiles.
+  `enrolable_students_for_class`). Teachers read only the classes they teach and those students' profiles.
   Pages: `/dashboard/classes[/id]` (admin), `/teacher/classes[/id]` (read-only).
+- **Centre mode (Phase 14, [ADR 0015](docs/decisions/0015-centre-mode-and-multi-group-enrolment.md)):**
+  `institutions.kind` is `school` or `centre`. A centre's student can join several classes (groups); a school keeps one
+  per year, enforced through `enrolments.exclusive`, which a trigger sets. So never assume one class per student: parent
+  pages use `Child.classIds`. A timetable clash between groups is a warning in the enrol dialog, not a constraint.
 - **Schedule (Phase 4):** `subjects` (colour is a token name) and `timetable_slots` (weekday 1–6, times as
   minutes since midnight). Exclusion constraints forbid class and teacher overlaps; a composite FK to
   `class_teachers` means only assigned teachers can teach a class. `private.my_class_ids()` is the one

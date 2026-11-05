@@ -97,9 +97,46 @@ const SLOT_COLUMNS =
  * Lessons the caller may see (RLS decides): everything (admin), the classes a teacher teaches, or a
  * student's own class. Optionally narrowed to one class or one teacher.
  */
+/**
+ * Which lane each lesson takes in its day, so lessons at the same time sit side by side. Exclusion
+ * constraints prevent overlaps within a class or for a teacher, but a centre's student may knowingly
+ * attend two overlapping groups. Lessons that overlap, even through a third, share a lane count.
+ */
+export function laneLayout(
+  slots: readonly { id: string; weekday: number; startMin: number; endMin: number }[],
+): Map<string, { lane: number; lanes: number }> {
+  const layout = new Map<string, { lane: number; lanes: number }>();
+  const ordered = [...slots].sort(
+    (a, b) => a.weekday - b.weekday || a.startMin - b.startMin || a.endMin - b.endMin,
+  );
+  let cluster: { id: string; lane: number }[] = [];
+  let laneEnds: number[] = [];
+  let clusterDay = 0;
+  let clusterEnd = 0;
+  const close = () => {
+    for (const { id, lane } of cluster) layout.set(id, { lane, lanes: laneEnds.length });
+    cluster = [];
+    laneEnds = [];
+  };
+  for (const slot of ordered) {
+    if (slot.weekday !== clusterDay || slot.startMin >= clusterEnd) {
+      close();
+      clusterDay = slot.weekday;
+      clusterEnd = slot.endMin;
+    }
+    const free = laneEnds.findIndex((end) => end <= slot.startMin);
+    const lane = free === -1 ? laneEnds.length : free;
+    laneEnds[lane] = slot.endMin;
+    clusterEnd = Math.max(clusterEnd, slot.endMin);
+    cluster.push({ id: slot.id, lane });
+  }
+  close();
+  return layout;
+}
+
 export async function listSlots(
   client: TadrissClient,
-  opts: { classId?: string; teacherId?: string; slotId?: string } = {},
+  opts: { classId?: string; classIds?: string[]; teacherId?: string; slotId?: string } = {},
 ): Promise<Result<SlotView[]>> {
   let query = client
     .from('timetable_slots')
@@ -108,6 +145,7 @@ export async function listSlots(
     .order('starts_min', { ascending: true })
     .limit(1000);
   if (opts.classId) query = query.eq('class_id', opts.classId);
+  if (opts.classIds) query = query.in('class_id', opts.classIds);
   if (opts.teacherId) query = query.eq('teacher_id', opts.teacherId);
   if (opts.slotId) query = query.eq('id', opts.slotId);
   const { data, error } = await query;

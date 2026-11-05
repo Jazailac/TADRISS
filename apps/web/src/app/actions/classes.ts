@@ -7,7 +7,6 @@ import {
   err,
   fieldErrors,
   listEnrolableStudents,
-  isSchoolYear,
   setClassArchived,
   setClassTeachers,
   updateClass,
@@ -124,11 +123,11 @@ export async function setTeachersAction(
 
 /** Candidate list for the "add students" dialog (read-only, admin only). */
 export async function searchEnrolableAction(
-  schoolYear: string,
+  classId: string,
   q: string,
 ): Promise<Result<EnrolableStudent[]>> {
-  if (!isSchoolYear(schoolYear)) return err('validation');
+  if (!z.uuid().safeParse(classId).success) return err('validation');
   const auth = await requireAdmin();
   if (!auth.ok) return auth;
-  return listEnrolableStudents(auth.data.supabase, { schoolYear, q: q.slice(0, 80), limit: 50 });
+  return listEnrolableStudents(auth.data.supabase, { classId, q: q.slice(0, 80), limit: 50 });
 }

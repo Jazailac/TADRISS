@@ -439,6 +439,7 @@ export type Database = {
           class_id: string;
           created_at: string;
           enrolled_on: string;
+          exclusive: boolean;
           id: string;
           institution_id: string;
           school_year: string;
@@ -451,6 +452,7 @@ export type Database = {
           class_id: string;
           created_at?: string;
           enrolled_on?: string;
+          exclusive?: boolean;
           id?: string;
           institution_id: string;
           school_year: string;
@@ -463,6 +465,7 @@ export type Database = {
           class_id?: string;
           created_at?: string;
           enrolled_on?: string;
+          exclusive?: boolean;
           id?: string;
           institution_id?: string;
           school_year?: string;
@@ -813,6 +816,7 @@ export type Database = {
           default_locale: string;
           deleted_at: string | null;
           id: string;
+          kind: string;
           name: string;
           phone: string | null;
           plan: string;
@@ -827,6 +831,7 @@ export type Database = {
           default_locale?: string;
           deleted_at?: string | null;
           id?: string;
+          kind?: string;
           name: string;
           phone?: string | null;
           plan?: string;
@@ -841,6 +846,7 @@ export type Database = {
           default_locale?: string;
           deleted_at?: string | null;
           id?: string;
+          kind?: string;
           name?: string;
           phone?: string | null;
           plan?: string;
@@ -1377,6 +1383,16 @@ export type Database = {
       enrolable_students: {
         Args: { p_limit?: number; p_query?: string; p_school_year: string };
         Returns: {
+          email: string;
+          first_name: string;
+          id: string;
+          last_name: string;
+        }[];
+      };
+      enrolable_students_for_class: {
+        Args: { p_class_id: string; p_limit?: number; p_query?: string };
+        Returns: {
+          clash_class: string;
           email: string;
           first_name: string;
           id: string;

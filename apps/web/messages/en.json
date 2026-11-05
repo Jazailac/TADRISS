@@ -942,7 +942,8 @@
       "archived": "Archived",
       "noTeacher": "No teacher",
       "noLevel": "No level",
-      "seatsLabel": "Seats taken"
+      "seatsLabel": "Seats taken",
+      "enrolments": "{count, plural, one {# enrolment} other {# enrolments}}"
     },
     "actions": {
       "new": "New class"
@@ -998,7 +999,9 @@
       "submit": "{count, plural, =0 {Choose students} one {Enrol # student} other {Enrol # students}}",
       "seatsLeft": "{count, plural, one {# seat left} other {# seats left}}",
       "unlimited": "Unlimited capacity",
-      "loadError": "Couldn’t load students."
+      "loadError": "Couldn’t load students.",
+      "descriptionCentre": "Every active student not already in this group is offered. A student can join several groups.",
+      "clash": "Overlaps <n>{cls}</n>"
     },
     "withdraw": {
       "label": "Remove {name} from the class",

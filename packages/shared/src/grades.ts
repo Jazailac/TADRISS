@@ -1,5 +1,6 @@
 import type { TadrissClient } from './client';
 import { listRoster } from './classes';
+import { currentSchoolYear } from './schemas/classes';
 import { err, ok, toErrorCode, type Result } from './result';
 import type { ExamInput, SaveGradesInput, UpdateExamInput } from './schemas/grades';
 import type { SubjectColor } from './schemas/schedule';
@@ -352,18 +353,23 @@ export async function getReportStudent(
       .maybeSingle(),
     client
       .from('enrolments')
-      .select('class:classes!enrolments_class_id_institution_id_fkey(name)')
+      .select('class:classes!enrolments_class_id_institution_id_fkey(name, deleted_at)')
       .eq('student_id', studentId)
       .eq('status', 'active')
-      .limit(1),
+      .eq('school_year', currentSchoolYear()),
   ]);
   if (p.error) return err(toErrorCode(p.error));
   if (e.error) return err(toErrorCode(e.error));
   if (!p.data || p.data.role !== 'student') return err('not_found');
+  // An archived class is hidden by RLS from everyone but admins, and archiving keeps its enrolments.
+  const classNames = e.data.flatMap((row) => {
+    const cls = row.class as { name: string; deleted_at: string | null } | null;
+    return cls && cls.deleted_at === null ? [cls.name] : [];
+  });
   return ok({
     id: p.data.id,
     firstName: p.data.first_name,
     lastName: p.data.last_name,
-    className: e.data[0]?.class.name ?? null,
+    className: classNames.length > 0 ? classNames.join(' · ') : null,
   });
 }

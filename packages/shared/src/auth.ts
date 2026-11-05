@@ -136,7 +136,13 @@ export type MyProfile = {
   firstName: string;
   lastName: string;
   locale: Locale | null;
-  institution: { id: string; name: string; slug: string; timezone: string } | null;
+  institution: {
+    id: string;
+    name: string;
+    slug: string;
+    timezone: string;
+    kind: 'school' | 'centre';
+  } | null;
 };
 
 /** The signed-in user's profile and institution (RLS limits it to their own row). */
@@ -147,7 +153,7 @@ export async function getMyProfile(
   const { data, error } = await client
     .from('profiles')
     .select(
-      'id, role, first_name, last_name, locale, is_active, institution:institutions(id, name, slug, timezone)',
+      'id, role, first_name, last_name, locale, is_active, institution:institutions(id, name, slug, timezone, kind)',
     )
     .eq('id', userId)
     .single();
@@ -161,7 +167,10 @@ export async function getMyProfile(
     firstName: data.first_name,
     lastName: data.last_name,
     locale: data.locale as Locale | null,
-    institution: data.institution,
+    institution: data.institution && {
+      ...data.institution,
+      kind: data.institution.kind === 'centre' ? 'centre' : 'school',
+    },
   });
 }
 

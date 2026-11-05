@@ -18,7 +18,7 @@ export default async function Page({
           studentId={child.id}
           base="/parent"
           query={{ child: child.id }}
-          hasClass={child.classId !== null}
+          hasClass={child.classIds.length > 0}
         />
       )}
     />

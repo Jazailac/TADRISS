@@ -1,6 +1,7 @@
 import {
   minutesToTime,
   timeRange,
+  laneLayout,
   weekdays,
   type SlotView,
   type Subject,
@@ -56,6 +57,15 @@ export async function WeekTimetable({
     Math.round((slots.reduce((sum, slot) => sum + slot.endMin - slot.startMin, 0) / 60) * 100) /
     100;
   const height = (end - start) * PX_PER_MIN;
+
+  const lanes = laneLayout(slots);
+  const laneBox = (id: string) => {
+    const { lane, lanes: count } = lanes.get(id) ?? { lane: 0, lanes: 1 };
+    return {
+      insetInlineStart: `calc(${(lane / count) * 100}% + 0.25rem)`,
+      inlineSize: `calc(${100 / count}% - 0.5rem)`,
+    };
+  };
 
   const secondLine = (s: SlotView) =>
     detail === 'teacher'
@@ -176,10 +186,11 @@ export async function WeekTimetable({
                 .map((s) => (
                   <div
                     key={s.id}
-                    className="absolute inset-x-1"
+                    className="absolute"
                     style={{
                       top: (s.startMin - start) * PX_PER_MIN + 1,
                       height: (s.endMin - s.startMin) * PX_PER_MIN - 2,
+                      ...laneBox(s.id),
                     }}
                   >
                     {wrap(
