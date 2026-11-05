@@ -4,8 +4,6 @@ name: Update visual baselines
 # Run manually on a PR branch after an intentional UI change; it commits the new PNGs.
 on:
   workflow_dispatch:
-  push:
-    branches: [phase-14/multi-group]
 
 permissions:
   contents: write
