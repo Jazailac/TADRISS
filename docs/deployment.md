@@ -6,6 +6,8 @@ decision that code cannot make.
 ## 1. Environments
 
 - **(you)** A hosted Supabase project (EU region) and a Vercel project for `apps/web`.
+- **(you)** PR previews: add the GitHub secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID`, then set the
+  repository variable `VERCEL_PREVIEW_ENABLED` to `true`. Until then CI skips the preview job.
 - Web env (Vercel): `NEXT_PUBLIC_APP_URL` (exact production origin), `NEXT_PUBLIC_SUPABASE_URL`,
   `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (server only). No fallbacks: the app refuses to
   start if one is missing.

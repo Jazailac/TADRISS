@@ -254,9 +254,9 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
 <!-- prettier-ignore -->
 18. No env fallbacks. `NEXT_PUBLIC_APP_URL` is required.
 19. Seed is deterministic. Seed credentials are in `supabase/seed/README.md`.
-20. CI: lint → i18n → types → unit → supabase start → db reset → pgTAP → type drift →
-    Playwright on `next build` → mobile bundle → Vercel preview. Merging to `main`: `supabase db push`,
-    then functions, then web.
+20. CI: lint → i18n → types → unit → supabase start → db reset → seed document files → pgTAP → type drift →
+    Playwright on `next build` → mobile bundle → Vercel preview (skipped unless the repository variable
+    `VERCEL_PREVIEW_ENABLED` is `true`). Merging to `main`: `supabase db push`, then functions, then web.
 
 ## Design system
 
