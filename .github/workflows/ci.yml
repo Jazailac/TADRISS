@@ -47,6 +47,8 @@ jobs:
         run: pnpm exec supabase start -x studio,imgproxy,vector,logflare,supavisor,edge-runtime
       - name: Reset DB (migrations + seed)
         run: pnpm exec supabase db reset
+      - name: Upload seeded document files
+        run: ./scripts/seed-documents.sh
       - name: pgTAP
         run: pnpm test:db
       - name: Generated types match the schema
