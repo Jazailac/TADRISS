@@ -38,12 +38,15 @@ export function AuthForm({
   fields,
   submitLabel,
   next,
+  hidden,
 }: {
   schema: keyof typeof schemas;
   action: (prev: AuthState, fd: FormData) => Promise<AuthState>;
   fields: FieldSpec[];
   submitLabel: string;
   next?: string;
+  /** Values the visitor does not type, e.g. the institution kind chosen on the landing page. */
+  hidden?: Record<string, string>;
 }) {
   const schema = schemas[schemaName];
   const locale = useLocale();
@@ -107,6 +110,9 @@ export function AuthForm({
     >
       <input type="hidden" name="locale" value={locale} />
       {next ? <input type="hidden" name="next" value={next} /> : null}
+      {Object.entries(hidden ?? {}).map(([name, value]) => (
+        <input key={name} type="hidden" name={name} value={value} />
+      ))}
 
       {serverError ? (
         <p

@@ -74,6 +74,7 @@ export async function signup(_prev: AuthState, fd: FormData): Promise<AuthState>
     lastName: fd.get('lastName'),
     email: fd.get('email'),
     password: fd.get('password'),
+    institutionKind: fd.get('institutionKind'),
   });
   const values = echo(fd, ['institutionName', 'firstName', 'lastName', 'email']);
   if (!parsed.success) return { error: 'validation', fields: fieldErrors(parsed.error), values };

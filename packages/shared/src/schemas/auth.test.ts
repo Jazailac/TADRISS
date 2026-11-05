@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { fieldErrors, loginInput, signupInput } from './auth';
+import { fieldErrors, institutionKindFor, loginInput, signupInput } from './auth';
 
 const validSignup = {
   institutionName: 'Groupe scolaire Al Manar',
@@ -39,5 +39,26 @@ describe('signupInput', () => {
     const r = signupInput.safeParse({ ...validSignup, [field]: value });
     if (r.success) throw new Error('should fail');
     expect(fieldErrors(r.error)[field]).toBe(key);
+  });
+});
+
+describe('institution kind', () => {
+  it.each([
+    ['support', 'centre'],
+    ['primary', 'school'],
+    ['lycee', 'school'],
+    ['SUPPORT', 'school'],
+    [undefined, 'school'],
+  ])('schoolType=%j → %s', (schoolType, kind) => {
+    expect(institutionKindFor(schoolType)).toBe(kind);
+  });
+  it.each([
+    ['centre', 'centre'],
+    ['school', 'school'],
+    ['support', 'school'],
+    [null, 'school'],
+    [undefined, 'school'],
+  ])('signupInput institutionKind=%j → %s', (institutionKind, kind) => {
+    expect(signupInput.parse({ ...validSignup, institutionKind }).institutionKind).toBe(kind);
   });
 });

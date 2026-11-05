@@ -11,6 +11,8 @@ monthly subject groups, so one student belongs to several at once. Schools must 
 ## Decision
 
 - `institutions.kind` is `school` (default) or `centre`. No API role can write it; the platform console will.
+  Self-serve sign-up picks it once, when the onboarding trigger creates the institution (migration 0017): the
+  landing page's `schoolType=support` makes a centre, anything else a school.
 - `enrolments.exclusive` records the rule when an enrolment is created, set by a trigger from the kind. A partial
   unique index cannot read another table, and this keeps the school rule a real database constraint rather than a
   check that concurrent requests could race past.
