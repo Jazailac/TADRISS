@@ -132,7 +132,7 @@
   min-inline-size: 0;
   align-content: start;
   gap: 1.25rem;
-  border-block-start: 1px solid rgb(var(--color-border));
+  border-block-end: 1px solid rgb(var(--color-border));
   padding: 1.5rem;
   background: rgb(var(--color-surface-muted) / 0.6);
 }
@@ -199,32 +199,75 @@
   outline: 2px solid rgb(var(--color-primary));
   outline-offset: 3px;
 }
-@media (min-width: 768px) and (max-width: 1023px) {
-  .studio-controls {
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem 1.5rem;
-  }
-  .studio-config-heading {
-    grid-column: 1 / -1;
-  }
-  .studio-controls > fieldset {
-    grid-row: span 2;
-  }
-  .studio-controls > a {
-    grid-column: 2;
-  }
+/* The DOM is in reading order (who you are, what you use, the preview, the button), so keyboard
+   order matches what a phone shows; from 1024px a grid places the choice and the button on the right. */
+.studio-cta {
+  padding: 0 1.5rem 1.5rem;
+}
+.studio-viewers {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 0.5rem;
+  background: rgb(var(--color-surface-muted));
+}
+.studio-viewer {
+  display: grid;
+  flex: 1 0 auto;
+  place-items: center;
+  min-block-size: 2.25rem;
+  padding: 0.35rem 0.45rem;
+  border-radius: 0.35rem;
+  color: rgb(var(--color-text-muted));
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-fast),
+    color var(--motion-fast);
+}
+.studio-viewer:hover {
+  color: rgb(var(--color-text));
+}
+.studio-viewer.is-selected {
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-text));
+  box-shadow: var(--tadriss-shadow-xs);
+}
+.studio-viewer:focus-within {
+  outline: 2px solid rgb(var(--color-primary));
+  outline-offset: 2px;
 }
 @media (min-width: 1024px) {
   .studio-cockpit {
     grid-template-columns: 12rem minmax(0, 1fr) 16rem;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'navigation desktop controls'
+      'navigation desktop cta';
+  }
+  .studio-navigation {
+    grid-area: navigation;
+  }
+  .studio-desktop {
+    grid-area: desktop;
+  }
+  .studio-cta {
+    grid-area: cta;
+    display: flex;
+    align-items: flex-end;
+    border-inline-start: 1px solid rgb(var(--color-border));
+    padding: 0 1.5rem 1.5rem;
+    background: rgb(var(--color-surface-muted) / 0.6);
   }
   .studio-navigation {
     padding: 1.5rem 1.15rem;
   }
   .studio-controls {
-    display: flex;
-    flex-direction: column;
-    border-block-start: 0;
+    grid-area: controls;
+    border-block-end: 0;
     border-inline-start: 1px solid rgb(var(--color-border));
   }
 }
