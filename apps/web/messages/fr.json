@@ -649,7 +649,11 @@
     "pricingBody": "Les formules et les tarifs sont en préparation. Aucun prix ni abonnement n’est proposé pour le moment.",
     "pricingLabel": "Tarifs à venir",
     "footerNote": "Pensé pour les écoles du Maroc.",
-    "returnHome": "Retour à l’accueil"
+    "returnHome": "Retour à l’accueil",
+    "commandSearching": "Recherche en cours…",
+    "commandPeopleError": "La recherche de personnes a échoué. Réessayez.",
+    "commandNothing": "Aucune page ni personne pour cette recherche.",
+    "commandPeopleHint": "Tapez un nom pour trouver un élève, un parent ou un enseignant."
   },
   "directionPreview": {
     "eyebrow": "Prototypes de direction · aperçu uniquement",
@@ -2200,13 +2204,27 @@
       "newsTitle": "Dernières annonces",
       "planTitle": "Places",
       "planLink": "Formule",
-      "unreadMessages": "{count, plural, one {# message non lu} other {# messages non lus}}",
       "startTitle": "Pour démarrer",
       "startBody": "Trois étapes pour mettre votre établissement en route.",
       "start": {
         "teachers": "Invitez vos enseignants",
         "students": "Invitez vos élèves",
         "classes": "Créez vos classes"
+      },
+      "queue": {
+        "title": "À traiter aujourd’hui",
+        "empty": "Rien d’urgent pour l’instant.",
+        "unavailable": "Certaines informations n’ont pas pu être chargées : cette liste peut être incomplète.",
+        "lateRollCalls": "{count, plural, one {# appel en retard} other {# appels en retard}}",
+        "lateDetail": "Cours terminé à <mono>{time}</mono>",
+        "overdueDetail": "{count, plural, one {# facture} other {# factures}} · depuis le {date}",
+        "overdueMore": "{count, plural, one {# autre élève en retard de paiement} other {# autres élèves en retard de paiement}}",
+        "overdueMoreDetail": "Voir toutes les factures en retard",
+        "messages": "{count, plural, one {# message non lu} other {# messages non lus}}",
+        "messagesDetail": "Familles et enseignants attendent une réponse",
+        "classes": "{count, plural, one {# classe sans enseignant} other {# classes sans enseignant}}",
+        "invitations": "{count, plural, one {# invitation expirée} other {# invitations expirées}}",
+        "invitationsDetail": "À renvoyer ou à annuler"
       }
     },
     "teacher": {
@@ -2377,7 +2395,8 @@
     "lessonFocus": "Votre programme du jour",
     "workFocus": "Devoirs à terminer",
     "gradeFocus": "Moyenne générale",
-    "attendanceFocus": "Présence en classe"
+    "attendanceFocus": "Présence en classe",
+    "rollCallStatus": "{todo, plural, =0 {Tous les appels sont faits} one {# appel à faire} other {# appels à faire}}{late, plural, =0 {} other { · # en retard}}"
   },
   "domain": {
     "directory": "Annuaire",
@@ -2393,5 +2412,58 @@
     "files": "{count, plural, one {# document} other {# documents}}",
     "controlCenter": "Votre établissement, en détail",
     "scoreScale": "Échelle des notes sur 20"
+  },
+  "studentFile": {
+    "back": "Tous les élèves",
+    "active": "Actif",
+    "inactive": "Désactivé",
+    "actions": {
+      "message": "Envoyer un message",
+      "report": "Bulletin",
+      "invoices": "Voir les factures"
+    },
+    "stats": {
+      "attendance": "Présence",
+      "absences": "{count, plural, =0 {Aucune absence} one {# absence} other {# absences}}",
+      "average": "Moyenne générale",
+      "averageHint": "Sur les notes publiées",
+      "balance": "Reste à payer",
+      "overdue": "Dont {amount} en retard",
+      "classes": "Classes"
+    },
+    "grades": {
+      "title": "Dernières notes",
+      "empty": "Aucune note publiée pour le moment.",
+      "absent": "Absent"
+    },
+    "absences": {
+      "title": "Absences et retards",
+      "empty": "Aucune absence ni aucun retard enregistré."
+    },
+    "invoices": {
+      "title": "Factures",
+      "empty": "Aucune facture pour cet élève.",
+      "due": "Échéance : {date}"
+    },
+    "classes": {
+      "title": "Ses classes",
+      "empty": "Inscrit dans aucune classe pour le moment.",
+      "since": "Depuis le <mono>{date}</mono>"
+    },
+    "parents": {
+      "title": "Parents",
+      "empty": "Aucun parent lié.",
+      "link": "Lier un parent"
+    },
+    "unavailable": "Ces informations n’ont pas pu être chargées.",
+    "error": {
+      "title": "Impossible d’ouvrir ce dossier",
+      "body": "Vérifiez votre connexion, puis réessayez."
+    },
+    "notFound": {
+      "title": "Élève introuvable",
+      "body": "Ce dossier n’existe pas ou n’appartient pas à votre établissement."
+    },
+    "invited": "Invité"
   }
 }

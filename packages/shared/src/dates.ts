@@ -20,6 +20,19 @@ export function todayIn(timeZone: string, now: Date = new Date()): string {
   }).format(now);
 }
 
+/** Minutes since midnight right now in an IANA time zone (timetable slots use the same unit). */
+export function minuteOfDayIn(timeZone: string, now: Date = new Date()): number {
+  const parts = new Intl.DateTimeFormat('en', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hourCycle: 'h23',
+    timeZone,
+  }).formatToParts(now);
+  const read = (type: 'hour' | 'minute') =>
+    Number(parts.find((part) => part.type === type)?.value ?? 0);
+  return read('hour') * 60 + read('minute');
+}
+
 /** ISO weekday: 1 = Monday … 7 = Sunday. */
 export function weekdayOf(iso: string): number {
   const [y = 0, m = 0, d = 0] = iso.split('-').map(Number);

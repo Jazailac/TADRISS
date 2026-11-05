@@ -210,9 +210,16 @@ export async function markAnnouncementsRead(
 
 export type UnreadCounts = { announcements: number; messages: number };
 
+/** The unread counts, or why they could not be read (for anything claiming "nothing to do"). */
+export async function readUnreadCounts(client: TadrissClient): Promise<Result<UnreadCounts>> {
+  const { data, error } = await client.rpc('unread_counts');
+  if (error) return err(toErrorCode(error));
+  const row = data[0];
+  return ok({ announcements: row?.announcements ?? 0, messages: row?.messages ?? 0 });
+}
+
 /** The nav badges. Never throws: a failed count simply shows no badge. */
 export async function getUnreadCounts(client: TadrissClient): Promise<UnreadCounts> {
-  const { data } = await client.rpc('unread_counts');
-  const row = data?.[0];
-  return { announcements: row?.announcements ?? 0, messages: row?.messages ?? 0 };
+  const counts = await readUnreadCounts(client);
+  return counts.ok ? counts.data : { announcements: 0, messages: 0 };
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { invoiceStatus } from './finance';
+import { invoiceStatus, summariseOverdue } from './finance';
 import { centimesToInput, parseMoney } from './money';
 import { toErrorCode } from './result';
 import {
@@ -130,5 +130,42 @@ describe('toErrorCode (finance)', () => {
     expect(toErrorCode({ code: 'P0001', message: 'invoice_void' })).toBe('invoice_void');
     expect(toErrorCode({ code: 'P0001', message: 'has_payments' })).toBe('has_payments');
     expect(toErrorCode({ code: 'P0001', message: 'cannot_unvoid' })).toBe('conflict');
+  });
+});
+
+describe('summariseOverdue', () => {
+  const names = new Map([
+    ['a', { firstName: 'Imane', lastName: 'Alaoui' }],
+    ['b', { firstName: 'Omar', lastName: 'Bennani' }],
+    ['c', { firstName: 'Sara', lastName: 'Chraibi' }],
+  ]);
+
+  it('adds up one student’s invoices and keeps the oldest due date', () => {
+    const [imane] = summariseOverdue(
+      [
+        { studentId: 'a', balanceCentimes: 100, dueDate: '2026-10-05' },
+        { studentId: 'a', balanceCentimes: 250, dueDate: '2026-09-05' },
+      ],
+      names,
+    );
+    expect(imane).toMatchObject({ balanceCentimes: 350, invoices: 2, oldestDueDate: '2026-09-05' });
+  });
+
+  it('puts the largest debt first, and the oldest debt first on a tie', () => {
+    const order = summariseOverdue(
+      [
+        { studentId: 'a', balanceCentimes: 100, dueDate: '2026-10-05' },
+        { studentId: 'b', balanceCentimes: 900, dueDate: '2026-10-05' },
+        { studentId: 'c', balanceCentimes: 100, dueDate: '2026-09-05' },
+      ],
+      names,
+    ).map((s) => s.firstName);
+    expect(order).toEqual(['Omar', 'Sara', 'Imane']);
+  });
+
+  it('leaves out a student whose name cannot be read', () => {
+    expect(
+      summariseOverdue([{ studentId: 'z', balanceCentimes: 1, dueDate: '2026-10-05' }], names),
+    ).toEqual([]);
   });
 });

@@ -11,12 +11,23 @@ import {
 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from 'react';
+import type { PersonHit } from '@tadriss/shared';
 import { useFormStatus } from 'react-dom';
 import { logout } from '@/app/actions/auth';
+import { searchPeopleAction } from '@/app/actions/people';
 import { Link, usePathname } from '@/i18n/navigation';
 import { LocaleSwitcher } from '../locale-switcher';
 import { ThemeToggle } from '../theme-toggle';
+import { Avatar } from '../ui/avatar';
 import { cx } from '../ui/cx';
 import { Logo, Mark } from '../ui/logo';
 import { Spinner } from '../ui/spinner';
@@ -36,6 +47,13 @@ function isOnBackdrop(event: MouseEvent<HTMLDialogElement>): boolean {
     event.clientY < box.top ||
     event.clientY > box.bottom
   );
+}
+
+/** Where a person found in the page switcher leads: a student's file, or their filtered list. */
+function personHref(person: PersonHit): string {
+  if (person.role === 'student') return `/dashboard/students/${person.id}`;
+  const list = person.role === 'teacher' ? 'teachers' : 'parents';
+  return `/dashboard/${list}?q=${encodeURIComponent(person.lastName)}`;
 }
 
 /** Keep the selected child's file open while navigating between parent sections. */
@@ -277,6 +295,49 @@ function AppShellContent({
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [query, setQuery] = useState('');
+  const canSearchPeople = navSet === 'institution_admin';
+  const wantsPeople = canSearchPeople && query.trim().length >= 2;
+  const [people, setPeople] = useState<PersonHit[]>([]);
+  const [searching, setSearching] = useState(false);
+  const [peopleFailed, setPeopleFailed] = useState(false);
+  const latestSearch = useRef(0);
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  useEffect(
+    () => () => {
+      clearTimeout(searchTimer.current);
+    },
+    [],
+  );
+  const resetPeopleSearch = useCallback(() => {
+    clearTimeout(searchTimer.current);
+    latestSearch.current += 1;
+    setPeople([]);
+    setPeopleFailed(false);
+    setSearching(false);
+  }, []);
+  const searchPeople = (value: string) => {
+    resetPeopleSearch();
+    if (!canSearchPeople || value.trim().length < 2) return;
+    const search = latestSearch.current;
+    setSearching(true);
+    searchTimer.current = setTimeout(() => {
+      searchPeopleAction(value)
+        .then((result) => {
+          // A slower, older answer must not replace the results for what is typed now.
+          if (search !== latestSearch.current) return;
+          setPeople(result.ok ? result.data : []);
+          setPeopleFailed(!result.ok);
+          setSearching(false);
+        })
+        .catch(() => {
+          // A dropped connection rejects instead of answering: stop the spinner and say so.
+          if (search !== latestSearch.current) return;
+          setPeople([]);
+          setPeopleFailed(true);
+          setSearching(false);
+        });
+    }, 200);
+  };
   const drawer = useRef<HTMLDialogElement>(null);
   const command = useRef<HTMLDialogElement>(null);
   const notifications = useRef<HTMLDialogElement>(null);
@@ -305,6 +366,7 @@ function AppShellContent({
   ].filter((item): item is NavItem => !!item);
   const openCommand = () => {
     setQuery('');
+    resetPeopleSearch();
     command.current?.showModal();
     command.current?.querySelector('input')?.focus();
   };
@@ -313,6 +375,7 @@ function AppShellContent({
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
         setQuery('');
+        resetPeopleSearch();
         command.current?.showModal();
         command.current?.querySelector('input')?.focus();
       }
@@ -321,7 +384,7 @@ function AppShellContent({
     return () => {
       document.removeEventListener('keydown', onKey);
     };
-  }, []);
+  }, [resetPeopleSearch]);
   const closeDrawer = () => {
     drawer.current?.close();
   };
@@ -355,9 +418,11 @@ function AppShellContent({
           <input
             aria-label={s('command')}
             autoComplete="off"
+            maxLength={80}
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
+              searchPeople(e.target.value);
             }}
             onKeyDown={(event) => {
               const first = command.current?.querySelector<HTMLAnchorElement>('a');
@@ -415,10 +480,56 @@ function AppShellContent({
                 <ChevronRight className="rtl-flip ms-auto size-4" aria-hidden />
               </Link>
             ))}
-          {available.every(
+          {wantsPeople && !searching
+            ? people.map((person) => (
+                <Link
+                  key={person.id}
+                  href={personHref(person)}
+                  onClick={() => {
+                    command.current?.close();
+                  }}
+                  className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm hover:bg-primary-soft hover:text-primary"
+                >
+                  <Avatar
+                    first={person.firstName}
+                    last={person.lastName}
+                    seed={person.id}
+                    className="size-7 text-xs"
+                  />
+                  <span className="min-w-0 truncate">
+                    <bdi>
+                      {person.firstName} {person.lastName}
+                    </bdi>
+                  </span>
+                  <span className="ms-auto shrink-0 text-xs text-text-muted">
+                    {t(`roles.${person.role}`)}
+                  </span>
+                </Link>
+              ))
+            : null}
+          {wantsPeople && searching ? (
+            <p className="flex items-center gap-2 p-4 text-sm text-text-muted" role="status">
+              <Spinner label={false} />
+              {s('commandSearching')}
+            </p>
+          ) : null}
+          {peopleFailed ? (
+            <p className="p-4 text-sm text-danger" role="alert">
+              {s('commandPeopleError')}
+            </p>
+          ) : null}
+          {!searching &&
+          !peopleFailed &&
+          people.length === 0 &&
+          available.every(
             (item) => !t(`nav.${item.key}`).toLocaleLowerCase().includes(query.toLocaleLowerCase()),
           ) ? (
-            <p className="p-5 text-sm text-text-muted">{s('commandEmpty')}</p>
+            <p className="p-5 text-sm text-text-muted">
+              {wantsPeople ? s('commandNothing') : s('commandEmpty')}
+            </p>
+          ) : null}
+          {canSearchPeople && query === '' ? (
+            <p className="px-4 pt-2 pb-1 text-xs text-text-muted">{s('commandPeopleHint')}</p>
           ) : null}
         </div>
       </dialog>

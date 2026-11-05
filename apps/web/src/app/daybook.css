@@ -202,11 +202,13 @@ a.day-focus:focus-visible {
 .day-layout .dashboard-panel-body {
   padding: 0.5rem 0 1.2rem;
 }
-.day-layout .dashboard-panel-header h2 {
+.day-layout .dashboard-panel-header h2,
+.needs-today .dashboard-panel-header h2 {
   font-size: 1.1rem;
   letter-spacing: -0.025em;
 }
-.day-layout .panel-emblem {
+.day-layout .panel-emblem,
+.needs-today .panel-emblem {
   display: grid;
   place-items: center;
   inline-size: 1.85rem;
@@ -215,7 +217,8 @@ a.day-focus:focus-visible {
   border-radius: 50%;
   color: rgb(var(--color-primary));
 }
-.day-layout .dashboard-panel-header > div {
+.day-layout .dashboard-panel-header > div,
+.needs-today .dashboard-panel-header > div {
   display: flex;
   align-items: center;
   gap: 0.7rem;
@@ -355,7 +358,8 @@ a.daily-lesson:hover {
 .day-layout .dashboard-results {
   grid-column: 2;
 }
-.day-layout .empty-line {
+.day-layout .empty-line,
+.needs-today .empty-line {
   min-block-size: 7rem;
   background: transparent;
 }
@@ -446,6 +450,19 @@ a.daily-lesson:hover {
   grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
   min-inline-size: 0;
+}
+.needs-today .briefing-task {
+  padding-block: 0.7rem;
+}
+.needs-today-dot {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: 50%;
+}
+.needs-today-end {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 .daybook-column > .dashboard-panel {
   grid-column: auto;

@@ -221,7 +221,10 @@ export async function listMyAttendance(
     .order('starts_min', { ascending: false })
     .limit(opts.limit ?? 200);
   // A parent sees every child's marks: narrow the embedded records to one child.
-  if (opts.studentId) query = query.eq('records.student_id', opts.studentId);
+  if (opts.studentId) {
+    // Keep only sessions with a mark for this student, so the limit counts theirs, not the school's.
+    query = query.eq('records.student_id', opts.studentId).not('records', 'is', null);
+  }
   const { data, error } = await query;
   if (error) return err(toErrorCode(error));
 

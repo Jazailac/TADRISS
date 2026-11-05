@@ -17,6 +17,8 @@ import {
   updateMember as updateMemberRow,
   updateMemberInput,
   parseMembersCsv,
+  searchPeople,
+  type PersonHit,
   type ErrorCode,
   type Locale,
   type Result,
@@ -82,6 +84,15 @@ export async function inviteMember(_prev: FormState, fd: FormData): Promise<Form
 
   refresh();
   return { done: true, values: { email: parsed.data.email } };
+}
+
+/** The page switcher's people search. A read, so there is nothing to revalidate. */
+export async function searchPeopleAction(q: string): Promise<Result<PersonHit[]>> {
+  const parsed = z.string().safeParse(q);
+  if (!parsed.success) return err('validation');
+  const auth = await requireAdmin();
+  if (!auth.ok) return auth;
+  return searchPeople(auth.data.supabase, parsed.data.slice(0, 80));
 }
 
 const idInput = z.uuid();

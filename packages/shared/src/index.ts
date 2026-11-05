@@ -30,4 +30,5 @@ export * from './schemas/settings';
 export * from './settings';
 export * from './platform';
 export * from './guardians';
+export * from './students';
 export * from './import';

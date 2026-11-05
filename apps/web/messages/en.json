@@ -649,7 +649,11 @@
     "pricingBody": "Plans and pricing are being prepared. No price or subscription is offered at this stage.",
     "pricingLabel": "Pricing coming soon",
     "footerNote": "Designed for schools in Morocco.",
-    "returnHome": "Back to home"
+    "returnHome": "Back to home",
+    "commandSearching": "Searching…",
+    "commandPeopleError": "The people search failed. Please try again.",
+    "commandNothing": "No page or person matches this search.",
+    "commandPeopleHint": "Type a name to find a student, parent or teacher."
   },
   "directionPreview": {
     "eyebrow": "Direction prototypes · preview only",
@@ -2200,13 +2204,27 @@
       "newsTitle": "Latest announcements",
       "planTitle": "Seats",
       "planLink": "Plan",
-      "unreadMessages": "{count, plural, one {# unread message} other {# unread messages}}",
       "startTitle": "Getting started",
       "startBody": "Three steps to get your school up and running.",
       "start": {
         "teachers": "Invite your teachers",
         "students": "Invite your students",
         "classes": "Create your classes"
+      },
+      "queue": {
+        "title": "Needs you today",
+        "empty": "Nothing urgent right now.",
+        "unavailable": "Some information could not be loaded, so this list may be incomplete.",
+        "lateRollCalls": "{count, plural, one {# late roll call} other {# late roll calls}}",
+        "lateDetail": "Lesson ended at <mono>{time}</mono>",
+        "overdueDetail": "{count, plural, one {# invoice} other {# invoices}} · since {date}",
+        "overdueMore": "{count, plural, one {# more student with overdue fees} other {# more students with overdue fees}}",
+        "overdueMoreDetail": "See all overdue invoices",
+        "messages": "{count, plural, one {# unread message} other {# unread messages}}",
+        "messagesDetail": "Families and teachers are waiting for a reply",
+        "classes": "{count, plural, one {# class without a teacher} other {# classes without a teacher}}",
+        "invitations": "{count, plural, one {# expired invitation} other {# expired invitations}}",
+        "invitationsDetail": "Resend or cancel them"
       }
     },
     "teacher": {
@@ -2377,7 +2395,8 @@
     "lessonFocus": "Your programme for today",
     "workFocus": "Homework to finish",
     "gradeFocus": "Overall average",
-    "attendanceFocus": "Classroom attendance"
+    "attendanceFocus": "Classroom attendance",
+    "rollCallStatus": "{todo, plural, =0 {All roll calls are done} one {# roll call to take} other {# roll calls to take}}{late, plural, =0 {} other { · # late}}"
   },
   "domain": {
     "directory": "Directory",
@@ -2393,5 +2412,58 @@
     "files": "{count, plural, one {# document} other {# documents}}",
     "controlCenter": "Your school, in detail",
     "scoreScale": "Score scale out of 20"
+  },
+  "studentFile": {
+    "back": "All students",
+    "active": "Active",
+    "inactive": "Deactivated",
+    "actions": {
+      "message": "Send a message",
+      "report": "Report card",
+      "invoices": "See invoices"
+    },
+    "stats": {
+      "attendance": "Attendance",
+      "absences": "{count, plural, =0 {No absences} one {# absence} other {# absences}}",
+      "average": "Overall average",
+      "averageHint": "From published marks",
+      "balance": "Left to pay",
+      "overdue": "{amount} overdue",
+      "classes": "Classes"
+    },
+    "grades": {
+      "title": "Latest marks",
+      "empty": "No published marks yet.",
+      "absent": "Absent"
+    },
+    "absences": {
+      "title": "Absences and lateness",
+      "empty": "No absence or lateness recorded."
+    },
+    "invoices": {
+      "title": "Invoices",
+      "empty": "No invoices for this student.",
+      "due": "Due: {date}"
+    },
+    "classes": {
+      "title": "Their classes",
+      "empty": "Not enrolled in a class yet.",
+      "since": "Since <mono>{date}</mono>"
+    },
+    "parents": {
+      "title": "Parents",
+      "empty": "No parent linked.",
+      "link": "Link a parent"
+    },
+    "unavailable": "This information could not be loaded.",
+    "error": {
+      "title": "This file could not be opened",
+      "body": "Check your connection, then try again."
+    },
+    "notFound": {
+      "title": "Student not found",
+      "body": "This file does not exist or does not belong to your school."
+    },
+    "invited": "Invited"
   }
 }

@@ -226,6 +226,7 @@ export async function PeoplePage({
                     `status.${p.invited ? 'invited' : p.isActive ? 'active' : 'inactive'}`,
                   )}
                   noEmail={t('list.noEmail')}
+                  href={role === 'student' ? `${basePath}/${p.id}` : undefined}
                   extra={
                     role === 'parent' ? (
                       <GuardianLinks
@@ -321,12 +322,15 @@ function PersonRow({
   noEmail,
   extra,
   number,
+  href,
 }: {
   person: Person;
   statusLabel: string;
   noEmail: string;
   extra?: React.ReactNode;
   number: string;
+  /** The person's own file, when they have one. */
+  href?: string;
 }) {
   const tone = person.invited ? 'info' : person.isActive ? 'success' : 'neutral';
   return (
@@ -337,9 +341,17 @@ function PersonRow({
       <div className="directory-identity">
         <Avatar first={person.firstName} last={person.lastName} seed={person.id} />
         <p>
-          <bdi>
-            {person.firstName} {person.lastName}
-          </bdi>
+          {href ? (
+            <Link href={href} className="hover:text-primary hover:underline">
+              <bdi>
+                {person.firstName} {person.lastName}
+              </bdi>
+            </Link>
+          ) : (
+            <bdi>
+              {person.firstName} {person.lastName}
+            </bdi>
+          )}
         </p>
       </div>
       <p className="directory-email">{person.email ? <bdi>{person.email}</bdi> : noEmail}</p>

@@ -17,6 +17,7 @@ const pages: Record<string, string[]> = {
   'admin2@almanar.test': [
     '/dashboard',
     '/dashboard/students',
+    '/dashboard/students/10000000-0000-4000-8000-000000000201',
     '/dashboard/parents',
     '/dashboard/import',
     '/dashboard/teachers',

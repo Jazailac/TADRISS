@@ -5,12 +5,15 @@ import {
   getDayLessons,
   getFinanceSummary,
   getPlanUsage,
-  getUnreadCounts,
   listAnnouncements,
   listClasses,
+  listOpenInvitations,
+  listOverdueStudents,
+  minuteOfDayIn,
+  readUnreadCounts,
   todayIn,
 } from '@tadriss/shared';
-import { BookOpen, CalendarCheck, GraduationCap, Megaphone, Users } from 'lucide-react';
+import { BookOpen, CalendarClock, GraduationCap, Megaphone, Users } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getServerClient } from '@/lib/supabase/server';
@@ -22,6 +25,7 @@ import { AnnouncementsLatest } from './announcements-latest';
 import { bdi, Panel, StatTile } from './dash-parts';
 import { LessonsToday } from './lessons-today';
 import { DayCover } from './day-cover';
+import { NeedsToday } from './needs-today';
 import { CollectionInstrument } from './collection-instrument';
 
 /** The administration's home: school head-counts, today's roll calls, money, and what's new. */
@@ -43,6 +47,8 @@ export async function AdminHome() {
     plan,
     announcements,
     unread,
+    overdue,
+    ...invitations
   ] = await Promise.all([
     getTranslations('dashboard'),
     getTranslations('app'),
@@ -55,18 +61,32 @@ export async function AdminHome() {
     getFinanceSummary(supabase, today),
     getPlanUsage(supabase),
     listAnnouncements(supabase, viewer?.session.userId ?? '', { limit: 4 }),
-    getUnreadCounts(supabase),
+    readUnreadCounts(supabase),
+    listOverdueStudents(supabase, today),
+    listOpenInvitations(supabase, 'student'),
+    listOpenInvitations(supabase, 'teacher'),
+    listOpenInvitations(supabase, 'parent'),
   ]);
 
   const dayLessons = lessons.ok ? lessons.data : [];
   const rollCalls = dayLessons.filter((l) => l.taken).length;
+  const now = minuteOfDayIn(tz);
+  const lateLessons = dayLessons.filter((l) => !l.taken && l.slot.endMin <= now);
+  const expiredByPage = (['students', 'teachers', 'parents'] as const).map((page, i) => {
+    const list = invitations[i];
+    return {
+      href: `/dashboard/${page}`,
+      count: list?.ok ? list.data.filter((inv) => inv.state === 'expired').length : 0,
+    };
+  });
   const fin = finance.ok ? finance.data : null;
   // A school that has nobody yet gets a starting point instead of a wall of zeros.
   const headcount = [students, teachers].reduce(
     (n, c) => n + (c.ok ? c.data.active + c.data.invited : 0),
     0,
   );
-  const isNew = headcount === 0 && classes.ok && classes.data.length === 0;
+  const isNew =
+    students.ok && teachers.ok && headcount === 0 && classes.ok && classes.data.length === 0;
 
   return (
     <div className="dashboard-page mx-auto grid w-full grid-cols-1 max-w-6xl gap-7">
@@ -79,7 +99,10 @@ export async function AdminHome() {
         focusHint={
           lessons.ok
             ? dayLessons.length > 0
-              ? w('rollCallHint')
+              ? w('rollCallStatus', {
+                  todo: dayLessons.length - rollCalls,
+                  late: lateLessons.length,
+                })
               : t('admin.noLessons')
             : t('unavailable')
         }
@@ -126,6 +149,23 @@ export async function AdminHome() {
         </Panel>
       ) : null}
 
+      {isNew ? null : (
+        <NeedsToday
+          late={lateLessons}
+          overdue={overdue.ok ? overdue.data : []}
+          unreadMessages={unread.ok ? unread.data.messages : 0}
+          today={today}
+          classesWithoutTeacher={
+            classes.ok ? classes.data.filter((c) => c.teachers.length === 0) : []
+          }
+          expiredInvitations={expiredByPage.reduce((n, page) => n + page.count, 0)}
+          invitationsHref={
+            expiredByPage.find((page) => page.count > 0)?.href ?? '/dashboard/students'
+          }
+          incomplete={[lessons, overdue, unread, classes, ...invitations].some((r) => !r.ok)}
+        />
+      )}
+
       <dl className="metric-strip dashboard-metrics dashboard-metrics-pairs grid grid-cols-2 lg:grid-cols-4">
         <StatTile
           icon={Users}
@@ -158,12 +198,16 @@ export async function AdminHome() {
           tone="info"
         />
         <StatTile
-          icon={CalendarCheck}
-          label={t('admin.rollCalls')}
-          value={dayLessons.length === 0 ? '–' : `${rollCalls}/${dayLessons.length}`}
-          hint={dayLessons.length === 0 ? t('admin.noLessons') : undefined}
-          href="/dashboard/attendance"
-          tone={dayLessons.length > 0 && rollCalls < dayLessons.length ? 'warning' : 'success'}
+          icon={CalendarClock}
+          label={t('admin.overdue')}
+          value={fin ? formatMoney(fin.overdueCentimes, locale) : '–'}
+          hint={
+            fin && fin.overdueInvoices > 0
+              ? t('admin.overdueInvoices', { count: fin.overdueInvoices })
+              : undefined
+          }
+          href="/dashboard/finance?status=overdue"
+          tone={fin && fin.overdueCentimes > 0 ? 'danger' : 'success'}
         />
       </dl>
 
@@ -270,11 +314,6 @@ export async function AdminHome() {
                     </div>
                   );
                 })}
-                {unread.messages > 0 ? (
-                  <ButtonLink href="/dashboard/messages" variant="secondary" size="sm">
-                    {t('admin.unreadMessages', { count: unread.messages })}
-                  </ButtonLink>
-                ) : null}
               </div>
             ) : (
               <p className="text-sm text-text-muted">{t('unavailable')}</p>

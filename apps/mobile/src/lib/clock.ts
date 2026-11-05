@@ -1,20 +1,9 @@
-import { todayIn } from '@tadriss/shared';
+import { minuteOfDayIn, todayIn } from '@tadriss/shared';
 import { useEffect, useState } from 'react';
 import { AppState } from 'react-native';
 
 const readToday = (timeZone: string): string => todayIn(timeZone);
-
-function minuteIn(timeZone: string): number {
-  const parts = new Intl.DateTimeFormat('en', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hourCycle: 'h23',
-    timeZone,
-  }).formatToParts(new Date());
-  const hour = Number(parts.find((part) => part.type === 'hour')?.value ?? 0);
-  const minute = Number(parts.find((part) => part.type === 'minute')?.value ?? 0);
-  return hour * 60 + minute;
-}
+const readMinute = (timeZone: string): number => minuteOfDayIn(timeZone);
 
 /** Re-reads a school-time value every 30 s and whenever the app returns to the foreground. */
 function useSchoolClock<T>(timeZone: string, read: (timeZone: string) => T): T {
@@ -38,7 +27,7 @@ function useSchoolClock<T>(timeZone: string, read: (timeZone: string) => T): T {
 
 /** A local, lightweight clock keeps the current lesson correct after returning to the app. */
 export function useSchoolMinute(timeZone: string): number {
-  return useSchoolClock(timeZone, minuteIn);
+  return useSchoolClock(timeZone, readMinute);
 }
 
 /** Refresh the date at midnight and on foregrounding, so the day never stays stale. */

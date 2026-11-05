@@ -35,6 +35,23 @@ test.describe('dashboards', () => {
     await expect(
       main(page).getByRole('link', { name: /Rentrée scolaire 2026-2027/ }),
     ).toBeVisible();
+    // The queue names who owes money and leads to their invoices, not just a total.
+    const queue = main(page).getByRole('heading', { name: 'À traiter aujourd’hui' });
+    await expect(queue).toBeVisible();
+    const queuePanel = main(page).locator('.needs-today');
+    await expect(queuePanel.getByRole('link').first()).toBeVisible();
+    await expect(queuePanel.getByText(/\d[\d.\s]*,\d{2}\s*MAD/).first()).toBeVisible();
+    await expect(queuePanel.getByRole('link', { name: /en retard de paiement/ })).toHaveAttribute(
+      'href',
+      '/dashboard/finance?status=overdue',
+    );
+    // A named row opens that student's overdue invoices, and the page really is filtered.
+    const firstOverdue = queuePanel.getByRole('link').filter({ hasText: /MAD/ }).first();
+    const firstName = await firstOverdue.locator('strong').innerText();
+    await firstOverdue.click();
+    await expect(page).toHaveURL(/\/dashboard\/finance\?status=overdue&q=/);
+    await expect(main(page).getByText(firstName).first()).toBeVisible();
+    await page.goBack();
     // A seeded school is not a new school.
     await expect(main(page).getByRole('heading', { name: 'Pour démarrer' })).toHaveCount(0);
     // Each tile leads to the page where it can be acted on.

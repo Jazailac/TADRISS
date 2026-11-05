@@ -128,9 +128,20 @@ export async function ClassDetail({ id, area }: { id: string; area: ClassesArea 
                   <Avatar first={s.firstName} last={s.lastName} seed={s.studentId} />
                   <div className="min-w-0 flex-1 basis-48">
                     <p className="truncate font-medium">
-                      <bdi>
-                        {s.firstName} {s.lastName}
-                      </bdi>
+                      {admin ? (
+                        <Link
+                          href={`/dashboard/students/${s.studentId}`}
+                          className="hover:text-primary hover:underline"
+                        >
+                          <bdi>
+                            {s.firstName} {s.lastName}
+                          </bdi>
+                        </Link>
+                      ) : (
+                        <bdi>
+                          {s.firstName} {s.lastName}
+                        </bdi>
+                      )}
                     </p>
                     {s.email ? (
                       <p className="truncate text-sm text-text-muted">

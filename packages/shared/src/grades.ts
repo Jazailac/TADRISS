@@ -299,7 +299,10 @@ export async function listMyGrades(
     .order('exam_date', { ascending: false })
     .limit(300);
   // A parent sees every child's marks: narrow the embedded marks to one child.
-  if (opts.studentId) query = query.eq('grades.student_id', opts.studentId);
+  if (opts.studentId) {
+    // Keep only exams with a mark for this student, so the limit counts theirs, not the school's.
+    query = query.eq('grades.student_id', opts.studentId).not('grades', 'is', null);
+  }
   const { data, error } = await query;
   if (error) return err(toErrorCode(error));
 
@@ -329,7 +332,12 @@ export async function listMyGrades(
   );
 }
 
-export type ReportStudent = { id: string; firstName: string; lastName: string; className: string | null };
+export type ReportStudent = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  className: string | null;
+};
 
 /** The student a report card is for (RLS: the administration, the student, their parents, their teachers). */
 export async function getReportStudent(

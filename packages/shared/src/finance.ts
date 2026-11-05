@@ -270,6 +270,76 @@ export async function listInvoices(
   return ok({ rows: views.data, total: count ?? 0, page, pageSize: FINANCE_PAGE_SIZE });
 }
 
+export type OverdueStudent = {
+  studentId: string;
+  firstName: string;
+  lastName: string;
+  balanceCentimes: number;
+  invoices: number;
+  oldestDueDate: string;
+};
+
+/** One line per student, largest debt first (the oldest debt breaks a tie). Pure, for testing. */
+export function summariseOverdue(
+  rows: { studentId: string; balanceCentimes: number; dueDate: string }[],
+  names: ReadonlyMap<string, { firstName: string; lastName: string }>,
+): OverdueStudent[] {
+  const byStudent = new Map<string, OverdueStudent>();
+  for (const row of rows) {
+    const name = names.get(row.studentId);
+    if (!name) continue;
+    const seen = byStudent.get(row.studentId);
+    if (seen) {
+      seen.balanceCentimes += row.balanceCentimes;
+      seen.invoices += 1;
+      if (row.dueDate < seen.oldestDueDate) seen.oldestDueDate = row.dueDate;
+    } else {
+      byStudent.set(row.studentId, {
+        studentId: row.studentId,
+        ...name,
+        balanceCentimes: row.balanceCentimes,
+        invoices: 1,
+        oldestDueDate: row.dueDate,
+      });
+    }
+  }
+  return [...byStudent.values()].sort(
+    (a, b) =>
+      b.balanceCentimes - a.balanceCentimes || a.oldestDueDate.localeCompare(b.oldestDueDate),
+  );
+}
+
+/** Who owes what, past due (administration; RLS keeps it to the school). */
+export async function listOverdueStudents(
+  client: TadrissClient,
+  today: string,
+): Promise<Result<OverdueStudent[]>> {
+  const { data, error } = await client
+    .from('invoice_balances')
+    .select(BALANCE_COLUMNS)
+    .is('voided_at', null)
+    .gt('balance_centimes', 0)
+    .lt('due_date', today);
+  if (error) return err(toErrorCode(error));
+  const rows = data.filter(isComplete);
+  const ids = [...new Set(rows.map((r) => r.student_id))];
+  const people =
+    ids.length > 0
+      ? await client.from('profiles').select('id, first_name, last_name').in('id', ids)
+      : { data: [], error: null };
+  if (people.error) return err(toErrorCode(people.error));
+  return ok(
+    summariseOverdue(
+      rows.map((r) => ({
+        studentId: r.student_id,
+        balanceCentimes: r.balance_centimes,
+        dueDate: r.due_date,
+      })),
+      new Map(people.data.map((p) => [p.id, { firstName: p.first_name, lastName: p.last_name }])),
+    ),
+  );
+}
+
 export type PaymentView = {
   id: string;
   receiptNumber: string;

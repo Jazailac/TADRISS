@@ -152,7 +152,14 @@ New migration: `pnpm exec supabase migration new <name>`, then rename it to the 
 - **Dashboards:** each role's home is composed server-side from the existing shared functions (no new queries):
   `components/home/{admin,teacher,student}-home.tsx` with `StatTile`/`Panel` from `dash-parts.tsx`. They respect module
   switches (`getDisabledModules`: a disabled module's tile/panel is dropped) and use the school's "today". A school
-  with no people and no classes sees a "getting started" panel instead of zeros.
+  with no people and no classes sees a "getting started" panel instead of zeros. The admin home also has a
+  "needs you today" queue (`needs-today.tsx`): late roll calls, students with overdue fees, unread messages, classes with no
+  teacher, expired invitations. It never shows the all-clear when a source failed, so it uses `readUnreadCounts`, not
+  `getUnreadCounts`.
+- **Student file (Phase 14):** `/dashboard/students/[id]` brings one student's attendance, marks, invoices, current classes
+  and parents together (`getStudentFile` plus the `listMy*` functions with `studentId`). Those functions filter on the
+  embedded rows with `.not(<embed>, 'is', null)` so their limit counts this student's rows, not the whole school's. The
+  admin page switcher also finds people (`searchPeopleAction`, `searchPeople`: every typed word must match).
 - **Parents (Phase 13):** role `parent`, linked to students through `guardianships` (admin-managed; the
   trigger checks the roles of both ends). `private.my_children_ids()` / `my_children_class_ids()` are SECURITY
   DEFINER helpers; parents get read-only policies on a child's attendance, homework, published grades, invoices,
