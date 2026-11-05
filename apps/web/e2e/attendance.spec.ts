@@ -43,9 +43,8 @@ test.describe('attendance: teacher', () => {
     await expect(lessons(page)).toHaveCount(3);
     await expect(lessons(page).first()).toContainText('Mathématiques');
     await expect(lessons(page).first()).toContainText('Appel fait');
-    await expect(
-      lessons(page).first().getByRole('link', { name: 'Modifier l’appel' }),
-    ).toBeVisible();
+    // The seeded date is past the teachers' 14-day window, so its roll call is read-only.
+    await expect(lessons(page).first().getByRole('link', { name: 'Voir l’appel' })).toBeVisible();
   });
 
   test('a future day shows upcoming lessons and no roll-call button', async ({ page }) => {
@@ -104,13 +103,23 @@ test.describe('attendance: teacher', () => {
 
   test('the save button is disabled until something changes on an existing roll call', async ({
     page,
-  }) => {
+  }, testInfo) => {
     await login(page, 'prof1@almanar.test');
-    await page.goto(`/teacher/attendance?date=${SEEDED_MONDAY}`);
+    // A week before the last Monday: inside the 14-day edit window, and apart from the test above.
+    const monday = new Date(`${lastMonday()}T12:00:00Z`);
+    monday.setUTCDate(monday.getUTCDate() - 7);
+    await page.goto(`/teacher/attendance?date=${monday.toISOString().slice(0, 10)}`);
     await lessons(page)
-      .first()
+      .nth(index(testInfo.project.name))
       .getByRole('link', { name: /l’appel$/ })
       .click();
+    const save = page.getByRole('button', { name: 'Enregistrer l’appel' });
+    // A new roll call can be saved straight away; saved once, it is an existing one.
+    if (await save.isEnabled()) {
+      await save.click();
+      await expect(page.getByText('Appel enregistré.')).toBeVisible();
+      await page.reload();
+    }
     await expect(page.getByRole('button', { name: 'Enregistrer l’appel' })).toBeDisabled();
     await page.getByRole('radiogroup').first().getByRole('radio', { name: 'En retard' }).click();
     await expect(page.getByRole('button', { name: 'Enregistrer l’appel' })).toBeEnabled();
