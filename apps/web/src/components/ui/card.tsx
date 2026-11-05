@@ -5,7 +5,7 @@ export function Card({ className, ...rest }: ComponentProps<'div'>) {
   return (
     <div
       {...rest}
-      className={cx('rounded-xl border border-border bg-surface shadow-sm', className)}
+      className={cx('rounded-xl border border-border bg-surface shadow-xs', className)}
     />
   );
 }

@@ -4,7 +4,26 @@ import { z } from 'zod';
  * Error messages are i18n keys under `validation.*` in every app, never prose,
  * so the same schema produces translated errors on web and mobile.
  */
-export const validationKeys = ['required', 'email', 'passwordMin', 'nameMin', 'tooLong'] as const;
+export const validationKeys = [
+  'required',
+  'email',
+  'passwordMin',
+  'passwordMismatch',
+  'nameMin',
+  'tooLong',
+  'capacityRange',
+  'invalidYear',
+  'invalidTime',
+  'timeOrder',
+  'invalidDate',
+  'maxScoreRange',
+  'coefficientRange',
+  'invalidAmount',
+  'fileRequired',
+  'fileTooLarge',
+  'fileType',
+  'tooShort',
+] as const;
 export type ValidationKey = (typeof validationKeys)[number];
 
 const email = z

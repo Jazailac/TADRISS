@@ -4,7 +4,10 @@
     "description": "School management for private institutions in Morocco: attendance, grades, timetables, fees and receipts in MAD."
   },
   "common": {
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save"
   },
   "nav": {
     "brand": "Tadriss",
@@ -121,7 +124,7 @@
     },
     "roles": {
       "eyebrow": "For every role",
-      "title": "Three workspaces, one school.",
+      "title": "Four spaces. One school.",
       "body": "Everyone sees exactly what they need — and nothing more.",
       "admin": {
         "title": "Administration",
@@ -151,6 +154,16 @@
           "b": "Grades and averages",
           "c": "Attendance",
           "d": "Balance and receipts"
+        }
+      },
+      "parent": {
+        "title": "Parents",
+        "lead": "Follow your child’s journey with confidence.",
+        "points": {
+          "a": "A clear view for each child",
+          "b": "Attendance, homework and results",
+          "c": "Fees and receipts, always accessible",
+          "d": "A direct connection to the teaching team"
         }
       }
     },
@@ -205,7 +218,8 @@
     },
     "footer": {
       "tagline": "School management for private institutions in Morocco.",
-      "rights": "© {year} Tadriss"
+      "rights": "© {year} Tadriss",
+      "privacy": "Privacy"
     }
   },
   "auth": {
@@ -222,7 +236,6 @@
       "submit": "Log in",
       "noAccount": "No account yet?",
       "signupLink": "Register my school",
-      "notice": "Form is valid. Signing in will be enabled in the next step (authentication).",
       "fields": {
         "email": "Email address",
         "password": "Password"
@@ -237,7 +250,6 @@
       "submit": "Create my workspace",
       "hasAccount": "Already registered?",
       "loginLink": "Log in",
-      "notice": "Form is valid. Sign-up will be enabled in the next step (authentication).",
       "fields": {
         "institutionName": "School name",
         "firstName": "First name",
@@ -251,6 +263,20 @@
         "lastName": "Benali",
         "email": "office@school.ma"
       }
+    },
+    "notices": {
+      "checkEmailTitle": "Check your inbox",
+      "checkEmailBody": "We sent you a link to confirm your address. Your workspace will be ready as soon as you confirm.",
+      "linkExpired": "This link has expired or was already used. Log in, or request a new link."
+    },
+    "setPassword": {
+      "title": "Choose your password",
+      "subtitle": "Last step: secure your account to enter your school’s workspace.",
+      "submit": "Save and continue",
+      "fields": {
+        "password": "New password",
+        "confirm": "Confirm password"
+      }
     }
   },
   "validation": {
@@ -258,7 +284,20 @@
     "email": "Invalid email address.",
     "passwordMin": "At least 8 characters.",
     "nameMin": "At least 2 characters.",
-    "tooLong": "Too long."
+    "tooLong": "Too long.",
+    "passwordMismatch": "The passwords do not match.",
+    "capacityRange": "Between 1 and 200.",
+    "invalidYear": "Invalid school year.",
+    "invalidTime": "Invalid time (between 06:00 and 22:00).",
+    "timeOrder": "The end must be after the start.",
+    "invalidDate": "Invalid date.",
+    "maxScoreRange": "Between 1 and 100.",
+    "coefficientRange": "Between 0.5 and 10, in steps of 0.5.",
+    "invalidAmount": "Invalid amount (0.01 to 1,000,000 MAD).",
+    "fileRequired": "Choose a file.",
+    "fileTooLarge": "This file is over 10 MB.",
+    "fileType": "This file type isn’t accepted.",
+    "tooShort": "That’s too short."
   },
   "shell": {
     "navigation": "App navigation",
@@ -273,7 +312,8 @@
       "overview": "Overview",
       "school": "School",
       "daily": "Day to day",
-      "communication": "Communication"
+      "communication": "Communication",
+      "platform": "Platform"
     },
     "nav": {
       "dashboard": "Dashboard",
@@ -287,8 +327,30 @@
       "announcements": "Announcements",
       "messages": "Messages",
       "documents": "Documents",
-      "settings": "Settings"
-    }
+      "settings": "Settings",
+      "homework": "Homework",
+      "payments": "Payments",
+      "institutions": "Schools",
+      "audit": "Activity log",
+      "parents": "Parents",
+      "import": "Import"
+    },
+    "roles": {
+      "super_admin": "Platform",
+      "institution_admin": "Administration",
+      "teacher": "Teacher",
+      "student": "Student",
+      "parent": "Parent"
+    },
+    "platform": "Tadriss",
+    "soon": "Soon",
+    "unread": "{count, plural, one {# unread} other {# unread}}",
+    "skipToContent": "Skip to content",
+    "goToPage": "Go to a page",
+    "more": "More",
+    "breadcrumbs": "Breadcrumbs",
+    "home": "Home",
+    "scheduleShort": "Timetable"
   },
   "demo": {
     "user": {
@@ -416,6 +478,1995 @@
     "not_found": "Not found.",
     "conflict": "This already exists.",
     "rate_limited": "Too many attempts. Try again shortly.",
-    "unknown": "An unexpected error occurred. Please try again."
+    "unknown": "An unexpected error occurred. Please try again.",
+    "invalid_credentials": "Incorrect email or password.",
+    "email_taken": "An account already exists with this email.",
+    "email_not_confirmed": "Confirm your email address before signing in.",
+    "account_disabled": "This account is disabled. Contact your school.",
+    "class_full": "This class is full.",
+    "class_archived": "This class is archived.",
+    "slot_class_busy": "This class already has a lesson at that time.",
+    "slot_teacher_busy": "This teacher already has a lesson at that time.",
+    "future_date": "That date hasn’t arrived yet.",
+    "too_old": "After 14 days, only the administration can correct attendance.",
+    "not_your_lesson": "This lesson is taught by another teacher.",
+    "student_not_in_class": "This student isn’t in the class.",
+    "wrong_weekday": "That date isn’t on the right day of the week.",
+    "score_out_of_range": "A mark is above the exam’s maximum.",
+    "not_your_exam": "Only the exam’s own teacher can enter its marks.",
+    "payment_exceeds_balance": "The amount is more than what’s left to pay.",
+    "invoice_void": "This invoice is void.",
+    "has_payments": "Void this invoice’s payments first.",
+    "recipient_inactive": "This account is deactivated and can no longer receive messages.",
+    "file_too_large": "This file is over 10 MB.",
+    "file_type": "This file type isn’t accepted.",
+    "plan_limit_reached": "Your plan has reached its seat limit. Contact us to upgrade.",
+    "invalid_guardianship": "That link isn’t possible: it needs a parent and a student of the same school."
+  },
+  "app": {
+    "greeting": "Hello, <n>{name}</n>",
+    "nextSteps": "Next steps",
+    "progress": "{done, number}/{total, number}",
+    "admin": {
+      "subtitle": "Your workspace is ready. Here’s how to get it running.",
+      "steps": {
+        "account": {
+          "label": "Create the school workspace",
+          "detail": "Done — you are the administrator."
+        },
+        "team": {
+          "label": "Invite teachers and students",
+          "detail": "Invite them from the Teachers and Students pages."
+        },
+        "classes": {
+          "label": "Create classes",
+          "detail": "Coming soon (classes & enrolment)."
+        }
+      }
+    },
+    "teacher": {
+      "subtitle": "Your classes and timetable will appear here.",
+      "steps": {
+        "account": {
+          "label": "Activate your account",
+          "detail": "Done."
+        },
+        "classes": {
+          "label": "Get your classes",
+          "detail": "The administration will assign them."
+        },
+        "attendance": {
+          "label": "Take your first register",
+          "detail": "Coming soon."
+        }
+      }
+    },
+    "student": {
+      "subtitle": "Your timetable, homework and grades will appear here.",
+      "steps": {
+        "account": {
+          "label": "Activate your account",
+          "detail": "Done."
+        },
+        "schedule": {
+          "label": "Check your timetable",
+          "detail": "Coming soon."
+        },
+        "grades": {
+          "label": "Follow your grades",
+          "detail": "Coming soon."
+        }
+      }
+    },
+    "superAdmin": {
+      "subtitle": "Platform console.",
+      "steps": {
+        "account": {
+          "label": "Operator access",
+          "detail": "Active."
+        },
+        "institutions": {
+          "label": "Manage schools",
+          "detail": "Arrives with the operator console."
+        },
+        "audit": {
+          "label": "Review the audit log",
+          "detail": "Arrives with the operator console."
+        }
+      }
+    }
+  },
+  "studio": {
+    "eyebrow": "A NEW SPACE FOR SCHOOL",
+    "hero": "More momentum.<br></br>Less admin.",
+    "intro": "An organised school makes more room for what matters. Shape your workspace, then bring your school to life.",
+    "build": "Build my school",
+    "explore": "Explore the workspace",
+    "preview": "Product preview · fictional data",
+    "school": "Your school",
+    "schoolType": "Your school",
+    "modules": "Your daily work",
+    "roles": "Your perspective",
+    "primary": "Primary",
+    "college": "Middle school",
+    "lycee": "High school",
+    "support": "Tutoring centre",
+    "attendance": "Attendance",
+    "grades": "Grades",
+    "schedule": "Timetable",
+    "finance": "Fees & receipts",
+    "create": "Create my school",
+    "selected": "Your configuration",
+    "configNote": "Your choices shape this preview. Configure your school after creating your workspace.",
+    "scroll": "THE DAY TAKES SHAPE",
+    "storyTitle": "From the first bell to the last receipt.",
+    "storyBody": "A continuous thread between classroom and school office. Explore the tools that support your everyday work.",
+    "next": "Up next",
+    "ready": "Your workspace is ready",
+    "waiting": "In preparation",
+    "overview": "Overview",
+    "setup": "Getting started",
+    "setupBody": "The foundations are in place. Your school takes shape, one step at a time.",
+    "empty": "Your day begins here",
+    "emptyBody": "Information will appear here as your school adds to its workspace. Follow the next steps to get started.",
+    "profile": "Your personal workspace",
+    "protected": "Role-based access",
+    "workspace": "A space for every school",
+    "workspaceBody": "Your account belongs to your school. Access follows your role.",
+    "notifications": "Notifications",
+    "noNotifications": "You’re all caught up",
+    "notificationBody": "New information from your school will appear here.",
+    "collapse": "Collapse navigation",
+    "expand": "Expand navigation",
+    "close": "Close",
+    "command": "Go to…",
+    "commandEmpty": "No available page matches your search.",
+    "help": "Good to know",
+    "helpBody": "Navigation follows your role and the modules enabled by your school.",
+    "authEyebrow": "IT STARTS WITH A SPACE",
+    "authTitle": "A good school day starts here.",
+    "authBody": "An aligned team. Information in its place. More time to teach.",
+    "secure": "A personal account. Access suited to your role.",
+    "strength": "Password length",
+    "weak": "8 characters minimum",
+    "good": "Minimum met",
+    "strong": "16 characters or more",
+    "passwordHint": "At least 8 characters. Choose a long, unique passphrase.",
+    "catalogue": "The Tadriss workshop",
+    "catalogueBody": "Components and workflows. Examples are fictional and do not change school data.",
+    "compact": "Compact view",
+    "comfortable": "Comfortable view",
+    "save": "Save preview",
+    "saved": "Preview saved for this session",
+    "print": "Print receipt",
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "student": "Student",
+    "grade": "Grade / 20",
+    "modulePreview": "Product preview",
+    "pricing": "An offer that fits your school",
+    "pricingBody": "Plans and pricing are being prepared. No price or subscription is offered at this stage.",
+    "pricingLabel": "Pricing coming soon",
+    "footerNote": "Designed for schools in Morocco.",
+    "returnHome": "Back to home",
+    "commandSearching": "Searching…",
+    "commandPeopleError": "The people search failed. Please try again.",
+    "commandNothing": "No page or person matches this search.",
+    "commandPeopleHint": "Type a name to find a student, parent or teacher."
+  },
+  "directionPreview": {
+    "eyebrow": "Direction prototypes · preview only",
+    "brand": "Tadriss",
+    "indexOne": "01",
+    "indexTwo": "02",
+    "title": "Choose a visual direction",
+    "intro": "Four systems shaped by the research. Each proposal shows marketing, authentication and the admin workspace using the same product content.",
+    "choose": "Choose this direction",
+    "prototype": "Unconnected prototype",
+    "illustrative": "Illustrative data",
+    "marketing": "Marketing hero",
+    "feature": "Capability section",
+    "login": "Sign in",
+    "dashboard": "Admin dashboard",
+    "tokens": "Token sheet",
+    "type": "Typography",
+    "colour": "Colour",
+    "radius": "Radius",
+    "shadow": "Elevation",
+    "motion": "Motion",
+    "email": "Email address",
+    "password": "Password",
+    "remember": "Remember me",
+    "signIn": "Sign in",
+    "forgot": "Forgot password?",
+    "school": "Al Manar School Group",
+    "today": "Today",
+    "students": "Students",
+    "teachers": "Teachers",
+    "classes": "Classes",
+    "attendance": "Attendance",
+    "rate": "96%",
+    "payment": "Payment recorded",
+    "amount": "1,800 MAD",
+    "schedule": "Mathematics · Year 12",
+    "present": "Present",
+    "roles": "Roles",
+    "modules": "Modules",
+    "schoolType": "School type",
+    "primary": "Primary",
+    "college": "Middle school",
+    "lycee": "High school",
+    "support": "Tutoring centre",
+    "preview": "Your school preview",
+    "build": "Build my school",
+    "a": {
+      "name": "Quiet Precision",
+      "kicker": "A · quiet precision",
+      "hero": "Every school day, perfectly legible.",
+      "body": "A dense, fast workspace for making decisions without hunting.",
+      "featureTitle": "Signal over noise",
+      "featureBody": "A strict grid, aligned numbers and one primary action at each step.",
+      "typeValue": "Geist · 12–64 px",
+      "colourValue": "Cool neutrals · electric accent",
+      "radiusValue": "8 px · crisp surfaces",
+      "shadowValue": "Hairline · restrained depth",
+      "motionValue": "120 ms · restrained transitions",
+      "rationale": {
+        "one": "The hierarchy puts daily decisions first.",
+        "two": "Quiet surfaces give school data room to breathe.",
+        "three": "Shortcuts stay visible without turning the product into noisy control-room software."
+      }
+    },
+    "b": {
+      "name": "Warm Editorial",
+      "kicker": "B · warm editorial",
+      "hero": "School work deserves room to breathe.",
+      "body": "Clear stories, colour-coded modules and details that make the next step inviting.",
+      "featureTitle": "Tasks take shape",
+      "featureBody": "Attendance, grades and fees keep their colour inside a bright, layered composition.",
+      "typeValue": "Fraunces + Geist · 14–68 px",
+      "colourValue": "Paper · pine · saffron",
+      "radiusValue": "16 px · soft cards",
+      "shadowValue": "Warm shadows · light layers",
+      "motionValue": "240 ms · gentle entrances",
+      "rationale": {
+        "one": "An editorial voice makes welcome moments more memorable.",
+        "two": "Module accents make the space easier to scan.",
+        "three": "Cards keep a human warmth while preserving clear actions."
+      }
+    },
+    "c": {
+      "name": "Contemporary Maghreb",
+      "kicker": "C · contemporary Maghreb",
+      "hero": "An architecture for better learning.",
+      "body": "Proportions inspired by thresholds and courtyards, serving a very concrete tool.",
+      "featureTitle": "Attendance becomes rhythm",
+      "featureBody": "The roll fills like a classroom board, then the day assembles around it.",
+      "typeValue": "Geist + Plex Arabic · 16–72 px",
+      "colourValue": "Sand · Majorelle blue · terracotta",
+      "radiusValue": "12 px · occasional arches",
+      "shadowValue": "Crisp edges · deliberate contrast",
+      "motionValue": "360 ms · guided sequences",
+      "rationale": {
+        "one": "Threshold and courtyard proportions create a local signature without folklore.",
+        "two": "The Plex Arabic and Geist pairing stays legible in both scripts.",
+        "three": "Sequenced transitions follow the rhythm of a school day."
+      }
+    },
+    "d": {
+      "name": "Cinematic Studio",
+      "kicker": "D · cinematic studio",
+      "hero": "Build your school before you create it.",
+      "body": "Choose your context and watch a coherent Tadriss workspace assemble in front of you.",
+      "featureTitle": "A scene that responds",
+      "featureBody": "A lightweight, accessible, video-free configurator: real DOM panels change position.",
+      "typeValue": "Geist Display · 14–76 px",
+      "colourValue": "Blue-black · cyan · amber",
+      "radiusValue": "14 px · floating panels",
+      "shadowValue": "Controlled glow · CSS depth",
+      "motionValue": "420 ms · off when requested",
+      "rationale": {
+        "one": "A configuration scene gives exploration a clear product reason.",
+        "two": "DOM panels keep the experience fast, accessible, and indexable.",
+        "three": "Depth supports orientation; it never becomes a show by itself."
+      }
+    }
+  },
+  "people": {
+    "title": {
+      "teacher": "Teachers",
+      "student": "Students",
+      "parent": "Parents"
+    },
+    "subtitle": {
+      "teacher": "Invite your teaching staff and manage their access.",
+      "student": "Invite your students and manage their access.",
+      "parent": "Invite parents and link them to their children."
+    },
+    "stats": {
+      "active": "Active",
+      "inactive": "Deactivated",
+      "invited": "Pending invitations"
+    },
+    "search": {
+      "label": "Search",
+      "placeholder": "Name or email…",
+      "submit": "Search"
+    },
+    "filters": {
+      "label": "Status",
+      "all": "All",
+      "active": "Active",
+      "inactive": "Deactivated"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Deactivated",
+      "invited": "Invited"
+    },
+    "actions": {
+      "invite": {
+        "teacher": "Invite a teacher",
+        "student": "Invite a student",
+        "parent": "Invite a parent"
+      },
+      "edit": "Edit",
+      "deactivate": "Deactivate",
+      "activate": "Reactivate",
+      "resend": "Resend",
+      "revoke": "Revoke",
+      "editLabel": "Edit {name}",
+      "deactivateLabel": "Deactivate {name}",
+      "activateLabel": "Reactivate {name}",
+      "resendLabel": "Resend the invitation to {email}",
+      "revokeLabel": "Revoke the invitation for {email}"
+    },
+    "list": {
+      "label": {
+        "teacher": "Teachers list",
+        "student": "Students list",
+        "parent": "Parents"
+      },
+      "noEmail": "No email"
+    },
+    "empty": {
+      "teacher": {
+        "title": "No teachers yet",
+        "body": "Invite your first teacher: they’ll get an email to choose their password."
+      },
+      "student": {
+        "title": "No students yet",
+        "body": "Invite your first student: they’ll get an email to choose their password."
+      },
+      "parent": {
+        "title": "No parents yet",
+        "body": "Invite a parent, then link them to their child or children."
+      }
+    },
+    "noResults": {
+      "title": "No results",
+      "body": "Nobody matches your search or this filter.",
+      "clear": "Reset"
+    },
+    "error": {
+      "title": "Couldn’t load the list",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "range": "{from, number}–{to, number} of {total, number}"
+    },
+    "invitations": {
+      "title": "Pending invitations",
+      "subtitle": "These people haven’t chosen their password yet.",
+      "expires": "Expires {date}",
+      "expired": "Expired",
+      "sentTo": "Sent to <e>{email}</e>"
+    },
+    "invite": {
+      "title": {
+        "teacher": "Invite a teacher",
+        "student": "Invite a student",
+        "parent": "Invite a parent"
+      },
+      "description": "An invitation email valid for 7 days will be sent. They will choose their own password.",
+      "fields": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email address"
+      },
+      "placeholders": {
+        "email": "first.last@school.ma"
+      },
+      "submit": "Send invitation"
+    },
+    "edit": {
+      "title": "Edit {name}",
+      "description": "Email and role can’t be changed here."
+    },
+    "deactivate": {
+      "title": "Deactivate {name}?",
+      "body": "They will no longer be able to sign in. Their data is kept and you can reactivate them at any time.",
+      "confirm": "Deactivate"
+    },
+    "feedback": {
+      "invited": "Invitation sent to {email}.",
+      "resent": "Invitation resent.",
+      "revoked": "Invitation revoked.",
+      "activated": "Account reactivated.",
+      "deactivated": "Account deactivated.",
+      "saved": "Changes saved."
+    },
+    "guardians": {
+      "childrenOf": "Children of {name}",
+      "linked": "Student linked.",
+      "unlinked": "Link removed.",
+      "unlinkLabel": "Remove the link with {name}",
+      "addLabel": "Link a student to {name}",
+      "add": "Link a student",
+      "dialogTitle": "Link a student to {name}",
+      "dialogBody": "Choose the relationship, then the student.",
+      "relationship": "Relationship",
+      "relationships": {
+        "parent": "Parent",
+        "mother": "Mother",
+        "father": "Father",
+        "guardian": "Guardian"
+      },
+      "search": "Search for a student",
+      "searchPlaceholder": "Name or email…",
+      "noMatch": "No student matches."
+    }
+  },
+  "classes": {
+    "title": "Classes",
+    "subtitle": {
+      "admin": "Create classes, assign teachers and enrol students.",
+      "teacher": "The classes you teach."
+    },
+    "filters": {
+      "year": "School year",
+      "search": "Search a class…",
+      "searchLabel": "Search a class",
+      "apply": "Filter",
+      "archived": "View archive",
+      "active": "View active classes"
+    },
+    "card": {
+      "students": "{count, plural, one {# student} other {# students}}",
+      "seats": "{enrolled, number} / {capacity, number}",
+      "full": "Full",
+      "archived": "Archived",
+      "noTeacher": "No teacher",
+      "noLevel": "No level",
+      "seatsLabel": "Seats taken",
+      "enrolments": "{count, plural, one {# enrolment} other {# enrolments}}"
+    },
+    "actions": {
+      "new": "New class"
+    },
+    "new": {
+      "title": "New class",
+      "description": "You can then assign teachers and enrol students.",
+      "fields": {
+        "name": "Class name",
+        "level": "Level (optional)",
+        "schoolYear": "School year",
+        "capacity": "Capacity (optional)"
+      },
+      "placeholders": {
+        "name": "Grade 6 A",
+        "level": "Grade 6",
+        "capacity": "30"
+      },
+      "submit": "Create class"
+    },
+    "edit": {
+      "button": "Edit",
+      "title": "Edit class",
+      "yearLocked": "The school year can no longer be changed."
+    },
+    "detail": {
+      "back": "All classes",
+      "year": "Year <y>{year}</y>"
+    },
+    "roster": {
+      "title": "Enrolled students",
+      "empty": "No students enrolled",
+      "emptyBody": "Add students to build the class.",
+      "since": "Enrolled {date}",
+      "list": "Enrolled students list"
+    },
+    "teachers": {
+      "title": "Teachers",
+      "empty": "No teacher assigned",
+      "manage": "Manage",
+      "dialogTitle": "Class teachers",
+      "dialogBody": "Tick the teachers who teach this class.",
+      "none": "No active teachers. Invite some from the Teachers page.",
+      "save": "Save"
+    },
+    "enrol": {
+      "button": "Add students",
+      "title": "Add students",
+      "description": "Only active students without a class this year are listed.",
+      "search": "Search a student…",
+      "none": "No students available for this year.",
+      "noMatch": "No student matches.",
+      "submit": "{count, plural, =0 {Choose students} one {Enrol # student} other {Enrol # students}}",
+      "seatsLeft": "{count, plural, one {# seat left} other {# seats left}}",
+      "unlimited": "Unlimited capacity",
+      "loadError": "Couldn’t load students.",
+      "descriptionCentre": "Every active student not already in this group is offered. A student can join several groups.",
+      "clash": "Overlaps <n>{cls}</n>"
+    },
+    "withdraw": {
+      "label": "Remove {name} from the class",
+      "title": "Remove {name}?",
+      "body": "The student will no longer be in this class. History is kept.",
+      "confirm": "Remove"
+    },
+    "archive": {
+      "button": "Archive",
+      "title": "Archive this class?",
+      "body": "It will disappear for teachers and students. Nothing is deleted and you can restore it.",
+      "confirm": "Archive",
+      "restore": "Restore"
+    },
+    "feedback": {
+      "created": "Class created.",
+      "updated": "Class updated.",
+      "archived": "Class archived.",
+      "restored": "Class restored.",
+      "enrolled": "{enrolled, plural, one {# student enrolled.} other {# students enrolled.}}",
+      "enrolledSkipped": "{enrolled, plural, one {# student enrolled} other {# students enrolled}}, {skipped, plural, one {# skipped (already in a class).} other {# skipped (already in a class).}}",
+      "withdrawn": "Student removed from the class.",
+      "teachersSaved": "Teachers updated."
+    },
+    "empty": {
+      "admin": {
+        "title": "No classes this year",
+        "body": "Create your first class to assign teachers and enrol students."
+      },
+      "teacher": {
+        "title": "No classes yet",
+        "body": "Your administration hasn’t assigned you a class this year."
+      }
+    },
+    "noResults": {
+      "title": "No classes found",
+      "body": "No class matches this search.",
+      "clear": "Reset"
+    },
+    "error": {
+      "title": "Couldn’t load classes",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "notFound": {
+      "title": "Class not found",
+      "body": "This class doesn’t exist or you don’t have access to it."
+    }
+  },
+  "schedule": {
+    "title": "Timetable",
+    "subtitle": {
+      "admin": "Build each class’s week, with no overlaps or double-booked teachers.",
+      "teacher": "Your lessons this week.",
+      "student": "Your class’s lessons."
+    },
+    "class": {
+      "label": "Class",
+      "nav": "Choose a class",
+      "year": "School year",
+      "apply": "Show"
+    },
+    "grid": {
+      "label": "Weekly timetable",
+      "agenda": "Lessons by day",
+      "room": "Room {room}",
+      "noLessons": "No lessons",
+      "open": "Edit the {subject} lesson, {day} {time}"
+    },
+    "actions": {
+      "add": "Add a lesson",
+      "subjects": "Subjects"
+    },
+    "lesson": {
+      "newTitle": "New lesson",
+      "editTitle": "Edit lesson",
+      "description": "A lesson cannot overlap another lesson of the class or of the teacher.",
+      "fields": {
+        "subject": "Subject",
+        "teacher": "Teacher",
+        "weekday": "Day",
+        "start": "Start",
+        "end": "End",
+        "room": "Room (optional)"
+      },
+      "placeholders": {
+        "room": "A1"
+      },
+      "create": "Add lesson",
+      "noTeachers": "Assign a teacher to this class first.",
+      "noSubjects": "Create a subject first.",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this lesson?",
+      "deleteBody": "It disappears from the timetable. This cannot be undone."
+    },
+    "subjects": {
+      "title": "Subjects",
+      "description": "The school’s subjects, used in every timetable.",
+      "fields": {
+        "name": "Subject name",
+        "color": "Colour"
+      },
+      "placeholders": {
+        "name": "Mathematics"
+      },
+      "add": "Add",
+      "save": "Save",
+      "archive": "Archive",
+      "restore": "Restore",
+      "archived": "Archived",
+      "empty": "No subjects yet.",
+      "list": "Subjects list",
+      "colors": {
+        "primary": "Blue",
+        "accent": "Terracotta",
+        "info": "Azure",
+        "success": "Green",
+        "warning": "Ochre"
+      },
+      "edit": "Edit",
+      "editLabel": "Edit {name}",
+      "archiveLabel": "Archive {name}",
+      "restoreLabel": "Restore {name}"
+    },
+    "feedback": {
+      "created": "Lesson added.",
+      "updated": "Lesson updated.",
+      "deleted": "Lesson deleted.",
+      "subjectCreated": "Subject added.",
+      "subjectUpdated": "Subject updated.",
+      "subjectArchived": "Subject archived.",
+      "subjectRestored": "Subject restored."
+    },
+    "empty": {
+      "noClasses": {
+        "title": "No classes",
+        "body": "Create a class first to build its timetable.",
+        "cta": "Create a class"
+      },
+      "noLessons": {
+        "admin": {
+          "title": "No lessons in this class",
+          "body": "Add the first lesson of the week."
+        },
+        "teacher": {
+          "title": "No lessons yet",
+          "body": "Your administration hasn’t scheduled your lessons yet."
+        },
+        "student": {
+          "title": "No lessons yet",
+          "body": "Your class’s timetable isn’t published yet."
+        }
+      },
+      "noClassStudent": {
+        "title": "You don’t have a class yet",
+        "body": "Your administration needs to enrol you in a class first."
+      }
+    },
+    "error": {
+      "title": "Couldn’t load the timetable",
+      "body": "Your data was not changed. Try again in a moment."
+    }
+  },
+  "attendance": {
+    "title": "Attendance",
+    "subtitle": {
+      "admin": "Follow each lesson’s roll call and spot the classes that are slipping.",
+      "teacher": "Take your lessons’ roll call in seconds.",
+      "student": "Your attendance, lates and absences."
+    },
+    "date": {
+      "label": "Date",
+      "previous": "Previous day",
+      "next": "Next day",
+      "today": "Today",
+      "go": "Show",
+      "sunday": "No school on Sunday."
+    },
+    "status": {
+      "present": "Present",
+      "late": "Late",
+      "absent": "Absent",
+      "excused": "Excused"
+    },
+    "short": {
+      "present": "P",
+      "late": "L",
+      "absent": "A",
+      "excused": "E"
+    },
+    "lessons": {
+      "title": "Today’s lessons",
+      "list": "Lessons of the day",
+      "empty": {
+        "title": "No lessons that day",
+        "bodyAdmin": "No lessons are scheduled on this date.",
+        "bodyTeacher": "You have no lessons on this date."
+      },
+      "done": "Roll call done",
+      "todo": "To do",
+      "upcoming": "Upcoming",
+      "take": "Take roll call",
+      "edit": "Edit roll call",
+      "view": "View roll call",
+      "counts": "{present, number} present · {late, number} late · {absent, number} absent · {excused, number} excused",
+      "teacher": "Teacher: {name}"
+    },
+    "summary": {
+      "title": "Attendance by class",
+      "subtitle": "30 days up to {date}",
+      "class": "Class",
+      "rate": "Attendance",
+      "absences": "Absences",
+      "lates": "Lates",
+      "empty": "No roll call recorded in this period.",
+      "rateLabel": "Attendance rate",
+      "help": "A late student counts as present; an excused absence isn’t counted."
+    },
+    "rollcall": {
+      "back": "Back to lessons",
+      "title": "Roll call",
+      "markAll": "Everyone present",
+      "save": "Save roll call",
+      "saved": "Roll call saved.",
+      "noStudents": {
+        "title": "No students in this class",
+        "body": "Enrol students before taking the roll call."
+      },
+      "note": "Note (optional)",
+      "notePlaceholder": "Reason, remark…",
+      "students": "Students",
+      "group": "Status of {name}",
+      "totals": "{present, number} present · {late, number} late · {absent, number} absent · {excused, number} excused",
+      "unsaved": "Unsaved changes",
+      "readOnly": {
+        "future": "That date hasn’t arrived yet: roll call isn’t possible.",
+        "old": "After 14 days, only the administration can correct attendance.",
+        "other": "This lesson is taught by another teacher: you can view the roll call, not change it."
+      },
+      "notFound": {
+        "title": "Lesson not found",
+        "body": "This lesson doesn’t exist, doesn’t take place on that date, or you don’t have access to it."
+      },
+      "noteFor": "Note for {name}"
+    },
+    "mine": {
+      "stats": {
+        "rate": "Attendance",
+        "absences": "Absences",
+        "lates": "Lates"
+      },
+      "list": "Attendance history",
+      "empty": {
+        "title": "No roll call recorded",
+        "body": "Your attendance will show up here after the first roll call."
+      },
+      "time": "{subject}",
+      "noNote": "No note"
+    },
+    "error": {
+      "title": "Couldn’t load attendance",
+      "body": "Your data was not changed. Try again in a moment."
+    }
+  },
+  "homework": {
+    "title": "Homework",
+    "subtitle": {
+      "teacher": "Set work for your classes and see who has done it.",
+      "student": "What you have to do, and what is overdue.",
+      "parent": "Follow your child’s assignments, due dates and completion."
+    },
+    "views": {
+      "label": "View",
+      "upcoming": "Upcoming",
+      "past": "Past",
+      "deleted": "Deleted"
+    },
+    "actions": {
+      "new": "New homework",
+      "edit": "Edit",
+      "delete": "Delete",
+      "restore": "Restore"
+    },
+    "form": {
+      "newTitle": "New homework",
+      "newDescription": "Your students see it straight away in their space.",
+      "editTitle": "Edit homework",
+      "fields": {
+        "class": "Class",
+        "subject": "Subject",
+        "title": "Title",
+        "description": "Instructions (optional)",
+        "dueDate": "Due on"
+      },
+      "placeholders": {
+        "title": "Exercises 1 to 5, page 42",
+        "description": "Explain what needs doing…"
+      },
+      "create": "Publish homework",
+      "noClasses": "No class is assigned to you this year.",
+      "noSubjects": "Your administration hasn’t created any subjects yet."
+    },
+    "due": {
+      "on": "Due {date}",
+      "today": "Due today",
+      "tomorrow": "Due tomorrow",
+      "late": "{days, plural, one {# day late} other {# days late}}",
+      "in": "{days, plural, one {In # day} other {In # days}}"
+    },
+    "progress": {
+      "done": "{done, number}/{total, number} have finished",
+      "doneOnly": "{done, number} have finished",
+      "title": "Progress",
+      "list": "Students’ progress",
+      "finished": "Done",
+      "pending": "Not yet"
+    },
+    "detail": {
+      "back": "All homework",
+      "class": "Class {name}",
+      "archivedNotice": "This homework is deleted: your students no longer see it.",
+      "noDescription": "No instructions."
+    },
+    "delete": {
+      "title": "Delete this homework?",
+      "body": "Your students will no longer see it. You can restore it from the “Deleted” tab.",
+      "confirm": "Delete"
+    },
+    "student": {
+      "overdue": "Overdue",
+      "upcoming": "To do",
+      "done": "Done",
+      "teacher": "By {name}",
+      "mark": "Mark “{title}” as done",
+      "unmark": "Mark “{title}” as not done",
+      "allClear": "Nothing to do right now.",
+      "list": "Homework list"
+    },
+    "feedback": {
+      "created": "Homework published.",
+      "updated": "Homework updated.",
+      "deleted": "Homework deleted.",
+      "restored": "Homework restored."
+    },
+    "empty": {
+      "teacher": {
+        "title": "No homework here",
+        "body": "Publish homework: your students see it immediately."
+      },
+      "teacherPast": {
+        "title": "No past homework",
+        "body": "Homework whose due date has passed appears here."
+      },
+      "teacherDeleted": {
+        "title": "No deleted homework",
+        "body": "Homework you delete can be restored here."
+      },
+      "student": {
+        "title": "No homework yet",
+        "body": "Your teachers haven’t posted anything."
+      },
+      "noClass": {
+        "title": "You don’t have a class yet",
+        "body": "Your administration needs to enrol you in a class first."
+      }
+    },
+    "error": {
+      "title": "Couldn’t load homework",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "notFound": {
+      "title": "Homework not found",
+      "body": "This homework doesn’t exist or you don’t have access to it."
+    }
+  },
+  "grades": {
+    "title": "Grades",
+    "subtitle": {
+      "teacher": "Create your exams, enter marks and publish them when you’re ready.",
+      "admin": "Follow exams and each class’s averages.",
+      "student": "Your published marks and averages."
+    },
+    "filters": {
+      "term": "Semester",
+      "all": "All",
+      "view": "View",
+      "current": "Exams",
+      "deleted": "Deleted",
+      "class": "Class",
+      "allClasses": "All classes",
+      "apply": "Filter"
+    },
+    "terms": {
+      "1": "Semester 1",
+      "2": "Semester 2"
+    },
+    "status": {
+      "draft": "Draft",
+      "published": "Published"
+    },
+    "actions": {
+      "new": "New exam",
+      "edit": "Edit",
+      "delete": "Delete",
+      "restore": "Restore",
+      "publish": "Publish marks",
+      "unpublish": "Unpublish"
+    },
+    "form": {
+      "newTitle": "New exam",
+      "newDescription": "Marks stay private until you publish them.",
+      "editTitle": "Edit exam",
+      "fields": {
+        "class": "Class",
+        "subject": "Subject",
+        "title": "Title",
+        "date": "Date",
+        "maxScore": "Out of",
+        "coefficient": "Coefficient",
+        "term": "Semester"
+      },
+      "placeholders": {
+        "title": "Test 1: fractions"
+      },
+      "create": "Create exam",
+      "noClasses": "No class is assigned to you this year.",
+      "noSubjects": "Your administration hasn’t created any subjects yet."
+    },
+    "row": {
+      "coef": "Coef. {value, number}",
+      "out": "out of {max, number}",
+      "progress": "{graded, number}/{total, number} graded",
+      "progressOnly": "{graded, number} graded",
+      "average": "Average {avg, number, ::.##}",
+      "noAverage": "No marks",
+      "teacher": "By {name}"
+    },
+    "detail": {
+      "back": "All exams",
+      "class": "Class {name}",
+      "archivedNotice": "This exam is deleted: students no longer see it.",
+      "draftNotice": "Draft: students can’t see this exam or their marks until you publish them.",
+      "publishedNotice": "Published: each student sees their own mark.",
+      "stats": {
+        "average": "Average /20",
+        "min": "Lowest",
+        "max": "Highest",
+        "graded": "Graded"
+      }
+    },
+    "sheet": {
+      "title": "Mark entry",
+      "student": "Student",
+      "score": "Mark",
+      "absent": "Absent",
+      "remark": "Remark",
+      "remarkPlaceholder": "Optional",
+      "scoreFor": "Mark for {name}",
+      "absentFor": "{name}: absent",
+      "remarkFor": "Remark for {name}",
+      "invalid": "Between 0 and {max, number}",
+      "hint": "Leave blank if the student has no mark yet. Enter moves to the next student.",
+      "save": "Save marks",
+      "saved": "Marks saved.",
+      "unsaved": "Unsaved changes",
+      "readOnly": "Only the teacher who created this exam can enter marks.",
+      "noStudents": {
+        "title": "No students in this class",
+        "body": "Enrol students before entering marks."
+      },
+      "totals": "{graded, number} graded · {absent, number} absent"
+    },
+    "publishDialog": {
+      "title": "Publish the marks?",
+      "body": "{missing, plural, one {# student doesn’t have a mark yet.} other {# students don’t have a mark yet.}} Each student will see their own mark. You can unpublish.",
+      "confirm": "Publish"
+    },
+    "delete": {
+      "title": "Delete this exam?",
+      "body": "Students will no longer see it. You can restore it from the “Deleted” tab.",
+      "confirm": "Delete"
+    },
+    "feedback": {
+      "created": "Exam created.",
+      "updated": "Exam updated.",
+      "deleted": "Exam deleted.",
+      "restored": "Exam restored.",
+      "published": "Marks published.",
+      "unpublished": "Unpublished."
+    },
+    "admin": {
+      "summary": {
+        "exams": "Exams",
+        "published": "Published",
+        "average": "Average of published exams"
+      },
+      "table": "Exams list",
+      "noAverage": "—"
+    },
+    "student": {
+      "overall": "Overall average",
+      "subject": "Average in {subject}",
+      "exams": "Exams",
+      "absent": "Absent",
+      "noScore": "—",
+      "termLabel": "Semester",
+      "list": "Marks in detail",
+      "mention": {
+        "tresBien": "Excellent",
+        "bien": "Very good",
+        "assezBien": "Good",
+        "passable": "Pass",
+        "insuffisant": "Below pass"
+      },
+      "help": "Each mark is scaled to 20 then weighted by its coefficient. Absences don’t count.",
+      "bySubject": "By subject"
+    },
+    "empty": {
+      "teacher": {
+        "title": "No exams",
+        "body": "Create an exam to enter your class’s marks."
+      },
+      "teacherDeleted": {
+        "title": "No deleted exams",
+        "body": "Exams you delete can be restored here."
+      },
+      "admin": {
+        "title": "No exams",
+        "body": "Exams created by teachers will show up here."
+      },
+      "student": {
+        "title": "No published marks",
+        "body": "Your marks will show up here as soon as your teachers publish them."
+      },
+      "noClass": {
+        "title": "You don’t have a class yet",
+        "body": "Your administration needs to enrol you in a class first."
+      }
+    },
+    "error": {
+      "title": "Couldn’t load grades",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "notFound": {
+      "title": "Exam not found",
+      "body": "This exam doesn’t exist or you don’t have access to it."
+    }
+  },
+  "finance": {
+    "title": "Finance",
+    "subtitle": {
+      "admin": "Invoice, collect and issue numbered receipts, without ever losing a trace.",
+      "student": "Your invoices, payments and receipts."
+    },
+    "summary": {
+      "billed": "Billed",
+      "collected": "Collected",
+      "outstanding": "Outstanding",
+      "overdue": "Overdue",
+      "overdueCount": "{count, plural, one {# invoice} other {# invoices}}",
+      "invoiceCount": "{count, plural, one {# invoice} other {# invoices}}",
+      "help": "Void invoices and payments are not counted."
+    },
+    "status": {
+      "unpaid": "Unpaid",
+      "partial": "Partial",
+      "paid": "Paid",
+      "overdue": "Overdue",
+      "void": "Void"
+    },
+    "filters": {
+      "status": "Status",
+      "all": "All",
+      "search": "Search",
+      "placeholder": "Student, invoice no…",
+      "apply": "Search"
+    },
+    "list": {
+      "label": "Invoices list",
+      "empty": {
+        "title": "No invoices",
+        "body": "Generate a class’s invoices from a fee plan, or create one."
+      },
+      "noResults": {
+        "title": "No invoices found",
+        "body": "No invoice matches this search or filter.",
+        "clear": "Reset"
+      }
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "range": "{from, number}–{to, number} of {total, number}"
+    },
+    "row": {
+      "due": "Due {date}",
+      "paidOf": "{paid} of {total}",
+      "issued": "Issued {date}"
+    },
+    "actions": {
+      "newInvoice": "New invoice",
+      "generate": "Generate invoices",
+      "plans": "Fee plans",
+      "pay": "Record a payment",
+      "voidPayment": "Void",
+      "voidInvoice": "Void invoice",
+      "receipt": "Receipt",
+      "print": "Print"
+    },
+    "plans": {
+      "title": "Fee plans",
+      "description": "What you bill (registration, tuition, transport…). The amount is fixed: to change it, create a new plan.",
+      "fields": {
+        "name": "Plan name",
+        "description": "Description (optional)",
+        "amount": "Amount (MAD)"
+      },
+      "placeholders": {
+        "name": "Monthly tuition",
+        "amount": "1,200.00"
+      },
+      "add": "Add",
+      "save": "Save",
+      "archive": "Archive",
+      "restore": "Restore",
+      "archived": "Archived",
+      "empty": "No fee plans yet.",
+      "list": "Fee plans list",
+      "edit": "Edit",
+      "editLabel": "Edit {name}",
+      "archiveLabel": "Archive {name}",
+      "restoreLabel": "Restore {name}"
+    },
+    "invoice": {
+      "title": "New invoice",
+      "description": "A one-off invoice for a single student. To bill a whole class, use “Generate invoices”.",
+      "fields": {
+        "student": "Student",
+        "description": "Description",
+        "amount": "Amount (MAD)",
+        "dueDate": "Due date"
+      },
+      "placeholders": {
+        "student": "Search a student…",
+        "description": "School trip",
+        "amount": "350.00"
+      },
+      "noMatch": "No student matches.",
+      "pickStudent": "Pick a student from the list.",
+      "submit": "Issue invoice",
+      "selected": "Selected student: {name}"
+    },
+    "generate": {
+      "title": "Generate invoices",
+      "description": "One invoice per student enrolled in the class. Running it again never bills the same student twice for the same plan and due date.",
+      "fields": {
+        "plan": "Fee plan",
+        "class": "Class",
+        "dueDate": "Due date",
+        "description": "Description (optional)"
+      },
+      "placeholders": {
+        "description": "Tuition October 2026"
+      },
+      "noPlans": "Create a fee plan first.",
+      "noClasses": "No classes this year.",
+      "preview": "Each student will be billed {amount}.",
+      "submit": "Generate"
+    },
+    "payment": {
+      "title": "Record a payment",
+      "remaining": "Remaining: {amount}",
+      "fields": {
+        "amount": "Amount (MAD)",
+        "method": "Payment method",
+        "paidOn": "Payment date",
+        "reference": "Reference (optional)"
+      },
+      "placeholders": {
+        "reference": "Transfer or cheque number"
+      },
+      "methods": {
+        "cash": "Cash",
+        "transfer": "Bank transfer",
+        "cheque": "Cheque",
+        "card": "Card"
+      },
+      "submit": "Record and create receipt"
+    },
+    "void": {
+      "paymentTitle": "Void this payment?",
+      "invoiceTitle": "Void this invoice?",
+      "paymentBody": "Receipt {receipt} will be marked “void” and its amount becomes due again. This is final and the receipt keeps its number.",
+      "invoiceBody": "The invoice will be marked “void” and the student will no longer see it. This is final. To correct an amount, void it and issue a new invoice.",
+      "reason": "Reason (required)",
+      "reasonPlaceholder": "Duplicate entry, wrong amount…",
+      "confirm": "Void permanently"
+    },
+    "detail": {
+      "back": "All invoices",
+      "amount": "Amount",
+      "paid": "Paid",
+      "balance": "Remaining",
+      "payments": "Payments",
+      "list": "Payments list",
+      "noPayments": "No payments recorded.",
+      "voidedInvoice": "Invoice voided, reason: {reason}",
+      "voidedPayment": "Void: {reason}",
+      "dueOn": "Due {date}",
+      "issuedOn": "Issued {date}",
+      "ref": "Ref. {reference}"
+    },
+    "receipt": {
+      "title": "Payment receipt",
+      "number": "No. {number}",
+      "date": "Date",
+      "student": "Student",
+      "invoice": "Invoice",
+      "for": "For",
+      "amount": "Amount received",
+      "method": "Payment method",
+      "reference": "Reference",
+      "balance": "Still due on this invoice",
+      "settled": "Invoice settled",
+      "voided": "VOID",
+      "voidedReason": "Void: {reason}",
+      "signature": "Stamp and signature",
+      "footer": "Document generated by Tadriss",
+      "back": "Back"
+    },
+    "student": {
+      "owed": "Still to pay",
+      "paid": "Already paid",
+      "list": "My invoices",
+      "receipts": "Receipts",
+      "empty": {
+        "title": "No invoices",
+        "body": "Your invoices will appear here as soon as the school issues them."
+      },
+      "allPaid": "All settled."
+    },
+    "feedback": {
+      "planCreated": "Fee plan created.",
+      "planUpdated": "Fee plan updated.",
+      "planArchived": "Fee plan archived.",
+      "planRestored": "Fee plan restored.",
+      "invoiceCreated": "Invoice issued.",
+      "generated": "{count, plural, one {# invoice issued.} other {# invoices issued.}}",
+      "nothingToGenerate": "Nothing to generate: every student in the class is already billed.",
+      "paymentRecorded": "Payment recorded, receipt {receipt}.",
+      "paymentVoided": "Payment voided.",
+      "invoiceVoided": "Invoice voided."
+    },
+    "error": {
+      "title": "Couldn’t load finance",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "notFound": {
+      "title": "Document not found",
+      "body": "This invoice or receipt doesn’t exist or you don’t have access to it."
+    }
+  },
+  "announcements": {
+    "title": "Announcements",
+    "subtitle": {
+      "admin": "Inform the whole school, a group or a class, and see who has read.",
+      "teacher": "Announcements from the administration, and the ones you send to your classes.",
+      "student": "News from your school and your teachers.",
+      "parent": "News from the school and your children’s class."
+    },
+    "views": {
+      "label": "View",
+      "active": "Published",
+      "deleted": "Deleted"
+    },
+    "actions": {
+      "new": "New announcement",
+      "edit": "Edit",
+      "delete": "Delete",
+      "restore": "Restore",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "markAllRead": "Mark all as read"
+    },
+    "audience": {
+      "label": "Recipients",
+      "all": "The whole school",
+      "teachers": "All teachers",
+      "students": "All students",
+      "class": "Class <n>{name}</n>",
+      "classOption": "Class: {name}",
+      "parents": "All parents"
+    },
+    "form": {
+      "newTitle": "New announcement",
+      "newDescription": "It shows up for its recipients right away.",
+      "editTitle": "Edit announcement",
+      "fields": {
+        "audience": "Recipients",
+        "title": "Title",
+        "body": "Message"
+      },
+      "placeholders": {
+        "title": "Back-to-school meeting",
+        "body": "Write your announcement…"
+      },
+      "create": "Publish announcement",
+      "noClasses": "No class is assigned to you this year: you can’t publish yet."
+    },
+    "card": {
+      "pinned": "Pinned",
+      "unread": "Unread",
+      "by": "By <n>{name}</n>",
+      "reach": "{read, number}/{total, number} have read",
+      "list": "Announcements",
+      "open": "Read the announcement"
+    },
+    "detail": {
+      "back": "All announcements",
+      "archivedNotice": "This announcement is deleted: its recipients no longer see it.",
+      "reachTitle": "Reads",
+      "reachNone": "Nobody has read this announcement yet.",
+      "reachAll": "Every recipient has read it."
+    },
+    "feedback": {
+      "created": "Announcement published.",
+      "updated": "Announcement updated.",
+      "deleted": "Announcement deleted.",
+      "restored": "Announcement restored.",
+      "pinned": "Announcement pinned.",
+      "unpinned": "Announcement unpinned."
+    },
+    "empty": {
+      "feed": {
+        "title": "No announcements yet",
+        "body": "Your school’s announcements will appear here."
+      },
+      "authored": {
+        "title": "No announcements published",
+        "body": "Publish an announcement: it shows up for its recipients right away."
+      },
+      "deleted": {
+        "title": "No deleted announcements",
+        "body": "Announcements you delete can be restored here."
+      }
+    },
+    "error": {
+      "title": "Couldn’t load announcements",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "notFound": {
+      "title": "Announcement not found",
+      "body": "This announcement doesn’t exist or you don’t have access to it."
+    }
+  },
+  "messages": {
+    "title": "Messages",
+    "subtitle": {
+      "admin": "Write privately to a teacher or a student.",
+      "teacher": "Talk privately with your students and the administration.",
+      "student": "Talk privately with your teachers and the administration.",
+      "parent": "Talk privately with your children’s teachers and the administration."
+    },
+    "actions": {
+      "new": "New message",
+      "send": "Send"
+    },
+    "roles": {
+      "institution_admin": "Administration",
+      "teacher": "Teacher",
+      "student": "Student",
+      "super_admin": "Platform",
+      "parent": "Parent"
+    },
+    "list": {
+      "label": "Conversations",
+      "you": "You: <n>{text}</n>",
+      "unknown": "Former contact",
+      "open": "Open the conversation with {name}"
+    },
+    "new": {
+      "title": "New message",
+      "description": "Only people you can talk to are offered.",
+      "fields": {
+        "recipient": "Recipient",
+        "body": "Message"
+      },
+      "placeholders": {
+        "body": "Write your message…"
+      },
+      "send": "Send message",
+      "noContacts": "Nobody to write to yet."
+    },
+    "thread": {
+      "back": "All conversations",
+      "messages": "Messages",
+      "composer": "Your message",
+      "placeholder": "Write your message…",
+      "empty": "No messages yet. Write the first one.",
+      "read": "Read",
+      "sent": "Sent",
+      "today": "Today",
+      "yesterday": "Yesterday"
+    },
+    "empty": {
+      "title": "No conversations",
+      "body": "Write a first message: it stays private between you and its recipient."
+    },
+    "error": {
+      "title": "Couldn’t load messages",
+      "body": "Try again in a moment."
+    },
+    "notFound": {
+      "title": "Conversation not found",
+      "body": "This person doesn’t exist or you can’t write to them."
+    },
+    "feedback": {
+      "sent": "Message sent."
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "subtitle": {
+      "admin": "Share rules, circulars and course material with the whole school or a class.",
+      "teacher": "Documents from the administration, and the ones you share with your classes.",
+      "student": "Documents from your school and your teachers.",
+      "parent": "Documents from the school and your children’s class."
+    },
+    "views": {
+      "label": "View",
+      "active": "Published",
+      "deleted": "Deleted"
+    },
+    "list": "Documents",
+    "actions": {
+      "upload": "Add a document",
+      "download": "Download",
+      "downloadNamed": "Download {title}",
+      "edit": "Edit",
+      "editNamed": "Edit {title}",
+      "delete": "Delete",
+      "deleteNamed": "Delete {title}",
+      "restore": "Restore",
+      "restoreNamed": "Restore {title}"
+    },
+    "audience": {
+      "all": "The whole school",
+      "teachers": "All teachers",
+      "students": "All students",
+      "class": "Class <n>{name}</n>",
+      "classOption": "Class: {name}",
+      "parents": "All parents"
+    },
+    "by": "By <n>{name}</n>",
+    "size": {
+      "b": "B",
+      "kb": "KB",
+      "mb": "MB"
+    },
+    "form": {
+      "uploadTitle": "Add a document",
+      "uploadDescription": "It is available to its recipients right away.",
+      "editTitle": "Edit document",
+      "fields": {
+        "file": "File",
+        "audience": "Recipients",
+        "title": "Title",
+        "description": "Description (optional)"
+      },
+      "placeholders": {
+        "title": "School rules",
+        "description": "What is this document for?"
+      },
+      "limits": "PDF, images, Word, Excel, PowerPoint, text or CSV. 10 MB maximum.",
+      "upload": "Upload document",
+      "noClasses": "No class is assigned to you this year: you can’t share a document yet."
+    },
+    "feedback": {
+      "uploaded": "Document added.",
+      "updated": "Document updated.",
+      "deleted": "Document deleted.",
+      "restored": "Document restored."
+    },
+    "empty": {
+      "feed": {
+        "title": "No documents yet",
+        "body": "Your school’s documents will appear here."
+      },
+      "authored": {
+        "title": "No documents shared",
+        "body": "Add a document: it is available to its recipients right away."
+      },
+      "deleted": {
+        "title": "No deleted documents",
+        "body": "Documents you delete can be restored here."
+      }
+    },
+    "error": {
+      "title": "Couldn’t load documents",
+      "body": "Your data was not changed. Try again in a moment."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Your school’s profile, your plan, and the modules open to each role.",
+    "profile": {
+      "title": "School profile",
+      "edit": "Edit",
+      "editTitle": "School profile",
+      "editDescription": "This information appears on documents and receipts.",
+      "empty": "Not set",
+      "fields": {
+        "name": "Name",
+        "defaultLocale": "Default language",
+        "timezone": "Time zone",
+        "phone": "Phone",
+        "city": "City",
+        "address": "Address"
+      }
+    },
+    "feedback": {
+      "saved": "Settings saved."
+    },
+    "plan": {
+      "title": "Plan",
+      "body": "Seats count active members and pending invitations.",
+      "students": "Students",
+      "teachers": "Teachers",
+      "usage": "{used, number} of {limit, number}",
+      "unlimited": "{used, number} · unlimited",
+      "names": {
+        "essential": "Essential",
+        "standard": "Standard",
+        "premium": "Premium"
+      }
+    },
+    "modules": {
+      "title": "Modules by role",
+      "body": "Turn a module off to remove it from a role’s navigation and pages. No data is deleted.",
+      "roles": {
+        "teacher": "Teachers",
+        "student": "Students"
+      },
+      "list": {
+        "teacher": "Teacher modules",
+        "student": "Student modules"
+      },
+      "on": "On",
+      "off": "Off",
+      "switchLabel": "{name} for {role}",
+      "feedback": {
+        "enabled": "{name} is on.",
+        "disabled": "{name} is off."
+      },
+      "disabledTitle": "This module isn’t available",
+      "disabledBody": "Your school’s administration has turned it off for your role."
+    },
+    "error": {
+      "title": "Couldn’t load settings",
+      "body": "Your data was not changed. Try again in a moment."
+    },
+    "activity": {
+      "title": "Activity log",
+      "body": "The latest sensitive actions in your school.",
+      "empty": "No activity yet."
+    }
+  },
+  "platform": {
+    "eyebrow": "Platform",
+    "overview": {
+      "greeting": "Hello, {name}",
+      "subtitle": "The platform’s schools and their recent activity.",
+      "manage": "Manage schools",
+      "schools": "Active schools",
+      "students": "Students",
+      "teachers": "Teachers",
+      "plans": "Plans",
+      "recent": "Recent activity",
+      "allActivity": "Full log"
+    },
+    "institutions": {
+      "title": "Schools",
+      "subtitle": "Change a school’s plan or suspend its access.",
+      "statusLabel": "Status",
+      "status": {
+        "all": "All",
+        "active": "Active",
+        "suspended": "Suspended"
+      },
+      "search": "Search for a school",
+      "list": "Schools",
+      "empty": {
+        "title": "No schools",
+        "body": "No school matches this search."
+      },
+      "suspended": "Suspended",
+      "counts": "{students, number} students · {teachers, number} teachers"
+    },
+    "detail": {
+      "back": "All schools",
+      "plan": "Plan",
+      "planHelp": "The plan sets the number of seats. A school can’t change it itself.",
+      "members": "Active members",
+      "students": "Students",
+      "teachers": "Teachers",
+      "admins": "Administration",
+      "created": "Created {date}",
+      "suspend": "Suspend",
+      "restore": "Restore access",
+      "suspendedNotice": "This school is suspended: its members can no longer sign in. Its data is kept."
+    },
+    "suspend": {
+      "title": "Suspend this school?",
+      "body": "Its members won’t be able to sign in or use the app. The data is kept and access can be restored at any time.",
+      "confirm": "Suspend"
+    },
+    "feedback": {
+      "planChanged": "Plan changed: {plan}.",
+      "suspended": "School suspended.",
+      "restored": "Access restored."
+    },
+    "error": {
+      "title": "Couldn’t load schools",
+      "body": "Try again in a moment."
+    },
+    "notFound": {
+      "title": "School not found",
+      "body": "This school doesn’t exist."
+    }
+  },
+  "audit": {
+    "title": "Activity log",
+    "subtitle": "Sensitive actions, newest first. The log can’t be edited.",
+    "older": "Show older events",
+    "system": "System",
+    "by": "By <n>{name}</n>",
+    "actions": {
+      "institution": {
+        "plan_changed": "Plan changed",
+        "suspended": "School suspended",
+        "restored": "Access restored",
+        "updated": "School profile edited"
+      },
+      "member": {
+        "deactivated": "Account deactivated",
+        "reactivated": "Account reactivated"
+      },
+      "payment": {
+        "voided": "Payment voided"
+      },
+      "invoice": {
+        "voided": "Invoice voided"
+      },
+      "module": {
+        "toggled": "Module changed"
+      }
+    },
+    "detail": {
+      "plan": "{from} → {to}",
+      "module": "{module} · {role} · {state}",
+      "on": "on",
+      "off": "off",
+      "voided": "{ref}: {reason}"
+    },
+    "empty": {
+      "title": "No activity",
+      "body": "Sensitive actions will appear here."
+    }
+  },
+  "dashboard": {
+    "seeAll": "See all",
+    "unavailable": "Unavailable right now.",
+    "lessons": {
+      "none": "No lessons today.",
+      "list": "Today’s lessons",
+      "where": "Class <n>{cls}</n>",
+      "rollCallDone": "Roll call done",
+      "rollCallTodo": "Roll call to do"
+    },
+    "announcements": {
+      "none": "No announcements yet.",
+      "list": "Latest announcements",
+      "unread": "Unread"
+    },
+    "admin": {
+      "subtitle": "Your school today: attendance, finances and news.",
+      "actions": {
+        "announce": "Announcements",
+        "invite": "Invite students"
+      },
+      "students": "Students",
+      "teachers": "Teachers",
+      "classes": "Classes",
+      "rollCalls": "Today’s roll calls",
+      "invited": "{count, plural, one {# invitation pending} other {# invitations pending}}",
+      "noLessons": "No lessons today",
+      "todayTitle": "Today’s lessons",
+      "moneyTitle": "Finances",
+      "collected": "Collected",
+      "outstanding": "Outstanding",
+      "overdue": "Overdue",
+      "overdueInvoices": "{count, plural, one {# invoice} other {# invoices}}",
+      "newsTitle": "Latest announcements",
+      "planTitle": "Seats",
+      "planLink": "Plan",
+      "startTitle": "Getting started",
+      "startBody": "Three steps to get your school up and running.",
+      "start": {
+        "teachers": "Invite your teachers",
+        "students": "Invite your students",
+        "classes": "Create your classes"
+      },
+      "queue": {
+        "title": "Needs you today",
+        "empty": "Nothing urgent right now.",
+        "unavailable": "Some information could not be loaded, so this list may be incomplete.",
+        "lateRollCalls": "{count, plural, one {# late roll call} other {# late roll calls}}",
+        "lateDetail": "Lesson ended at <mono>{time}</mono>",
+        "overdueDetail": "{count, plural, one {# invoice} other {# invoices}} · since {date}",
+        "overdueMore": "{count, plural, one {# more student with overdue fees} other {# more students with overdue fees}}",
+        "overdueMoreDetail": "See all overdue invoices",
+        "messages": "{count, plural, one {# unread message} other {# unread messages}}",
+        "messagesDetail": "Families and teachers are waiting for a reply",
+        "classes": "{count, plural, one {# class without a teacher} other {# classes without a teacher}}",
+        "invitations": "{count, plural, one {# expired invitation} other {# expired invitations}}",
+        "invitationsDetail": "Resend or cancel them"
+      }
+    },
+    "teacher": {
+      "subtitle": "Today’s lessons, homework to follow and what’s new.",
+      "lessonsToday": "Lessons today",
+      "toTake": "{count, plural, one {# roll call to do} other {# roll calls to do}}",
+      "allTaken": "All roll calls done",
+      "noLessons": "No lessons today",
+      "homeworkOpen": "Upcoming homework",
+      "unreadMessages": "Unread messages",
+      "todayTitle": "My lessons today",
+      "homeworkTitle": "Homework to follow",
+      "noHomework": "No upcoming homework.",
+      "done": "{count, plural, one {# has finished} other {# have finished}}",
+      "newsTitle": "Latest announcements"
+    },
+    "student": {
+      "subtitle": "Your day, your work and your results.",
+      "attendance": "Attendance",
+      "average": "Average",
+      "homeworkTodo": "Homework to do",
+      "owed": "Balance due",
+      "todayTitle": "My timetable today",
+      "homeworkTitle": "To do",
+      "noHomework": "Nothing to do right now.",
+      "gradesTitle": "Latest marks",
+      "noGrades": "No marks published yet.",
+      "absent": "Absent",
+      "newsTitle": "Latest announcements"
+    },
+    "parent": {
+      "subtitle": "Following <n>{name}</n>, class <n>{cls}</n>.",
+      "noClass": "Your child isn’t in a class yet."
+    }
+  },
+  "parent": {
+    "noChildren": {
+      "title": "No child linked",
+      "body": "Your school’s administration first needs to link your account to your child or children."
+    },
+    "switcher": {
+      "label": "Choose a child"
+    },
+    "viewingChild": "You are viewing {name}’s file."
+  },
+  "report": {
+    "title": "Report card",
+    "year": "Year",
+    "student": "Student",
+    "class": "Class",
+    "subject": "Subject",
+    "coefficient": "Coefficient",
+    "average": "Average /20",
+    "overall": "Overall average",
+    "attendance": "Attendance",
+    "absences": "{absent, plural, =0 {No absences} one {# absence} other {# absences}} · {late, plural, =0 {no lateness} one {# late} other {# late}}",
+    "table": "Averages by subject",
+    "empty": "No published marks for this period.",
+    "footer": "Document generated by Tadriss",
+    "signature": "Stamp and signature",
+    "back": "Back",
+    "print": "Report card",
+    "notFound": "Report card not found"
+  },
+  "import": {
+    "title": "Import people",
+    "subtitle": "Invite your students, parents and teachers at once from a CSV file.",
+    "format": "Columns: first name, last name, email, role (student, parent or teacher). Separator \";\" or \",\". Up to {max, number} rows. Everyone receives an email invitation.",
+    "choose": "Choose a CSV file",
+    "paste": "…or paste the content here",
+    "parseError": {
+      "empty": "The file is empty or only has a header.",
+      "columns": "Missing columns: first name, last name, email and role are required.",
+      "tooMany": "Too many rows: {max, number} at most per import."
+    },
+    "preview": "{ready, number} of {total, number} rows ready to invite",
+    "previewList": "Row preview",
+    "rowError": {
+      "validation": "Needs fixing",
+      "duplicate": "Duplicate"
+    },
+    "role": {
+      "teacher": "Teacher",
+      "student": "Student",
+      "parent": "Parent"
+    },
+    "send": "{count, plural, one {Invite # person} other {Invite # people}}",
+    "done": "{sent, number} of {total, number} invitations sent",
+    "resultList": "Import result",
+    "sent": "Invitation sent"
+  },
+  "privacy": {
+    "eyebrow": "Privacy",
+    "title": "Privacy policy",
+    "intro": "Tadriss processes your school’s data so it can run its school life. Here, in plain words, is what we do with it.",
+    "who": {
+      "title": "Who is responsible",
+      "body": "The school is responsible for processing the data of its students, parents and teachers. Tadriss acts as a processor: we host and secure that data on the school’s instructions."
+    },
+    "data": {
+      "title": "Data we process",
+      "body": "Members’ identity and contact details, classes, attendance, marks, homework, invoices and payments, messages and documents the school uploads. We collect no data for advertising."
+    },
+    "why": {
+      "title": "Purposes",
+      "body": "Only running school life: timetables, attendance and marks, communication with families, billing. Data is never sold or used for profiling."
+    },
+    "who_sees": {
+      "title": "Who sees what",
+      "body": "Each school is isolated from the others. A student sees their own data, a parent their children’s, a teacher their classes’, the administration their school’s. Private messages are readable only by the two people involved."
+    },
+    "location": {
+      "title": "Hosting and retention",
+      "body": "Data is hosted with a secure cloud provider and backed up regularly. It is kept while the school uses Tadriss, then deleted or returned on request."
+    },
+    "rights": {
+      "title": "Your rights",
+      "body": "Under Moroccan law 09-08, anyone may ask to access, correct or delete their data by contacting their school, which gives us the necessary instructions. The school declares the processing to the CNDP."
+    },
+    "security": {
+      "title": "Security",
+      "body": "Encrypted connections, passwords never stored in clear, strict separation between schools, an audit log of sensitive actions, and backups."
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "For questions about your data, contact your school’s administration first; you can also write to privacy@tadriss.ma."
+    }
+  },
+  "demoSchool": {
+    "eyebrow": "Demo",
+    "title": "Try Tadriss with a real-looking school",
+    "intro": "Sign in with one click to the fictional school “Al Manar”: classes, marks, attendance, invoices and messages are already there. Pick the role you want to see.",
+    "roles": {
+      "admin": {
+        "name": "Administration",
+        "body": "Students, classes, finance, announcements, import and school settings."
+      },
+      "teacher": {
+        "name": "Teacher",
+        "body": "Roll call, homework, marks and messages to families."
+      },
+      "student": {
+        "name": "Student",
+        "body": "Timetable, homework, marks, report card and payments."
+      },
+      "parent": {
+        "name": "Parent",
+        "body": "Following two children: attendance, marks, report card, invoices."
+      }
+    },
+    "enter": "Enter the demo",
+    "note": "The data is fictional and shared: other visitors may change it.",
+    "stripBody": "Explore a complete school with no sign-up, as administration, teacher, student or parent.",
+    "cta": "See the demo"
+  },
+  "workspace": {
+    "edition": "Your school journal",
+    "day": "Your day, at a glance",
+    "focus": "At your pace",
+    "open": "Open this space",
+    "inStep": "Every day counts.",
+    "rollCallHint": "One gesture per student. A clear view for your school.",
+    "teacherHint": "Your lessons, your students. The essentials within reach.",
+    "studentHint": "Small efforts. Real progress.",
+    "parentHint": "Their journey, with confidence.",
+    "receipt": "Follow collections",
+    "collectedShare": "Share of collected amounts",
+    "lessonFocus": "Your programme for today",
+    "workFocus": "Homework to finish",
+    "gradeFocus": "Overall average",
+    "attendanceFocus": "Classroom attendance",
+    "rollCallStatus": "{todo, plural, =0 {All roll calls are done} one {# roll call to take} other {# roll calls to take}}{late, plural, =0 {} other { · # late}}"
+  },
+  "domain": {
+    "directory": "Directory",
+    "members": "{count, plural, one {# member} other {# members}}",
+    "classes": "{count, plural, one {# class} other {# classes}}",
+    "lessons": "{count, plural, one {# lesson} other {# lessons}}",
+    "weekHours": "{hours, number} teaching hours",
+    "ledger": "Invoice ledger",
+    "collection": "Payment breakdown",
+    "inbox": "Inbox",
+    "unread": "{count, plural, one {# unread} other {# unread}}",
+    "library": "Library",
+    "files": "{count, plural, one {# document} other {# documents}}",
+    "controlCenter": "Your school, in detail",
+    "scoreScale": "Score scale out of 20"
+  },
+  "studentFile": {
+    "back": "All students",
+    "active": "Active",
+    "inactive": "Deactivated",
+    "actions": {
+      "message": "Send a message",
+      "report": "Report card",
+      "invoices": "See invoices"
+    },
+    "stats": {
+      "attendance": "Attendance",
+      "absences": "{count, plural, =0 {No absences} one {# absence} other {# absences}}",
+      "average": "Overall average",
+      "averageHint": "From published marks",
+      "balance": "Left to pay",
+      "overdue": "{amount} overdue",
+      "classes": "Classes"
+    },
+    "grades": {
+      "title": "Latest marks",
+      "empty": "No published marks yet.",
+      "absent": "Absent"
+    },
+    "absences": {
+      "title": "Absences and lateness",
+      "empty": "No absence or lateness recorded."
+    },
+    "invoices": {
+      "title": "Invoices",
+      "empty": "No invoices for this student.",
+      "due": "Due: {date}"
+    },
+    "classes": {
+      "title": "Their classes",
+      "empty": "Not enrolled in a class yet.",
+      "since": "Since <mono>{date}</mono>"
+    },
+    "parents": {
+      "title": "Parents",
+      "empty": "No parent linked.",
+      "link": "Link a parent"
+    },
+    "unavailable": "This information could not be loaded.",
+    "error": {
+      "title": "This file could not be opened",
+      "body": "Check your connection, then try again."
+    },
+    "notFound": {
+      "title": "Student not found",
+      "body": "This file does not exist or does not belong to your school."
+    },
+    "invited": "Invited"
   }
 }

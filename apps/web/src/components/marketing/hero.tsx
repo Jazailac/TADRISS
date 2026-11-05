@@ -1,51 +1,65 @@
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowDown, ArrowRight, Globe2, Smartphone, Wallet } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { SchoolStudio } from './school-studio';
 import { ButtonLink } from '../ui/button';
-import { ZelligePattern } from '../ui/pattern';
-import { ProductPreview } from './product-preview';
+import { CourtyardLines } from './courtyard-lines';
 
-const points = ['languages', 'currency', 'platforms'] as const;
+const details = [
+  { key: 'languages', icon: Globe2 },
+  { key: 'currency', icon: Wallet },
+  { key: 'platforms', icon: Smartphone },
+] as const;
 
 export function Hero() {
-  const t = useTranslations('home.hero');
+  const t = useTranslations('studio');
+  const home = useTranslations('home.hero');
   return (
-    <section className="relative isolate overflow-hidden">
-      <div aria-hidden className="absolute inset-0 -z-10">
-        <ZelligePattern className="text-primary/[0.07] [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]" />
-        <div className="absolute -top-40 start-1/2 h-[36rem] w-[64rem] -translate-x-1/2 rounded-full bg-primary-soft/60 blur-3xl rtl:translate-x-1/2 dark:bg-primary-soft/40" />
-      </div>
-
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 pt-16 pb-20 md:px-8 md:pt-24 lg:grid-cols-[1.05fr_1fr] lg:gap-12 lg:pb-28">
-        <div className="animate-rise">
-          <p className="eyebrow">{t('eyebrow')}</p>
-          <h1 className="display mt-5 text-[2.75rem] font-medium sm:text-6xl lg:text-[4.25rem]">
-            {t.rich('title', { em: (chunks) => <em className="text-primary italic">{chunks}</em> })}
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-text-muted">{t('subtitle')}</p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <ButtonLink href="/signup" size="lg" className="group">
-              {t('ctaPrimary')}
-              <ArrowRight
-                className="rtl-flip size-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
-                aria-hidden
-              />
-            </ButtonLink>
-            <ButtonLink href="/login" size="lg" variant="secondary">
-              {t('ctaSecondary')}
-            </ButtonLink>
+    <section className="hero-world">
+      <CourtyardLines className="hero-linework" />
+      <div className="relative mx-auto max-w-7xl px-5 pb-10 pt-12 md:px-10 md:pb-14 md:pt-16">
+        <p className="eyebrow hero-eyebrow flex items-center gap-3">
+          <span className="h-px w-8 bg-ink-muted" aria-hidden />
+          {t('eyebrow')}
+        </p>
+        <div className="mt-7 grid grid-cols-1 gap-7 lg:grid-cols-[1.45fr_0.8fr] lg:items-end lg:gap-16">
+          <h1 className="hero-heading min-w-0">{t.rich('hero', { br: () => <br /> })}</h1>
+          <div className="min-w-0 lg:pb-2">
+            <p className="max-w-md text-base leading-7 text-ink-muted md:text-lg md:leading-8">
+              {t('intro')}
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <ButtonLink
+                href="/signup"
+                variant="secondary"
+                size="lg"
+                className="group hero-primary"
+              >
+                {home('ctaPrimary')}
+                <ArrowRight
+                  className="rtl-flip size-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+                  aria-hidden
+                />
+              </ButtonLink>
+              <a
+                href="#school-studio"
+                className="inline-flex items-center gap-2 py-3 text-sm font-medium text-ink-foreground underline-offset-4 hover:underline"
+              >
+                {t('build')}
+                <ArrowDown className="size-4" aria-hidden />
+              </a>
+            </div>
           </div>
-          <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2 text-sm text-text-muted">
-            {points.map((p) => (
-              <li key={p} className="flex items-center gap-2">
-                <Check className="size-4 text-primary" strokeWidth={2.25} aria-hidden />
-                {t(`points.${p}`)}
-              </li>
-            ))}
-          </ul>
         </div>
-
-        <div className="animate-rise [animation-delay:120ms] lg:-me-10">
-          <ProductPreview />
+        <div className="mt-10 md:mt-14">
+          <SchoolStudio />
+        </div>
+        <div className="mt-6 flex flex-wrap justify-between gap-x-8 gap-y-3 text-[0.6875rem] text-ink-muted">
+          {details.map(({ key, icon: Icon }) => (
+            <span key={key} className="flex items-center gap-2.5">
+              <Icon className="size-3.5" strokeWidth={1.75} aria-hidden />
+              {home(`points.${key}`)}
+            </span>
+          ))}
         </div>
       </div>
     </section>

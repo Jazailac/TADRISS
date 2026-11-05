@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const PORT = 3100;
+const PORT = Number(process.env.E2E_PORT ?? 3100);
 const widths = [375, 768, 1280] as const;
 
 /**
@@ -18,20 +18,35 @@ export default defineConfig({
   snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}{ext}',
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.01, animations: 'disabled' } },
   use: { baseURL: `http://localhost:${PORT}`, trace: 'retain-on-failure' },
-  projects: widths.map((width) => ({
-    name: `w${width}`,
-    use: {
-      ...devices['Desktop Chrome'],
-      viewport: { width, height: width === 375 ? 812 : 900 },
-      isMobile: width === 375,
-      hasTouch: width === 375,
+  projects: [
+    ...widths.map((width) => ({
+      name: `w${width}`,
+      // Module switches, plans and suspensions change what whole roles or schools see, so those specs
+      // run alone, after everything else.
+      testIgnore: /(settings-modules|platform)\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width, height: width === 375 ? 812 : 900 },
+        isMobile: width === 375,
+        hasTouch: width === 375,
+      },
+    })),
+    {
+      name: 'modules',
+      testMatch: /(settings-modules|platform)\.spec\.ts/,
+      dependencies: widths.map((w) => `w${w}`),
+      fullyParallel: false,
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 900 } },
     },
-  })),
+  ],
   webServer: {
     // Always test the production build, never the dev server.
     command: `pnpm build && pnpm start --port ${PORT}`,
+    // Redirects and emailed links are built from this URL, so it must be the port under test.
+    env: { NEXT_PUBLIC_APP_URL: `http://localhost:${PORT}`, DEMO_PASSWORD: 'Tadriss-dev-2026' },
     url: `http://localhost:${PORT}`,
-    reuseExistingServer: !process.env.CI,
-    timeout: 240_000,
+    // Never reuse: a stale server from an earlier build silently tests old code.
+    reuseExistingServer: false,
+    timeout: 600_000,
   },
 });

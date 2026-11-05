@@ -22,3 +22,6 @@ export function parseMoney(input: string): number | null {
   const [whole = '0', frac = ''] = s.split(/[.,]/);
   return Number(whole) * 100 + Number(frac.padEnd(2, '0'));
 }
+
+/** Centimes as an editable decimal string with a dot (`120000` → `"1200.00"`), which parseMoney reads back. */
+export const centimesToInput = (centimes: number): string => (centimes / 100).toFixed(2);

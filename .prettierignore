@@ -13,4 +13,4 @@ apps/mobile/dist
 apps/mobile/.expo
 apps/web/.next
 supabase/config.toml
-**/database.types.ts
+supabase/templates

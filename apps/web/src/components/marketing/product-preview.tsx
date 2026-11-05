@@ -26,6 +26,7 @@ const asDate = (hhmm: string) => new Date(`2026-10-05T${hhmm}:00`);
 /** A faithful miniature of the admin dashboard, built from the real UI kit. */
 export function ProductPreview() {
   const t = useTranslations('home.preview');
+  const studio = useTranslations('studio');
   const format = useFormatter();
   const locale = useLocale();
 
@@ -46,7 +47,10 @@ export function ProductPreview() {
         <div className="flex items-center gap-3 border-b border-border bg-surface px-4 py-3">
           <Mark className="size-5 text-primary" />
           <span className="text-sm font-semibold">{t('school')}</span>
-          <span className="ms-auto font-mono text-xs text-text-muted tabular-nums">
+          <span className="ms-auto rounded-full bg-primary-soft px-2 py-1 font-mono text-[0.6rem] font-medium uppercase tracking-[0.08em] text-primary">
+            {studio('preview')}
+          </span>
+          <span className="ms-3 font-mono text-xs text-text-muted tabular-nums">
             {format.dateTime(asDate('08:00'), { weekday: 'long', day: 'numeric', month: 'long' })}
           </span>
         </div>

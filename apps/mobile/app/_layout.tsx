@@ -6,6 +6,7 @@ import { useColorScheme } from 'nativewind';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { applyDirection, initialLocale } from '@/i18n';
+import { AppearanceProvider } from '@/lib/appearance';
 
 export default function RootLayout() {
   const { colorScheme } = useColorScheme();
@@ -15,9 +16,11 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <SafeAreaProvider>
-      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-      <Stack screenOptions={{ headerShown: false }} />
-    </SafeAreaProvider>
+    <AppearanceProvider>
+      <SafeAreaProvider>
+        <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+        <Stack screenOptions={{ headerShown: false }} />
+      </SafeAreaProvider>
+    </AppearanceProvider>
   );
 }

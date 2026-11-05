@@ -4,8 +4,7 @@
     "title": "Votre école, enfin organisée.",
     "subtitle": "Présences, devoirs, notes et paiements dans votre poche.",
     "login": "Se connecter",
-    "signup": "Inscrire mon établissement",
-    "comingSoon": "La connexion arrive bientôt."
+    "signup": "Inscrire mon établissement"
   },
   "settings": {
     "language": "Langue",
@@ -20,7 +19,10 @@
     "en": "English"
   },
   "common": {
-    "loading": "Chargement…"
+    "loading": "Chargement…",
+    "back": "Retour",
+    "readMore": "Lire la suite",
+    "showLess": "Réduire"
   },
   "errors": {
     "genericTitle": "Une erreur est survenue",
@@ -31,6 +33,235 @@
     "not_found": "Élément introuvable.",
     "conflict": "Cet élément existe déjà.",
     "rate_limited": "Trop de tentatives. Réessayez dans un instant.",
-    "unknown": "Une erreur inattendue est survenue. Réessayez."
+    "unknown": "Une erreur inattendue est survenue. Réessayez.",
+    "invalid_credentials": "E-mail ou mot de passe incorrect.",
+    "email_taken": "Un compte existe déjà avec cette adresse.",
+    "email_not_confirmed": "Confirmez votre adresse e-mail avant de vous connecter.",
+    "account_disabled": "Ce compte est désactivé. Contactez votre établissement.",
+    "class_full": "Cette classe est complète.",
+    "class_archived": "Cette classe est archivée.",
+    "slot_class_busy": "Cette classe a déjà un cours sur ce créneau.",
+    "slot_teacher_busy": "Cet enseignant a déjà un cours sur ce créneau.",
+    "future_date": "Cette date n’est pas encore arrivée.",
+    "too_old": "Au-delà de 14 jours, seule la direction peut corriger l’appel.",
+    "not_your_lesson": "Ce cours est assuré par un autre enseignant.",
+    "student_not_in_class": "Cet élève ne fait pas partie de la classe.",
+    "wrong_weekday": "Cette date ne tombe pas le bon jour de la semaine.",
+    "score_out_of_range": "Une note dépasse le barème de l’examen.",
+    "not_your_exam": "Seul l’enseignant de cet examen peut saisir ses notes.",
+    "payment_exceeds_balance": "Le montant dépasse le reste à payer.",
+    "invoice_void": "Cette facture est annulée.",
+    "has_payments": "Annulez d’abord les paiements de cette facture.",
+    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
+    "file_too_large": "Ce fichier dépasse 10 Mo.",
+    "file_type": "Ce type de fichier n’est pas accepté.",
+    "plan_limit_reached": "Votre formule a atteint sa limite de places. Contactez-nous pour la faire évoluer.",
+    "invalid_guardianship": "Ce lien est impossible : il faut un parent et un élève du même établissement."
+  },
+  "login": {
+    "title": "Bon retour",
+    "subtitle": "Connectez-vous à l’espace de votre établissement.",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "submit": "Se connecter"
+  },
+  "home": {
+    "greeting": "Bonjour, {{name}}",
+    "comingSoon": "Vos classes, devoirs et notes arrivent bientôt dans l’application.",
+    "signOut": "Se déconnecter",
+    "noLessons": "Aucun cours aujourd’hui.",
+    "rollCallDone": "Appel fait",
+    "rollCallTodo": "Appel à faire",
+    "news": "Dernières annonces",
+    "attendance": "Assiduité",
+    "average": "Moyenne",
+    "homeworkTodo": "Devoirs à faire",
+    "owed": "Reste à payer",
+    "today": "Aujourd’hui",
+    "lessonsToday": "Cours aujourd’hui",
+    "rollCalls": "Appels du jour",
+    "unreadMessages": "Messages non lus",
+    "students": "Élèves",
+    "teachers": "Enseignants",
+    "outstanding": "Reste à encaisser",
+    "platform": "La console de la plateforme est disponible sur le web.",
+    "inProgress": "En cours",
+    "upNext": "À suivre",
+    "dayComplete": "Les cours du jour sont terminés.",
+    "schoolPulse": "Votre école, en mouvement",
+    "unreadAnnouncements": "Annonces non lues",
+    "homeworkPending": "Devoirs à terminer : {{count}}",
+    "allHomeworkDone": "Aucun devoir à terminer."
+  },
+  "roles": {
+    "super_admin": "Plateforme",
+    "institution_admin": "Direction",
+    "teacher": "Enseignant·e",
+    "student": "Élève",
+    "parent": "Parent"
+  },
+  "validation": {
+    "required": "Ce champ est requis.",
+    "email": "Adresse e-mail invalide.",
+    "passwordMin": "8 caractères minimum.",
+    "nameMin": "2 caractères minimum.",
+    "tooLong": "Trop long.",
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "capacityRange": "Entre 1 et 200.",
+    "invalidYear": "Année scolaire invalide.",
+    "invalidTime": "Heure invalide (entre 06:00 et 22:00).",
+    "timeOrder": "La fin doit être après le début.",
+    "invalidDate": "Date invalide.",
+    "maxScoreRange": "Entre 1 et 100.",
+    "coefficientRange": "Entre 0,5 et 10, par pas de 0,5.",
+    "invalidAmount": "Montant invalide (de 0,01 à 1 000 000 MAD).",
+    "fileRequired": "Choisissez un fichier.",
+    "fileTooLarge": "Ce fichier dépasse 10 Mo.",
+    "fileType": "Ce type de fichier n’est pas accepté.",
+    "tooShort": "C’est trop court."
+  },
+  "tabs": {
+    "home": "Accueil",
+    "schedule": "Horaires",
+    "homework": "Devoirs",
+    "messages": "Messages",
+    "more": "Plus"
+  },
+  "announcements": {
+    "title": "Annonces",
+    "empty": "Aucune annonce pour le moment.",
+    "unread": "Non lue",
+    "pinned": "Épinglée",
+    "by": "Par {{name}}"
+  },
+  "schedule": {
+    "title": "Emploi du temps",
+    "none": "Aucun cours ce jour-là.",
+    "week": "Du {{start}} au {{end}}",
+    "daySummary": "{{count}} cours · {{hours}} h",
+    "duration": "{{minutes}} min"
+  },
+  "homework": {
+    "title": "Devoirs",
+    "studentSubtitle": "Ce que vous avez à faire.",
+    "teacherSubtitle": "Les devoirs à suivre.",
+    "none": "Aucun devoir pour l’instant.",
+    "overdue": "En retard",
+    "upcoming": "À faire",
+    "done": "Terminés",
+    "mark": "Marquer « {{title}} » comme fait ou non fait",
+    "check": "✓",
+    "due": "Pour le {{date}}",
+    "finished": "Terminés : {{count}}",
+    "workPlan": "Plan de travail",
+    "progress": "{{done}} terminés sur {{total}}",
+    "details": "Consulter le devoir « {{title}} »"
+  },
+  "messages": {
+    "title": "Messages",
+    "new": "Nouveau message",
+    "newHint": "Choisissez la personne à qui écrire.",
+    "empty": "Aucune conversation.",
+    "unknown": "Ancien contact",
+    "you": "Vous : {{text}}",
+    "noContacts": "Personne à qui écrire pour le moment.",
+    "startThread": "Écrivez le premier message.",
+    "placeholder": "Écrivez votre message…",
+    "send": "Envoyer",
+    "read": "Lu"
+  },
+  "more": {
+    "announcements": "Annonces",
+    "grades": "Notes",
+    "attendance": "Présences",
+    "payments": "Paiements",
+    "documents": "Documents",
+    "settings": "Réglages"
+  },
+  "grades": {
+    "title": "Notes",
+    "empty": "Aucune note publiée.",
+    "average": "Moyenne générale",
+    "absent": "Absent",
+    "term": "Trimestre {{term}}",
+    "allTerms": "Tout",
+    "outOf20": "/20",
+    "outOf": "/{{max}}",
+    "resultsCount": "Évaluations publiées : {{count}}",
+    "bySubject": "Vos matières",
+    "results": "Les résultats",
+    "coefficient": "Coef. {{value}}"
+  },
+  "attendance": {
+    "title": "Présences",
+    "empty": "Aucune présence enregistrée.",
+    "rate": "Assiduité",
+    "status": {
+      "present": "Présent",
+      "late": "En retard",
+      "absent": "Absent",
+      "excused": "Excusé"
+    },
+    "percent": "%",
+    "window": "Sur les {{count}} derniers cours enregistrés.",
+    "register": "Le registre des présences"
+  },
+  "payments": {
+    "title": "Paiements",
+    "empty": "Aucune facture.",
+    "owed": "Reste à payer",
+    "of": "{{paid}} réglés sur {{total}}",
+    "status": {
+      "paid": "Payée",
+      "partial": "Partielle",
+      "unpaid": "Impayée",
+      "overdue": "En retard",
+      "void": "Annulée"
+    },
+    "paid": "Total réglé",
+    "ledger": "Le registre des factures",
+    "due": "Échéance le {{date}}"
+  },
+  "documents": {
+    "title": "Documents",
+    "empty": "Aucun document.",
+    "open": "Ouvrir",
+    "library": "La bibliothèque",
+    "count": "{{count}} documents",
+    "openNamed": "Ouvrir « {{title}} »",
+    "type": {
+      "pdf": "PDF",
+      "image": "Image",
+      "sheet": "Tableur",
+      "slides": "Diaporama",
+      "text": "Texte"
+    }
+  },
+  "design": {
+    "emptyHint": "Les nouvelles de votre école apparaîtront ici.",
+    "today": "Votre journée, en un regard",
+    "space": "Votre école, ensemble",
+    "welcomeEyebrow": "Un peu de clarté. Chaque jour.",
+    "loginNote": "Votre vie scolaire, au même endroit.",
+    "schoolSpace": "Espace scolaire",
+    "personalSpace": "Votre espace personnel",
+    "preferences": "Un espace qui vous ressemble",
+    "languageHint": "Choisissez la langue qui vous ressemble.",
+    "themeHint": "Un affichage agréable, de jour comme de nuit.",
+    "securityNote": "Votre compte est rattaché à votre école.",
+    "scheduleHint": "Une vue claire sur votre semaine.",
+    "messagesHint": "De bonnes conversations rapprochent votre école.",
+    "gradesHint": "Chaque progrès, au même endroit.",
+    "attendanceHint": "La régularité fait toute la différence.",
+    "paymentsHint": "Une vue claire de vos paiements scolaires.",
+    "documentsHint": "Les essentiels, toujours à portée de main.",
+    "announcementsHint": "Gardez le lien avec la vie de votre école.",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "lessonCount": "{{count}} cours",
+    "schoolDay": "Votre journée à l’école",
+    "quickAccess": "À portée de main",
+    "viewAll": "Tout voir",
+    "welcomeFooter": "Pensé pour votre école. Conçu pour votre quotidien."
   }
 }

@@ -13,6 +13,8 @@ pnpm exec supabase db reset
 
 eval "$(pnpm exec supabase status -o env | grep -E '^(API_URL|ANON_KEY|SERVICE_ROLE_KEY)=')"
 
+./scripts/seed-documents.sh
+
 cat > apps/web/.env.local <<ENV
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_SUPABASE_URL=${API_URL}

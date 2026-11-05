@@ -1,0 +1,184 @@
+import {
+  attendanceRate,
+  countStatuses,
+  formatMoney,
+  homeworkBucket,
+  listAnnouncements,
+  listHomework,
+  listMyAttendance,
+  listMyGrades,
+  listMyInvoices,
+  listSlots,
+  todayIn,
+  weekdayOf,
+  weightedAverage20,
+  type Child,
+} from '@tadriss/shared';
+import { BarChart3, CalendarCheck, ClipboardList, Wallet } from 'lucide-react';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { getServerClient } from '@/lib/supabase/server';
+import { getViewer } from '@/lib/viewer';
+import { WithChild } from '../parent/with-child';
+import { AnnouncementsLatest } from './announcements-latest';
+import { bdi, EmptyLine, Panel, StatTile } from './dash-parts';
+import { LessonsToday } from './lessons-today';
+import { DayCover } from './day-cover';
+import { StudentWork, StudentMarks } from './student-briefing';
+
+/** A parent's home: the selected child's day, work, results and balance, then the school's news. */
+export function ParentHome({ childParam }: { childParam?: string }) {
+  return (
+    <WithChild
+      path="/parent"
+      childParam={childParam}
+      render={(child) => <ChildHome child={child} />}
+    />
+  );
+}
+
+async function ChildHome({ child }: { child: Child }) {
+  const viewer = await getViewer();
+  const tz = viewer?.profile.institution?.timezone ?? 'Africa/Casablanca';
+  const userId = viewer?.session.userId ?? '';
+  const today = todayIn(tz);
+  const hasClass = child.classIds.length > 0;
+  const supabase = await getServerClient();
+  const [t, d, app, w, locale, slots, homework, attendance, grades, invoices, announcements] =
+    await Promise.all([
+      getTranslations('dashboard'),
+      getTranslations('dashboard.parent'),
+      getTranslations('app'),
+      getTranslations('workspace'),
+      getLocale(),
+      hasClass ? listSlots(supabase, { classIds: child.classIds }) : Promise.resolve(null),
+      hasClass
+        ? listHomework(supabase, { studentId: child.id, classIds: child.classIds })
+        : Promise.resolve(null),
+      listMyAttendance(supabase, { studentId: child.id }),
+      listMyGrades(supabase, { studentId: child.id }),
+      listMyInvoices(supabase, { studentId: child.id }),
+      listAnnouncements(supabase, userId, { limit: 4 }),
+    ]);
+
+  const weekday = weekdayOf(today);
+  const lessons = (slots?.ok ? slots.data : []).filter((s) => s.weekday === weekday);
+  const todo = (homework?.ok ? homework.data : []).filter(
+    (h) => homeworkBucket(h, today) !== 'done',
+  );
+  const rate = attendance.ok ? attendanceRate(countStatuses(attendance.data)) : null;
+  const marks = grades.ok ? grades.data : [];
+  const average = weightedAverage20(
+    marks.map((m) => ({
+      score: m.score,
+      absent: m.absent,
+      maxScore: m.maxScore,
+      coefficient: m.coefficient,
+      subjectId: m.subjectId,
+    })),
+  );
+  const owed = (invoices.ok ? invoices.data : [])
+    .filter((i) => !i.voided)
+    .reduce((n, i) => n + i.balanceCentimes, 0);
+  const num = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 });
+
+  return (
+    <div className="dashboard-page mx-auto grid w-full grid-cols-1 max-w-6xl gap-7">
+      <DayCover
+        title={app.rich('greeting', { name: viewer?.profile.firstName ?? '', n: bdi })}
+        subtitle={d.rich('subtitle', {
+          name: `${child.firstName} ${child.lastName}`,
+          cls: child.className ?? '',
+          n: bdi,
+        })}
+        date={today}
+        focusLabel={w('attendanceFocus')}
+        focusValue={rate === null ? '–' : `${num.format(rate)} %`}
+        focusHint={w('parentHint')}
+        focusHref={`/parent/attendance?child=${child.id}`}
+        progress={rate === null ? undefined : rate / 100}
+      />
+
+      <dl className="metric-strip dashboard-metrics dashboard-metrics-pairs grid grid-cols-2 lg:grid-cols-4">
+        <StatTile
+          icon={CalendarCheck}
+          label={t('student.attendance')}
+          value={rate === null ? '–' : `${num.format(rate)} %`}
+          href={`/parent/attendance?child=${child.id}`}
+          tone={rate !== null && rate < 85 ? 'warning' : 'success'}
+        />
+        <StatTile
+          icon={BarChart3}
+          label={t('student.average')}
+          value={average === null ? '–' : `${num.format(average)}/20`}
+          href={`/parent/grades?child=${child.id}`}
+          tone="accent"
+        />
+        <StatTile
+          icon={ClipboardList}
+          label={t('student.homeworkTodo')}
+          value={todo.length}
+          href={`/parent/homework?child=${child.id}`}
+          tone="info"
+        />
+        <StatTile
+          icon={Wallet}
+          label={t('student.owed')}
+          value={formatMoney(owed, locale)}
+          href={`/parent/payments?child=${child.id}`}
+          tone={owed > 0 ? 'warning' : 'success'}
+        />
+      </dl>
+
+      <div className="day-layout">
+        <div className="daybook-column">
+          <Panel
+            title={t('student.todayTitle')}
+            href={`/parent/schedule?child=${child.id}`}
+            linkLabel={t('seeAll')}
+            kind="schedule"
+          >
+            {hasClass ? (
+              <LessonsToday lessons={lessons.map((slot) => ({ slot }))} showTeacher />
+            ) : (
+              <EmptyLine>{d('noClass')}</EmptyLine>
+            )}
+          </Panel>
+          <Panel
+            kind="news"
+            title={t('student.newsTitle')}
+            href="/parent/announcements"
+            linkLabel={t('seeAll')}
+          >
+            <AnnouncementsLatest
+              items={announcements.ok ? announcements.data : []}
+              base="/parent/announcements"
+              timeZone={tz}
+            />
+          </Panel>
+        </div>
+        <div className="daybook-column">
+          <Panel
+            kind="tasks"
+            title={t('student.homeworkTitle')}
+            href={`/parent/homework?child=${child.id}`}
+            linkLabel={t('seeAll')}
+          >
+            <StudentWork
+              items={[...todo].sort((a, b) => a.dueDate.localeCompare(b.dueDate)).slice(0, 4)}
+              today={today}
+              href={`/parent/homework?child=${child.id}`}
+            />
+          </Panel>
+          <Panel
+            kind="results"
+            title={t('student.gradesTitle')}
+            href={`/parent/grades?child=${child.id}`}
+            linkLabel={t('seeAll')}
+          >
+            <StudentMarks items={marks.slice(0, 4)} href={`/parent/grades?child=${child.id}`} />
+          </Panel>
+        </div>
+      </div>
+    </div>
+  );
+}

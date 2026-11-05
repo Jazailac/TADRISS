@@ -1,3 +1,4 @@
+import { ChevronDown } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { cx } from './cx';
 
@@ -6,7 +7,7 @@ export function Label({ className, ...rest }: ComponentProps<'label'>) {
 }
 
 export const inputStyles =
-  'h-11 w-full rounded-md border border-border-strong/70 bg-surface px-3.5 text-[0.9375rem] text-text shadow-xs transition-[border-color,box-shadow] placeholder:text-text-muted/70 hover:border-border-strong focus:border-primary focus:ring-4 focus:ring-primary/12 focus:outline-none aria-invalid:border-danger aria-invalid:focus:ring-danger/12 disabled:opacity-60';
+  'h-11 w-full min-w-0 rounded-md border border-border-strong/70 bg-surface px-3.5 text-base sm:text-sm text-text shadow-xs transition-[border-color,box-shadow,background-color] duration-150 placeholder:text-text-muted/70 hover:border-border-strong focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none aria-invalid:border-danger aria-invalid:focus:ring-danger/12 disabled:cursor-not-allowed disabled:bg-surface-muted disabled:opacity-60';
 
 type InputProps = ComponentProps<'input'> & { icon?: ReactNode; trailing?: ReactNode };
 
@@ -34,15 +35,48 @@ export function Input({ icon, trailing, className, dir, ...rest }: InputProps) {
   );
 }
 
+/**
+ * A field's error line. The line's height is always reserved: errors appear on blur, and if they
+ * pushed the layout down, a tap on the submit button (which is what caused the blur) would land
+ * on something else and be lost. Reserving the space means nothing ever moves.
+ */
 export function FieldError({ id, children }: { id: string; children?: ReactNode }) {
-  if (!children) return null;
   return (
-    <p id={id} role="alert" className="text-sm text-danger">
-      {children}
-    </p>
+    <div className="min-h-5">
+      {children ? (
+        <p id={id} role="alert" className="text-sm leading-5 text-danger">
+          {children}
+        </p>
+      ) : null}
+    </div>
   );
 }
 
 export function Field({ children, className }: { children: ReactNode; className?: string }) {
   return <div className={cx('grid gap-1.5', className)}>{children}</div>;
+}
+
+/** Native select (best accessibility and mobile UX) with a custom chevron on the logical end. */
+export function Select({ className, children, ...rest }: ComponentProps<'select'>) {
+  return (
+    <div className="relative">
+      <select {...rest} className={cx(inputStyles, 'appearance-none pe-10', className)}>
+        {children}
+      </select>
+      <ChevronDown
+        className="pointer-events-none absolute inset-y-0 end-3.5 my-auto size-4 text-text-muted"
+        aria-hidden
+      />
+    </div>
+  );
+}
+
+/** Multi-line input with the same look as `Input`. */
+export function Textarea({ className, ...rest }: ComponentProps<'textarea'>) {
+  return (
+    <textarea
+      {...rest}
+      className={cx(inputStyles, 'h-auto min-h-28 resize-y py-2.5 leading-relaxed', className)}
+    />
+  );
 }

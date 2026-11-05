@@ -6,7 +6,7 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"],
-      "env": ["NEXT_PUBLIC_*", "SUPABASE_SERVICE_ROLE_KEY", "NODE_ENV"]
+      "env": ["NEXT_PUBLIC_*", "SUPABASE_SERVICE_ROLE_KEY", "DEMO_PASSWORD", "NODE_ENV"]
     },
     "dev": { "cache": false, "persistent": true, "dependsOn": ["^build"] },
     "lint": { "dependsOn": ["^build"] },

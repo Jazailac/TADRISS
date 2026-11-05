@@ -5,64 +5,59 @@ import {
   FolderLock,
   Megaphone,
   ReceiptText,
-  type LucideIcon,
 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { Card } from '../ui/card';
-import { cx } from '../ui/cx';
-import { AttendanceVisual, ReadReceiptVisual, ScheduleVisual } from './feature-visuals';
+import { useFormatter, useTranslations } from 'next-intl';
 import { SectionHeading } from './section-heading';
 
-import type { Messages } from '@/i18n/messages';
-
-const items: {
-  key: keyof Messages['home']['features']['items'];
-  icon: LucideIcon;
-  span?: string;
-  visual?: () => React.ReactNode;
-}[] = [
-  { key: 'attendance', icon: CalendarCheck, span: 'lg:col-span-2', visual: AttendanceVisual },
+const items = [
+  { key: 'attendance', icon: CalendarCheck },
   { key: 'grades', icon: BookOpenCheck },
   { key: 'finance', icon: ReceiptText },
-  { key: 'schedule', icon: CalendarClock, span: 'lg:col-span-2', visual: ScheduleVisual },
-  { key: 'messages', icon: Megaphone, span: 'lg:col-span-2', visual: ReadReceiptVisual },
+  { key: 'schedule', icon: CalendarClock },
+  { key: 'messages', icon: Megaphone },
   { key: 'documents', icon: FolderLock },
-];
+] as const;
 
 export function Features() {
   const t = useTranslations('home.features');
+  const f = useFormatter();
   return (
-    <section id="features" className="scroll-mt-20 border-t border-border/70 bg-surface/50">
-      <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
-        <SectionHeading eyebrow={t('eyebrow')} title={t('title')} body={t('body')} />
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(({ key, icon: Icon, span, visual: Visual }) => (
-            <Card
-              key={key}
-              className={cx(
-                'group relative overflow-hidden p-7 transition-shadow hover:shadow-md',
-                span,
-                Visual && 'lg:grid lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-8',
-              )}
-            >
-              <div>
-                <span className="inline-flex size-11 items-center justify-center rounded-lg bg-primary-soft text-primary ring-1 ring-primary/10 ring-inset">
-                  <Icon className="size-5" strokeWidth={1.75} aria-hidden />
-                </span>
-                <h3 className="mt-6 text-lg font-semibold tracking-tight">
-                  {t(`items.${key}.title`)}
-                </h3>
-                <p className="mt-2 max-w-md leading-relaxed text-text-muted">
-                  {t(`items.${key}.body`)}
-                </p>
-              </div>
-              {Visual ? (
-                <div className="mt-6 lg:mt-0">
-                  <Visual />
+    <section id="features" className="scroll-mt-24 border-y border-border bg-surface">
+      <div className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
+        <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+          <SectionHeading
+            eyebrow={t('eyebrow')}
+            title={t('title')}
+            body={t('body')}
+            className="lg:sticky lg:top-28 lg:self-start"
+          />
+          <div className="grid grid-cols-1">
+            {items.map(({ key, icon: Icon }, i) => (
+              <article
+                key={key}
+                className="feature-index group grid gap-4 border-t border-border py-7 sm:grid-cols-[2rem_1fr] sm:gap-6"
+              >
+                <div className="flex items-start gap-4 sm:flex-col sm:gap-3">
+                  <Icon
+                    className="size-5 text-primary transition-transform duration-200 group-hover:-translate-y-0.5"
+                    strokeWidth={1.5}
+                    aria-hidden
+                  />
+                  <span className="font-mono text-[0.65rem] text-text-muted">
+                    {f.number(i + 1, { minimumIntegerDigits: 2 })}
+                  </span>
                 </div>
-              ) : null}
-            </Card>
-          ))}
+                <div>
+                  <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                    {t(`items.${key}.title`)}
+                  </h3>
+                  <p className="mt-2 max-w-lg text-sm leading-7 text-text-muted">
+                    {t(`items.${key}.body`)}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

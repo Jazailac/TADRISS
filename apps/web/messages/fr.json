@@ -4,7 +4,10 @@
     "description": "La gestion scolaire des établissements privés au Maroc : présences, notes, emplois du temps, frais et reçus en MAD."
   },
   "common": {
-    "loading": "Chargement…"
+    "loading": "Chargement…",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "save": "Enregistrer"
   },
   "nav": {
     "brand": "Tadriss",
@@ -121,7 +124,7 @@
     },
     "roles": {
       "eyebrow": "Pour chaque rôle",
-      "title": "Trois espaces, une seule école.",
+      "title": "Quatre espaces, une seule école.",
       "body": "Chacun voit exactement ce dont il a besoin — et rien de plus.",
       "admin": {
         "title": "Direction",
@@ -151,6 +154,16 @@
           "b": "Notes et moyennes",
           "c": "Présences",
           "d": "Solde et reçus"
+        }
+      },
+      "parent": {
+        "title": "Parents",
+        "lead": "Le parcours de votre enfant, en confiance.",
+        "points": {
+          "a": "Une vue claire pour chaque enfant",
+          "b": "Présences, devoirs et résultats",
+          "c": "Frais et reçus, toujours accessibles",
+          "d": "Un lien direct avec l’équipe pédagogique"
         }
       }
     },
@@ -205,7 +218,8 @@
     },
     "footer": {
       "tagline": "Gestion scolaire pour les établissements privés au Maroc.",
-      "rights": "© {year} Tadriss"
+      "rights": "© {year} Tadriss",
+      "privacy": "Confidentialité"
     }
   },
   "auth": {
@@ -222,7 +236,6 @@
       "submit": "Se connecter",
       "noAccount": "Pas encore de compte ?",
       "signupLink": "Inscrire mon établissement",
-      "notice": "Formulaire valide. La connexion sera activée à la prochaine étape (authentification).",
       "fields": {
         "email": "Adresse e-mail",
         "password": "Mot de passe"
@@ -237,7 +250,6 @@
       "submit": "Créer mon espace",
       "hasAccount": "Déjà inscrit ?",
       "loginLink": "Se connecter",
-      "notice": "Formulaire valide. L’inscription sera activée à la prochaine étape (authentification).",
       "fields": {
         "institutionName": "Nom de l’établissement",
         "firstName": "Prénom",
@@ -251,6 +263,20 @@
         "lastName": "Benali",
         "email": "direction@ecole.ma"
       }
+    },
+    "notices": {
+      "checkEmailTitle": "Vérifiez votre boîte mail",
+      "checkEmailBody": "Nous vous avons envoyé un lien pour confirmer votre adresse. Votre espace sera prêt dès la confirmation.",
+      "linkExpired": "Ce lien a expiré ou a déjà été utilisé. Connectez-vous, ou demandez un nouveau lien."
+    },
+    "setPassword": {
+      "title": "Choisissez votre mot de passe",
+      "subtitle": "Dernière étape : sécurisez votre compte pour accéder à votre établissement.",
+      "submit": "Enregistrer et continuer",
+      "fields": {
+        "password": "Nouveau mot de passe",
+        "confirm": "Confirmer le mot de passe"
+      }
     }
   },
   "validation": {
@@ -258,7 +284,20 @@
     "email": "Adresse e-mail invalide.",
     "passwordMin": "8 caractères minimum.",
     "nameMin": "2 caractères minimum.",
-    "tooLong": "Trop long."
+    "tooLong": "Trop long.",
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "capacityRange": "Entre 1 et 200.",
+    "invalidYear": "Année scolaire invalide.",
+    "invalidTime": "Heure invalide (entre 06:00 et 22:00).",
+    "timeOrder": "La fin doit être après le début.",
+    "invalidDate": "Date invalide.",
+    "maxScoreRange": "Entre 1 et 100.",
+    "coefficientRange": "Entre 0,5 et 10, par pas de 0,5.",
+    "invalidAmount": "Montant invalide (de 0,01 à 1 000 000 MAD).",
+    "fileRequired": "Choisissez un fichier.",
+    "fileTooLarge": "Ce fichier dépasse 10 Mo.",
+    "fileType": "Ce type de fichier n’est pas accepté.",
+    "tooShort": "C’est trop court."
   },
   "shell": {
     "navigation": "Navigation de l’application",
@@ -273,7 +312,8 @@
       "overview": "Vue d’ensemble",
       "school": "Établissement",
       "daily": "Au quotidien",
-      "communication": "Communication"
+      "communication": "Communication",
+      "platform": "Plateforme"
     },
     "nav": {
       "dashboard": "Tableau de bord",
@@ -287,8 +327,30 @@
       "announcements": "Annonces",
       "messages": "Messages",
       "documents": "Documents",
-      "settings": "Paramètres"
-    }
+      "settings": "Paramètres",
+      "homework": "Devoirs",
+      "payments": "Paiements",
+      "institutions": "Établissements",
+      "audit": "Journal d’activité",
+      "parents": "Parents",
+      "import": "Importer"
+    },
+    "roles": {
+      "super_admin": "Plateforme",
+      "institution_admin": "Direction",
+      "teacher": "Enseignant·e",
+      "student": "Élève",
+      "parent": "Parent"
+    },
+    "platform": "Tadriss",
+    "soon": "Bientôt",
+    "unread": "{count, plural, one {# non lu} other {# non lus}}",
+    "skipToContent": "Aller au contenu",
+    "goToPage": "Aller à une page",
+    "more": "Plus",
+    "breadcrumbs": "Fil d’Ariane",
+    "home": "Accueil",
+    "scheduleShort": "Agenda"
   },
   "demo": {
     "user": {
@@ -416,6 +478,1995 @@
     "not_found": "Élément introuvable.",
     "conflict": "Cet élément existe déjà.",
     "rate_limited": "Trop de tentatives. Réessayez dans un instant.",
-    "unknown": "Une erreur inattendue est survenue. Réessayez."
+    "unknown": "Une erreur inattendue est survenue. Réessayez.",
+    "invalid_credentials": "E-mail ou mot de passe incorrect.",
+    "email_taken": "Un compte existe déjà avec cette adresse.",
+    "email_not_confirmed": "Confirmez votre adresse e-mail avant de vous connecter.",
+    "account_disabled": "Ce compte est désactivé. Contactez votre établissement.",
+    "class_full": "Cette classe est complète.",
+    "class_archived": "Cette classe est archivée.",
+    "slot_class_busy": "Cette classe a déjà un cours sur ce créneau.",
+    "slot_teacher_busy": "Cet enseignant a déjà un cours sur ce créneau.",
+    "future_date": "Cette date n’est pas encore arrivée.",
+    "too_old": "Au-delà de 14 jours, seule la direction peut corriger l’appel.",
+    "not_your_lesson": "Ce cours est assuré par un autre enseignant.",
+    "student_not_in_class": "Cet élève ne fait pas partie de la classe.",
+    "wrong_weekday": "Cette date ne tombe pas le bon jour de la semaine.",
+    "score_out_of_range": "Une note dépasse le barème de l’examen.",
+    "not_your_exam": "Seul l’enseignant de cet examen peut saisir ses notes.",
+    "payment_exceeds_balance": "Le montant dépasse le reste à payer.",
+    "invoice_void": "Cette facture est annulée.",
+    "has_payments": "Annulez d’abord les paiements de cette facture.",
+    "recipient_inactive": "Ce compte est désactivé : il ne peut plus recevoir de messages.",
+    "file_too_large": "Ce fichier dépasse 10 Mo.",
+    "file_type": "Ce type de fichier n’est pas accepté.",
+    "plan_limit_reached": "Votre formule a atteint sa limite de places. Contactez-nous pour la faire évoluer.",
+    "invalid_guardianship": "Ce lien est impossible : il faut un parent et un élève du même établissement."
+  },
+  "app": {
+    "greeting": "Bonjour, <n>{name}</n>",
+    "nextSteps": "Prochaines étapes",
+    "progress": "{done, number}/{total, number}",
+    "admin": {
+      "subtitle": "Votre espace est prêt. Voici comment le mettre en route.",
+      "steps": {
+        "account": {
+          "label": "Créer l’espace de l’établissement",
+          "detail": "C’est fait — vous êtes administrateur."
+        },
+        "team": {
+          "label": "Inviter les enseignants et les élèves",
+          "detail": "Invitez-les depuis les pages Enseignants et Élèves."
+        },
+        "classes": {
+          "label": "Créer les classes",
+          "detail": "Disponible bientôt (classes et inscriptions)."
+        }
+      }
+    },
+    "teacher": {
+      "subtitle": "Vos classes et votre emploi du temps apparaîtront ici.",
+      "steps": {
+        "account": {
+          "label": "Activer votre compte",
+          "detail": "C’est fait."
+        },
+        "classes": {
+          "label": "Recevoir vos classes",
+          "detail": "La direction vous les attribuera."
+        },
+        "attendance": {
+          "label": "Faire votre premier appel",
+          "detail": "Disponible bientôt."
+        }
+      }
+    },
+    "student": {
+      "subtitle": "Votre emploi du temps, vos devoirs et vos notes apparaîtront ici.",
+      "steps": {
+        "account": {
+          "label": "Activer votre compte",
+          "detail": "C’est fait."
+        },
+        "schedule": {
+          "label": "Consulter votre emploi du temps",
+          "detail": "Disponible bientôt."
+        },
+        "grades": {
+          "label": "Suivre vos notes",
+          "detail": "Disponible bientôt."
+        }
+      }
+    },
+    "superAdmin": {
+      "subtitle": "Console de la plateforme.",
+      "steps": {
+        "account": {
+          "label": "Accès opérateur",
+          "detail": "Actif."
+        },
+        "institutions": {
+          "label": "Gérer les établissements",
+          "detail": "Arrive avec la console opérateur."
+        },
+        "audit": {
+          "label": "Consulter le journal d’audit",
+          "detail": "Arrive avec la console opérateur."
+        }
+      }
+    }
+  },
+  "studio": {
+    "eyebrow": "UN NOUVEL ESPACE POUR L’ÉCOLE",
+    "hero": "Plus d’élan.<br></br>Moins de gestion.",
+    "intro": "Une école bien organisée laisse plus de place à l’essentiel. Composez votre espace, puis donnez vie à votre établissement.",
+    "build": "Composer mon école",
+    "explore": "Explorer l’espace",
+    "preview": "Aperçu du produit · données fictives",
+    "school": "Votre établissement",
+    "schoolType": "Votre établissement",
+    "modules": "Votre quotidien",
+    "roles": "Votre point de vue",
+    "primary": "Primaire",
+    "college": "Collège",
+    "lycee": "Lycée",
+    "support": "Centre de soutien",
+    "attendance": "Présences",
+    "grades": "Notes",
+    "schedule": "Emploi du temps",
+    "finance": "Frais & reçus",
+    "create": "Créer mon école",
+    "selected": "Votre configuration",
+    "configNote": "Vos choix guident cet aperçu. Configurez votre établissement après la création de votre espace.",
+    "scroll": "LA JOURNÉE PREND FORME",
+    "storyTitle": "De la première sonnerie au dernier reçu.",
+    "storyBody": "Un fil continu entre la classe et la direction. Explorez les outils qui accompagnent votre quotidien.",
+    "next": "À suivre",
+    "ready": "Votre espace est prêt",
+    "waiting": "En préparation",
+    "overview": "Vue d’ensemble",
+    "setup": "Bien démarrer",
+    "setupBody": "Les fondations sont en place. Votre établissement prend forme, étape par étape.",
+    "empty": "Votre journée commence ici",
+    "emptyBody": "Les informations apparaîtront ici à mesure que votre établissement enrichit son espace. Retrouvez les prochaines étapes pour bien démarrer.",
+    "profile": "Votre espace personnel",
+    "protected": "Accès protégé par rôle",
+    "workspace": "Un espace pour chaque école",
+    "workspaceBody": "Votre compte est rattaché à votre établissement. Les accès suivent votre rôle.",
+    "notifications": "Notifications",
+    "noNotifications": "Vous êtes à jour",
+    "notificationBody": "Les nouvelles informations de votre établissement apparaîtront ici.",
+    "collapse": "Réduire la navigation",
+    "expand": "Développer la navigation",
+    "close": "Fermer",
+    "command": "Aller à…",
+    "commandEmpty": "Aucune page disponible pour cette recherche.",
+    "help": "Repères",
+    "helpBody": "La navigation s’adapte à votre rôle et aux modules de votre établissement.",
+    "authEyebrow": "TOUT COMMENCE PAR UN ESPACE",
+    "authTitle": "Une belle journée d’école commence ici.",
+    "authBody": "Une équipe alignée. Une information à sa place. Plus de temps pour transmettre.",
+    "secure": "Un compte personnel. Un accès adapté à votre rôle.",
+    "strength": "Longueur du mot de passe",
+    "weak": "8 caractères minimum",
+    "good": "Minimum atteint",
+    "strong": "16 caractères ou plus",
+    "passwordHint": "Au moins 8 caractères. Préférez une phrase longue et unique.",
+    "catalogue": "L’atelier Tadriss",
+    "catalogueBody": "Composants et parcours de travail. Les exemples sont fictifs et ne modifient aucune donnée d’établissement.",
+    "compact": "Vue compacte",
+    "comfortable": "Vue aérée",
+    "save": "Enregistrer l’aperçu",
+    "saved": "Aperçu enregistré pour cette session",
+    "print": "Imprimer le reçu",
+    "present": "Présent",
+    "absent": "Absent",
+    "late": "En retard",
+    "student": "Élève",
+    "grade": "Note / 20",
+    "modulePreview": "Aperçu du produit",
+    "pricing": "Une offre à la mesure de votre école",
+    "pricingBody": "Les formules et les tarifs sont en préparation. Aucun prix ni abonnement n’est proposé pour le moment.",
+    "pricingLabel": "Tarifs à venir",
+    "footerNote": "Pensé pour les écoles du Maroc.",
+    "returnHome": "Retour à l’accueil",
+    "commandSearching": "Recherche en cours…",
+    "commandPeopleError": "La recherche de personnes a échoué. Réessayez.",
+    "commandNothing": "Aucune page ni personne pour cette recherche.",
+    "commandPeopleHint": "Tapez un nom pour trouver un élève, un parent ou un enseignant."
+  },
+  "directionPreview": {
+    "eyebrow": "Prototypes de direction · aperçu uniquement",
+    "brand": "Tadriss",
+    "indexOne": "01",
+    "indexTwo": "02",
+    "title": "Choisir une direction visuelle",
+    "intro": "Quatre systèmes conçus à partir de la recherche. Chaque proposition montre le marketing, l’authentification et le tableau de bord avec le même contenu produit.",
+    "choose": "Choisir cette direction",
+    "prototype": "Prototype non connecté",
+    "illustrative": "Données illustratives",
+    "marketing": "Héros marketing",
+    "feature": "Section capacité",
+    "login": "Connexion",
+    "dashboard": "Tableau de bord direction",
+    "tokens": "Fiche de tokens",
+    "type": "Typographie",
+    "colour": "Couleur",
+    "radius": "Rayon",
+    "shadow": "Élévation",
+    "motion": "Motion",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "remember": "Se souvenir de moi",
+    "signIn": "Se connecter",
+    "forgot": "Mot de passe oublié ?",
+    "school": "Groupe scolaire Al Manar",
+    "today": "Aujourd’hui",
+    "students": "Élèves",
+    "teachers": "Enseignants",
+    "classes": "Classes",
+    "attendance": "Présence",
+    "rate": "96 %",
+    "payment": "Paiement enregistré",
+    "amount": "1.800 MAD",
+    "schedule": "Mathématiques · 2e Bac SM",
+    "present": "Présents",
+    "roles": "Rôles",
+    "modules": "Modules",
+    "schoolType": "Type d’établissement",
+    "primary": "Primaire",
+    "college": "Collège",
+    "lycee": "Lycée",
+    "support": "Centre de soutien",
+    "preview": "Aperçu de votre école",
+    "build": "Construire mon école",
+    "a": {
+      "name": "Quiet Precision",
+      "kicker": "A · précision calme",
+      "hero": "Chaque journée, parfaitement lisible.",
+      "body": "Une interface dense et rapide pour décider sans chercher.",
+      "featureTitle": "Du signal, pas du bruit",
+      "featureBody": "Une grille stricte, des chiffres alignés et une seule action principale par étape.",
+      "typeValue": "Geist · 12–64 px",
+      "colourValue": "Neutres froids · accent électrique",
+      "radiusValue": "8 px · surfaces nettes",
+      "shadowValue": "Hairline · profondeur discrète",
+      "motionValue": "120 ms · transitions retenues",
+      "rationale": {
+        "one": "La hiérarchie met les décisions quotidiennes au premier plan.",
+        "two": "Les surfaces calmes donnent de la place aux données d’établissement.",
+        "three": "Les raccourcis restent visibles sans transformer l’outil en tableau de contrôle bruyant."
+      }
+    },
+    "b": {
+      "name": "Warm Editorial",
+      "kicker": "B · éditorial chaleureux",
+      "hero": "L’école mérite un espace qui respire.",
+      "body": "Des récits clairs, des modules colorés et des détails qui donnent envie d’avancer.",
+      "featureTitle": "Les tâches prennent forme",
+      "featureBody": "Présence, notes et frais gardent chacun leur couleur dans une composition lumineuse.",
+      "typeValue": "Fraunces + Geist · 14–68 px",
+      "colourValue": "Papier · pin · safran",
+      "radiusValue": "16 px · cartes souples",
+      "shadowValue": "Ombres chaudes · couches légères",
+      "motionValue": "240 ms · apparitions douces",
+      "rationale": {
+        "one": "Une voix éditoriale rend les moments d’accueil plus mémorables.",
+        "two": "Les accents par module rendent l’espace plus facile à parcourir.",
+        "three": "Les cartes gardent une chaleur humaine sans diluer les actions."
+      }
+    },
+    "c": {
+      "name": "Contemporary Maghreb",
+      "kicker": "C · Maghreb contemporain",
+      "hero": "Une architecture pour mieux apprendre.",
+      "body": "Des proportions inspirées des seuils et des patios, au service d’un outil très concret.",
+      "featureTitle": "L’appel devient un rythme",
+      "featureBody": "Les présences se remplissent comme un tableau de classe, puis la journée se compose.",
+      "typeValue": "Geist + Plex Arabic · 16–72 px",
+      "colourValue": "Sable · bleu Majorelle · terracotta",
+      "radiusValue": "12 px · arches ponctuelles",
+      "shadowValue": "Bords francs · contraste assumé",
+      "motionValue": "360 ms · séquences guidées",
+      "rationale": {
+        "one": "Les proportions de seuil et de patio donnent une signature locale sans folklore.",
+        "two": "Le couple Plex Arabic et Geist reste lisible dans les deux scripts.",
+        "three": "Les transitions séquencées accompagnent le rythme d’une journée d’école."
+      }
+    },
+    "d": {
+      "name": "Cinematic Studio",
+      "kicker": "D · studio cinématique",
+      "hero": "Construisez votre école avant de la créer.",
+      "body": "Choisissez votre contexte et regardez un espace Tadriss cohérent se composer sous vos yeux.",
+      "featureTitle": "Une scène qui répond",
+      "featureBody": "Une configuration légère, accessible et sans vidéo : les vrais panneaux DOM changent de place.",
+      "typeValue": "Geist Display · 14–76 px",
+      "colourValue": "Noir bleuté · cyan · ambre",
+      "radiusValue": "14 px · panneaux flottants",
+      "shadowValue": "Lueurs contrôlées · profondeur CSS",
+      "motionValue": "420 ms · désactivée si demandé",
+      "rationale": {
+        "one": "Une scène de configuration donne une raison claire d’explorer le produit.",
+        "two": "Les panneaux DOM gardent l’expérience rapide, accessible et indexable.",
+        "three": "La profondeur reste une aide à l’orientation, jamais un spectacle autonome."
+      }
+    }
+  },
+  "people": {
+    "title": {
+      "teacher": "Enseignants",
+      "student": "Élèves",
+      "parent": "Parents"
+    },
+    "subtitle": {
+      "teacher": "Invitez votre équipe pédagogique et gérez ses accès.",
+      "student": "Invitez vos élèves et gérez leurs accès.",
+      "parent": "Invitez les parents et reliez-les à leurs enfants."
+    },
+    "stats": {
+      "active": "Actifs",
+      "inactive": "Désactivés",
+      "invited": "Invitations en attente"
+    },
+    "search": {
+      "label": "Rechercher",
+      "placeholder": "Nom ou e-mail…",
+      "submit": "Rechercher"
+    },
+    "filters": {
+      "label": "Statut",
+      "all": "Tous",
+      "active": "Actifs",
+      "inactive": "Désactivés"
+    },
+    "status": {
+      "active": "Actif",
+      "inactive": "Désactivé",
+      "invited": "Invité"
+    },
+    "actions": {
+      "invite": {
+        "teacher": "Inviter un enseignant",
+        "student": "Inviter un élève",
+        "parent": "Inviter un parent"
+      },
+      "edit": "Modifier",
+      "deactivate": "Désactiver",
+      "activate": "Réactiver",
+      "resend": "Renvoyer",
+      "revoke": "Révoquer",
+      "editLabel": "Modifier {name}",
+      "deactivateLabel": "Désactiver {name}",
+      "activateLabel": "Réactiver {name}",
+      "resendLabel": "Renvoyer l’invitation à {email}",
+      "revokeLabel": "Révoquer l’invitation de {email}"
+    },
+    "list": {
+      "label": {
+        "teacher": "Liste des enseignants",
+        "student": "Liste des élèves",
+        "parent": "Liste des parents"
+      },
+      "noEmail": "Pas d’e-mail"
+    },
+    "empty": {
+      "teacher": {
+        "title": "Aucun enseignant pour l’instant",
+        "body": "Invitez votre premier enseignant : il recevra un e-mail pour choisir son mot de passe."
+      },
+      "student": {
+        "title": "Aucun élève pour l’instant",
+        "body": "Invitez votre premier élève : il recevra un e-mail pour choisir son mot de passe."
+      },
+      "parent": {
+        "title": "Aucun parent pour l’instant",
+        "body": "Invitez un parent, puis reliez-le à son ou ses enfants."
+      }
+    },
+    "noResults": {
+      "title": "Aucun résultat",
+      "body": "Aucune personne ne correspond à votre recherche ou à ce filtre.",
+      "clear": "Réinitialiser"
+    },
+    "error": {
+      "title": "Impossible de charger la liste",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "range": "{from, number}–{to, number} sur {total, number}"
+    },
+    "invitations": {
+      "title": "Invitations en attente",
+      "subtitle": "Ces personnes n’ont pas encore choisi leur mot de passe.",
+      "expires": "Expire le {date}",
+      "expired": "Expirée",
+      "sentTo": "Envoyée à <e>{email}</e>"
+    },
+    "invite": {
+      "title": {
+        "teacher": "Inviter un enseignant",
+        "student": "Inviter un élève",
+        "parent": "Inviter un parent"
+      },
+      "description": "Un e-mail d’invitation valable 7 jours sera envoyé. La personne choisira son mot de passe.",
+      "fields": {
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "email": "Adresse e-mail"
+      },
+      "placeholders": {
+        "email": "prenom.nom@ecole.ma"
+      },
+      "submit": "Envoyer l’invitation"
+    },
+    "edit": {
+      "title": "Modifier {name}",
+      "description": "L’e-mail et le rôle ne peuvent pas être modifiés ici."
+    },
+    "deactivate": {
+      "title": "Désactiver {name} ?",
+      "body": "Cette personne ne pourra plus se connecter. Ses données sont conservées et vous pourrez la réactiver à tout moment.",
+      "confirm": "Désactiver"
+    },
+    "feedback": {
+      "invited": "Invitation envoyée à {email}.",
+      "resent": "Invitation renvoyée.",
+      "revoked": "Invitation révoquée.",
+      "activated": "Compte réactivé.",
+      "deactivated": "Compte désactivé.",
+      "saved": "Modifications enregistrées."
+    },
+    "guardians": {
+      "childrenOf": "Enfants de {name}",
+      "linked": "Élève relié.",
+      "unlinked": "Lien supprimé.",
+      "unlinkLabel": "Retirer le lien avec {name}",
+      "addLabel": "Relier un élève à {name}",
+      "add": "Relier un élève",
+      "dialogTitle": "Relier un élève à {name}",
+      "dialogBody": "Choisissez le lien de parenté, puis l’élève.",
+      "relationship": "Lien",
+      "relationships": {
+        "parent": "Parent",
+        "mother": "Mère",
+        "father": "Père",
+        "guardian": "Tuteur"
+      },
+      "search": "Rechercher un élève",
+      "searchPlaceholder": "Nom ou e-mail…",
+      "noMatch": "Aucun élève ne correspond."
+    }
+  },
+  "classes": {
+    "title": "Classes",
+    "subtitle": {
+      "admin": "Créez les classes, affectez les enseignants et inscrivez les élèves.",
+      "teacher": "Les classes qui vous sont confiées."
+    },
+    "filters": {
+      "year": "Année scolaire",
+      "search": "Rechercher une classe…",
+      "searchLabel": "Rechercher une classe",
+      "apply": "Filtrer",
+      "archived": "Voir les archives",
+      "active": "Voir les classes actives"
+    },
+    "card": {
+      "students": "{count, plural, one {# élève} other {# élèves}}",
+      "seats": "{enrolled, number} / {capacity, number}",
+      "full": "Complète",
+      "archived": "Archivée",
+      "noTeacher": "Aucun enseignant",
+      "noLevel": "Niveau libre",
+      "seatsLabel": "Places occupées",
+      "enrolments": "{count, plural, one {# inscription} other {# inscriptions}}"
+    },
+    "actions": {
+      "new": "Nouvelle classe"
+    },
+    "new": {
+      "title": "Nouvelle classe",
+      "description": "Vous pourrez ensuite affecter des enseignants et inscrire des élèves.",
+      "fields": {
+        "name": "Nom de la classe",
+        "level": "Niveau (facultatif)",
+        "schoolYear": "Année scolaire",
+        "capacity": "Capacité (facultatif)"
+      },
+      "placeholders": {
+        "name": "6ème A",
+        "level": "6ème",
+        "capacity": "30"
+      },
+      "submit": "Créer la classe"
+    },
+    "edit": {
+      "button": "Modifier",
+      "title": "Modifier la classe",
+      "yearLocked": "L’année scolaire ne peut plus être modifiée."
+    },
+    "detail": {
+      "back": "Toutes les classes",
+      "year": "Année <y>{year}</y>"
+    },
+    "roster": {
+      "title": "Élèves inscrits",
+      "empty": "Aucun élève inscrit",
+      "emptyBody": "Ajoutez des élèves pour constituer la classe.",
+      "since": "Inscrit le {date}",
+      "list": "Liste des élèves inscrits"
+    },
+    "teachers": {
+      "title": "Enseignants",
+      "empty": "Aucun enseignant affecté",
+      "manage": "Gérer",
+      "dialogTitle": "Enseignants de la classe",
+      "dialogBody": "Cochez les enseignants qui interviennent dans cette classe.",
+      "none": "Aucun enseignant actif. Invitez-en depuis la page Enseignants.",
+      "save": "Enregistrer"
+    },
+    "enrol": {
+      "button": "Ajouter des élèves",
+      "title": "Ajouter des élèves",
+      "description": "Seuls les élèves actifs sans classe cette année sont proposés.",
+      "search": "Rechercher un élève…",
+      "none": "Aucun élève disponible pour cette année.",
+      "noMatch": "Aucun élève ne correspond.",
+      "submit": "{count, plural, =0 {Choisissez des élèves} one {Inscrire # élève} other {Inscrire # élèves}}",
+      "seatsLeft": "{count, plural, one {# place restante} other {# places restantes}}",
+      "unlimited": "Capacité illimitée",
+      "loadError": "Impossible de charger les élèves.",
+      "descriptionCentre": "Tous les élèves actifs qui ne sont pas déjà dans ce groupe sont proposés. Un élève peut suivre plusieurs groupes.",
+      "clash": "Chevauche <n>{cls}</n>"
+    },
+    "withdraw": {
+      "label": "Retirer {name} de la classe",
+      "title": "Retirer {name} ?",
+      "body": "L’élève ne fera plus partie de la classe. L’historique est conservé.",
+      "confirm": "Retirer"
+    },
+    "archive": {
+      "button": "Archiver",
+      "title": "Archiver cette classe ?",
+      "body": "Elle disparaîtra pour les enseignants et les élèves. Rien n’est supprimé et vous pourrez la restaurer.",
+      "confirm": "Archiver",
+      "restore": "Restaurer"
+    },
+    "feedback": {
+      "created": "Classe créée.",
+      "updated": "Classe mise à jour.",
+      "archived": "Classe archivée.",
+      "restored": "Classe restaurée.",
+      "enrolled": "{enrolled, plural, one {# élève inscrit.} other {# élèves inscrits.}}",
+      "enrolledSkipped": "{enrolled, plural, one {# élève inscrit} other {# élèves inscrits}}, {skipped, plural, one {# ignoré (déjà en classe).} other {# ignorés (déjà en classe).}}",
+      "withdrawn": "Élève retiré de la classe.",
+      "teachersSaved": "Enseignants mis à jour."
+    },
+    "empty": {
+      "admin": {
+        "title": "Aucune classe pour cette année",
+        "body": "Créez votre première classe pour y affecter des enseignants et inscrire des élèves."
+      },
+      "teacher": {
+        "title": "Aucune classe pour l’instant",
+        "body": "Votre direction ne vous a pas encore affecté de classe cette année."
+      }
+    },
+    "noResults": {
+      "title": "Aucune classe trouvée",
+      "body": "Aucune classe ne correspond à cette recherche.",
+      "clear": "Réinitialiser"
+    },
+    "error": {
+      "title": "Impossible de charger les classes",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Classe introuvable",
+      "body": "Cette classe n’existe pas ou vous n’y avez pas accès."
+    }
+  },
+  "schedule": {
+    "title": "Emploi du temps",
+    "subtitle": {
+      "admin": "Construisez la semaine de chaque classe, sans chevauchement ni double réservation.",
+      "teacher": "Vos cours de la semaine.",
+      "student": "Les cours de votre classe."
+    },
+    "class": {
+      "label": "Classe",
+      "nav": "Choisir une classe",
+      "year": "Année scolaire",
+      "apply": "Afficher"
+    },
+    "grid": {
+      "label": "Emploi du temps hebdomadaire",
+      "agenda": "Cours par jour",
+      "room": "Salle {room}",
+      "noLessons": "Aucun cours",
+      "open": "Modifier le cours {subject}, {day} {time}"
+    },
+    "actions": {
+      "add": "Ajouter un cours",
+      "subjects": "Matières"
+    },
+    "lesson": {
+      "newTitle": "Nouveau cours",
+      "editTitle": "Modifier le cours",
+      "description": "Un cours ne peut pas chevaucher un autre cours de la classe ni de l’enseignant.",
+      "fields": {
+        "subject": "Matière",
+        "teacher": "Enseignant",
+        "weekday": "Jour",
+        "start": "Début",
+        "end": "Fin",
+        "room": "Salle (facultatif)"
+      },
+      "placeholders": {
+        "room": "A1"
+      },
+      "create": "Ajouter le cours",
+      "noTeachers": "Affectez d’abord un enseignant à cette classe.",
+      "noSubjects": "Créez d’abord une matière.",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer ce cours ?",
+      "deleteBody": "Il disparaît de l’emploi du temps. Cette action est définitive."
+    },
+    "subjects": {
+      "title": "Matières",
+      "description": "Les matières de l’établissement, utilisées dans tous les emplois du temps.",
+      "fields": {
+        "name": "Nom de la matière",
+        "color": "Couleur"
+      },
+      "placeholders": {
+        "name": "Mathématiques"
+      },
+      "add": "Ajouter",
+      "save": "Enregistrer",
+      "archive": "Archiver",
+      "restore": "Restaurer",
+      "archived": "Archivée",
+      "empty": "Aucune matière pour l’instant.",
+      "list": "Liste des matières",
+      "colors": {
+        "primary": "Bleu",
+        "accent": "Terre cuite",
+        "info": "Azur",
+        "success": "Vert",
+        "warning": "Ocre"
+      },
+      "edit": "Modifier",
+      "editLabel": "Modifier {name}",
+      "archiveLabel": "Archiver {name}",
+      "restoreLabel": "Restaurer {name}"
+    },
+    "feedback": {
+      "created": "Cours ajouté.",
+      "updated": "Cours mis à jour.",
+      "deleted": "Cours supprimé.",
+      "subjectCreated": "Matière ajoutée.",
+      "subjectUpdated": "Matière mise à jour.",
+      "subjectArchived": "Matière archivée.",
+      "subjectRestored": "Matière restaurée."
+    },
+    "empty": {
+      "noClasses": {
+        "title": "Aucune classe",
+        "body": "Créez d’abord une classe pour construire son emploi du temps.",
+        "cta": "Créer une classe"
+      },
+      "noLessons": {
+        "admin": {
+          "title": "Aucun cours dans cette classe",
+          "body": "Ajoutez le premier cours de la semaine."
+        },
+        "teacher": {
+          "title": "Aucun cours pour l’instant",
+          "body": "Votre direction n’a pas encore planifié vos cours."
+        },
+        "student": {
+          "title": "Aucun cours pour l’instant",
+          "body": "L’emploi du temps de votre classe n’est pas encore publié."
+        }
+      },
+      "noClassStudent": {
+        "title": "Vous n’avez pas encore de classe",
+        "body": "Votre direction doit d’abord vous inscrire dans une classe."
+      }
+    },
+    "error": {
+      "title": "Impossible de charger l’emploi du temps",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    }
+  },
+  "attendance": {
+    "title": "Présences",
+    "subtitle": {
+      "admin": "Suivez l’appel de chaque cours et repérez les classes qui décrochent.",
+      "teacher": "Faites l’appel de vos cours en quelques secondes.",
+      "student": "Vos présences, retards et absences."
+    },
+    "date": {
+      "label": "Date",
+      "previous": "Jour précédent",
+      "next": "Jour suivant",
+      "today": "Aujourd’hui",
+      "go": "Afficher",
+      "sunday": "Pas de cours le dimanche."
+    },
+    "status": {
+      "present": "Présent",
+      "late": "En retard",
+      "absent": "Absent",
+      "excused": "Excusé"
+    },
+    "short": {
+      "present": "P",
+      "late": "R",
+      "absent": "A",
+      "excused": "E"
+    },
+    "lessons": {
+      "title": "Cours du jour",
+      "list": "Cours de la journée",
+      "empty": {
+        "title": "Aucun cours ce jour-là",
+        "bodyAdmin": "Aucun cours n’est planifié à cette date.",
+        "bodyTeacher": "Vous n’avez pas de cours à cette date."
+      },
+      "done": "Appel fait",
+      "todo": "À faire",
+      "upcoming": "À venir",
+      "take": "Faire l’appel",
+      "edit": "Modifier l’appel",
+      "view": "Voir l’appel",
+      "counts": "{present, number} présents · {late, number} en retard · {absent, number} absents · {excused, number} excusés",
+      "teacher": "Enseignant : {name}"
+    },
+    "summary": {
+      "title": "Assiduité par classe",
+      "subtitle": "30 jours jusqu’au {date}",
+      "class": "Classe",
+      "rate": "Assiduité",
+      "absences": "Absences",
+      "lates": "Retards",
+      "empty": "Aucun appel enregistré sur cette période.",
+      "rateLabel": "Taux d’assiduité",
+      "help": "Un retard compte comme présent ; une absence excusée n’est pas comptée."
+    },
+    "rollcall": {
+      "back": "Retour aux cours",
+      "title": "Appel",
+      "markAll": "Tout le monde présent",
+      "save": "Enregistrer l’appel",
+      "saved": "Appel enregistré.",
+      "noStudents": {
+        "title": "Aucun élève dans cette classe",
+        "body": "Inscrivez des élèves avant de faire l’appel."
+      },
+      "note": "Note (facultatif)",
+      "notePlaceholder": "Motif, remarque…",
+      "students": "Élèves",
+      "group": "Statut de {name}",
+      "totals": "{present, number} présents · {late, number} retards · {absent, number} absents · {excused, number} excusés",
+      "unsaved": "Modifications non enregistrées",
+      "readOnly": {
+        "future": "Cette date n’est pas encore arrivée : l’appel n’est pas possible.",
+        "old": "Au-delà de 14 jours, seule la direction peut corriger l’appel.",
+        "other": "Ce cours est assuré par un autre enseignant : vous pouvez consulter l’appel, pas le modifier."
+      },
+      "notFound": {
+        "title": "Cours introuvable",
+        "body": "Ce cours n’existe pas, n’a pas lieu à cette date ou vous n’y avez pas accès."
+      },
+      "noteFor": "Note pour {name}"
+    },
+    "mine": {
+      "stats": {
+        "rate": "Assiduité",
+        "absences": "Absences",
+        "lates": "Retards"
+      },
+      "list": "Historique de présence",
+      "empty": {
+        "title": "Aucun appel enregistré",
+        "body": "Vos présences apparaîtront ici dès le premier appel."
+      },
+      "time": "{subject}",
+      "noNote": "Sans note"
+    },
+    "error": {
+      "title": "Impossible de charger les présences",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    }
+  },
+  "homework": {
+    "title": "Devoirs",
+    "subtitle": {
+      "teacher": "Donnez du travail à vos classes et suivez qui l’a fait.",
+      "student": "Ce que vous avez à faire, et ce qui est en retard.",
+      "parent": "Suivez les devoirs de votre enfant, leurs échéances et leur avancement."
+    },
+    "views": {
+      "label": "Affichage",
+      "upcoming": "À venir",
+      "past": "Passés",
+      "deleted": "Supprimés"
+    },
+    "actions": {
+      "new": "Nouveau devoir",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "restore": "Restaurer"
+    },
+    "form": {
+      "newTitle": "Nouveau devoir",
+      "newDescription": "Vos élèves le verront tout de suite dans leur espace.",
+      "editTitle": "Modifier le devoir",
+      "fields": {
+        "class": "Classe",
+        "subject": "Matière",
+        "title": "Titre",
+        "description": "Consignes (facultatif)",
+        "dueDate": "À rendre pour le"
+      },
+      "placeholders": {
+        "title": "Exercices 1 à 5, page 42",
+        "description": "Précisez ce qu’il faut faire…"
+      },
+      "create": "Publier le devoir",
+      "noClasses": "Aucune classe ne vous est affectée cette année.",
+      "noSubjects": "Votre direction n’a pas encore créé de matières."
+    },
+    "due": {
+      "on": "Pour le {date}",
+      "today": "Pour aujourd’hui",
+      "tomorrow": "Pour demain",
+      "late": "{days, plural, one {En retard d’# jour} other {En retard de # jours}}",
+      "in": "{days, plural, one {Dans # jour} other {Dans # jours}}"
+    },
+    "progress": {
+      "done": "{done, number}/{total, number} ont terminé",
+      "doneOnly": "{done, number} ont terminé",
+      "title": "Avancement",
+      "list": "Avancement des élèves",
+      "finished": "Terminé",
+      "pending": "Pas encore"
+    },
+    "detail": {
+      "back": "Tous les devoirs",
+      "class": "Classe {name}",
+      "archivedNotice": "Ce devoir est supprimé : vos élèves ne le voient plus.",
+      "noDescription": "Aucune consigne."
+    },
+    "delete": {
+      "title": "Supprimer ce devoir ?",
+      "body": "Vos élèves ne le verront plus. Vous pourrez le restaurer depuis l’onglet « Supprimés ».",
+      "confirm": "Supprimer"
+    },
+    "student": {
+      "overdue": "En retard",
+      "upcoming": "À faire",
+      "done": "Terminés",
+      "teacher": "Par {name}",
+      "mark": "Marquer « {title} » comme fait",
+      "unmark": "Marquer « {title} » comme non fait",
+      "allClear": "Rien à faire pour le moment.",
+      "list": "Liste de devoirs"
+    },
+    "feedback": {
+      "created": "Devoir publié.",
+      "updated": "Devoir mis à jour.",
+      "deleted": "Devoir supprimé.",
+      "restored": "Devoir restauré."
+    },
+    "empty": {
+      "teacher": {
+        "title": "Aucun devoir ici",
+        "body": "Publiez un devoir : vos élèves le voient immédiatement."
+      },
+      "teacherPast": {
+        "title": "Aucun devoir passé",
+        "body": "Les devoirs dont l’échéance est dépassée apparaissent ici."
+      },
+      "teacherDeleted": {
+        "title": "Aucun devoir supprimé",
+        "body": "Les devoirs que vous supprimez peuvent être restaurés ici."
+      },
+      "student": {
+        "title": "Aucun devoir pour l’instant",
+        "body": "Vos enseignants n’ont rien publié."
+      },
+      "noClass": {
+        "title": "Vous n’avez pas encore de classe",
+        "body": "Votre direction doit d’abord vous inscrire dans une classe."
+      }
+    },
+    "error": {
+      "title": "Impossible de charger les devoirs",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Devoir introuvable",
+      "body": "Ce devoir n’existe pas ou vous n’y avez pas accès."
+    }
+  },
+  "grades": {
+    "title": "Notes",
+    "subtitle": {
+      "teacher": "Créez vos examens, saisissez les notes et publiez-les quand vous êtes prêt.",
+      "admin": "Suivez les examens et les moyennes de chaque classe.",
+      "student": "Vos notes publiées et vos moyennes."
+    },
+    "filters": {
+      "term": "Semestre",
+      "all": "Tous",
+      "view": "Affichage",
+      "current": "Examens",
+      "deleted": "Supprimés",
+      "class": "Classe",
+      "allClasses": "Toutes les classes",
+      "apply": "Filtrer"
+    },
+    "terms": {
+      "1": "Semestre 1",
+      "2": "Semestre 2"
+    },
+    "status": {
+      "draft": "Brouillon",
+      "published": "Publié"
+    },
+    "actions": {
+      "new": "Nouvel examen",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "restore": "Restaurer",
+      "publish": "Publier les notes",
+      "unpublish": "Retirer la publication"
+    },
+    "form": {
+      "newTitle": "Nouvel examen",
+      "newDescription": "Les notes restent privées tant que vous ne les publiez pas.",
+      "editTitle": "Modifier l’examen",
+      "fields": {
+        "class": "Classe",
+        "subject": "Matière",
+        "title": "Intitulé",
+        "date": "Date",
+        "maxScore": "Barème (sur)",
+        "coefficient": "Coefficient",
+        "term": "Semestre"
+      },
+      "placeholders": {
+        "title": "Contrôle 1 : les fractions"
+      },
+      "create": "Créer l’examen",
+      "noClasses": "Aucune classe ne vous est affectée cette année.",
+      "noSubjects": "Votre direction n’a pas encore créé de matières."
+    },
+    "row": {
+      "coef": "Coef. {value, number}",
+      "out": "sur {max, number}",
+      "progress": "{graded, number}/{total, number} notés",
+      "progressOnly": "{graded, number} notés",
+      "average": "Moyenne {avg, number, ::.##}",
+      "noAverage": "Aucune note",
+      "teacher": "Par {name}"
+    },
+    "detail": {
+      "back": "Tous les examens",
+      "class": "Classe {name}",
+      "archivedNotice": "Cet examen est supprimé : les élèves ne le voient plus.",
+      "draftNotice": "Brouillon : les élèves ne voient ni cet examen ni leurs notes tant que vous ne les publiez pas.",
+      "publishedNotice": "Publié : chaque élève voit sa propre note.",
+      "stats": {
+        "average": "Moyenne /20",
+        "min": "Plus basse",
+        "max": "Plus haute",
+        "graded": "Notés"
+      }
+    },
+    "sheet": {
+      "title": "Saisie des notes",
+      "student": "Élève",
+      "score": "Note",
+      "absent": "Absent",
+      "remark": "Remarque",
+      "remarkPlaceholder": "Facultatif",
+      "scoreFor": "Note de {name}",
+      "absentFor": "{name} : absent",
+      "remarkFor": "Remarque pour {name}",
+      "invalid": "Entre 0 et {max, number}",
+      "hint": "Laissez vide si l’élève n’a pas encore de note. Entrée passe à l’élève suivant.",
+      "save": "Enregistrer les notes",
+      "saved": "Notes enregistrées.",
+      "unsaved": "Modifications non enregistrées",
+      "readOnly": "Seul l’enseignant qui a créé cet examen peut saisir les notes.",
+      "noStudents": {
+        "title": "Aucun élève dans cette classe",
+        "body": "Inscrivez des élèves avant de saisir des notes."
+      },
+      "totals": "{graded, number} notés · {absent, number} absents"
+    },
+    "publishDialog": {
+      "title": "Publier les notes ?",
+      "body": "{missing, plural, one {# élève n’a pas encore de note.} other {# élèves n’ont pas encore de note.}} Chaque élève verra sa propre note. Vous pourrez retirer la publication.",
+      "confirm": "Publier"
+    },
+    "delete": {
+      "title": "Supprimer cet examen ?",
+      "body": "Les élèves ne le verront plus. Vous pourrez le restaurer depuis l’onglet « Supprimés ».",
+      "confirm": "Supprimer"
+    },
+    "feedback": {
+      "created": "Examen créé.",
+      "updated": "Examen mis à jour.",
+      "deleted": "Examen supprimé.",
+      "restored": "Examen restauré.",
+      "published": "Notes publiées.",
+      "unpublished": "Publication retirée."
+    },
+    "admin": {
+      "summary": {
+        "exams": "Examens",
+        "published": "Publiés",
+        "average": "Moyenne des examens publiés"
+      },
+      "table": "Liste des examens",
+      "noAverage": "—"
+    },
+    "student": {
+      "overall": "Moyenne générale",
+      "subject": "Moyenne en {subject}",
+      "exams": "Examens",
+      "absent": "Absent",
+      "noScore": "—",
+      "termLabel": "Semestre",
+      "list": "Détail des notes",
+      "mention": {
+        "tresBien": "Très bien",
+        "bien": "Bien",
+        "assezBien": "Assez bien",
+        "passable": "Passable",
+        "insuffisant": "Insuffisant"
+      },
+      "help": "Chaque note est ramenée sur 20 puis pondérée par son coefficient. Les absences ne comptent pas.",
+      "bySubject": "Par matière"
+    },
+    "empty": {
+      "teacher": {
+        "title": "Aucun examen",
+        "body": "Créez un examen pour saisir les notes de votre classe."
+      },
+      "teacherDeleted": {
+        "title": "Aucun examen supprimé",
+        "body": "Les examens que vous supprimez peuvent être restaurés ici."
+      },
+      "admin": {
+        "title": "Aucun examen",
+        "body": "Les examens créés par les enseignants apparaîtront ici."
+      },
+      "student": {
+        "title": "Aucune note publiée",
+        "body": "Vos notes apparaîtront ici dès que vos enseignants les publieront."
+      },
+      "noClass": {
+        "title": "Vous n’avez pas encore de classe",
+        "body": "Votre direction doit d’abord vous inscrire dans une classe."
+      }
+    },
+    "error": {
+      "title": "Impossible de charger les notes",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Examen introuvable",
+      "body": "Cet examen n’existe pas ou vous n’y avez pas accès."
+    }
+  },
+  "finance": {
+    "title": "Finances",
+    "subtitle": {
+      "admin": "Facturez, encaissez et éditez des reçus numérotés, sans jamais perdre une trace.",
+      "student": "Vos factures, vos paiements et vos reçus."
+    },
+    "summary": {
+      "billed": "Facturé",
+      "collected": "Encaissé",
+      "outstanding": "Reste à payer",
+      "overdue": "En retard",
+      "overdueCount": "{count, plural, one {# facture} other {# factures}}",
+      "invoiceCount": "{count, plural, one {# facture} other {# factures}}",
+      "help": "Les factures et paiements annulés ne sont pas comptés."
+    },
+    "status": {
+      "unpaid": "Impayée",
+      "partial": "Partielle",
+      "paid": "Payée",
+      "overdue": "En retard",
+      "void": "Annulée"
+    },
+    "filters": {
+      "status": "Statut",
+      "all": "Toutes",
+      "search": "Rechercher",
+      "placeholder": "Élève, n° de facture…",
+      "apply": "Rechercher"
+    },
+    "list": {
+      "label": "Liste des factures",
+      "empty": {
+        "title": "Aucune facture",
+        "body": "Générez les factures d’une classe à partir d’un tarif, ou créez-en une."
+      },
+      "noResults": {
+        "title": "Aucune facture trouvée",
+        "body": "Aucune facture ne correspond à cette recherche ou à ce filtre.",
+        "clear": "Réinitialiser"
+      }
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "range": "{from, number}–{to, number} sur {total, number}"
+    },
+    "row": {
+      "due": "Échéance {date}",
+      "paidOf": "{paid} sur {total}",
+      "issued": "Émise le {date}"
+    },
+    "actions": {
+      "newInvoice": "Nouvelle facture",
+      "generate": "Générer des factures",
+      "plans": "Tarifs",
+      "pay": "Enregistrer un paiement",
+      "voidPayment": "Annuler",
+      "voidInvoice": "Annuler la facture",
+      "receipt": "Reçu",
+      "print": "Imprimer"
+    },
+    "plans": {
+      "title": "Tarifs",
+      "description": "Les frais que vous facturez (inscription, scolarité, transport…). Le montant est figé : pour le changer, créez un nouveau tarif.",
+      "fields": {
+        "name": "Nom du tarif",
+        "description": "Description (facultatif)",
+        "amount": "Montant (MAD)"
+      },
+      "placeholders": {
+        "name": "Scolarité mensuelle",
+        "amount": "1 200,00"
+      },
+      "add": "Ajouter",
+      "save": "Enregistrer",
+      "archive": "Archiver",
+      "restore": "Restaurer",
+      "archived": "Archivé",
+      "empty": "Aucun tarif pour l’instant.",
+      "list": "Liste des tarifs",
+      "edit": "Modifier",
+      "editLabel": "Modifier {name}",
+      "archiveLabel": "Archiver {name}",
+      "restoreLabel": "Restaurer {name}"
+    },
+    "invoice": {
+      "title": "Nouvelle facture",
+      "description": "Une facture libre pour un seul élève. Pour facturer toute une classe, utilisez « Générer des factures ».",
+      "fields": {
+        "student": "Élève",
+        "description": "Libellé",
+        "amount": "Montant (MAD)",
+        "dueDate": "Échéance"
+      },
+      "placeholders": {
+        "student": "Rechercher un élève…",
+        "description": "Sortie pédagogique",
+        "amount": "350,00"
+      },
+      "noMatch": "Aucun élève ne correspond.",
+      "pickStudent": "Choisissez un élève dans la liste.",
+      "submit": "Émettre la facture",
+      "selected": "Élève choisi : {name}"
+    },
+    "generate": {
+      "title": "Générer des factures",
+      "description": "Une facture par élève inscrit dans la classe. Relancer ne facture jamais deux fois le même élève pour le même tarif et la même échéance.",
+      "fields": {
+        "plan": "Tarif",
+        "class": "Classe",
+        "dueDate": "Échéance",
+        "description": "Libellé (facultatif)"
+      },
+      "placeholders": {
+        "description": "Scolarité octobre 2026"
+      },
+      "noPlans": "Créez d’abord un tarif.",
+      "noClasses": "Aucune classe cette année.",
+      "preview": "Chaque élève sera facturé {amount}.",
+      "submit": "Générer"
+    },
+    "payment": {
+      "title": "Enregistrer un paiement",
+      "remaining": "Reste à payer : {amount}",
+      "fields": {
+        "amount": "Montant (MAD)",
+        "method": "Mode de paiement",
+        "paidOn": "Date du paiement",
+        "reference": "Référence (facultatif)"
+      },
+      "placeholders": {
+        "reference": "N° de virement ou de chèque"
+      },
+      "methods": {
+        "cash": "Espèces",
+        "transfer": "Virement",
+        "cheque": "Chèque",
+        "card": "Carte bancaire"
+      },
+      "submit": "Enregistrer et créer le reçu"
+    },
+    "void": {
+      "paymentTitle": "Annuler ce paiement ?",
+      "invoiceTitle": "Annuler cette facture ?",
+      "paymentBody": "Le reçu {receipt} sera marqué « annulé » et son montant redevient dû. Cette action est définitive et le reçu garde son numéro.",
+      "invoiceBody": "La facture sera marquée « annulée » et l’élève ne la verra plus. Cette action est définitive. Pour corriger un montant, annulez puis émettez une nouvelle facture.",
+      "reason": "Motif (obligatoire)",
+      "reasonPlaceholder": "Saisie en double, erreur de montant…",
+      "confirm": "Annuler définitivement"
+    },
+    "detail": {
+      "back": "Toutes les factures",
+      "amount": "Montant",
+      "paid": "Payé",
+      "balance": "Reste à payer",
+      "payments": "Paiements",
+      "list": "Liste des paiements",
+      "noPayments": "Aucun paiement enregistré.",
+      "voidedInvoice": "Facture annulée. Motif : {reason}",
+      "voidedPayment": "Annulé : {reason}",
+      "dueOn": "Échéance {date}",
+      "issuedOn": "Émise le {date}",
+      "ref": "Réf. {reference}"
+    },
+    "receipt": {
+      "title": "Reçu de paiement",
+      "number": "N° {number}",
+      "date": "Date",
+      "student": "Élève",
+      "invoice": "Facture",
+      "for": "Objet",
+      "amount": "Montant reçu",
+      "method": "Mode de paiement",
+      "reference": "Référence",
+      "balance": "Reste à payer sur cette facture",
+      "settled": "Facture soldée",
+      "voided": "ANNULÉ",
+      "voidedReason": "Annulé : {reason}",
+      "signature": "Cachet et signature",
+      "footer": "Document généré par Tadriss",
+      "back": "Retour"
+    },
+    "student": {
+      "owed": "Reste à payer",
+      "paid": "Déjà payé",
+      "list": "Mes factures",
+      "receipts": "Reçus",
+      "empty": {
+        "title": "Aucune facture",
+        "body": "Vos factures apparaîtront ici dès que l’établissement en émettra."
+      },
+      "allPaid": "Tout est à jour."
+    },
+    "feedback": {
+      "planCreated": "Tarif créé.",
+      "planUpdated": "Tarif mis à jour.",
+      "planArchived": "Tarif archivé.",
+      "planRestored": "Tarif restauré.",
+      "invoiceCreated": "Facture émise.",
+      "generated": "{count, plural, one {# facture émise.} other {# factures émises.}}",
+      "nothingToGenerate": "Rien à générer : tous les élèves de la classe sont déjà facturés.",
+      "paymentRecorded": "Paiement enregistré, reçu {receipt}.",
+      "paymentVoided": "Paiement annulé.",
+      "invoiceVoided": "Facture annulée."
+    },
+    "error": {
+      "title": "Impossible de charger les finances",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Document introuvable",
+      "body": "Cette facture ou ce reçu n’existe pas ou vous n’y avez pas accès."
+    }
+  },
+  "announcements": {
+    "title": "Annonces",
+    "subtitle": {
+      "admin": "Informez tout l’établissement, une catégorie ou une classe, et voyez qui a lu.",
+      "teacher": "Les annonces de la direction, et celles que vous adressez à vos classes.",
+      "student": "Les nouvelles de votre établissement et de vos enseignants.",
+      "parent": "Les nouvelles de l’établissement et de la classe de vos enfants."
+    },
+    "views": {
+      "label": "Affichage",
+      "active": "Publiées",
+      "deleted": "Supprimées"
+    },
+    "actions": {
+      "new": "Nouvelle annonce",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "restore": "Restaurer",
+      "pin": "Épingler",
+      "unpin": "Désépingler",
+      "markAllRead": "Tout marquer comme lu"
+    },
+    "audience": {
+      "label": "Destinataires",
+      "all": "Tout l’établissement",
+      "teachers": "Tous les enseignants",
+      "students": "Tous les élèves",
+      "class": "Classe <n>{name}</n>",
+      "classOption": "Classe : {name}",
+      "parents": "Tous les parents"
+    },
+    "form": {
+      "newTitle": "Nouvelle annonce",
+      "newDescription": "Elle apparaît tout de suite chez ses destinataires.",
+      "editTitle": "Modifier l’annonce",
+      "fields": {
+        "audience": "Destinataires",
+        "title": "Titre",
+        "body": "Message"
+      },
+      "placeholders": {
+        "title": "Réunion de rentrée",
+        "body": "Écrivez votre annonce…"
+      },
+      "create": "Publier l’annonce",
+      "noClasses": "Aucune classe ne vous est affectée cette année : vous ne pouvez pas encore publier."
+    },
+    "card": {
+      "pinned": "Épinglée",
+      "unread": "Non lue",
+      "by": "Par <n>{name}</n>",
+      "reach": "{read, number}/{total, number} ont lu",
+      "list": "Liste des annonces",
+      "open": "Lire l’annonce"
+    },
+    "detail": {
+      "back": "Toutes les annonces",
+      "archivedNotice": "Cette annonce est supprimée : ses destinataires ne la voient plus.",
+      "reachTitle": "Lectures",
+      "reachNone": "Personne n’a encore lu cette annonce.",
+      "reachAll": "Tous les destinataires l’ont lue."
+    },
+    "feedback": {
+      "created": "Annonce publiée.",
+      "updated": "Annonce mise à jour.",
+      "deleted": "Annonce supprimée.",
+      "restored": "Annonce restaurée.",
+      "pinned": "Annonce épinglée.",
+      "unpinned": "Annonce désépinglée."
+    },
+    "empty": {
+      "feed": {
+        "title": "Aucune annonce pour le moment",
+        "body": "Les annonces de votre établissement apparaîtront ici."
+      },
+      "authored": {
+        "title": "Aucune annonce publiée",
+        "body": "Publiez une annonce : elle apparaît tout de suite chez ses destinataires."
+      },
+      "deleted": {
+        "title": "Aucune annonce supprimée",
+        "body": "Les annonces que vous supprimez peuvent être restaurées ici."
+      }
+    },
+    "error": {
+      "title": "Impossible de charger les annonces",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Annonce introuvable",
+      "body": "Cette annonce n’existe pas ou vous n’y avez pas accès."
+    }
+  },
+  "messages": {
+    "title": "Messages",
+    "subtitle": {
+      "admin": "Écrivez à un enseignant ou à un élève, en privé.",
+      "teacher": "Échangez en privé avec vos élèves et la direction.",
+      "student": "Échangez en privé avec vos enseignants et la direction.",
+      "parent": "Échangez en privé avec les enseignants de vos enfants et la direction."
+    },
+    "actions": {
+      "new": "Nouveau message",
+      "send": "Envoyer"
+    },
+    "roles": {
+      "institution_admin": "Direction",
+      "teacher": "Enseignant",
+      "student": "Élève",
+      "super_admin": "Plateforme",
+      "parent": "Parent"
+    },
+    "list": {
+      "label": "Conversations",
+      "you": "Vous : <n>{text}</n>",
+      "unknown": "Ancien contact",
+      "open": "Ouvrir la conversation avec {name}"
+    },
+    "new": {
+      "title": "Nouveau message",
+      "description": "Seules les personnes avec qui vous pouvez échanger sont proposées.",
+      "fields": {
+        "recipient": "Destinataire",
+        "body": "Message"
+      },
+      "placeholders": {
+        "body": "Écrivez votre message…"
+      },
+      "send": "Envoyer le message",
+      "noContacts": "Personne à qui écrire pour le moment."
+    },
+    "thread": {
+      "back": "Toutes les conversations",
+      "messages": "Messages",
+      "composer": "Votre message",
+      "placeholder": "Écrivez votre message…",
+      "empty": "Aucun message pour l’instant. Écrivez le premier.",
+      "read": "Lu",
+      "sent": "Envoyé",
+      "today": "Aujourd’hui",
+      "yesterday": "Hier"
+    },
+    "empty": {
+      "title": "Aucune conversation",
+      "body": "Écrivez un premier message : il reste privé entre vous et votre destinataire."
+    },
+    "error": {
+      "title": "Impossible de charger les messages",
+      "body": "Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Conversation introuvable",
+      "body": "Cette personne n’existe pas ou vous ne pouvez pas lui écrire."
+    },
+    "feedback": {
+      "sent": "Message envoyé."
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "subtitle": {
+      "admin": "Partagez règlements, circulaires et supports avec tout l’établissement ou une classe.",
+      "teacher": "Les documents de la direction, et ceux que vous partagez avec vos classes.",
+      "student": "Les documents de votre établissement et de vos enseignants.",
+      "parent": "Les documents de l’établissement et de la classe de vos enfants."
+    },
+    "views": {
+      "label": "Affichage",
+      "active": "Publiés",
+      "deleted": "Supprimés"
+    },
+    "list": "Liste des documents",
+    "actions": {
+      "upload": "Ajouter un document",
+      "download": "Télécharger",
+      "downloadNamed": "Télécharger {title}",
+      "edit": "Modifier",
+      "editNamed": "Modifier {title}",
+      "delete": "Supprimer",
+      "deleteNamed": "Supprimer {title}",
+      "restore": "Restaurer",
+      "restoreNamed": "Restaurer {title}"
+    },
+    "audience": {
+      "all": "Tout l’établissement",
+      "teachers": "Tous les enseignants",
+      "students": "Tous les élèves",
+      "class": "Classe <n>{name}</n>",
+      "classOption": "Classe : {name}",
+      "parents": "Tous les parents"
+    },
+    "by": "Par <n>{name}</n>",
+    "size": {
+      "b": "o",
+      "kb": "Ko",
+      "mb": "Mo"
+    },
+    "form": {
+      "uploadTitle": "Ajouter un document",
+      "uploadDescription": "Il est disponible tout de suite pour ses destinataires.",
+      "editTitle": "Modifier le document",
+      "fields": {
+        "file": "Fichier",
+        "audience": "Destinataires",
+        "title": "Titre",
+        "description": "Description (facultatif)"
+      },
+      "placeholders": {
+        "title": "Règlement intérieur",
+        "description": "À quoi sert ce document ?"
+      },
+      "limits": "PDF, images, Word, Excel, PowerPoint, texte ou CSV. 10 Mo maximum.",
+      "upload": "Envoyer le document",
+      "noClasses": "Aucune classe ne vous est affectée cette année : vous ne pouvez pas encore partager de document."
+    },
+    "feedback": {
+      "uploaded": "Document ajouté.",
+      "updated": "Document mis à jour.",
+      "deleted": "Document supprimé.",
+      "restored": "Document restauré."
+    },
+    "empty": {
+      "feed": {
+        "title": "Aucun document pour le moment",
+        "body": "Les documents de votre établissement apparaîtront ici."
+      },
+      "authored": {
+        "title": "Aucun document partagé",
+        "body": "Ajoutez un document : il est disponible tout de suite pour ses destinataires."
+      },
+      "deleted": {
+        "title": "Aucun document supprimé",
+        "body": "Les documents que vous supprimez peuvent être restaurés ici."
+      }
+    },
+    "error": {
+      "title": "Impossible de charger les documents",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "subtitle": "Le profil de votre établissement, votre formule et les modules ouverts à chaque profil.",
+    "profile": {
+      "title": "Profil de l’établissement",
+      "edit": "Modifier",
+      "editTitle": "Profil de l’établissement",
+      "editDescription": "Ces informations apparaissent dans les documents et les reçus.",
+      "empty": "Non renseigné",
+      "fields": {
+        "name": "Nom",
+        "defaultLocale": "Langue par défaut",
+        "timezone": "Fuseau horaire",
+        "phone": "Téléphone",
+        "city": "Ville",
+        "address": "Adresse"
+      }
+    },
+    "feedback": {
+      "saved": "Paramètres enregistrés."
+    },
+    "plan": {
+      "title": "Formule",
+      "body": "Les places comptent les membres actifs et les invitations en attente.",
+      "students": "Élèves",
+      "teachers": "Enseignants",
+      "usage": "{used, number} sur {limit, number}",
+      "unlimited": "{used, number} · illimité",
+      "names": {
+        "essential": "Essentielle",
+        "standard": "Standard",
+        "premium": "Premium"
+      }
+    },
+    "modules": {
+      "title": "Modules par profil",
+      "body": "Désactivez un module pour qu’il disparaisse de la navigation et des pages d’un profil. Les données ne sont pas supprimées.",
+      "roles": {
+        "teacher": "Enseignants",
+        "student": "Élèves"
+      },
+      "list": {
+        "teacher": "Modules des enseignants",
+        "student": "Modules des élèves"
+      },
+      "on": "Activé",
+      "off": "Désactivé",
+      "switchLabel": "{name} pour {role}",
+      "feedback": {
+        "enabled": "{name} est activé.",
+        "disabled": "{name} est désactivé."
+      },
+      "disabledTitle": "Ce module n’est pas disponible",
+      "disabledBody": "La direction de votre établissement l’a désactivé pour votre profil."
+    },
+    "error": {
+      "title": "Impossible de charger les paramètres",
+      "body": "Vos données n’ont pas été modifiées. Réessayez dans un instant."
+    },
+    "activity": {
+      "title": "Journal d’activité",
+      "body": "Les dernières actions sensibles dans votre établissement.",
+      "empty": "Aucune activité pour le moment."
+    }
+  },
+  "platform": {
+    "eyebrow": "Plateforme",
+    "overview": {
+      "greeting": "Bonjour, {name}",
+      "subtitle": "Les établissements de la plateforme et leur activité récente.",
+      "manage": "Gérer les établissements",
+      "schools": "Établissements actifs",
+      "students": "Élèves",
+      "teachers": "Enseignants",
+      "plans": "Formules",
+      "recent": "Activité récente",
+      "allActivity": "Tout le journal"
+    },
+    "institutions": {
+      "title": "Établissements",
+      "subtitle": "Changez la formule d’un établissement ou suspendez son accès.",
+      "statusLabel": "Statut",
+      "status": {
+        "all": "Tous",
+        "active": "Actifs",
+        "suspended": "Suspendus"
+      },
+      "search": "Rechercher un établissement",
+      "list": "Liste des établissements",
+      "empty": {
+        "title": "Aucun établissement",
+        "body": "Aucun établissement ne correspond à cette recherche."
+      },
+      "suspended": "Suspendu",
+      "counts": "{students, number} élèves · {teachers, number} enseignants"
+    },
+    "detail": {
+      "back": "Tous les établissements",
+      "plan": "Formule",
+      "planHelp": "La formule fixe le nombre de places. Un établissement ne peut pas la modifier lui-même.",
+      "members": "Membres actifs",
+      "students": "Élèves",
+      "teachers": "Enseignants",
+      "admins": "Direction",
+      "created": "Créé le {date}",
+      "suspend": "Suspendre",
+      "restore": "Rétablir l’accès",
+      "suspendedNotice": "Cet établissement est suspendu : ses membres ne peuvent plus se connecter. Ses données sont conservées."
+    },
+    "suspend": {
+      "title": "Suspendre cet établissement ?",
+      "body": "Ses membres ne pourront plus se connecter ni utiliser l’application. Les données sont conservées et l’accès peut être rétabli à tout moment.",
+      "confirm": "Suspendre"
+    },
+    "feedback": {
+      "planChanged": "Formule changée : {plan}.",
+      "suspended": "Établissement suspendu.",
+      "restored": "Accès rétabli."
+    },
+    "error": {
+      "title": "Impossible de charger les établissements",
+      "body": "Réessayez dans un instant."
+    },
+    "notFound": {
+      "title": "Établissement introuvable",
+      "body": "Cet établissement n’existe pas."
+    }
+  },
+  "audit": {
+    "title": "Journal d’activité",
+    "subtitle": "Les actions sensibles, de la plus récente à la plus ancienne. Le journal ne peut pas être modifié.",
+    "older": "Voir les événements plus anciens",
+    "system": "Système",
+    "by": "Par <n>{name}</n>",
+    "actions": {
+      "institution": {
+        "plan_changed": "Formule modifiée",
+        "suspended": "Établissement suspendu",
+        "restored": "Accès rétabli",
+        "updated": "Profil de l’établissement modifié"
+      },
+      "member": {
+        "deactivated": "Compte désactivé",
+        "reactivated": "Compte réactivé"
+      },
+      "payment": {
+        "voided": "Paiement annulé"
+      },
+      "invoice": {
+        "voided": "Facture annulée"
+      },
+      "module": {
+        "toggled": "Module modifié"
+      }
+    },
+    "detail": {
+      "plan": "{from} → {to}",
+      "module": "{module} · {role} · {state}",
+      "on": "activé",
+      "off": "désactivé",
+      "voided": "{ref} : {reason}"
+    },
+    "empty": {
+      "title": "Aucune activité",
+      "body": "Les actions sensibles apparaîtront ici."
+    }
+  },
+  "dashboard": {
+    "seeAll": "Tout voir",
+    "unavailable": "Indisponible pour le moment.",
+    "lessons": {
+      "none": "Aucun cours aujourd’hui.",
+      "list": "Cours du jour",
+      "where": "Classe <n>{cls}</n>",
+      "rollCallDone": "Appel fait",
+      "rollCallTodo": "Appel à faire"
+    },
+    "announcements": {
+      "none": "Aucune annonce pour le moment.",
+      "list": "Dernières annonces",
+      "unread": "Non lue"
+    },
+    "admin": {
+      "subtitle": "L’établissement aujourd’hui : présences, finances et nouvelles.",
+      "actions": {
+        "announce": "Annonces",
+        "invite": "Inviter des élèves"
+      },
+      "students": "Élèves",
+      "teachers": "Enseignants",
+      "classes": "Classes",
+      "rollCalls": "Appels du jour",
+      "invited": "{count, plural, one {# invitation en attente} other {# invitations en attente}}",
+      "noLessons": "Pas de cours aujourd’hui",
+      "todayTitle": "Les cours d’aujourd’hui",
+      "moneyTitle": "Finances",
+      "collected": "Encaissé",
+      "outstanding": "Reste à payer",
+      "overdue": "En retard",
+      "overdueInvoices": "{count, plural, one {# facture} other {# factures}}",
+      "newsTitle": "Dernières annonces",
+      "planTitle": "Places",
+      "planLink": "Formule",
+      "startTitle": "Pour démarrer",
+      "startBody": "Trois étapes pour mettre votre établissement en route.",
+      "start": {
+        "teachers": "Invitez vos enseignants",
+        "students": "Invitez vos élèves",
+        "classes": "Créez vos classes"
+      },
+      "queue": {
+        "title": "À traiter aujourd’hui",
+        "empty": "Rien d’urgent pour l’instant.",
+        "unavailable": "Certaines informations n’ont pas pu être chargées : cette liste peut être incomplète.",
+        "lateRollCalls": "{count, plural, one {# appel en retard} other {# appels en retard}}",
+        "lateDetail": "Cours terminé à <mono>{time}</mono>",
+        "overdueDetail": "{count, plural, one {# facture} other {# factures}} · depuis le {date}",
+        "overdueMore": "{count, plural, one {# autre élève en retard de paiement} other {# autres élèves en retard de paiement}}",
+        "overdueMoreDetail": "Voir toutes les factures en retard",
+        "messages": "{count, plural, one {# message non lu} other {# messages non lus}}",
+        "messagesDetail": "Familles et enseignants attendent une réponse",
+        "classes": "{count, plural, one {# classe sans enseignant} other {# classes sans enseignant}}",
+        "invitations": "{count, plural, one {# invitation expirée} other {# invitations expirées}}",
+        "invitationsDetail": "À renvoyer ou à annuler"
+      }
+    },
+    "teacher": {
+      "subtitle": "Vos cours du jour, les devoirs à suivre et les nouvelles.",
+      "lessonsToday": "Cours aujourd’hui",
+      "toTake": "{count, plural, one {# appel à faire} other {# appels à faire}}",
+      "allTaken": "Tous les appels sont faits",
+      "noLessons": "Pas de cours aujourd’hui",
+      "homeworkOpen": "Devoirs à venir",
+      "unreadMessages": "Messages non lus",
+      "todayTitle": "Mes cours d’aujourd’hui",
+      "homeworkTitle": "Devoirs à suivre",
+      "noHomework": "Aucun devoir à venir.",
+      "done": "{count, plural, one {# a terminé} other {# ont terminé}}",
+      "newsTitle": "Dernières annonces"
+    },
+    "student": {
+      "subtitle": "Votre journée, votre travail et vos résultats.",
+      "attendance": "Assiduité",
+      "average": "Moyenne",
+      "homeworkTodo": "Devoirs à faire",
+      "owed": "Reste à payer",
+      "todayTitle": "Mon emploi du temps d’aujourd’hui",
+      "homeworkTitle": "À faire",
+      "noHomework": "Rien à faire pour le moment.",
+      "gradesTitle": "Dernières notes",
+      "noGrades": "Aucune note publiée.",
+      "absent": "Absent",
+      "newsTitle": "Dernières annonces"
+    },
+    "parent": {
+      "subtitle": "Le suivi de <n>{name}</n>, classe <n>{cls}</n>.",
+      "noClass": "Votre enfant n’est pas encore dans une classe."
+    }
+  },
+  "parent": {
+    "noChildren": {
+      "title": "Aucun enfant relié",
+      "body": "La direction de l’établissement doit d’abord relier votre compte à votre ou vos enfants."
+    },
+    "switcher": {
+      "label": "Choisir un enfant"
+    },
+    "viewingChild": "Vous consultez le dossier de {name}."
+  },
+  "report": {
+    "title": "Bulletin scolaire",
+    "year": "Année",
+    "student": "Élève",
+    "class": "Classe",
+    "subject": "Matière",
+    "coefficient": "Coefficient",
+    "average": "Moyenne /20",
+    "overall": "Moyenne générale",
+    "attendance": "Assiduité",
+    "absences": "{absent, plural, =0 {Aucune absence} one {# absence} other {# absences}} · {late, plural, =0 {aucun retard} one {# retard} other {# retards}}",
+    "table": "Moyennes par matière",
+    "empty": "Aucune note publiée pour cette période.",
+    "footer": "Document généré par Tadriss",
+    "signature": "Cachet et signature",
+    "back": "Retour",
+    "print": "Bulletin",
+    "notFound": "Bulletin introuvable"
+  },
+  "import": {
+    "title": "Importer des personnes",
+    "subtitle": "Invitez d’un coup vos élèves, parents et enseignants depuis un fichier CSV.",
+    "format": "Colonnes : prénom, nom, email, rôle (élève, parent ou enseignant). Séparateur « ; » ou « , ». {max, number} lignes au plus. Chaque personne reçoit une invitation par e-mail.",
+    "choose": "Choisir un fichier CSV",
+    "paste": "…ou collez le contenu ici",
+    "parseError": {
+      "empty": "Le fichier est vide ou ne contient que l’en-tête.",
+      "columns": "Colonnes manquantes : il faut prénom, nom, email et rôle.",
+      "tooMany": "Trop de lignes : {max, number} au maximum par import."
+    },
+    "preview": "{ready, number} sur {total, number} lignes prêtes à être invitées",
+    "previewList": "Aperçu des lignes",
+    "rowError": {
+      "validation": "À corriger",
+      "duplicate": "Doublon"
+    },
+    "role": {
+      "teacher": "Enseignant",
+      "student": "Élève",
+      "parent": "Parent"
+    },
+    "send": "{count, plural, one {Inviter # personne} other {Inviter # personnes}}",
+    "done": "{sent, number} invitations envoyées sur {total, number}",
+    "resultList": "Résultat de l’import",
+    "sent": "Invitation envoyée"
+  },
+  "privacy": {
+    "eyebrow": "Confidentialité",
+    "title": "Politique de confidentialité",
+    "intro": "Tadriss traite les données de votre établissement pour qu’il puisse gérer sa scolarité. Voici, simplement, ce que nous faisons de ces données.",
+    "who": {
+      "title": "Qui est responsable",
+      "body": "L’établissement est responsable du traitement des données de ses élèves, parents et enseignants. Tadriss agit comme sous-traitant : nous hébergeons et sécurisons ces données selon les instructions de l’établissement."
+    },
+    "data": {
+      "title": "Données traitées",
+      "body": "Identité et coordonnées des membres, classes, présences, notes, devoirs, factures et paiements, messages et documents déposés par l’établissement. Nous ne collectons aucune donnée à des fins publicitaires."
+    },
+    "why": {
+      "title": "Finalités",
+      "body": "Uniquement la gestion de la vie scolaire : emploi du temps, suivi des présences et des notes, communication avec les familles, facturation. Les données ne sont ni vendues ni utilisées pour du profilage."
+    },
+    "who_sees": {
+      "title": "Qui voit quoi",
+      "body": "Chaque établissement est isolé des autres. Un élève voit ses propres données, un parent celles de ses enfants, un enseignant celles de ses classes, l’administration celles de son établissement. Les messages privés ne sont lisibles que par leurs deux participants."
+    },
+    "location": {
+      "title": "Hébergement et durée",
+      "body": "Les données sont hébergées chez un prestataire cloud sécurisé et sauvegardées régulièrement. Elles sont conservées tant que l’établissement utilise Tadriss, puis supprimées ou restituées à sa demande."
+    },
+    "rights": {
+      "title": "Vos droits",
+      "body": "Conformément à la loi 09-08, toute personne peut demander l’accès, la rectification ou la suppression de ses données en s’adressant à son établissement, qui nous donne les instructions nécessaires. Le traitement est déclaré auprès de la CNDP par l’établissement."
+    },
+    "security": {
+      "title": "Sécurité",
+      "body": "Connexions chiffrées, mots de passe jamais stockés en clair, cloisonnement strict entre établissements, journal d’audit des opérations sensibles et sauvegardes."
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "Pour toute question sur vos données, contactez d’abord l’administration de votre établissement ; vous pouvez aussi nous écrire à privacy@tadriss.ma."
+    }
+  },
+  "demoSchool": {
+    "eyebrow": "Démo",
+    "title": "Essayez Tadriss avec une vraie école",
+    "intro": "Connectez-vous en un clic à l’école fictive « Al Manar » : classes, notes, présences, factures et messages sont déjà là. Choisissez le rôle que vous voulez voir.",
+    "roles": {
+      "admin": {
+        "name": "Direction",
+        "body": "Élèves, classes, finances, annonces, import et paramètres de l’école."
+      },
+      "teacher": {
+        "name": "Enseignant",
+        "body": "Appel, devoirs, notes et messages aux familles."
+      },
+      "student": {
+        "name": "Élève",
+        "body": "Emploi du temps, devoirs, notes, bulletin et paiements."
+      },
+      "parent": {
+        "name": "Parent",
+        "body": "Le suivi de deux enfants : présences, notes, bulletin, factures."
+      }
+    },
+    "enter": "Entrer dans la démo",
+    "note": "Les données sont fictives et partagées : d’autres visiteurs peuvent les modifier.",
+    "stripBody": "Parcourez une école complète, sans inscription, en tant que direction, enseignant, élève ou parent.",
+    "cta": "Voir la démo"
+  },
+  "workspace": {
+    "edition": "Le journal de votre école",
+    "day": "La journée en clair",
+    "focus": "À votre rythme",
+    "open": "Ouvrir cet espace",
+    "inStep": "Chaque jour compte.",
+    "rollCallHint": "Un geste par élève. Une vue claire pour l’école.",
+    "teacherHint": "Vos cours, vos élèves. L’essentiel à portée de main.",
+    "studentHint": "De petits efforts. De grands progrès.",
+    "parentHint": "Son parcours, en confiance.",
+    "receipt": "Suivre les encaissements",
+    "collectedShare": "Part des montants encaissés",
+    "lessonFocus": "Votre programme du jour",
+    "workFocus": "Devoirs à terminer",
+    "gradeFocus": "Moyenne générale",
+    "attendanceFocus": "Présence en classe",
+    "rollCallStatus": "{todo, plural, =0 {Tous les appels sont faits} one {# appel à faire} other {# appels à faire}}{late, plural, =0 {} other { · # en retard}}"
+  },
+  "domain": {
+    "directory": "Annuaire",
+    "members": "{count, plural, one {# membre} other {# membres}}",
+    "classes": "{count, plural, one {# classe} other {# classes}}",
+    "lessons": "{count, plural, one {# cours} other {# cours}}",
+    "weekHours": "{hours, number} h de cours",
+    "ledger": "Registre des factures",
+    "collection": "Répartition des encaissements",
+    "inbox": "Boîte de réception",
+    "unread": "{count, plural, one {# non lu} other {# non lus}}",
+    "library": "Bibliothèque",
+    "files": "{count, plural, one {# document} other {# documents}}",
+    "controlCenter": "Votre établissement, en détail",
+    "scoreScale": "Échelle des notes sur 20"
+  },
+  "studentFile": {
+    "back": "Tous les élèves",
+    "active": "Actif",
+    "inactive": "Désactivé",
+    "actions": {
+      "message": "Envoyer un message",
+      "report": "Bulletin",
+      "invoices": "Voir les factures"
+    },
+    "stats": {
+      "attendance": "Présence",
+      "absences": "{count, plural, =0 {Aucune absence} one {# absence} other {# absences}}",
+      "average": "Moyenne générale",
+      "averageHint": "Sur les notes publiées",
+      "balance": "Reste à payer",
+      "overdue": "Dont {amount} en retard",
+      "classes": "Classes"
+    },
+    "grades": {
+      "title": "Dernières notes",
+      "empty": "Aucune note publiée pour le moment.",
+      "absent": "Absent"
+    },
+    "absences": {
+      "title": "Absences et retards",
+      "empty": "Aucune absence ni aucun retard enregistré."
+    },
+    "invoices": {
+      "title": "Factures",
+      "empty": "Aucune facture pour cet élève.",
+      "due": "Échéance : {date}"
+    },
+    "classes": {
+      "title": "Ses classes",
+      "empty": "Inscrit dans aucune classe pour le moment.",
+      "since": "Depuis le <mono>{date}</mono>"
+    },
+    "parents": {
+      "title": "Parents",
+      "empty": "Aucun parent lié.",
+      "link": "Lier un parent"
+    },
+    "unavailable": "Ces informations n’ont pas pu être chargées.",
+    "error": {
+      "title": "Impossible d’ouvrir ce dossier",
+      "body": "Vérifiez votre connexion, puis réessayez."
+    },
+    "notFound": {
+      "title": "Élève introuvable",
+      "body": "Ce dossier n’existe pas ou n’appartient pas à votre établissement."
+    },
+    "invited": "Invité"
   }
 }
