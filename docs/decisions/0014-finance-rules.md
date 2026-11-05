@@ -13,7 +13,7 @@
 4. **Numbering:** invoices `F-YYYY-NNNN` and receipts `R-YYYY-NNNN`, per school and per calendar year (in the
    school's time zone), gapless: assigned by a trigger from a counter updated in the same transaction. A
    voided document keeps its number.
-5. **Corrections:** amounts are immutable. An invoice or payment is *voided* with a reason and re-issued. A
+5. **Corrections:** amounts are immutable. An invoice or payment is _voided_ with a reason and re-issued. A
    void is final; an invoice with live payments cannot be voided.
 6. **Visibility:** only the administration creates or voids anything. A student sees their own non-void
    invoices and payments (and can print their receipts). Teachers see no financial data.

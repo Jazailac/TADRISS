@@ -19,6 +19,7 @@ page layouts and all marketing copy structure. Supersede ADR 0009 with a new ADR
 anything out of loyalty to it.
 
 **Keep.** These are functional requirements, not taste:
+
 - All three locales, and Arabic as a first-class RTL experience (logical CSS: `ps/pe`, `ms/me`,
   `start/end`). Every string goes through next-intl / i18next.
 - Colours live as tokens in `packages/ui-tokens` (you redefine them freely). Raw hex values in
@@ -46,7 +47,7 @@ stealing and 1 thing to avoid:
   early; restraint; Lighthouse mobile ≥ 90; reduced-motion support. Generic particle backgrounds
   and template layouts are losing.
 - **Logitech G 360° Racing Studio** (https://www.logitechg.com/en-gb/360-racing-studio): the
-  owner's explicit reference. Study the *feeling*: a cinematic, dark, full-bleed product world
+  owner's explicit reference. Study the _feeling_: a cinematic, dark, full-bleed product world
   you explore yourself, with a single "Build your setup" journey as the CTA. Note the cost too:
   it's delivered as a live video stream, and its own accessibility notice sends some users to a
   fallback site. Steal the immersion and the configurator-as-hero idea. Refuse the streaming,
@@ -101,6 +102,7 @@ Don't proceed on a guess.
 ## 3. After I choose: build the system, then the surfaces
 
 **Design system first** (`packages/ui-tokens` + `apps/web/src/components/ui`):
+
 - **Tokens:** semantic colours (surface levels, text levels, borders, accent, module colours,
   status), a fluid type scale (`clamp()`), spacing, radii, elevation, and motion tokens
   (durations, easings). Mirror them to NativeWind.
@@ -119,12 +121,14 @@ Don't proceed on a guess.
   - Date/time displays, Money display (MAD, tabular figures)
 
   Prefer Radix primitives or React Aria for behaviour; you own the styling.
+
 - **Motion:** shared spring/ease presets. Use Motion (framer-motion) or GSAP + ScrollTrigger for
   marketing scroll scenes, and CSS transitions for app micro-interactions. Use View Transitions
   for route changes where supported. Everything degrades to no motion under reduced-motion.
 - A living component catalogue at `/design` (dev and preview only).
 
 **Marketing site:**
+
 - **Hero:** a crisp value proposition, real product UI as the visual (not a stock illustration),
   and a primary CTA above the fold at 375 px.
 - **One scroll narrative** with a sticky product frame that changes as the reader moves through
@@ -139,6 +143,7 @@ Don't proceed on a guess.
 - **Pricing placeholder** wired to i18n (prices TBD, ask me).
 
 **App** (every existing screen, plus patterns for the coming modules):
+
 - **App shell:** collapsible sidebar with icon-only mode, ⌘K palette, breadcrumb, a user and
   school switcher, and a notifications slot. On mobile web, a bottom tab bar instead of a drawer
   where it fits better.

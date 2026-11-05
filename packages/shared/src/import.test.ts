@@ -28,7 +28,9 @@ describe('parseMembersCsv', () => {
     ]);
   });
   it('supports quoted cells and a BOM', () => {
-    const r = parseMembersCsv('\uFEFFfirst_name,last_name,email,role\n"Ben, Ali",Amrani,b@x.ma,teacher');
+    const r = parseMembersCsv(
+      '\uFEFFfirst_name,last_name,email,role\n"Ben, Ali",Amrani,b@x.ma,teacher',
+    );
     if (!r.ok) throw new Error('parse');
     expect(r.rows[0]?.values.firstName).toBe('Ben, Ali');
   });
