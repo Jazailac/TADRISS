@@ -46,6 +46,17 @@ export const loginInput = z.object({
 });
 export type LoginInput = z.infer<typeof loginInput>;
 
+export const institutionKinds = ['school', 'centre'] as const;
+export type InstitutionKind = (typeof institutionKinds)[number];
+
+/**
+ * The landing page's preview links to `/signup?schoolType=…`. Only `support` (soutien) makes a
+ * centre, where a student may join several groups (ADR 0015); every other type is a school.
+ */
+export function institutionKindFor(schoolType: unknown): InstitutionKind {
+  return schoolType === 'support' ? 'centre' : 'school';
+}
+
 export const signupInput = z.object({
   institutionName: name,
   firstName: name,
@@ -56,6 +67,8 @@ export const signupInput = z.object({
     .min(1, { error: 'required' })
     .min(8, { error: 'passwordMin' })
     .max(72, { error: 'tooLong' }),
+  // A hidden field, so a tampered or missing value falls back to a school instead of an error.
+  institutionKind: z.enum(institutionKinds).catch('school'),
 });
 export type SignupInput = z.infer<typeof signupInput>;
 

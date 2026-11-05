@@ -95,7 +95,8 @@ export async function signIn(client: TadrissClient, input: LoginInput): Promise<
 
 /**
  * Self-serve sign-up: the `create_institution` intent makes the onboarding trigger create
- * the institution and the admin profile in the same transaction (migration 0002).
+ * the institution (of `institution_kind`, migration 0017) and the admin profile in the same
+ * transaction (migration 0002).
  */
 export async function signUp(
   client: TadrissClient,
@@ -109,6 +110,7 @@ export async function signUp(
       emailRedirectTo: opts.emailRedirectTo,
       data: {
         signup_intent: 'create_institution',
+        institution_kind: input.institutionKind,
         institution_name: input.institutionName,
         first_name: input.firstName,
         last_name: input.lastName,

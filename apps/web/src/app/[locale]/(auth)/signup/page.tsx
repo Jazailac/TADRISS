@@ -1,3 +1,4 @@
+import { institutionKindFor } from '@tadriss/shared';
 import { School } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { Badge } from '@/components/ui/badge';
@@ -45,6 +46,7 @@ export default async function SignupPage({
           schema="signup"
           action={signup}
           submitLabel={t('submit')}
+          hidden={{ institutionKind: institutionKindFor(query.schoolType) }}
           fields={[
             {
               name: 'institutionName',

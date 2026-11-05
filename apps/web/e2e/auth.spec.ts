@@ -22,6 +22,16 @@ test.describe('auth screens', () => {
     await expect(page.getByLabel('Nom de l’établissement')).toHaveAttribute('aria-invalid', 'true');
   });
 
+  test('sign-up carries the landing page’s institution type as a hidden kind', async ({ page }) => {
+    const kind = page.locator('form input[type="hidden"][name="institutionKind"]');
+    await page.goto('/signup?schoolType=support');
+    await expect(kind).toHaveValue('centre');
+    await page.goto('/signup?schoolType=lycee');
+    await expect(kind).toHaveValue('school');
+    await page.goto('/signup');
+    await expect(kind).toHaveValue('school');
+  });
+
   test('Arabic errors are in Arabic', async ({ page }) => {
     await page.goto('/ar/login');
     await page.getByRole('button', { name: 'تسجيل الدخول' }).last().click();
