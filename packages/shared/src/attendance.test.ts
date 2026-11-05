@@ -29,10 +29,11 @@ describe('dates', () => {
     expect(addDays('2026-03-01', -1)).toBe('2026-02-28');
   });
   it("uses the school's calendar day, not UTC's", () => {
-    // 23:30 UTC on 6 Oct is already 7 Oct in Casablanca (UTC+1).
-    const instant = new Date('2026-10-06T23:30:00Z');
-    expect(todayIn('Africa/Casablanca', instant)).toBe('2026-10-07');
-    expect(todayIn('UTC', instant)).toBe('2026-10-06');
+    // 23:30 UTC on 1 June is already 2 June in Casablanca, which was UTC+1 until Morocco
+    // moved to permanent UTC on 2026-09-20. A past date holds on old and new time zone data.
+    const instant = new Date('2026-06-01T23:30:00Z');
+    expect(todayIn('Africa/Casablanca', instant)).toBe('2026-06-02');
+    expect(todayIn('UTC', instant)).toBe('2026-06-01');
   });
   it('formats as the same calendar day when rendered in UTC', () => {
     const d = utcDate('2026-10-07');
